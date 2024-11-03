@@ -1,0 +1,10 @@
+page {
+  background-color: rgb(246, 249, 254);
+}
+
+.spec-for-price {
+  font-size: 34rpx;
+  white-space: nowrap;
+  font-weight: 700;
+  color: #e34d59;
+}

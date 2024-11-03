@@ -1,8 +1,6 @@
 {
   "usingComponents": {
-    "t-overlay": "tdesign-miniprogram/overlay/overlay",
-    "t-swiper": "tdesign-miniprogram/swiper/swiper",
-    "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav"
+    "t-overlay": "tdesign-miniprogram/overlay/overlay"
   },
   "navigationBarTitleText": "建筑案例"
 }

@@ -16,7 +16,7 @@ Component({
   methods: {
     openArticleDetail() {
       wx.navigateTo({
-        url: `/pages/news/detail/index`,
+        url: `/pages/news-detail/index?id='1'`,
       });
     },
   },

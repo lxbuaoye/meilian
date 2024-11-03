@@ -1,0 +1,29 @@
+<view style="padding: 40rpx 24rpx 30rpx 24rpx; display: flex; flex-direction: column; background-color: white;">
+  <image src="{{imageUrl}}"
+    style="height: 550rpx; width: 100%;"></image>
+  <view>
+    <price wx:if="{{price }}"
+      class="spec-for-price"
+      symbol-class="spec-for-symbol"
+      symbol="{{currency}}"
+      price="{{price * 100}}" />
+    <text style="font-size: 20rpx;color: #C5C8CB;"> /(件)</text>
+  </view>
+  <text style="font-weight: 700;font-size: 34rpx;color: #1C2023; margin-top: 30rpx;"> {{title}}</text>
+  <view style="display: flex; margin-top: 20rpx;">
+    <tag wx:for="{{tags}}"
+      text="{{item}}"></tag>
+  </view>
+</view>
+
+<view style="margin-top:20rpx; padding: 0 24rpx; background-color: white;">
+  <view style="height: 48rpx; width: 100%; display: flex; padding: 30rpx 0 40rpx; align-items: center;">
+    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+      src="./bulletpoint.png"></image>
+    <text style="font-size: 34rpx; font-weight: 700;">产品详情</text>
+  </view>
+  <text style="font-size: 28rpx;color: #1C2023;">【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。
+    【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。
+    【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。
+    【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。</text>
+</view>

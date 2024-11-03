@@ -5,51 +5,15 @@ const fakeData = {
   title: '建筑案例一',
   relatedProducts: [
     {
-      imageUrl: './index.jpg',
+      imageUrl: './product.jpg',
       title: '液态陶晶',
     },
     {
-      imageUrl: './index.jpg',
+      imageUrl: './product.jpg',
       title: '铜墙铁壁',
     },
     {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
-      title: '外墙面釉',
-    },
-    {
-      imageUrl: './index.jpg',
+      imageUrl: './product.jpg',
       title: '外墙面釉',
     },
   ],
@@ -62,19 +26,15 @@ Page({
   data: {
     ...fakeData,
     overlayVisible: false,
-    swiperList: [
-      `${imageCdn}/swiper1.png`,
-      `${imageCdn}/swiper2.png`,
-      `${imageCdn}/swiper1.png`,
-      `${imageCdn}/swiper2.png`,
-      `${imageCdn}/swiper1.png`,
-    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.setNavigationBarTitle({
+      title: this.data.title,
+    });
     // TODO, After fetch data
     // this.setData({
     //   swiperList: this.data.relatedProducts.map((current) => {

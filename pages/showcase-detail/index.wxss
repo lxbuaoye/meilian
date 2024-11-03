@@ -8,4 +8,7 @@ page {
   height: 758rpx;
   margin: 0 50rpx;
   border-radius: 20rpx;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: column;
 }
