@@ -36,18 +36,16 @@
   duration="{{500}}"
   bind:click="handleOverlayClick"
   style="display: flex; flex: 1; justify-content: center; align-items: center; flex-direction: column;">
-  <view style="height: 758rpx; width: 100%"
-    class="card-theme">
-    <t-swiper current="{{current}}"
-      autoplay="{{false}}"
-      duration="{{500}}"
-      bindchange="onChange"
-      loop="{{false}}"
-      navigation="{{ { type: 'dots' } }}"
-      list="{{swiperList}}"
-      image-props="{{ { shape: 'round' } }}"
-      previousMargin="50rpx"
-      nextMargin="50rpx"
-      t-class-nav="card-theme-nav" />
-  </view>
+  <swiper indicator-dots="{{true}}"
+    autoplay="{{false}}"
+    interval="{{500}}"
+    style="height: 758rpx; width: 100%;">
+    <block wx:for="{{relatedProducts}}"
+      wx:key="*this">
+      <swiper-item>
+        <view class="swiper-item">
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
 </t-overlay>
