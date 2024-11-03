@@ -32,7 +32,8 @@
     "pages/aboutus/index",
     "pages/product/index",
     "pages/showcase/index",
-    "pages/location/index"
+    "pages/location/index",
+    "pages/showcase-detail/index"
   ],
   "tabBar": {
     "custom": true,

@@ -1,14 +1,16 @@
-<view>
+<view bind:tap="navigateToDetail">
   <view style="width: 341rpx; height: 300rpx; border-radius: 20rpx; overflow: hidden; position: relative; display: flex;">
-    <image src="./index.jpg"
+    <image src="{{coverImageUrl}}"
       mode="aspectFill"></image>
     <view style="position: absolute;width: 100%; bottom: 13rpx; background: #0000004d; margin: 0 20rpx; height: 60rpx; width: 301rpx; display: flex; justify-content: center; align-items: center;">
-      <text style="color: white; font-size: 28rpx; line-height: 40rpx; font-weight: 700;">建筑案例一
+      <text style="color: white; font-size: 28rpx; line-height: 40rpx; font-weight: 700;">{{title}}
       </text>
     </view>
   </view>
   <view style=" display: flex; flex:1; margin: 20rpx 0; justify-content: center; align-items: center; width: 300rpx; ">
-    <tag text="内墙案例"></tag>
-    <tag text="工厂翻新"></tag>
+    <view style="display: grid; grid-template-columns: repeat(2, 50%);">
+      <tag wx:for="{{tags}}"
+        text="{{item}}"></tag>
+    </view>
   </view>
 </view>

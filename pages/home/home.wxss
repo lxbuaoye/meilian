@@ -12,6 +12,7 @@ page {
 }
 
 .home-page-container {
+  margin-top: 40rpx;
   margin-bottom: 60rpx;
 }
 
