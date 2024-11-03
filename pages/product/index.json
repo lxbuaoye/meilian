@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "product-card": "/components/product-card/index",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel"
+  },
+  "navigationBarTitleText": "产品",
+  "navigationStyle": "custom"
+}

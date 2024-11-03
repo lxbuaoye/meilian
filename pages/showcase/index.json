@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "showcase-card": "/components/showcase-card/index"
+  },
+  "navigationBarTitleText": "案例",
+  "navigationBarTextStyle": "black",
+  "navigationStyle": "custom"
+}

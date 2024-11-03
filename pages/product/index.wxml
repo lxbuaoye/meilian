@@ -1,0 +1,32 @@
+<view style="padding-top: {{menuBarTop}}px">
+  <!-- Navigation bar-->
+  <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
+    <image src="../../resouces/logo.png"
+      style="height: 44rpx; width: 300rpx;"
+      mode="scaleToFill"></image>
+  </view>
+  <!-- Body -->
+
+
+  <t-tabs defaultValue="{{0}}"
+    t-class="custom-tabs"
+    sticky
+    class="tab"
+    t-class-content="custom-panel">
+    <t-tab-panel wx:for="{{category}}"
+      style="padding-bottom: 200rpx;"
+      label="{{item}}"
+      value="{{index}}">
+
+      <view style="margin: 60rpx 20rpx 0 20rpx; display: flex; flex-flow: row wrap;justify-content: space-between; position: relative;">
+        <product-card></product-card>
+        <product-card></product-card>
+        <product-card></product-card>
+        <product-card></product-card>
+        <product-card></product-card>
+        <product-card></product-card>
+      </view>
+
+    </t-tab-panel>
+  </t-tabs>
+</view>

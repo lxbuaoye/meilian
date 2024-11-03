@@ -1,0 +1,22 @@
+export default [
+  {
+    icon: 'home',
+    text: '首页',
+    url: 'pages/home/home',
+  },
+  {
+    icon: 'menu',
+    text: '产品',
+    url: 'pages/product/index',
+  },
+  {
+    icon: 'table-1',
+    text: '案例',
+    url: 'pages/showcase/index',
+  },
+  {
+    icon: 'city-1',
+    text: '公司介绍',
+    url: 'pages/aboutus/index',
+  },
+];

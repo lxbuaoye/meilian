@@ -1,0 +1,7 @@
+/* pages/product/index.wxss */
+
+.tab {
+  --td-tab-border-color: transparent;
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-track-color: var(--theme-color);
+}

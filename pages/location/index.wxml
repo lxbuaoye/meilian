@@ -1,0 +1,41 @@
+<view style="padding-top: {{menuBarTop}}px">
+  <!-- Navigation bar-->
+  <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
+    <image src="../../resouces/logo.png"
+      style="height: 44rpx; width: 300rpx;"
+      mode="scaleToFill"></image>
+  </view>
+
+  <!-- Body -->
+
+  <view style="margin: 60rpx 20rpx 0 20rpx;">
+    <view style="display: flex; align-items: center;"
+      bind:tap="onAreaPicker"
+      hover-class="view-box-hover">
+      <text style="font-size: 24rpx; color: #1C2023"> 广东省佛山市</text>
+      <view class="arrow-down"
+        style="margin-left: 10rpx;"></view>
+    </view>
+
+    <location-card></location-card>
+    <location-card></location-card>
+    <location-card></location-card>
+    <location-card></location-card>
+    <location-card></location-card>
+    <location-card></location-card>
+  </view>
+
+  <t-picker visible="{{areaVisible}}"
+    value="{{areaValue}}"
+    title="选择地区"
+    cancelBtn="取消"
+    confirmBtn="确认"
+    usingCustomNavbar
+    bindchange="onPickerChange"
+    bindpick="onColumnChange"
+    bindcancel="onPickerCancel">
+    <t-picker-item options="{{provinces}}"></t-picker-item>
+    <t-picker-item options="{{cities}}"></t-picker-item>
+    <t-picker-item options="{{counties}}"></t-picker-item>
+  </t-picker>
+</view>

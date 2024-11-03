@@ -1,0 +1,33 @@
+<view id="{{id}}"
+  class="goods-card"
+  bind:tap="clickHandle"
+  data-goods="{{ goods }}"
+  hover-class="view-box-hover">
+  <view class="goods-card__main">
+    <view class="goods-card__thumb">
+      <image src="./paint.jpg"
+        mode="aspectFill"
+        class="goods-card__img"
+        lazy-load></image>
+    </view>
+    <view class="goods-card__body">
+      <view wx:if="{{ goods.title }}"
+        class="goods-card__title one-line"> {{ goods.title }} </view>
+
+      <!-- Insert Tag Here -->
+      <view style=" display: flex; flex:1; margin: 20rpx 0; justify-content: center; align-items: center; width: 300rpx; ">
+        <tag text="仿真度高"></tag>
+        <tag text="持久保色"></tag>
+      </view>
+
+      <view style="margin-bottom: 0; margin-top: auto">
+        <price wx:if="{{ goods.price }}"
+          wr-class="spec-for-price"
+          symbol-class="spec-for-symbol"
+          symbol="{{currency}}"
+          price="{{goods.price * 100}}" />
+        <text style="font-size: 24rpx; font-weight: 400; color: #C5C8CB;"> /(件)</text>
+      </view>
+    </view>
+  </view>
+</view>

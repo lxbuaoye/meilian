@@ -1,0 +1,76 @@
+<view style="padding-top: {{menuBarTop}}px">
+  <!-- Navigation bar-->
+  <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
+    <image src="../../resouces/logo.png"
+      style="height: 44rpx; width: 300rpx;"
+      mode="scaleToFill"></image>
+  </view>
+</view>
+<view style="text-align: center; color: #b9b9b9"
+  wx:if="{{pageLoading}}">
+  <t-loading theme="circular"
+    size="40rpx"
+    text="加载中..."
+    inherit-color />
+</view>
+<view class="home-page-container">
+  <image class="background-theme"
+    src="./banner.png"
+    style="width: 100%;height: 550rpx; ">
+  </image>
+  <image src="./slogan.png"
+    style="margin-top: 40rpx; width: 100%;height: 118rpx;">
+  </image>
+  <view style="margin: 0 30rpx;">
+    <text class="brand-description">数码彩秉承多年的产品研发经验，致力于涂料的卓越品质及新产品的研发创新，提供具有国际先进水平的防水、翻新、环保、省工省时的优质产品，不断为建筑商解决工程涂料装饰难题。</text>
+  </view>
+  <number-banner></number-banner>
+  <!-- Product List -->
+  <view style="height: 48rpx; width: 100%; display: flex; margin: 40rpx 0; align-items: center;">
+    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+      src="./bulletpoint.png"></image>
+    <text style="font-size: 34rpx; font-weight: 700;"> 产品展示</text>
+  </view>
+  <view style="display: flex; flex-flow: row wrap;justify-content: space-between;">
+    <product-card></product-card>
+    <product-card></product-card>
+    <product-card></product-card>
+    <product-card></product-card>
+    <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
+      <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; ">
+        <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 40rpx; align-items: center;">
+    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+      src="./bulletpoint.png"></image>
+    <text style="font-size: 34rpx; font-weight: 700;">案例展示</text>
+  </view>
+
+  <view style="display: flex; flex-flow: row wrap;justify-content: space-between; position: relative;">
+    <showcase-card></showcase-card>
+    <showcase-card></showcase-card>
+    <showcase-card></showcase-card>
+    <showcase-card></showcase-card>
+
+    <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
+      <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; ">
+        <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
+      </view>
+    </view>
+  </view>
+
+  <view>
+    <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 40rpx; align-items: center;">
+      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+        src="./bulletpoint.png"></image>
+      <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
+    </view>
+    <article-card></article-card>
+    <article-card></article-card>
+  </view>
+
+  <t-footer text="Copyright © 2024-2024 中山市新谷科技发展有限公司"></t-footer>
+</view>

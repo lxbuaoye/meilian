@@ -1,0 +1,10 @@
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 9px solid #1c2023;
+}
+.view-box-hover {
+  background-color: rgba(185, 185, 185, 0.2);
+}
