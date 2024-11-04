@@ -1,7 +1,7 @@
 <view style="padding-top: {{menuBarTop}}px">
   <!-- Navigation bar-->
   <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
-    <image src="../../resouces/logo.png"
+    <image src="/resources/logo.png"
       style="height: 44rpx; width: 300rpx;"
       mode="scaleToFill"></image>
   </view>
@@ -15,10 +15,10 @@
 </view>
 <view class="home-page-container">
   <image class="background-theme"
-    src="./banner.png"
+    src="{{bannerUrl}}"
     style="width: 100%;height: 550rpx; ">
   </image>
-  <image src="./slogan.png"
+  <image src="{{sloganUrl}}"
     style="margin-top: 40rpx; width: 100%;height: 118rpx;">
   </image>
   <view style="margin: 0 30rpx;">
@@ -28,7 +28,7 @@
   <!-- Product List -->
   <view style="height: 48rpx; width: 100%; display: flex; margin: 40rpx 0; align-items: center;">
     <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-      src="./bulletpoint.png"></image>
+      src="/resources/bulletpoint.png"></image>
     <text style="font-size: 34rpx; font-weight: 700;"> 产品展示</text>
   </view>
   <view style="display: flex; flex-flow: row wrap;justify-content: space-between;">

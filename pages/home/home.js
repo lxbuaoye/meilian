@@ -2,6 +2,8 @@ import { fetchHome } from '../../services/home/home';
 import { fetchGoodsList } from '../../services/good/fetchGoods';
 import Toast from 'tdesign-miniprogram/toast/index';
 
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+
 Page({
   data: {
     imgSrcs: [],
@@ -46,6 +48,11 @@ Page({
     this.setData({
       menuBarTop: menuButton.top,
       menuBarHeight: menuButton.height,
+    });
+    // Load resources
+    this.setData({
+      bannerUrl: `${CLOUD_STROAGE_PATH}/resources/home/banner.png`,
+      sloganUrl: `${CLOUD_STROAGE_PATH}/resources/home/slogan.png`,
     });
     this.loadHomePage();
   },

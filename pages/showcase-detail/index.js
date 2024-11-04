@@ -1,19 +1,19 @@
 // pages/showcase-detail/index.js
 const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
 const fakeData = {
-  coverImage: './index.jpg',
+  coverImage: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
   title: '建筑案例一',
   relatedProducts: [
     {
-      imageUrl: './product.jpg',
+      imageUrl: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
       title: '液态陶晶',
     },
     {
-      imageUrl: './product.jpg',
+      imageUrl: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
       title: '铜墙铁壁',
     },
     {
-      imageUrl: './product.jpg',
+      imageUrl: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
       title: '外墙面釉',
     },
   ],

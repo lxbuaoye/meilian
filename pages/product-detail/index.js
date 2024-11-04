@@ -4,9 +4,8 @@ const fakeData = {
   title: '建筑案例一',
   currency: '¥',
   price: 1000,
-  imageUrl: './cover.jpg',
+  imageUrl: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
   tags: ['持久保色', '抗碱耐候', '防水防晒', '防霉防潮'],
-  coverImageUrl: './index.jpg',
 };
 
 Page({

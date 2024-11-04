@@ -1,7 +1,7 @@
 <view style="padding-top: {{menuBarTop}}px">
   <!-- Navigation bar-->
   <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
-    <image src="../../resouces/logo.png"
+    <image src="/resources/logo.png"
       style="height: 44rpx; width: 300rpx;"
       mode="scaleToFill"></image>
   </view>

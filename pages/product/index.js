@@ -18,6 +18,7 @@ Page({
     this.setData({
       menuBarTop: menuButton.top,
       menuBarHeight: menuButton.height,
+      stickyProps: { offsetTop: menuButton.top + menuButton.height },
     });
   },
 

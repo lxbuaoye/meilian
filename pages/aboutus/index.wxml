@@ -1,6 +1,6 @@
 <view class="main">
   <image style="width: 100%"
-    src="./banner.png"
+    src="{{bannerUrl}}"
     mode="scaleToFill"></image>
 
   <view style="display: flex;  flex-direction: column; margin-top: 60rpx;">
@@ -22,7 +22,7 @@
   <view style="margin-top: 60rpx; height: 922rpx; position: relative;">
     <!--  Background -->
     <image style="width: 100%; height: 922rpx;"
-      src="./culture.png"
+      src="{{cultureUrl}}"
       mode="scaleToFill"></image>
     <!-- Top area-->
     <view style="position: absolute; top:40rpx; left:40rpx; display: flex; flex-direction: column; ">
@@ -62,7 +62,7 @@
   </view>
 
   <image style="width: 100%; height: 702rpx; margin-top: 60rpx;"
-    src="./advantage@2x.png"
+    src="{{advantageUrl}}"
     mode="scaleToFill"></image>
 
   <view style="margin-top: 50rpx;">

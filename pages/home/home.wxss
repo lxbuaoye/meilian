@@ -115,6 +115,5 @@ page {
 }
 
 .background-theme {
-  background-color: var(--theme-color);
   border-radius: 24rpx;
 }

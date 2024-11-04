@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/aboutus/index",
+          "pathName": "pages/aboutus/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/product/index",
+          "pathName": "pages/product/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "产品详情",
           "pathName": "pages/product-detail/index",
           "query": "id=1",
