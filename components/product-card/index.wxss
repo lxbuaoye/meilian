@@ -23,6 +23,8 @@
   position: relative;
   width: 341rpx;
   height: 341rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
   overflow: hidden;
 }
 

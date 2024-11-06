@@ -1,22 +1,37 @@
 // components/showcase-card/index.js
-const fakeData = {
-  id: '1',
-  title: '建筑案例一',
-  tags: ['内墙案例', '工厂翻新'],
-  coverImageUrl: './index.jpg',
-};
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
 
 Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    showcaseId: {
+      type: String,
+      value: '',
+    },
+    title: {
+      type: String,
+      value: '',
+    },
+    tags: {
+      type: Array,
+      value: [],
+    },
+  },
 
   /**
    * 组件的初始数据
    */
-  data: {
-    ...fakeData,
+  data: {},
+
+  lifetimes: {
+    attached() {
+      this.setData({
+        coverImageUrl: `${CLOUD_STROAGE_PATH}/showcase/${this.data.showcaseId}/cover.jpg`,
+      });
+      console.log(this.data.coverImageUrl);
+    },
   },
 
   /**
@@ -25,7 +40,7 @@ Component({
   methods: {
     navigateToDetail() {
       wx.navigateTo({
-        url: `/pages/showcase-detail/index?id=${this.data.id}`,
+        url: `/pages/showcase-detail/index?id=${this.data.showcaseId}`,
       });
     },
   },

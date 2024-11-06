@@ -6,25 +6,33 @@
       mode="scaleToFill"></image>
   </view>
   <!-- Body -->
-
+  <view style="text-align: center; color: #b9b9b9"
+    wx:if="{{pageLoading}}">
+    <t-loading theme="circular"
+      size="40rpx"
+      text="加载中..."
+      inherit-color />
+  </view>
 
   <t-tabs defaultValue="{{0}}"
+    wx:if="{{!pageLoading}}"
     t-class="custom-tabs"
-    sticky
     class="tab"
+    wx:for-index="categoryIndex"
     t-class-content="custom-panel">
     <t-tab-panel wx:for="{{category}}"
+      wx:key="index"
       style="padding-bottom: 200rpx;"
       label="{{item}}"
       value="{{index}}">
 
-      <view style="margin: 60rpx 20rpx 0 20rpx; display: flex; flex-flow: row wrap;justify-content: space-between; position: relative;">
-        <product-card></product-card>
-        <product-card></product-card>
-        <product-card></product-card>
-        <product-card></product-card>
-        <product-card></product-card>
-        <product-card></product-card>
+      <view style="margin: 20rpx 20rpx 0 20rpx; display: flex; flex-flow: row wrap;justify-content: space-between; position: relative;">
+        <block wx:for="{{categoryList[index]}}">
+          <product-card title="{{item.title}}"
+            price="{{item.price}}"
+            tags="{{item.tags}}"
+            product-id="{{item._id}}"></product-card>
+        </block>
       </view>
 
     </t-tab-panel>

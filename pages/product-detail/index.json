@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "t-loading": "tdesign-miniprogram/loading/loading",
     "tag": "/components/tag/index",
     "price": "/components/price/index"
   },

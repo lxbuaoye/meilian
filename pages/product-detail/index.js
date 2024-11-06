@@ -1,11 +1,16 @@
 // pages/product-detail/index.js
+const db = wx.cloud.database();
+const _ = db.command;
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+
 const fakeData = {
   id: '1',
-  title: '建筑案例一',
+  title: '产品',
   currency: '¥',
-  price: 1000,
-  imageUrl: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
-  tags: ['持久保色', '抗碱耐候', '防水防晒', '防霉防潮'],
+  price: 9999,
+  imageUrl: '',
+  tags: [],
+  description: '',
 };
 
 Page({
@@ -19,7 +24,26 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {},
+  onLoad(options) {
+    this.init(options.productId);
+  },
+
+  async init(productId) {
+    console.log(productId);
+    const { data } = await db
+      .collection('product')
+      .where({
+        _id: _.eq(productId),
+      })
+      .limit(1)
+      .get();
+    console.log(data);
+    this.setData({
+      ...data[0],
+      currency: '¥',
+      imageUrl: `${CLOUD_STROAGE_PATH}/product/${productId}/cover.jpg`,
+    });
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

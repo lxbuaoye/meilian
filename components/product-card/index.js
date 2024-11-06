@@ -1,12 +1,25 @@
 // components/product-card/index.js
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    currency: {
+    productId: {
       type: String,
-      value: '¥',
+      value: '',
+    },
+    title: {
+      type: String,
+      value: '',
+    },
+    price: {
+      type: Number,
+      value: 0,
+    },
+    tags: {
+      type: Array,
+      value: [],
     },
   },
 
@@ -14,9 +27,14 @@ Component({
    * 组件的初始数据
    */
   data: {
-    goods: {
-      price: 9999,
-      title: '铜墙铁壁系列外墙漆',
+    currency: '¥',
+  },
+
+  lifetimes: {
+    attached() {
+      this.setData({
+        imageUrl: `${CLOUD_STROAGE_PATH}/product/${this.data.productId}/cover.jpg`,
+      });
     },
   },
 
@@ -26,7 +44,7 @@ Component({
   methods: {
     clickHandle() {
       wx.navigateTo({
-        url: '/pages/product-detail/index?id=1',
+        url: `/pages/product-detail/index?productId=${this.data.productId}`,
       });
     },
   },

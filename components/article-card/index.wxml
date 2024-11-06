@@ -4,15 +4,16 @@
   hover-class="view-box-hover">
   <view style="display: flex; flex: 1; flex-direction: column; max-width: 402rpx;">
     <text class="title"
-      style="font-size: 30rpx;color: #1C2023;">【喜讯】数码彩新项目落成</text>
+      style="font-size: 30rpx;color: #1C2023;">{{title}}</text>
     <text class="subtitle"
-      style="margin-top:10rpx; font-weight: 400;font-size: 24rpx;color: #8F969C;"> 世界涂料看中国, 中国涂料看广东. 数码彩被授予“广东涂料行业绿色发展示范企业”</text>
+      style="margin-top:10rpx; font-weight: 400;font-size: 24rpx;color: #8F969C;">{{subtitle}}</text>
     <view style="margin-bottom: 0; margin-top: auto;">
-      <text style="font-size: 24rpx;color: #8F969C;"> 2024-09-01 </text>
+      <text style="font-size: 24rpx;color: #8F969C;">{{date}}</text>
     </view>
   </view>
   <view style="display: flex;margin-left: 30rpx; ">
     <image style="width: 270rpx; height: 100%;border-radius: 30rpx; overflow: hidden;"
-      src="./example.png"></image>
+      mode="aspectFill"
+      src="{{imageUrl}}"></image>
   </view>
 </view>

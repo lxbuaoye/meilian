@@ -1,14 +1,9 @@
 <!--pages/news/detail/index.wxml-->
 <view style="margin:24rpx 24rpx;">
-  <view style="display: flex; flex:1; justify-content: center; align-items: center; flex-direction: column;">
-    <text> 创意产业园区开展消防培训及演练 </text>
-    <text style="font-size: 24rpx;color: #8F969C;"> 2024-09-01</text>
-    <text style="font-size: 24rpx;color: #8F969C;">发布者: 梁静宜</text>
+  <view style="display: flex; flex:1; justify-content: center; align-items: center; flex-direction: column; margin-bottom: 30rpx;">
+    <text>{{title}}</text>
+    <text style="font-size: 24rpx;color: #8F969C;"> {{dateString}}</text>
+    <text style="font-size: 24rpx;color: #8F969C;">发布者: 数码彩小编</text>
   </view>
-  <text style="font-size: 28rpx;color: #1C2023;">
-    五业又题观么万打克备素路方品但儿平术价率期义直都运克会七除代无资所民道标统常群史外酸器世亲现斯好只低引完华劳明正研该通备量识了带克品段则后相具给。定因具入机书量商克率验路办多省义火铁传许基利着事满立建信志较美百事且机划九什是建片统区花史保道就内眼传代识。阶百万经后存展家对青族大很带备示备况群到许力六养热图级问关容建论复越从前但图十图始很。有写众得边想元年照而从算条话料自总她路己总小只江叫路及因标几持类下或国近没作心劳权万本府军具先度相为引张图。育段构设去么层真也置将运议间太但期很且积国存米市只术土层流式持系象育状论活眼设都。
-
-    二流者率联始做局明解山己少术着基术五月有难成主深步即术加实回月行术规般使可准在信这市运斗导产几非建相元元象业包龙确它这细农该亲往料。王具先回对级新支划品叫起物近光务为战所阶色儿江原打解也便式和整该面数来金东大住争断次位和红式更志通海程。想当非同性林题战比张近心易光产可流革到之六极装六派例则过离集造算状部当的第收方里车还车研县间标上在部适低连品会必。育争在又不人京产离系率等没军称流备出除习她准三当那把走七那个业据解议务起二习段件非具各据被件及看强十离原越于亲业下验真习心于人直。
-    二流者率联始做局明解山己少术着基术五月有难成主深步即术加实回月行术规般使可准在信这市运斗导产几非建相元元象业包龙确它这细农该亲往料。王具先回对级新支划品叫起物近光务为战所阶色儿江原打解也便式和整该面数来金东大住争断次位和红式更志通海程。想当非同性林题战比张近心易光产可流革到之六极装六派例则过离集造算状部当的第收方里车还车研县间标上在部适低连品会必。育争在又不人京产离系率等没军称流备出除习她准三当那把走七那个业据解议务起二习段件非具各据被件及看强十离原越于亲业下验真习心于人直。
-  </text>
+  <rich-text nodes="{{description}}"></rich-text>
 </view>

@@ -1,9 +1,17 @@
 // pages/showcase/index.js
+const db = wx.cloud.database();
+const _ = db.command;
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const MAX_LIMIT = 20;
+
 Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    pageLoading: false,
+    showcaseList: [],
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -13,6 +21,43 @@ Page({
     this.setData({
       menuBarTop: menuButton.top,
       menuBarHeight: menuButton.height,
+    });
+    this.init();
+  },
+
+  async init() {
+    this.setData({ pageLoading: true });
+    const { data } = await this.fetchAllShowcase();
+    this.setData({ pageLoading: false, showcaseList: data });
+  },
+
+  async fetchAllShowcase() {
+    const countResult = await db.collection('showcase').count();
+    const { total } = countResult;
+    if (total === 0) return;
+    // 计算需分几次取
+    const batchTimes = Math.ceil(total / MAX_LIMIT);
+    // 承载所有读操作的 promise 的数组
+    const tasks = [];
+    for (let i = 0; i < batchTimes; i++) {
+      const promise = db
+        .collection('showcase')
+        .field({
+          _id: true,
+          title: true,
+          tags: true,
+        })
+        .skip(i * MAX_LIMIT)
+        .limit(MAX_LIMIT)
+        .get();
+      tasks.push(promise);
+    }
+    // 等待所有
+    return (await Promise.all(tasks)).reduce((acc, cur) => {
+      return {
+        data: acc.data.concat(cur.data),
+        errMsg: acc.errMsg,
+      };
     });
   },
 

@@ -1,13 +1,19 @@
 // pages/showcase/index.js
 
-const category = ['内墙漆', '外墙漆', '艺术涂料', '木器漆', '辅助材料'];
+const db = wx.cloud.database();
+const _ = db.command;
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const MAX_LIMIT = 20;
+const category = ['内墙漆', '外墙漆', '艺术漆', '辅助材料'];
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    pageLoading: false,
     category,
+    categoryList: [],
   },
 
   /**
@@ -19,6 +25,67 @@ Page({
       menuBarTop: menuButton.top,
       menuBarHeight: menuButton.height,
       stickyProps: { offsetTop: menuButton.top + menuButton.height },
+    });
+    // TODO add loading indicator.
+    this.init();
+  },
+
+  async init() {
+    this.setData({ pageLoading: true });
+    // fetch all product
+    const { data } = await this.fetchAllProduct();
+    console.log(data);
+    // TODO, should sort by category
+    this.setData({
+      categoryList: this.sortProductByCategory(data),
+    });
+    this.setData({ pageLoading: false });
+  },
+
+  sortProductByCategory(productList) {
+    console.log(productList[0]);
+    const result = [];
+    for (let i = 0; i < productList.length; i++) {
+      const index = category.indexOf(productList[i].category);
+      if (index === -1) continue;
+      if (result[index]) {
+        result[index].push(productList[i]);
+      } else {
+        result[index] = [productList[i]];
+      }
+    }
+    return result;
+  },
+
+  async fetchAllProduct() {
+    const countResult = await db.collection('product').count();
+    const { total } = countResult;
+    if (total === 0) return;
+    // 计算需分几次取
+    const batchTimes = Math.ceil(total / MAX_LIMIT);
+    // 承载所有读操作的 promise 的数组
+    const tasks = [];
+    for (let i = 0; i < batchTimes; i++) {
+      const promise = db
+        .collection('product')
+        .field({
+          _id: true,
+          title: true,
+          price: true,
+          tags: true,
+          category: true,
+        })
+        .skip(i * MAX_LIMIT)
+        .limit(MAX_LIMIT)
+        .get();
+      tasks.push(promise);
+    }
+    // 等待所有
+    return (await Promise.all(tasks)).reduce((acc, cur) => {
+      return {
+        data: acc.data.concat(cur.data),
+        errMsg: acc.errMsg,
+      };
     });
   },
 

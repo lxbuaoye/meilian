@@ -31,45 +31,51 @@
       src="/resources/bulletpoint.png"></image>
     <text style="font-size: 34rpx; font-weight: 700;"> 产品展示</text>
   </view>
-  <view style="display: flex; flex-flow: row wrap;justify-content: space-between;">
-    <product-card></product-card>
-    <product-card></product-card>
-    <product-card></product-card>
-    <product-card></product-card>
-    <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
-      <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; ">
-        <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
-      </view>
+  <view style="display: grid; grid-template-columns: repeat(2, calc(50% - 10rpx));grid-column-gap: 20rpx">
+    <product-card wx:for="{{productList}}"
+      wx:key="index"
+      title="{{item.title}}"
+      price="{{item.price}}"
+      tags="{{item.tags}}"
+      product-id="{{item._id}}"></product-card>
+  </view>
+  <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
+    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
+      bind:tap="navigateToProduct">
+      <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>
 
   <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 40rpx; align-items: center;">
     <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-      src="./bulletpoint.png"></image>
+      src="/resources/bulletpoint.png"></image>
     <text style="font-size: 34rpx; font-weight: 700;">案例展示</text>
   </view>
 
-  <view style="display: flex; flex-flow: row wrap;justify-content: space-between; position: relative;">
-    <showcase-card></showcase-card>
-    <showcase-card></showcase-card>
-    <showcase-card></showcase-card>
-    <showcase-card></showcase-card>
-
-    <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
-      <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; ">
-        <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
-      </view>
+  <view style="display: grid; grid-template-columns: repeat(2, calc(50% - 10rpx)); grid-column-gap: 20rpx; position: relative;">
+    <showcase-card wx:for="{{showcaseList}}"
+      title="{{item.title}}"
+      showcase-id="{{item._id}}"
+      tags="{{item.tags}}"></showcase-card>
+  </view>
+  <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
+    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
+      bind:tap="navigateToShowcase">
+      <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>
 
   <view>
-    <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 40rpx; align-items: center;">
+    <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 20rpx; align-items: center;">
       <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-        src="./bulletpoint.png"></image>
+        src="/resources/bulletpoint.png"></image>
       <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
     </view>
-    <article-card></article-card>
-    <article-card></article-card>
+    <article-card wx:for="{{newsList}}"
+      title="{{item.title}}"
+      subtitle="{{item.subtitle}}"
+      news-id="{{item._id}}"
+      description="{{item.description}}"></article-card>
   </view>
 
   <t-footer text="Copyright © 2024-2024 中山市新谷科技发展有限公司"></t-footer>

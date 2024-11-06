@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/showcase-detail/index",
+          "pathName": "pages/showcase-detail/index",
+          "query": "id=9fc3269d672b0ae40004446627bb1072",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/news-detail/index",
+          "pathName": "pages/news-detail/index",
+          "query": "newsId=e9b343b4672b15350005ae7425fa6b5c",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/aboutus/index",
           "pathName": "pages/aboutus/index",
           "query": "",

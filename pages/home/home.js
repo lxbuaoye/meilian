@@ -1,15 +1,17 @@
 import { fetchHome } from '../../services/home/home';
-import { fetchGoodsList } from '../../services/good/fetchGoods';
 import Toast from 'tdesign-miniprogram/toast/index';
 
+const db = wx.cloud.database();
+const _ = db.command;
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 
 Page({
   data: {
     imgSrcs: [],
     tabList: [],
-    goodsList: [],
-    goodsListLoadStatus: 0,
+    productList: [],
+    showcaseList: [],
+    newsList: [],
     pageLoading: false,
     current: 1,
     autoplay: true,
@@ -59,7 +61,9 @@ Page({
 
   loadHomePage() {
     wx.stopPullDownRefresh();
-
+    this.loadProduct();
+    this.loadShowcase();
+    this.loadNews();
     this.setData({
       pageLoading: true,
     });
@@ -71,11 +75,54 @@ Page({
 
   onReTry() {},
 
-  goodListAddCartHandle() {
-    Toast({
-      context: this,
-      selector: '#t-toast',
-      message: '点击加入购物车',
+  async loadProduct() {
+    const { data } = await db
+      .collection('product')
+      .field({
+        _id: true,
+        title: true,
+        price: true,
+        tags: true,
+      })
+      .limit(4)
+      .get();
+    console.log(data);
+    this.setData({
+      productList: data,
+    });
+  },
+
+  async loadShowcase() {
+    const { data } = await db
+      .collection('showcase')
+      .field({
+        _id: true,
+        title: true,
+        tags: true,
+      })
+      .limit(4)
+      .get();
+    console.log(data);
+    this.setData({
+      showcaseList: data,
+    });
+  },
+
+  async loadNews() {
+    const { data } = await db
+      .collection('news')
+      .field({
+        _id: true,
+        title: true,
+        subtitle: true,
+        description: true,
+        uploadDate: true,
+      })
+      .limit(2)
+      .get();
+    console.log(data);
+    this.setData({
+      newsList: data,
     });
   },
 
@@ -87,6 +134,17 @@ Page({
     const { index: promotionID = 0 } = detail || {};
     wx.navigateTo({
       url: `/pages/promotion-detail/index?promotion_id=${promotionID}`,
+    });
+  },
+
+  navigateToProduct() {
+    wx.switchTab({
+      url: `/pages/product/index`,
+    });
+  },
+  navigateToShowcase() {
+    wx.switchTab({
+      url: `/pages/showcase/index`,
     });
   },
 });

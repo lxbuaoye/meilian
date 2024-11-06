@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "t-loading": "tdesign-miniprogram/loading/loading",
     "showcase-card": "/components/showcase-card/index"
   },
   "navigationBarTitleText": "案例",
