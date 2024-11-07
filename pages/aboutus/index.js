@@ -1,5 +1,8 @@
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 
+const db = wx.cloud.database();
+const _ = db.command;
+
 const advantageList = [
   {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/0.png`,
@@ -40,6 +43,11 @@ const advantageList = [
 
 Page({
   data: {
+    current: 0,
+    autoplay: false,
+    duration: 500,
+    interval: 5000,
+    swiperList: [],
     advantageList,
   },
   onLoad(options) {
@@ -47,8 +55,33 @@ Page({
       bannerUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/banner.png`,
       cultureUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/culture.png`,
       advantageUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/advantage.png`,
+      swiperBackgroundUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/swiperBackground.png`,
+    });
+    this.init();
+  },
+
+  async init() {
+    const { data } = await db.collection('certificate').orderBy('index', 'asc').limit(8).get();
+    this.setData({
+      swiperList: data.map((item) => {
+        return {
+          name: item.name,
+          imageSrc: `${CLOUD_STROAGE_PATH}/resources/certificate/${item.imageSrc}`,
+        };
+      }),
+    });
+    console.log(this.data.swiperList);
+  },
+
+  previewImage(e) {
+    wx.previewImage({
+      current: this.data.swiperList[e.currentTarget.dataset.index].imageSrc, // 当前显示图片的http链接
+      urls: this.data.swiperList.map((item) => {
+        return item.imageSrc;
+      }),
     });
   },
+
   onShow() {
     this.getTabBar().init();
   },

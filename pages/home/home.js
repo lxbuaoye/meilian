@@ -147,4 +147,11 @@ Page({
       url: `/pages/showcase/index`,
     });
   },
+  navigateToAnotherMiniProgram() {
+    wx.navigateToMiniProgram({
+      appId: 'wx0a81e9aa1745be90',
+      envVersion: 'release',
+    });
+  },
+  navigateToWebSite() {},
 });

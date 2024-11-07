@@ -17,6 +17,7 @@
       <view style=" display: flex; flex:1; margin: 20rpx 0; justify-content: center; align-items: center; width: 300rpx; ">
         <tag wx:for="{{tags}}"
           wx:key="index"
+          wx:if="{{index < 2}}"
           text="{{item}}"></tag>
       </view>
 

@@ -14,7 +14,7 @@
       inherit-color />
   </view>
   <view wx:if="{{!pageLoading}}"
-    style="margin: 30rpx 20rpx 0 20rpx; display: grid;grid-template-columns: repeat(2, calc(50% - 10rpx));grid-column-gap: 20rpx;">
+    style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column;">
     <showcase-card wx:for="{{showcaseList}}"
       title="{{item.title}}"
       showcase-id="{{item._id}}"
