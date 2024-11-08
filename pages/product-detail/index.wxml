@@ -13,7 +13,7 @@
         bind:tap="previewImage"></image>
     </swiper-item>
   </swiper>
-  <view>
+  <view style="margin-top: 30rpx;">
     <price wx:if="{{price }}"
       class="spec-for-price"
       symbol-class="spec-for-symbol"
