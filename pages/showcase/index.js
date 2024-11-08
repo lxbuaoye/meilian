@@ -95,6 +95,14 @@ Page({
 
   /**
    * 用户点击右上角分享
-   */
-  onShareAppMessage() {},
+   */ onShareAppMessage() {
+    return {
+      title: `数码彩案例列表`,
+    };
+  },
+  onShareTimeline() {
+    return {
+      title: `数码彩案例列表`,
+    };
+  },
 });

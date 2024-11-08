@@ -1,14 +1,26 @@
 <view style="padding: 40rpx 24rpx 30rpx 24rpx; display: flex; flex-direction: column; background-color: white;">
-  <image src="{{imageUrl}}"
-    style="height: 550rpx;width: 100%; align-self: center;"
-    mode="heightFix"></image>
+  <swiper style="width: 100%; height: 550rpx;"
+    indicator-color="rgba(255,255 ,255, .6)"
+    indicator-active-color="var(--theme-color)"
+    indicator-dots="{{containMultipleImages}}">
+    <swiper-item wx:for="{{imageList}}"
+      wx:key="index"
+      style="display: flex; justify-content: center;">
+      <image src="{{item}}"
+        style="height: 550rpx;width: 100%; align-self: center;"
+        mode="heightFix"
+        data-index="{{index}}"
+        bind:tap="previewImage"></image>
+    </swiper-item>
+  </swiper>
   <view>
     <price wx:if="{{price }}"
       class="spec-for-price"
       symbol-class="spec-for-symbol"
       symbol="{{currency}}"
       price="{{price * 100}}" />
-    <text style="font-size: 20rpx;color: #C5C8CB;"> /(件)</text>
+    <text wx:if="{{unit && unit.length > 0}}"
+      style="font-size: 20rpx;color: #C5C8CB;"> {{unit}}</text>
   </view>
   <text style="font-weight: 700;font-size: 34rpx;color: #1C2023; margin-top: 30rpx;"> {{title}}</text>
   <view style="display: flex; margin-top: 20rpx; flex-wrap: wrap;">

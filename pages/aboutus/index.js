@@ -5,39 +5,34 @@ const _ = db.command;
 
 const advantageList = [
   {
+    imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/3.png`,
+    title: '省工 + 省时 = 省钱',
+    subtitle: '可直接在水泥/瓷砖/马赛克等基层涂刷',
+  },
+  {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/0.png`,
-    title: '数码彩仿大理石漆',
-    subtitle: '浑然天成 · 效果逼真',
+    title: '极致的品质',
+    subtitle: '晒着卖的白漆, 洗着卖的乳胶漆, 泡着卖的石漆',
   },
   {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/1.png`,
-    title: '艺术 · 墙漆',
-    subtitle: '艺术漆的效果，乳胶漆的价格',
+    title: '逼真的石材效果',
+    subtitle: '仿大理石效果浑然天成，真仿难辨',
   },
   {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/2.png`,
-    title: '专业产品+工艺',
-    subtitle: '出色效果，由您演绎，十大家装漆涂装效果',
-  },
-  {
-    imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/3.png`,
-    title: '省工 + 省时 = 省钱',
-    subtitle: '直接在水泥/瓷砖/马赛克上涂刷',
+    title: '个性化定制',
+    subtitle: '艺术墙漆，艺术生活',
   },
   {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/4.png`,
     title: '从新项目全屋翻新',
-    subtitle: '家里所有的东西，都能全部翻新',
-  },
-  {
-    imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/5.png`,
-    title: '全屋防水解决方案',
-    subtitle: '新家防水一刷用不漏，旧家补漏即刷即修复',
+    subtitle: '眼睛看到的，都有翻新解决方案',
   },
   {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/6.png`,
     title: '家居环保基装一体化',
-    subtitle: '提供全面专业的辅助材料',
+    subtitle: '提供全面配套的专用辅助材料',
   },
 ];
 
@@ -55,6 +50,7 @@ Page({
       bannerUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/banner.png`,
       cultureUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/culture.png`,
       advantageUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/advantage.png`,
+      advantageIconUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/advantageIcon.png`,
       swiperBackgroundUrl: `${CLOUD_STROAGE_PATH}/resources/about-us/swiperBackground.png`,
     });
     this.init();
@@ -86,4 +82,9 @@ Page({
     this.getTabBar().init();
   },
   onShareAppMessage() {},
+  onShareTimeline() {
+    return {
+      title: `数码彩 - 出色涂装效果领航者`,
+    };
+  },
 });

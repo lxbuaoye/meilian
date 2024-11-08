@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
     "t-loading": "tdesign-miniprogram/loading/loading",
     "t-overlay": "tdesign-miniprogram/overlay/overlay"
   },

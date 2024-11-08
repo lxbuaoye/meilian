@@ -156,5 +156,5 @@
 }
 
 .view-box-hover {
-  background-color: rgba(185, 185, 185, 0.3) !important;
+  transform: scale(0.98, 0.98);
 }

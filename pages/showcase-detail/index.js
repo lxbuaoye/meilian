@@ -27,6 +27,7 @@ Page({
    */
   data: {
     ...fakeData,
+    swiperIndex: 0,
     pageLoading: false,
     overlayVisible: false,
   },
@@ -36,18 +37,10 @@ Page({
    */
   onLoad(options) {
     this.init(options.id);
-    // TODO, After fetch data
-    // this.setData({
-    //   swiperList: this.data.relatedProducts.map((current) => {
-    //     return current.imageUrl;
-    //   }),
-    // });
-    // console.log(this.data.swiperList);
   },
 
   async init(showcaseId) {
     this.setData({ pageLoading: true });
-    console.log(showcaseId);
     const { data } = await db
       .collection('showcase')
       .where({
@@ -75,20 +68,25 @@ Page({
         return {
           imageUrl: `${CLOUD_STROAGE_PATH}/product/${item._id}/cover.jpg`,
           title: item.title,
+          productId: item._id,
         };
       }),
     });
     this.setData({ pageLoading: false });
   },
 
-  populOverlay() {
-    // TODO, here should set the click image to active image.
-    this.setData({ overlayVisible: true });
+  popupOverlay(e) {
+    this.setData({ overlayVisible: true, swiperIndex: e.currentTarget.dataset.index });
   },
 
   handleOverlayClick(e) {
     this.setData({
       overlayVisible: false,
+    });
+  },
+  navigateToProductDetail(e) {
+    wx.navigateTo({
+      url: `/pages/product-detail/index?productId=${e.currentTarget.dataset.productId}`,
     });
   },
 
@@ -125,5 +123,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {},
+  onShareAppMessage() {
+    return {
+      title: `数码彩案例 - ${this.data.title}`,
+    };
+  },
+  onShareTimeline() {
+    return {
+      title: `数码彩案例 - ${this.data.title}`,
+    };
+  },
 });

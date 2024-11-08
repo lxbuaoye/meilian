@@ -21,6 +21,10 @@ Component({
       type: Array,
       value: [],
     },
+    unit: {
+      type: String,
+      value: '件',
+    },
   },
 
   /**

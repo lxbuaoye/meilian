@@ -31,6 +31,7 @@
           <product-card title="{{item.title}}"
             price="{{item.price}}"
             tags="{{item.tags}}"
+            unit="{{(item.unit && item.unit.length >0 ) ? item.unit : ''}}"
             product-id="{{item._id}}"></product-card>
         </block>
       </view>

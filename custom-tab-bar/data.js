@@ -19,4 +19,9 @@ export default [
     text: '公司介绍',
     url: 'pages/aboutus/index',
   },
+  {
+    icon: 'location',
+    text: '联系我们',
+    url: 'pages/contactus/index',
+  },
 ];

@@ -4,7 +4,7 @@ const db = wx.cloud.database();
 const _ = db.command;
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 const MAX_LIMIT = 20;
-const category = ['内墙漆', '外墙漆', '艺术漆', '辅助材料'];
+const category = ['外墙漆', '内墙漆', '艺术漆', '辅助材料'];
 
 Page({
   /**
@@ -26,7 +26,6 @@ Page({
       menuBarHeight: menuButton.height,
       stickyProps: { offsetTop: menuButton.top + menuButton.height },
     });
-    // TODO add loading indicator.
     this.init();
   },
 
@@ -68,11 +67,13 @@ Page({
     for (let i = 0; i < batchTimes; i++) {
       const promise = db
         .collection('product')
+        .orderBy('index', 'asc')
         .field({
           _id: true,
           title: true,
           price: true,
           tags: true,
+          unit: true,
           category: true,
         })
         .skip(i * MAX_LIMIT)
@@ -124,5 +125,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {},
+  onShareAppMessage() {
+    return {
+      title: `数码彩产品列表`,
+    };
+  },
+  onShareTimeline() {
+    return {
+      title: `数码彩产品列表`,
+    };
+  },
 });

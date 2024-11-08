@@ -12,3 +12,7 @@ page {
   align-items: center;
   flex-direction: column;
 }
+
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}

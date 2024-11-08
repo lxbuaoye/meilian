@@ -28,7 +28,8 @@
 
   <view style="display: flex; justify-content: center; margin: 35rpx;">
     <view style="border: 1px solid #E3E4E5;border-radius: 20rpx; height: 80rpx; width: 250rpx; justify-content: center; display: flex; align-items: center; margin-right: 10rpx;"
-      bind:tap="navigateToAnotherMiniProgram">
+      bind:tap="navigateToAnotherMiniProgram"
+      hover-class="action-tile-hover">
       <text style="font-size: 28rpx;color: #1C2023;">石漆配色</text>
     </view>
   </view>
@@ -43,12 +44,14 @@
       wx:key="index"
       title="{{item.title}}"
       price="{{item.price}}"
+      unit="{{(item.unit && item.unit.length >0 ) ? item.unit : ''}}"
       tags="{{item.tags}}"
       product-id="{{item._id}}"></product-card>
   </view>
   <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
     <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
-      bind:tap="navigateToProduct">
+      bind:tap="navigateToProduct"
+      hover-class="action-tile-hover">
       <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>
@@ -67,7 +70,8 @@
   </view>
   <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
     <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
-      bind:tap="navigateToShowcase">
+      bind:tap="navigateToShowcase"
+      hover-class="action-tile-hover">
       <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>

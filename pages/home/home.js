@@ -39,6 +39,11 @@ Page({
   },
 
   onShareAppMessage() {},
+  onShareTimeline() {
+    return {
+      title: `数码彩 - 出色涂装效果领航者`,
+    };
+  },
   onReachBottom() {},
 
   onPullDownRefresh() {
@@ -78,11 +83,16 @@ Page({
   async loadProduct() {
     const { data } = await db
       .collection('product')
+      .where({
+        category: _.eq('外墙漆'),
+      })
+      .orderBy('index', 'asc')
       .field({
         _id: true,
         title: true,
         price: true,
         tags: true,
+        unit: true,
       })
       .limit(4)
       .get();
@@ -95,12 +105,13 @@ Page({
   async loadShowcase() {
     const { data } = await db
       .collection('showcase')
+      .orderBy('index', 'asc')
       .field({
         _id: true,
         title: true,
         tags: true,
       })
-      .limit(4)
+      .limit(3)
       .get();
     console.log(data);
     this.setData({

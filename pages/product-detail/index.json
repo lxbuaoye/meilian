@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-swiper": "tdesign-miniprogram/swiper/swiper",
+    "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
     "tag": "/components/tag/index",
     "price": "/components/price/index"
   },

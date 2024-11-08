@@ -1,7 +1,7 @@
 <!--pages/news/detail/index.wxml-->
 <view style="margin:24rpx 24rpx;">
   <view style="display: flex; flex:1; justify-content: center; align-items: center; flex-direction: column; margin-bottom: 30rpx;">
-    <text>{{title}}</text>
+    <text style="font-size: 40rpx; margin-bottom: 20rpx;">{{title}}</text>
     <text style="font-size: 24rpx;color: #8F969C;"> {{dateString}}</text>
     <text style="font-size: 24rpx;color: #8F969C;">发布者: 数码彩小编</text>
   </view>

@@ -17,11 +17,13 @@
       style="display: flex; margin-top: 20rpx; height: 170rpx;">
       <view wx:for="{{relatedProducts}}"
         wx:key="index"
-        style="display: flex; flex-direction: column;margin-right: 20rpx; align-items: center;"
-        bind:tap="populOverlay">
+        style="display: flex; flex-direction: column;margin-right: 20rpx; align-items: center; "
+        data-index="{{index}}"
+        bind:tap="popupOverlay"
+        hover-class="action-tile-hover">
         <image src="{{item.imageUrl}}"
           style="height: 100rpx; width: 100rpx; border: 1px solid #E3E4E5;border-radius: 10px;"></image>
-        <text style="margin-top:10rpx;font-size: 20rpx;color: #1C2023;">{{item.title}}</text>
+        <text style="margin-top:10rpx;font-size: 20rpx;color: #1C2023; white-space: nowrap; text-overflow: ellipsis; max-width: 120rpx; overflow: hidden;">{{item.title}}</text>
       </view>
     </scroll-view>
 
@@ -38,7 +40,9 @@
     <text style="font-size: 26rpx; ">{{descriptionText}}</text>
     <view style="margin-top: 20rpx;">
       <image wx:for="{{imageUrl}}"
+        wx:key="index"
         style="width: 100%; border-radius: 4rpx;"
+        mode="aspectFill"
         src="{{item}}"></image>
     </view>
   </view>
@@ -52,15 +56,21 @@
     indicator-color="rgba(255,255 ,255, .6)"
     indicator-active-color="var(--theme-color)"
     autoplay="{{false}}"
+    current="{{swiperIndex}}"
     style="height: 828rpx; width: 100%;">
     <block wx:for="{{relatedProducts}}"
-      wx:key="*this">
+      wx:key="index">
       <swiper-item>
         <view class="swiper-item">
           <image src="{{item.imageUrl}}"
             style="height: 650rpx; width:100%;"></image>
-          <view style="display: flex; justify-content: center; align-items: center; flex:1">
+          <view style="display: flex; justify-content: center; align-items: center; flex:1"
+            bind:tap="navigateToProductDetail"
+            data-product-id="{{item.productId}}">
             <text style="font-weight: 700;font-size: 34rpx;color: #1C2023; "> {{item.title}}</text>
+            <t-icon name="link-1"
+              style="margin-left: 10rpx;"
+              size="34rpx" />
           </view>
         </view>
       </swiper-item>

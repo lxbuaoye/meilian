@@ -7,7 +7,8 @@
     "pages/location/index",
     "pages/showcase-detail/index",
     "pages/product-detail/index",
-    "pages/news-detail/index"
+    "pages/news-detail/index",
+    "pages/contactus/index"
   ],
   "tabBar": {
     "custom": true,
@@ -33,8 +34,8 @@
         "text": "关于我们"
       },
       {
-        "pagePath": "pages/location/index",
-        "text": "门店位置"
+        "pagePath": "pages/contactus/index",
+        "text": "联系我们"
       }
     ]
   },

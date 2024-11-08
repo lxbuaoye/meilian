@@ -8,6 +8,20 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/contactus/index",
+          "pathName": "pages/contactus/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/product-detail/index",
+          "pathName": "pages/product-detail/index",
+          "query": "productId=9c1e6a31672a35d0128e9631228ddc76",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/product-detail/index",
           "pathName": "pages/product-detail/index",
           "query": "productId=f3805610672a412a1286acc053ddc8c2",

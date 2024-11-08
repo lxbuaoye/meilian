@@ -27,7 +27,8 @@
           symbol-class="spec-for-symbol"
           symbol="{{currency}}"
           price="{{price * 100}}" />
-        <text style="font-size: 24rpx; font-weight: 400; color: #C5C8CB;"> /(件)</text>
+        <text wx:if="{{unit && unit.length >0}}"
+          style="font-size: 24rpx; font-weight: 400; color: #C5C8CB;"> {{unit}}</text>
       </view>
     </view>
   </view>

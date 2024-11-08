@@ -117,3 +117,6 @@ page {
 .background-theme {
   border-radius: 24rpx;
 }
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}
