@@ -164,5 +164,9 @@ Page({
       envVersion: 'release',
     });
   },
-  navigateToWebSite() {},
+  navigateToNews() {
+    wx.navigateTo({
+      url: `/pages/news/index`,
+    });
+  },
 });

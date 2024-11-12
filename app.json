@@ -8,7 +8,8 @@
     "pages/showcase-detail/index",
     "pages/product-detail/index",
     "pages/news-detail/index",
-    "pages/contactus/index"
+    "pages/contactus/index",
+    "pages/news/index"
   ],
   "tabBar": {
     "custom": true,

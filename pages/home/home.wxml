@@ -88,6 +88,16 @@
       news-id="{{item._id}}"
       description="{{item.description}}"></article-card>
   </view>
+  <view style="display: flex; flex:1; width: 100%;  margin: 0 0 30rpx 0;justify-content: center;">
+    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
+      bind:tap="navigateToNews"
+      hover-class="action-tile-hover">
+      <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
+    </view>
+  </view>
+  <view style="margin-bottom: 20rpx;">
+    <official-account></official-account>
+  </view>
 
   <t-footer text="Copyright © 2024-2024 中山市新谷科技发展有限公司"></t-footer>
 </view>
