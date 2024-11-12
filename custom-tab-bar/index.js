@@ -7,6 +7,9 @@ Component({
 
   methods: {
     onChange(event) {
+      wx.vibrateShort({
+        type: 'medium',
+      });
       this.setData({ active: event.detail.value });
       wx.switchTab({
         url: this.data.list[event.detail.value].url.startsWith('/')
