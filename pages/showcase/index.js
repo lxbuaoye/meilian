@@ -3,14 +3,17 @@ const db = wx.cloud.database();
 const _ = db.command;
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 const MAX_LIMIT = 20;
+const showcaseMap = {};
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    categoryList: ['个性定制', '工程项目'],
     pageLoading: false,
     showcaseList: [],
+    showcaseMap: null,
   },
 
   /**
@@ -27,7 +30,12 @@ Page({
 
   async init() {
     this.setData({ pageLoading: true });
+    for (const category of this.data.categoryList) {
+      showcaseMap[category] = [];
+    }
     const { data } = await this.fetchAllShowcase();
+    this.seperateShowcaseByCategory(data);
+    console.log(data);
     this.setData({ pageLoading: false, showcaseList: data });
   },
 
@@ -46,6 +54,7 @@ Page({
           _id: true,
           title: true,
           tags: true,
+          category: true,
         })
         .skip(i * MAX_LIMIT)
         .limit(MAX_LIMIT)
@@ -59,6 +68,15 @@ Page({
         errMsg: acc.errMsg,
       };
     });
+  },
+
+  seperateShowcaseByCategory(showcaseList) {
+    for (const showcase of showcaseList) {
+      if (showcase.category in showcaseMap) {
+        showcaseMap[showcase.category].push(showcase);
+      }
+    }
+    this.setData({ showcaseMap: showcaseMap });
   },
 
   /**

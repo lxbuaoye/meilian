@@ -13,12 +13,23 @@
       text="加载中..."
       inherit-color />
   </view>
-  <view wx:if="{{!pageLoading}}"
-    style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column;">
-    <showcase-card wx:for="{{showcaseList}}"
-      title="{{item.title}}"
-      showcase-id="{{item._id}}"
-      tags="{{item.tags}}">
-    </showcase-card>
-  </view>
+  <t-tabs defaultValue="{{0}}"
+    wx:if="{{!pageLoading}}"
+    t-class="custom-tabs"
+    class="tab"
+    wx:for-index="categoryIndex"
+    t-class-content="custom-panel">
+    <t-tab-panel wx:for="{{categoryList}}"
+      wx:key="index"
+      label="{{item}}"
+      value="{{index}}">
+      <view style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column;">
+        <showcase-card wx:for="{{showcaseMap[item]}}"
+          title="{{item.title}}"
+          showcase-id="{{item._id}}"
+          tags="{{item.tags}}">
+        </showcase-card>
+      </view>
+    </t-tab-panel>
+  </t-tabs>
 </view>

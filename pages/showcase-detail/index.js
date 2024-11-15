@@ -79,6 +79,13 @@ Page({
     this.setData({ overlayVisible: true, swiperIndex: e.currentTarget.dataset.index });
   },
 
+  previewImageList(e) {
+    wx.previewImage({
+      current: this.data.imageUrl[e.currentTarget.dataset.index],
+      urls: this.data.imageUrl,
+    });
+  },
+
   handleOverlayClick(e) {
     this.setData({
       overlayVisible: false,

@@ -14,7 +14,7 @@
     <text style="margin-top: 20rpx;font-size: 24rpx;">案例产品</text>
     <scroll-view scroll-x
       enable-flex
-      style="display: flex; margin-top: 20rpx; height: 170rpx;">
+      style="display: flex; margin-top: 20rpx;height: 170rpx;">
       <view wx:for="{{relatedProducts}}"
         wx:key="index"
         style="display: flex; flex-direction: column;margin-right: 20rpx; align-items: center; "
@@ -22,6 +22,7 @@
         bind:tap="popupOverlay"
         hover-class="action-tile-hover">
         <image src="{{item.imageUrl}}"
+          mode="aspectFit"
           style="height: 100rpx; width: 100rpx; border: 1px solid #E3E4E5;border-radius: 10px;"></image>
         <text style="margin-top:10rpx;font-size: 20rpx;color: #1C2023; white-space: nowrap; text-overflow: ellipsis; max-width: 120rpx; overflow: hidden;">{{item.title}}</text>
       </view>
@@ -43,6 +44,8 @@
         wx:key="index"
         style="width: 100%; border-radius: 4rpx;"
         mode="aspectFill"
+        data-index="{{index}}"
+        bind:tap="previewImageList"
         src="{{item}}"></image>
     </view>
   </view>
@@ -63,6 +66,7 @@
       <swiper-item>
         <view class="swiper-item">
           <image src="{{item.imageUrl}}"
+            mode="aspectFit"
             style="height: 650rpx; width:100%;"></image>
           <view style="display: flex; justify-content: center; align-items: center; flex:1"
             bind:tap="navigateToProductDetail"

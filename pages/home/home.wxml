@@ -95,9 +95,6 @@
       <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>
-  <view style="margin-bottom: 20rpx;">
-    <official-account></official-account>
-  </view>
 
   <t-footer text="Copyright © 2024-2024 中山市新谷科技发展有限公司"></t-footer>
 </view>

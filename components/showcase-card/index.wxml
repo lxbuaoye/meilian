@@ -10,9 +10,7 @@
   </view>
 </view>
 <view style=" display: flex; flex:1; margin: 20rpx 0;  align-items: center; width: 300rpx; ">
-  <view style="display: grid; grid-template-columns: repeat(2, 50%);">
-    <tag wx:for="{{tags}}"
-      wx:key="index"
-      text="{{item}}"></tag>
-  </view>
+  <tag wx:for="{{tags}}"
+    wx:key="index"
+    text="{{item}}"></tag>
 </view>
