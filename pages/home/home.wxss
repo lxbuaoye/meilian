@@ -120,3 +120,36 @@ page {
 .action-tile-hover {
   transform: scale(0.98, 0.98);
 }
+
+.popup {
+  --td-popup-bg-color: transparent;
+}
+
+.rotate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(90deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  75% {
+    transform: rotate(270deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

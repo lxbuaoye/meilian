@@ -21,14 +21,17 @@
           text="{{item}}"></tag>
       </view>
 
-      <view style="margin-bottom: 0; margin-top: auto">
-        <price wx:if="{{price}}"
-          wr-class="spec-for-price"
-          symbol-class="spec-for-symbol"
-          symbol="{{currency}}"
-          price="{{price * 100}}" />
-        <text wx:if="{{unit && unit.length >0}}"
-          style="font-size: 24rpx; font-weight: 400; color: #C5C8CB;"> {{unit}}</text>
+      <view style="margin-bottom: 0; margin-top: auto; display: flex; flex-direction: column; align-items: center;">
+        <view>
+          <price wx:if="{{price}}"
+            wr-class="spec-for-price"
+            symbol-class="spec-for-symbol"
+            symbol="{{currency}}"
+            price="{{price * 100}}" />
+          <text wx:if="{{unit && unit.length >0}}"
+            style="font-size: 24rpx; font-weight: 400; color: #C5C8CB;"> {{unit}}</text>
+        </view>
+        <text style="font-size: 16rpx; font-weight: 400; color: #C5C8CB;">建议零售价</text>
       </view>
     </view>
   </view>

@@ -14,10 +14,12 @@
     inherit-color />
 </view>
 <view class="home-page-container">
-  <image class="background-theme"
-    src="{{bannerUrl}}"
-    style="width: 100%;height: 550rpx; ">
-  </image>
+  <view bind:tap="popupBonusScene">
+    <image class="background-theme"
+      src="{{bannerUrl}}"
+      style="width: 100%;height: 550rpx;">
+    </image>
+  </view>
   <image src="{{sloganUrl}}"
     style="margin-top: 40rpx; width: 100%;height: 118rpx;">
   </image>
@@ -64,6 +66,7 @@
 
   <view style="display: flex; position: relative; flex-direction: column;">
     <showcase-card wx:for="{{showcaseList}}"
+      wx:key="index"
       title="{{item.title}}"
       showcase-id="{{item._id}}"
       tags="{{item.tags}}"></showcase-card>
@@ -83,6 +86,7 @@
       <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
     </view>
     <article-card wx:for="{{newsList}}"
+      wx:key="index"
       title="{{item.title}}"
       subtitle="{{item.subtitle}}"
       news-id="{{item._id}}"
@@ -95,6 +99,16 @@
       <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>
+  <t-popup visible="{{popupVisible}}"
+    usingCustomNavbar
+    class="popup"
+    bind:visible-change="onVisibleChange"
+    bind:tap="closePopup"
+    placement="{{'center'}}">
+    <image class="rotate"
+      mode="aspectFit"
+      src="{{animateUrl}}"> </image>
+  </t-popup>
 
   <t-footer text="Copyright © 2024-2024 中山市新谷科技发展有限公司"></t-footer>
 </view>

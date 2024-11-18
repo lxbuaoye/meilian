@@ -19,6 +19,7 @@ Page({
     interval: 5000,
     navigation: { type: 'dots' },
     swiperImageProps: { mode: 'scaleToFill' },
+    popupVisible: false,
   },
 
   goodListPagination: {
@@ -60,6 +61,7 @@ Page({
     this.setData({
       bannerUrl: `${CLOUD_STROAGE_PATH}/resources/home/banner.png`,
       sloganUrl: `${CLOUD_STROAGE_PATH}/resources/home/slogan.png`,
+      animateUrl: `${CLOUD_STROAGE_PATH}/resources/home/animate.png`,
     });
     this.loadHomePage();
   },
@@ -96,7 +98,6 @@ Page({
       })
       .limit(4)
       .get();
-    console.log(data);
     this.setData({
       productList: data,
     });
@@ -113,7 +114,6 @@ Page({
       })
       .limit(3)
       .get();
-    console.log(data);
     this.setData({
       showcaseList: data,
     });
@@ -131,9 +131,29 @@ Page({
       })
       .limit(2)
       .get();
-    console.log(data);
     this.setData({
       newsList: data,
+    });
+  },
+  closePopup() {
+    this.setData({ popupVisible: false });
+  },
+
+  popupBonusScene(e) {
+    var curTime = e.timeStamp; //获取时间戳
+    var lastTime = this.data.lastTapTime; //第一次获取为零
+
+    if (curTime - lastTime < 500) {
+      this.setData({ clickNum: this.data.clickNum + 1 });
+    } else {
+      this.setData({ clickNum: 1 });
+    }
+    if (this.data.clickNum === 2) {
+      this.setData({ popupVisible: true });
+      console.log('点击2次，进入');
+    }
+    this.setData({
+      lastTapTime: curTime,
     });
   },
 
