@@ -60,9 +60,13 @@ Page({
     const { data } = await db.collection('certificate').orderBy('index', 'asc').limit(8).get();
     this.setData({
       swiperList: data.map((item) => {
+        const imageUrl = item.imageSrc;
+        const index = imageUrl.lastIndexOf('.');
+        const extension = imageUrl.substring(imageUrl.lastIndexOf('.'));
         return {
           name: item.name,
           imageSrc: `${CLOUD_STROAGE_PATH}/resources/certificate/${item.imageSrc}`,
+          imageSrcHiRes: `${CLOUD_STROAGE_PATH}/resources/certificate/${imageUrl.substring(0, index)}@2x${extension}`,
         };
       }),
     });
@@ -71,9 +75,9 @@ Page({
 
   previewImage(e) {
     wx.previewImage({
-      current: this.data.swiperList[e.currentTarget.dataset.index].imageSrc, // 当前显示图片的http链接
+      current: this.data.swiperList[e.currentTarget.dataset.index].imageSrcHiRes, // 当前显示图片的http链接
       urls: this.data.swiperList.map((item) => {
-        return item.imageSrc;
+        return item.imageSrcHiRes;
       }),
     });
   },
