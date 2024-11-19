@@ -40,11 +40,19 @@ Page({
         imageList: data[0].images.map((item) => {
           return `${CLOUD_STROAGE_PATH}/product/${productId}/${item}`;
         }),
+        imageListHiRes: data[0].images.map((item) => {
+          const index = item.lastIndexOf('.');
+          const extension = item.substring(item.lastIndexOf('.'));
+          return `${CLOUD_STROAGE_PATH}/product/${productId}/${item.substring(0, index)}@2x${extension}`;
+        }),
         containMultipleImages: data[0].images.length > 1,
       });
     } else {
+      const index = item.lastIndexOf('.');
+      const extension = item.substring(item.lastIndexOf('.'));
       this.setData({
         imageList: [`${CLOUD_STROAGE_PATH}/product/${productId}/cover.jpg`],
+        imageListHiRes: [`${CLOUD_STROAGE_PATH}/product/${productId}/${item.substring(0, index)}@2x${extension}`],
         containMultipleImages: false,
       });
     }
@@ -52,8 +60,8 @@ Page({
   },
   previewImage(e) {
     wx.previewImage({
-      current: this.data.imageList[e.currentTarget.dataset.index],
-      urls: this.data.imageList,
+      current: this.data.imageListHiRes[e.currentTarget.dataset.index],
+      urls: this.data.imageListHiRes,
     });
   },
   /**

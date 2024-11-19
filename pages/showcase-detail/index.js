@@ -64,6 +64,11 @@ Page({
       imageUrl: data[0].images.map((item) => {
         return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item}`;
       }),
+      imageUrlHiRes: data[0].images.map((item) => {
+        const index = item.lastIndexOf('.');
+        const extension = item.substring(item.lastIndexOf('.'));
+        return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
+      }),
       relatedProducts: relatedProducts.data.map((item) => {
         return {
           imageUrl: `${CLOUD_STROAGE_PATH}/product/${item._id}/cover.jpg`,
@@ -81,8 +86,8 @@ Page({
 
   previewImageList(e) {
     wx.previewImage({
-      current: this.data.imageUrl[e.currentTarget.dataset.index],
-      urls: this.data.imageUrl,
+      current: this.data.imageUrlHiRes[e.currentTarget.dataset.index],
+      urls: this.data.imageUrlHiRes,
     });
   },
 

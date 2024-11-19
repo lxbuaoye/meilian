@@ -23,6 +23,7 @@
       wx:key="index"
       label="{{item}}"
       value="{{index}}">
+      <!-- Add subcategory -->
       <view style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column;">
         <showcase-card wx:for="{{showcaseMap[item]}}"
           title="{{item.title}}"
