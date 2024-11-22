@@ -6,7 +6,7 @@
       mode="scaleToFill"></image>
   </view>
   <!-- Body -->
-  <view style="text-align: center; color: #b9b9b9"
+  <view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;"
     wx:if="{{pageLoading}}">
     <t-loading theme="circular"
       size="40rpx"
@@ -18,6 +18,8 @@
     t-class="custom-tabs"
     class="tab"
     wx:for-index="categoryIndex"
+    wx:key="categoryIndex"
+    bind:change="onTabsChange"
     t-class-content="custom-panel">
     <t-tab-panel wx:for="{{categoryList}}"
       wx:key="index"
@@ -26,10 +28,19 @@
       <!-- Add subcategory -->
       <view style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column;">
         <showcase-card wx:for="{{showcaseMap[item]}}"
+          wx:key="index"
           title="{{item.title}}"
           showcase-id="{{item._id}}"
           tags="{{item.tags}}">
         </showcase-card>
+      </view>
+      <view class="loading-container-flex"
+        wx:if="{{listLoadingStatus[index] === 1}}">
+        <t-loading theme="spinner"
+          size="30rpx"
+          text="加载中..."
+          inheritColor
+          class="wrapper" />
       </view>
     </t-tab-panel>
   </t-tabs>

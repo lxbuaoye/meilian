@@ -1,5 +1,7 @@
 page {
+  box-sizing: border-box;
   background-color: rgb(246, 249, 254);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 96rpx);
 }
 
 .swiper-item {

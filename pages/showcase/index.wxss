@@ -8,3 +8,13 @@ page {
   --td-tab-item-active-color: var(--theme-color);
   --td-tab-track-color: var(--theme-color);
 }
+
+.loading-container-flex {
+  --td-loading-color: var(--theme-color);
+  --td-loading-text-color: var(--theme-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  margin-bottom: 40rpx;
+}

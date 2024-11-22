@@ -30,7 +30,6 @@ Component({
       this.setData({
         coverImageUrl: `${CLOUD_STROAGE_PATH}/showcase/${this.data.showcaseId}/cover.jpg`,
       });
-      console.log(this.data.coverImageUrl);
     },
   },
 

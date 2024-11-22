@@ -14,7 +14,19 @@ Page({
     pageLoading: false,
     showcaseList: [],
     showcaseMap: null,
+    categoryIndex: 0,
+    listLoadingStatus: [0, 0],
   },
+  pagination: [
+    {
+      index: 0,
+      size: 5,
+    },
+    {
+      index: 0,
+      size: 5,
+    },
+  ],
 
   /**
    * 生命周期函数--监听页面加载
@@ -29,45 +41,47 @@ Page({
   },
 
   async init() {
+    wx.stopPullDownRefresh();
     this.setData({ pageLoading: true });
     for (const category of this.data.categoryList) {
       showcaseMap[category] = [];
     }
-    const { data } = await this.fetchAllShowcase();
-    this.seperateShowcaseByCategory(data);
-    console.log(data);
-    this.setData({ pageLoading: false, showcaseList: data });
+
+    this.loadShowcase(false);
   },
 
-  async fetchAllShowcase() {
-    const countResult = await db.collection('showcase').count();
-    const { total } = countResult;
-    if (total === 0) return;
-    // 计算需分几次取
-    const batchTimes = Math.ceil(total / MAX_LIMIT);
-    // 承载所有读操作的 promise 的数组
-    const tasks = [];
-    for (let i = 0; i < batchTimes; i++) {
-      const promise = db
-        .collection('showcase')
-        .field({
-          _id: true,
-          title: true,
-          tags: true,
-          category: true,
-        })
-        .skip(i * MAX_LIMIT)
-        .limit(MAX_LIMIT)
-        .get();
-      tasks.push(promise);
-    }
-    // 等待所有
-    return (await Promise.all(tasks)).reduce((acc, cur) => {
-      return {
-        data: acc.data.concat(cur.data),
-        errMsg: acc.errMsg,
-      };
+  async loadShowcase() {
+    this.setData({
+      [`listLoadingStatus[${this.data.categoryIndex}]`]: 1,
     });
+    const { data } = await this.fetchAllShowcase(
+      this.pagination[this.data.categoryIndex].index,
+      this.pagination[this.data.categoryIndex].size,
+      this.data.categoryIndex,
+    );
+    this.pagination[this.data.categoryIndex].index++;
+    this.seperateShowcaseByCategory(data);
+    console.log(data);
+    // TODO, add loading indicate bar
+    // Handle error, set loading status to 3
+    this.setData({ pageLoading: false, showcaseList: data, [`listLoadingStatus[${this.data.categoryIndex}]`]: 0 });
+  },
+
+  async fetchAllShowcase(index = 0, size = 4, categoryIndex = 0) {
+    const res = await db
+      .collection('showcase')
+      .where({ category: _.eq(this.data.categoryList[categoryIndex]) })
+      .field({
+        _id: true,
+        title: true,
+        tags: true,
+        category: true,
+      })
+      .skip(index * size)
+      .limit(size)
+      .get();
+    // 等待所有
+    return res;
   },
 
   seperateShowcaseByCategory(showcaseList) {
@@ -79,6 +93,10 @@ Page({
     this.setData({ showcaseMap: showcaseMap });
   },
 
+  onTabsChange(e) {
+    this.setData({ categoryIndex: e.detail.value });
+    this.loadShowcase(false);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -109,7 +127,11 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {},
+  onReachBottom() {
+    if (this.data.listLoadingStatus[this.data.categoryIndex] === 0) {
+      this.loadShowcase();
+    }
+  },
 
   /**
    * 用户点击右上角分享

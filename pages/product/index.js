@@ -1,10 +1,10 @@
 // pages/showcase/index.js
-
 const db = wx.cloud.database();
 const _ = db.command;
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 const MAX_LIMIT = 20;
 const category = ['外墙漆', '内墙漆', '艺术漆', '辅助材料'];
+const subcategory = [['平涂系列', '石漆系列'], ['常规系列', '能系列'], ['艺术效果', '配套产品'], ['辅助材料']];
 
 Page({
   /**
@@ -13,6 +13,7 @@ Page({
   data: {
     pageLoading: false,
     category,
+    subcategory,
     categoryList: [],
   },
 
@@ -38,22 +39,38 @@ Page({
     this.setData({
       categoryList: this.sortProductByCategory(data),
     });
+    console.log(this.data.categoryList);
     this.setData({ pageLoading: false });
   },
 
   sortProductByCategory(productList) {
-    console.log(productList[0]);
     const result = [];
+    const resultWithSubcategory = [[], [], [], []];
     for (let i = 0; i < productList.length; i++) {
       const index = category.indexOf(productList[i].category);
+      let subindex = subcategory[index].indexOf(productList[i].subcategory);
+      // Fallback to first category
+      if (subindex === -1) {
+        subindex = 0;
+      }
       if (index === -1) continue;
       if (result[index]) {
         result[index].push(productList[i]);
+        // Push into subcategory
+        if (resultWithSubcategory[index][subindex]) {
+          resultWithSubcategory[index][subindex].push(productList[i]);
+        } else {
+          resultWithSubcategory[index][subindex] = [productList[i]];
+        }
       } else {
         result[index] = [productList[i]];
+        resultWithSubcategory[index] = [];
+        resultWithSubcategory[index][subindex] = [productList[i]];
       }
     }
-    return result;
+    console.log(result);
+    console.log(resultWithSubcategory);
+    return resultWithSubcategory;
   },
 
   async fetchAllProduct() {
@@ -75,6 +92,7 @@ Page({
           tags: true,
           unit: true,
           category: true,
+          subcategory: true,
         })
         .skip(i * MAX_LIMIT)
         .limit(MAX_LIMIT)
