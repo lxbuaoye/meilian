@@ -48,6 +48,7 @@ Page({
         containMultipleImages: data[0].images.length > 1,
       });
     } else {
+      const item = 'cover.jpg';
       const index = item.lastIndexOf('.');
       const extension = item.substring(item.lastIndexOf('.'));
       this.setData({
