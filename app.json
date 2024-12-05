@@ -56,5 +56,6 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  }
+  },
+  "serviceProviderTicket": "+/bz1b28kc10438dO25LBItZjCWVBI2LRCFYrYo71zjbYgnG47TyQhieoS24+Xk+zYT8Fp7JjKRMvJxCI9SvYxz1MZsKm7av9H0="
 }
