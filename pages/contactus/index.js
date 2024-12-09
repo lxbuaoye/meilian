@@ -27,7 +27,15 @@ Page({
     });
   },
 
-  openLoation() {},
+  openLoation() {
+    wx.openLocation({
+      //​使用微信内置地图查看位置。
+      latitude: 22.773652,
+      longitude: 113.19467,
+      name: '数码彩涂料有限公司',
+      address: '广东省佛山市顺德区杏坛镇科技区九路13号',
+    });
+  },
 
   /**
    * 生命周期函数--监听页面加载

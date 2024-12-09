@@ -1,35 +1,39 @@
 <view style="display: flex; flex-direction: column; margin: 30rpx 24rpx">
-  <view>
-    <image src="./address_icon.png"
-      style="height: 30rpx; width: 30rpx;"></image>
-    <text style="font-size: 36rpx; font-weight: 700; margin-left: 20rpx;">地址</text>
-  </view>
-  <view style="border-radius: 30rpx; overflow: hidden; margin-top: 30rpx; ">
-    <map style="width:100%; height: 300rpx; "
-      latitude="{{latitude}}"
-      longitude="{{longitude}}"
-      markers="{{markers}}" />
-  </view>
-  <view style="margin-top: 20rpx;"
+  <view style="background: #F7FAFE; border-radius: 20rpx; padding: 30rpx;"
     bind:tap="openLoation">
-    <text user-select
-      style="font-size: 28rpx;">广东省佛山市顺德区杏坛镇科技区九路13号</text>
+    <text style="font-size: 34rpx; font-weight: 700;">联系地址</text>
+    <view style="margin-top: 10rpx;">
+      <text user-select
+        style="font-size: 28rpx; color: #1C2023;">广东省佛山市顺德区杏坛镇科技区九路13号</text>
+    </view>
+    <view style="border-radius: 30rpx; overflow: hidden; margin-top: 30rpx; ">
+      <map style="width:100%; height: 364rpx; "
+        latitude="{{latitude}}"
+        longitude="{{longitude}}"
+        markers="{{markers}}" />
+    </view>
   </view>
 
-  <view style="margin-top: 40rpx;">
-    <image src="./phone_icon.png"
-      style="height: 30rpx; width: 30rpx;"></image>
-    <text style="font-size: 36rpx; font-weight: 700; margin-left: 20rpx;">联系电话</text>
-  </view>
-  <view style="margin-top: 20rpx; display: flex;align-items: center;"
+  <view style="background: #F7FAFE; border-radius: 20rpx; padding: 30rpx; margin-top: 20rpx; display: flex; align-items: center;"
+    hover-class="action-tile-hover"
     bind:tap="makePhoneCall">
-    <text style="font-size: 28rpx;">400-838-3377</text>
+    <view>
+      <text style="font-size: 34rpx; font-weight: bold;">联系电话</text>
+      <view style="margin-top: 10rpx; display: flex;align-items: center;">
+        <text style="font-size: 28rpx;">400-838-3377</text>
+      </view>
+    </view>
+    <view class="call-icon">
+      <image src="./call.png"
+        style="height: 30rpx; width: 30rpx;">
+      </image>
+    </view>
   </view>
-  <view style="margin-top: 40rpx;">
-    <text style="font-size: 36rpx; font-weight: 700;">扫码关注我们</text>
+
+  <view style="background: #F7FAFE; border-radius: 20rpx; padding: 30rpx; margin-top: 20rpx; display: flex;flex-direction: column;">
+    <text style="font-size: 34rpx; font-weight: 700;">扫码关注我们</text>
+    <image src="{{QR_CODE}}"
+      style="width: 257rpx; height: 257rpx; margin-top: 10rpx;"
+      show-menu-by-longpress></image>
   </view>
-  <image src="{{QR_CODE}}"
-    style="width: 300rpx; height: 300rpx; margin-left: -20rpx;"
-    show-menu-by-longpress></image>
-  <text style="margin-top: 20rpx;font-size: 24rpx;"></text>
 </view>
