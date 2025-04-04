@@ -1,0 +1,31 @@
+<xr-scene ar-system="modes:Marker"
+  bind:ready="handleReady">
+  <xr-assets bind:loaded="handleAssetsLoaded"
+    wx:for="{{productList}}"
+    data-name="{{item.name}}">
+    <xr-asset-load type="video-texture"
+      asset-id="{{item.name}}"
+      options="loop:true"
+      src="{{item.videoSrc}}" />
+    <xr-asset-material asset-id="{{item.mat}}"
+      effect="simple"
+      uniforms="{{item.uniforms}}" />
+  </xr-assets>
+
+  <xr-node wx:for="{{productList}}"
+    wx:if="{{assetsLoaded[index]}}">
+    <xr-ar-tracker mode="Marker"
+      bind:ar-tracker-switch="handleTrackerSwitch"
+      data-name="{{item.name}}"
+      src="{{item.videoCover}}">
+      <xr-mesh node-id="mesh-plane"
+        geometry="plane"
+        material="{{item.mat}}"
+        scale="1 1 1.79" />
+    </xr-ar-tracker>
+  </xr-node>
+
+  <xr-camera clear-color="0.4 0.8 0.6 1"
+    background="ar"
+    is-ar-camera />
+</xr-scene>

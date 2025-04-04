@@ -8,6 +8,27 @@
     "miniprogram": {
       "list": [
         {
+          "name": "AR",
+          "pathName": "pages/ar/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "ai",
+          "pathName": "pages/ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/showcase-detail/index",
+          "pathName": "pages/showcase-detail/index",
+          "query": "id=ab52283f67b305e202bbfa1c4caca547",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/showcase/index",
           "pathName": "pages/showcase/index",
           "query": "",

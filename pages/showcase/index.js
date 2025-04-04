@@ -77,6 +77,7 @@ Page({
         tags: true,
         category: true,
       })
+      .orderBy('index', 'asc')
       .skip(index * size)
       .limit(size)
       .get();

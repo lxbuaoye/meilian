@@ -1,0 +1,19 @@
+<view>
+  <ar disable-scroll
+    wx:if="{{assetsLoaded}}"
+    id="main-frame"
+    width="{{renderWidth}}"
+    height="{{renderHeight}}"
+    style="width:{{width}}px;height:{{height}}px;"
+    bind:assetsLoaded="handleLoaded"
+    bind:syncPositions="handleSyncPositions" />
+
+  <block wx:if="{{loaded}}"
+    wx:for="{{positions}}"
+    wx:for-item="pos"
+    wx:key="*this">
+    <view style="display: block; position: absolute;left: {{pos[0]}}px;top: {{pos[1]}}px;background: {{pos[2]}};transform: translate(-50%, -50%);">
+      <view style="text-align: center;color: white;font-size: 24px;padding: 8px;">{{pos[3]}}</view>
+    </view>
+  </block>
+</view>

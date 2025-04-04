@@ -24,4 +24,14 @@ export default [
     text: '联系我们',
     url: 'pages/contactus/index',
   },
+  // {
+  //   icon: 'chart-3d',
+  //   text: 'DIGITAL AI',
+  //   url: 'pages/ai/index',
+  // },
+  // {
+  //   icon: 'chart-3d',
+  //   text: 'DIGITAL AR',
+  //   url: 'pages/ar/index',
+  // },
 ];
