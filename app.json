@@ -13,6 +13,15 @@
     "pages/ai/index",
     "pages/ar/index"
   ],
+  "subPackages": [
+    {
+      "root": "ColorDetector",
+      "name": "colorDetector",
+      "pages": [
+        "pages/index"
+      ]
+    }
+  ],
   "tabBar": {
     "custom": true,
     "color": "#666666",

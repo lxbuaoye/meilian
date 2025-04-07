@@ -8,6 +8,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "color-detector",
+          "pathName": "ColorDetector/pages/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "AR",
           "pathName": "pages/ar/index",
           "query": "",
