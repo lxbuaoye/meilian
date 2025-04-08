@@ -3,6 +3,12 @@ const { CLOUD_STROAGE_PATH } = getApp().globalData;
 const db = wx.cloud.database();
 const _ = db.command;
 
+const QR_CODE = `${CLOUD_STROAGE_PATH}/resources/contact-us/qr_code.jpg`;
+const address = {
+  latitude: '22.773652',
+  longitude: '113.19467',
+};
+
 const advantageList = [
   {
     imageSrc: `${CLOUD_STROAGE_PATH}/resources/about-us/3.png`,
@@ -44,6 +50,14 @@ Page({
     interval: 5000,
     swiperList: [],
     advantageList,
+    QR_CODE,
+    ...address,
+    markers: [
+      {
+        latitude: '22.773652',
+        longitude: '113.19467',
+      },
+    ],
   },
   onLoad(options) {
     this.setData({
@@ -90,5 +104,21 @@ Page({
     return {
       title: `数码彩 - 出色涂装效果领航者`,
     };
+  },
+
+  makePhoneCall() {
+    wx.makePhoneCall({
+      phoneNumber: '4008383377',
+    });
+  },
+
+  openLoation() {
+    wx.openLocation({
+      //​使用微信内置地图查看位置。
+      latitude: 22.773652,
+      longitude: 113.19467,
+      name: '数码彩涂料有限公司',
+      address: '广东省佛山市顺德区杏坛镇科技区九路13号',
+    });
   },
 });

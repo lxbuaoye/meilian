@@ -1,8 +1,12 @@
 // pages/ai/index.js
 import { processImage } from './ImageUtil';
+import Message from 'tdesign-miniprogram/message/index';
+
 import * as echarts from './ec-canvas/echarts';
 
 let chart = null;
+
+const MAX_NUMBER = 6;
 
 function initChart(canvas, width, height, dpr) {
   chart = echarts.init(canvas, null, {
@@ -22,7 +26,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    confirmBtn: { content: '确定', variant: 'outline' },
     imageSrc: '',
+    passwordInput: !wx.getStorageSync('colorDetectorUnlocked'),
+    inputValue: '',
     paintsOptionsActive: false,
     visible: false,
     colorResult: [],
@@ -33,7 +40,9 @@ Page({
     },
   },
   onShow() {
-    this.getTabBar().init();
+    this.setData({
+      passwordInput: !wx.getStorageSync('colorDetectorUnlocked'),
+    });
   },
   chooseImage() {
     wx.chooseMedia({
@@ -65,7 +74,7 @@ Page({
                     },
                   },
                   color: detail
-                    .slice(0, 5)
+                    .slice(0, MAX_NUMBER)
                     .map((item) => {
                       return item.hex;
                     })
@@ -74,7 +83,7 @@ Page({
                   center: ['50%', '40%'],
                   radius: ['10%', '60%'],
                   data: detail
-                    .slice(0, 5)
+                    .slice(0, MAX_NUMBER)
                     .map((item) => {
                       return {
                         value: item.percentage,
@@ -86,7 +95,7 @@ Page({
                         value:
                           100 -
                           detail
-                            .slice(0, 5)
+                            .slice(0, MAX_NUMBER)
                             .reduce((accumulator, currentValue) => accumulator + parseInt(currentValue.percentage), 0),
                         name: '其他',
                       },
@@ -137,28 +146,20 @@ Page({
     });
   },
 
-  onChange1(e) {
-    console.log(e.detail.value);
-    this.setData({ value1: e.detail.value });
-    if (e.detail.value === 2) {
-      this.setData({ paintsOptionsActive: true });
-    } else {
-      this.setData({ paintsOptionsActive: false });
+  openViewer() {
+    console.log('Trying to open viewer');
+    if (this.data.imageSrc) {
+      wx.navigateTo({
+        url: `viewer/index?imageSrc=${this.data.imageSrc}`,
+        success: (res) => {
+          console.log(res);
+        },
+        fail: (res) => {
+          console.log('~~');
+          console.log(res);
+        },
+      });
     }
-  },
-  onChange2(e) {
-    this.setData({ value2: e.detail.value });
-  },
-  takePhoto() {
-    const ctx = wx.createCameraContext();
-    ctx.takePhoto({
-      quality: 'high',
-      success: (res) => {
-        this.setData({
-          src: res.tempImagePath,
-        });
-      },
-    });
   },
 
   /**
@@ -171,26 +172,11 @@ Page({
       menuBarHeight: menuButton.height,
     });
   },
-  previewImage() {
-    wx.previewImage({
-      current: this.data.generatedImageSrc, // 当前显示图片的http链接
-      urls: [], // 需要预览的图片http链接列表
-    });
-  },
-  handleOverlayClick() {
-    //  this.setData({ visible: false }); // TODO, remove this
-    this.setData({ visible: false, generatedImageSrc: null });
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {},
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {},
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -216,4 +202,45 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {},
+
+  onInputChange(event) {
+    const { value } = event.detail;
+    console.log('输入框的值：', value);
+
+    // 更新 data 中的 inputValue，实现双向绑定
+    this.setData({
+      inputValue: value,
+    });
+
+    // 你可以在这里进行其他逻辑处理，例如校验输入等
+  },
+
+  confirmDialog(e) {
+    if (this.data.inputValue === '3377') {
+      this.setData({
+        passwordInput: false,
+      });
+      // Save to storage
+      wx.setStorageSync('colorDetectorUnlocked', true);
+    } else {
+      this.showTextMessage();
+    }
+  },
+
+  closeDialog() {
+    wx.navigateBack({
+      detail: 1,
+    });
+  },
+
+  showTextMessage() {
+    Message.info({
+      context: this,
+      offset: [90, 32],
+      duration: 5000,
+      icon: false,
+      // single: false, // 打开注释体验多个消息叠加效果
+      content: '无效的邀请码',
+    });
+  },
 });

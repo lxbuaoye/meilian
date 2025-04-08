@@ -20,10 +20,15 @@ export default [
     url: 'pages/aboutus/index',
   },
   {
-    icon: 'location',
-    text: '联系我们',
-    url: 'pages/contactus/index',
+    icon: 'radar',
+    text: '探索',
+    url: 'pages/explore/index',
   },
+  // {
+  //   icon: 'location',
+  //   text: '联系我们',
+  //   url: 'pages/contactus/index',
+  // },
   // {
   //   icon: 'chart-3d',
   //   text: 'DIGITAL AI',

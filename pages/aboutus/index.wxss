@@ -57,3 +57,19 @@ page {
     transform: scale(0.85);
   }
 }
+
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}
+
+.call-icon {
+  width: 70rpx;
+  height: 70rpx;
+  background: var(--theme-color);
+  border-radius: 35rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  margin-left: auto;
+}

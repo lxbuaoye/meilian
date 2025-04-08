@@ -1,7 +1,11 @@
 {
-  "navigationBarTitleText": "DIGITAL COLOR",
+  "navigationBarTitleText": "色彩检测",
   "disableScroll": true,
   "usingComponents": {
+    "t-message": "tdesign-miniprogram/message/message",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-input": "tdesign-miniprogram/input/input",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
     "t-radio": "tdesign-miniprogram/radio/radio",
     "t-progress": "tdesign-miniprogram/progress/progress",

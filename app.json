@@ -11,14 +11,16 @@
     "pages/contactus/index",
     "pages/news/index",
     "pages/ai/index",
-    "pages/ar/index"
+    "pages/ar/index",
+    "pages/explore/index"
   ],
   "subPackages": [
     {
       "root": "ColorDetector",
       "name": "colorDetector",
       "pages": [
-        "pages/index"
+        "pages/index",
+        "pages/viewer/index"
       ]
     }
   ],
@@ -54,8 +56,8 @@
         "text": "DIGITAL AI"
       },
       {
-        "pagePath": "pages/ar/index",
-        "text": "DIGITAL AR"
+        "pagePath": "pages/explore/index",
+        "text": "数码彩实验室"
       }
     ]
   },
