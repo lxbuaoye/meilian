@@ -52,12 +52,8 @@
         "text": "联系我们"
       },
       {
-        "pagePath": "pages/ai/index",
-        "text": "DIGITAL AI"
-      },
-      {
         "pagePath": "pages/explore/index",
-        "text": "数码彩实验室"
+        "text": "智慧算法空间"
       }
     ]
   },

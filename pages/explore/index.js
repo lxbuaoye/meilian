@@ -25,6 +25,7 @@ Page({
         description: '运用数码彩AI的先进技术，您可以轻松地将草图、施工图或现有建筑转化为多种您喜爱的风格效果图。',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/333.jpg`,
         disabled: true,
+        dest: '/pages/ai/index',
       },
     ],
   },
@@ -80,4 +81,19 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {},
+
+  handleClick() {
+    console.log('Testing');
+
+    wx.cloud
+      .callFunction({
+        // 云函数名称
+        name: 'generateImage',
+        // 传给云函数的参数
+        data: {},
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
 });

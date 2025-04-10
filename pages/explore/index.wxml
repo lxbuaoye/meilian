@@ -2,10 +2,10 @@
 <view style="margin: 24rpx;">
   <!-- Header -->
   <view style="display: flex; flex-direction: column; margin-bottom: 12rpx;">
-    <text style="font-size: 34rpx; background: linear-gradient(to right, #f8c301, #ffb347, #ff69b4, #87cefa, #90ee90);line-height: 48rpx; -webkit-background-clip: text; ; background-clip: text; color:transparent;">数码彩实验室</text>
+    <text style="font-size: 34rpx; background: linear-gradient(to right, #f8c301, #ffb347, #ff69b4, #87cefa, #90ee90);line-height: 48rpx; -webkit-background-clip: text; ; background-clip: text; color:transparent;">智慧算法空间</text>
   </view>
 
-  <text style="font-size: 26rpx; color: #1C2023; line-height: 48rpx;">探索 - 数码彩实验室是一个供用户体验早期阶段数码色彩相关功能并分享反馈的项目. 实验室中的功能，包括人工智能驱动的体验，都处于开发阶段，其质量和可用性可能会有所不同。欢迎您留下宝贵的反馈，以帮助我们改进整体体验。
+  <text style="font-size: 26rpx; color: #1C2023; line-height: 48rpx;">探索 - 数码彩智慧算法空间是一个供用户体验早期阶段数码色彩相关功能并分享反馈的项目。智慧算法空间中的功能，包括人工智能驱动的体验，都处于开发阶段，其质量和可用性可能会有所不同。欢迎您留下宝贵的反馈，以帮助我们改进整体体验。
   </text>
   <view wx:for="{{list}}"
     wx:key="*this"
@@ -31,4 +31,5 @@
         mode="aspectFit"></image>
     </view>
   </view>
+
 </view>
