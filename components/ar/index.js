@@ -17,6 +17,14 @@ const productList = [
       'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/bucket.mov?sign=a08199aa67f43569a6544ba1c5a67d96&t=1743746974',
   },
   {
+    name: 'bucket2',
+    mat: 'mat-bucket2',
+    uniforms: 'u_baseColorMap: video-bucket2',
+    videoCover: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/bucket2.png',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/bucket.mov?sign=a08199aa67f43569a6544ba1c5a67d96&t=1743746974',
+  },
+  {
     name: 'bag',
     mat: 'mat-bag',
     uniforms: 'u_baseColorMap: video-bag',
@@ -31,7 +39,58 @@ const productList = [
     videoCover:
       'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/shiqi_bucket.png',
     videoSrc:
-      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/shiqi_bucket.mp4?sign=25384f50b47102983d9db69060c5b0dd&t=1743785451',
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/shiqi_bucket.mp4?sign=81c647af60e1f3c7905bed2399cb10e8&t=1744643302',
+  },
+  {
+    name: 'requirement',
+    mat: 'mat-requirement',
+    uniforms: 'u_baseColorMap: video-requirement',
+    videoCover:
+      'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/requirement.jpg',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/requirement.mp4?sign=f43ab92806ff9ba8439db6aaad234837&t=1744641888',
+  },
+  {
+    name: 'standard',
+    mat: 'mat-standard',
+    uniforms: 'u_baseColorMap: video-standard',
+    videoCover: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/standard3.png',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/standard.mp4?sign=79ead91d95a3d162b7d2206f6b04fe49&t=1744641768',
+  },
+  {
+    name: 'shuwu',
+    mat: 'mat-shuwu',
+    uniforms: 'u_baseColorMap: video-shuwu',
+    videoCover: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/shuwu.png',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/shuwu.mov?sign=34f6548b306f11c4a5d69780b382938e&t=1744643452',
+    scale: '1.79 1 1',
+  },
+  {
+    name: 'jieba',
+    mat: 'mat-jieba',
+    uniforms: 'u_baseColorMap: video-jieba',
+    videoCover: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/jieba.jpg',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/jieba.mov?sign=685bd30620c791b8e1b2b2fab753194c&t=1744643564',
+  },
+  {
+    name: 'today',
+    mat: 'mat-today',
+    uniforms: 'u_baseColorMap: video-today',
+    videoCover: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/today.jpg',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/today.mp4?sign=1f3129cb9f036f82a5fff4cdf0252c54&t=1744645784',
+    scale: '1.79 1 1',
+  },
+  {
+    name: 'shupudiqi',
+    mat: 'mat-shupudiqi',
+    uniforms: 'u_baseColorMap: video-shupudiqi',
+    videoCover: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/ar/shupudiqi.jpg',
+    videoSrc:
+      'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ar/shupudiqi.mp4?sign=32c4064316a6dde9b2f388b39e646f0d&t=1744645920',
   },
 ];
 

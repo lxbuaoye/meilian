@@ -21,7 +21,7 @@
       <xr-mesh node-id="mesh-plane"
         geometry="plane"
         material="{{item.mat}}"
-        scale="1 1 1.79" />
+        scale="{{item.scale? item.scale : '1 1 1.79'}}" />
     </xr-ar-tracker>
   </xr-node>
 

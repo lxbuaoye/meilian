@@ -9,12 +9,12 @@ Page({
     list: [
       {
         name: '色彩检测',
-        description: '通过分析，你可以获取涂料里面的配色构成, 更可以以及精准查看每一个像素',
+        description: '通过分析，你可以获取涂料里面的配色构成, 更可以精准查看每一个像素',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/111.jpg`,
         dest: '/ColorDetector/pages/index',
       },
       {
-        name: 'AR(虚拟增强)',
+        name: 'AR (全息透视)',
         description:
           '产品的详细介绍叠加在真实世界中，让你仿佛亲手触摸、告别枯燥的文字描述，体验更生动的产品信息获取方式。',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/222.jpg`,
@@ -82,9 +82,13 @@ Page({
    */
   onShareAppMessage() {},
 
-  handleClick() {
-    console.log('Testing');
+  onShareTimeline() {
+    return {
+      title: `数码彩智慧算法空间`,
+    };
+  },
 
+  handleClick() {
     wx.cloud
       .callFunction({
         // 云函数名称
