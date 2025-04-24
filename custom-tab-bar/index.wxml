@@ -1,6 +1,7 @@
 <t-tab-bar value="{{active}}"
   bindchange="onChange"
   class="tab-bar"
+  shape="{{isMp? 'normal' : 'round'}}"
   split="{{false}}">
   <t-tab-bar-item wx:for="{{list}}"
     wx:for-item="item"
@@ -8,7 +9,7 @@
     wx:key="index">
     <view class="custom-tab-bar-wrapper">
       <t-icon name="{{item.icon}}"
-        size="48rpx" />
+        size="{{size}}" />
       <view class="text">{{ item.text }}</view>
     </view>
   </t-tab-bar-item>

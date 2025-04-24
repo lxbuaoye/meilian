@@ -1,4 +1,5 @@
 export default [
+  // #if MP
   {
     icon: 'home',
     text: '首页',
@@ -24,6 +25,24 @@ export default [
     text: '探索',
     url: 'pages/explore/index',
   },
+  // #elif IOS || ANDROID
+  {
+    icon: 'home',
+    text: '首页',
+    url: 'app-pages/home/index',
+  },
+  {
+    icon: 'menu',
+    text: '产品',
+    url: 'app-pages/product/index',
+  },
+  {
+    icon: 'table-1',
+    text: '案例',
+    url: 'app-pages/showcase/index',
+  },
+  // #endif
+
   // {
   //   icon: 'location',
   //   text: '联系我们',

@@ -8,6 +8,13 @@ Page({
   data: {
     list: [
       {
+        name: '石漆配色',
+        description: '石漆系列电子色卡，配用多个建筑模型，方便随时查看和搭配',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/444.png`,
+        dest: 'wx0a81e9aa1745be90',
+        openAnotherMiniProgram: true,
+      },
+      {
         name: '色彩检测',
         description: '通过分析，你可以获取涂料里面的配色构成, 更可以精准查看每一个像素',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/111.jpg`,
@@ -19,6 +26,12 @@ Page({
           '产品的详细介绍叠加在真实世界中，让你仿佛亲手触摸、告别枯燥的文字描述，体验更生动的产品信息获取方式。',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/222.jpg`,
         dest: '/pages/ar/index',
+      },
+      {
+        name: '五行织色',
+        description: '根据你的五行, 判断出最适合你的颜色',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/555.png`,
+        dest: '/pages/wuxing/index',
       },
       {
         name: 'DIGITAL AI',
@@ -39,9 +52,20 @@ Page({
     if (e.currentTarget.dataset.disabled) {
       return;
     }
+    if (e.currentTarget.dataset.openAnotherMiniProgram) {
+      this.navigateToShiqiMiniProgram(e.currentTarget.dataset.dest);
+      return;
+    }
     console.log(e);
     wx.navigateTo({
       url: e.currentTarget.dataset.dest,
+    });
+  },
+
+  navigateToShiqiMiniProgram(dest) {
+    wx.navigateToMiniProgram({
+      appId: dest,
+      envVersion: 'release',
     });
   },
 

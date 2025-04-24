@@ -8,6 +8,27 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/wuxing/index",
+          "pathName": "pages/wuxing/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "app-pages/product/index",
+          "pathName": "app-pages/product/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "app-pages/showcase/index",
+          "pathName": "app-pages/showcase/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/explore/index",
           "pathName": "pages/explore/index",
           "query": "",

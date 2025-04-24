@@ -5,9 +5,17 @@
 }
 
 .custom-tab-bar-wrapper .text {
+  /* #if MP */
   font-size: 20rpx;
+  /* #elif IOS || ANDROID*/
+  font-size: 10rpx;
+  /* #endif */
 }
 
 .tab-bar {
+  /* #if IOS || ANDROID*/
+  margin-bottom: 15rpx;
+  --td-tab-bar-height: 30rpx;
+  /* #endif */
   --td-tab-bar-active-color: #f8c301;
 }

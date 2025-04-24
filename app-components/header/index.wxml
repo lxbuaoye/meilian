@@ -1,0 +1,7 @@
+<view style="display: flex; flex:1; align-items: center; height: 45rpx; justify-content: center;">
+  <image src="{{banner}}"
+    style="height: 45rpx; width: 100%; position: absolute; top: 0; left: 0;"></image>
+  <image src="/resources/logo.png"
+    style="height: 22rpx; width: 150rpx; z-index: 100;"
+    mode="scaleToFill"></image>
+</view>

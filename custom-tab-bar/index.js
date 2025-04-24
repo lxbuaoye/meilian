@@ -3,6 +3,14 @@ Component({
   data: {
     active: 0,
     list: TabMenu,
+    /* #if MP */
+    size: 48,
+    shape: 'normal',
+    isMp: true,
+    /* #elif IOS || ANDROID */
+    size: 24,
+    shape: 'round',
+    /* #endif */
   },
 
   methods: {

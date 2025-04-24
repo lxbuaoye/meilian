@@ -12,7 +12,11 @@
     "pages/news/index",
     "pages/ai/index",
     "pages/ar/index",
-    "pages/explore/index"
+    "pages/explore/index",
+    "app-pages/home/index",
+    "app-pages/showcase/index",
+    "app-pages/product/index",
+    "pages/wuxing/index"
   ],
   "subPackages": [
     {
@@ -24,38 +28,82 @@
       ]
     }
   ],
-  "tabBar": {
-    "custom": true,
-    "color": "#666666",
-    "selectedColor": "#F8C301",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/home/home",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/product/index",
-        "text": "产品"
-      },
-      {
-        "pagePath": "pages/showcase/index",
-        "text": "案例"
-      },
-      {
-        "pagePath": "pages/aboutus/index",
-        "text": "关于我们"
-      },
-      {
-        "pagePath": "pages/contactus/index",
-        "text": "联系我们"
-      },
-      {
-        "pagePath": "pages/explore/index",
-        "text": "智慧算法空间"
-      }
-    ]
+  "mini-wechat": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#F8C301",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/product/index",
+          "text": "产品"
+        },
+        {
+          "pagePath": "pages/showcase/index",
+          "text": "案例"
+        },
+        {
+          "pagePath": "pages/aboutus/index",
+          "text": "关于我们"
+        },
+        {
+          "pagePath": "pages/explore/index",
+          "text": "智慧算法空间"
+        }
+      ]
+    }
+  },
+  "mini-ios": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#F8C301",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "app-pages/home/index",
+          "text": "首页"
+        },
+        {
+          "pagePath": "app-pages/product/index",
+          "text": "产品"
+        },
+        {
+          "pagePath": "app-pages/showcase/index",
+          "text": "案例"
+        }
+      ]
+    }
+  },
+  "mini-android": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#F8C301",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "app-pages/home/index",
+          "text": "首页"
+        },
+        {
+          "pagePath": "app-pages/product/index",
+          "text": "产品"
+        },
+        {
+          "pagePath": "app-pages/showcase/index",
+          "text": "案例"
+        }
+      ]
+    }
   },
   "requiredPrivateInfos": [
     "chooseAddress"
