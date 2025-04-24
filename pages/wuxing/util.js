@@ -96,22 +96,23 @@ function getPrimaryWuXingFromDate(date) {
   return primaryWuXing;
 }
 
-export function getGeneratingWuXing(wuXing) {
-  switch (wuXing) {
-    case '木':
-      return '火';
+export function getGeneratingWuXing(generatedWuXing) {
+  switch (generatedWuXing) {
     case '火':
-      return '土';
-    case '土':
-      return '金';
-    case '金':
-      return '水';
-    case '水':
       return '木';
+    case '土':
+      return '火';
+    case '金':
+      return '土';
+    case '水':
+      return '金';
+    case '木':
+      return '水';
     default:
       return '未知';
   }
 }
+
 export function getWuXingResult(dateString) {
   return getPrimaryWuXingFromDate(new Date(dateString));
 }

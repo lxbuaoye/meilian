@@ -1,6 +1,6 @@
 // pages/explore/index.js
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
-
+const accountInfo = wx.getAccountInfoSync();
 Page({
   /**
    * 页面的初始数据
@@ -37,7 +37,7 @@ Page({
         name: 'DIGITAL AI',
         description: '运用数码彩AI的先进技术，您可以轻松地将草图、施工图或现有建筑转化为多种您喜爱的风格效果图。',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/333.jpg`,
-        disabled: true,
+        disabled: accountInfo === 'release', // TODO revert this
         dest: '/pages/ai/index',
       },
     ],

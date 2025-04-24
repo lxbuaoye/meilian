@@ -175,12 +175,11 @@
       <image class="recommendation-image"
         src="{{item.imageSrc}}">
       </image>
-      <view style="display: flex; flex-direction: column;margin: 20rpx;">
+      <view style="display: flex; flex-direction: column;margin: 20rpx; justify-content: center;">
         <text style="margin-bottom: 35rpx;font-size: 32rpx;color: #1C2023;">{{item.name}}</text>
         <view style="margin-bottom: 20rpx; font-size: 24rpx;color: #1C2023;">
           <text>编号: </text><text style="font-weight: 700;">{{item.caseNumber}}</text>
         </view>
-        <text style=" font-size: 24rpx;color: #1C2023;">{{item.description}}</text>
       </view>
     </view>
   </view>
