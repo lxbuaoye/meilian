@@ -1,0 +1,61 @@
+<!-- Navigation bar-->
+<header></header>
+<view style="height: 100%; display: flex; margin: 15rpx;">
+  <!-- Left -->
+  <view style="width: 245rpx;min-width: 245rpx; height: 100%; display: flex; border-radius: 10rpx; padding: 15rpx; display: flex; flex-direction: column; background-color: white; align-items: center;">
+    <swiper style="width: 100%; height: 168rpx;"
+      indicator-color="rgba(255,255 ,255, .6)"
+      indicator-active-color="var(--theme-color)"
+      indicator-dots="{{containMultipleImages}}">
+      <swiper-item wx:for="{{imageList}}"
+        wx:key="index"
+        style="display: flex; justify-content: center;">
+        <image src="{{item}}"
+          style="height: 168rpx;width: 100%; align-self: center;"
+          mode="heightFix"
+          data-index="{{index}}"
+          bind:tap="previewImage"></image>
+      </swiper-item>
+    </swiper>
+    <view style="margin-top: 15rpx; display: flex;flex-direction: column;  justify-content: center; align-items: center;">
+      <view>
+        <price wx:if="{{price }}"
+          class="spec-for-price"
+          symbol-class="spec-for-symbol"
+          symbol="{{currency}}"
+          price="{{price * 100}}" />
+        <text wx:if="{{unit && unit.length > 0}}"
+          style="font-size: 10rpx;color: #C5C8CB;"> {{unit}}</text>
+
+      </view>
+      <text style="font-size: 8rpx; font-weight: 400; color: #C5C8CB;">建议零售价</text>
+    </view>
+    <text style="font-weight: 700;font-size: 17rpx;color: #1C2023; margin-top: 15rpx;"> {{title}}</text>
+    <view style="display: grid; margin-top: 5rpx; grid-template-columns: repeat(3, 1fr);">
+      <tag wx:for="{{tags}}"
+        wx:key="index"
+        text="{{item}}"></tag>
+    </view>
+  </view>
+
+  <!-- Right -->
+  <view style="margin-left:10rpx; padding: 15rpx; background-color: white; border-radius: 10rpx; display: flex; flex-direction: column;">
+    <view style="height: 24rpx; width: 100%; display: flex; align-items: center;">
+      <image style="height: 15rpx; width: 15rpx; margin-right: 10rpx;"
+        src="/resources/bulletpoint.png"></image>
+      <text style="font-size: 15rpx; font-weight: 700;">产品详情</text>
+    </view>
+    <view class="grid-container">
+
+      <block wx:for="{{instruction.data}}">
+        <view class="grid-cell grid-cell-title">
+          <text style="font-weight: Bold;font-size: 12rpx; color: #1C2023;">{{item.title}}</text>
+        </view>
+        <view class="grid-cell">
+          <text style="font-size: 12rpx;color: #1C2023;">{{item.content}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+</view>

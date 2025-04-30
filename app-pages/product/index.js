@@ -21,15 +21,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-    const menuButton = wx.getMenuButtonBoundingClientRect();
-    this.setData({
-      menuBarTop: menuButton.top,
-      menuBarHeight: menuButton.height,
-      stickyProps: { offsetTop: menuButton.top + menuButton.height },
-    });
-    this.init();
-  },
+  onLoad(options) {},
 
   async init() {
     this.setData({ pageLoading: true });
@@ -116,7 +108,15 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {},
+  onReady() {
+    const menuButton = wx.getMenuButtonBoundingClientRect();
+    this.setData({
+      menuBarTop: menuButton.top,
+      menuBarHeight: menuButton.height,
+      stickyProps: { offsetTop: menuButton.top + menuButton.height },
+    });
+    this.init();
+  },
 
   /**
    * 生命周期函数--监听页面显示

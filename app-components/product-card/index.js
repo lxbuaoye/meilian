@@ -48,7 +48,7 @@ Component({
   methods: {
     clickHandle() {
       wx.navigateTo({
-        url: `/pages/product-detail/index?productId=${this.data.productId}`,
+        url: `/app-pages/product-detail/index?productId=${this.data.productId}`,
       });
     },
   },

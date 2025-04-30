@@ -8,8 +8,9 @@ Component({
     shape: 'normal',
     isMp: true,
     /* #elif IOS || ANDROID */
-    size: 24,
+    size: 48,
     shape: 'round',
+    isMp: false,
     /* #endif */
   },
 
