@@ -3,15 +3,15 @@ Component({
   data: {
     active: 0,
     list: TabMenu,
-    /* #if MP */
-    size: 48,
+    // #if MP
+    size: 24,
     shape: 'normal',
     isMp: true,
-    /* #elif IOS || ANDROID */
+    // #elif IOS || ANDROID
     size: 48,
     shape: 'round',
     isMp: false,
-    /* #endif */
+    // #endif
   },
 
   methods: {
