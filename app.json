@@ -17,7 +17,9 @@
     "app-pages/showcase/index",
     "app-pages/product/index",
     "pages/wuxing/index",
-    "app-pages/product-detail/index"
+    "app-pages/product-detail/index",
+    "pages/ai/login/index",
+    "pages/ai/profile/index"
   ],
   "subPackages": [
     {
