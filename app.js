@@ -1,4 +1,5 @@
 import updateManager from './common/updateManager';
+import { fetchUserInfo } from './services/user/service';
 
 App({
   globalData: {
@@ -7,6 +8,7 @@ App({
     // #elif IOS || ANDROID
     CLOUD_STROAGE_PATH: 'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la', // 多端模式不支持cloudId
     // #endif
+    userInfo: wx.getStorageSync('userInfo'),
   },
   onLaunch: function () {
     // #if MP
@@ -26,5 +28,9 @@ App({
   },
   onShow: function () {
     updateManager();
+    var userInfo = wx.getStorageSync('userInfo');
+    if (userInfo && userInfo.phoneNumber) {
+      fetchUserInfo(userInfo.phoneNumber);
+    }
   },
 });

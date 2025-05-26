@@ -9,7 +9,7 @@ page {
   flex-direction: row;
   align-items: center;
   border-radius: 10px; /* 添加 border-radius 来设置圆角 */
-  height: 180rpx;
+  height: 170rpx;
   margin-top: 24rpx;
   overflow: hidden;
 }
