@@ -24,16 +24,28 @@ exports.main = async (event, context) => {
     };
   }
 
+  const userInfo = result.data[0];
+
   if (event.type === 'CONSUME') {
     await db
       .collection('user')
-      .doc(result.data[0]._id)
+      .doc(userInfo._id)
       .update({
         data: {
           // 表示指示数据库将字段自减去 10
-          credits: Math.max(result.data[0].credits - event.credits, 0),
+          credits: Math.max(userInfo.credits - event.credits, 0),
         },
       });
+
+    await db.collection('transaction').add({
+      data: {
+        user: userInfo.phoneNumber,
+        time: db.serverDate(),
+        balanceAfter: Math.max(userInfo.credits - event.credits, 0),
+        type: 'CONSUME',
+        credits: event.credits,
+      },
+    });
   }
   if (event.type === 'REDEEM') {
     couponResult = await db
@@ -71,6 +83,16 @@ exports.main = async (event, context) => {
           credits: result.data[0].credits + couponResult.data[0].credits,
         },
       });
+
+    await db.collection('transaction').add({
+      data: {
+        user: userInfo.phoneNumber,
+        time: db.serverDate(),
+        balanceAfter: result.data[0].credits + couponResult.data[0].credits,
+        type: 'REDEEM',
+        credits: couponResult.data[0].credits,
+      },
+    });
   }
 
   // Get updated Data.

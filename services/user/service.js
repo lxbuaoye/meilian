@@ -1,6 +1,5 @@
 export function getLocalUserInfo() {
-  const app = getApp();
-  return app.globalData.userInfo;
+  return getApp().globalData.userInfo;
 }
 
 export async function clearUserInfo() {
@@ -8,13 +7,12 @@ export async function clearUserInfo() {
   wx.removeStorageSync('userInfo');
 }
 
-export async function syncUserInfo(userInfo) {
+export async function saveUserInfoLocally(userInfo) {
   if (!userInfo || !userInfo.phoneNumber) {
     return;
   }
   wx.setStorageSync('userInfo', userInfo);
-  const app = getApp();
-  app.globalData.userInfo = userInfo;
+  getApp().globalData.userInfo = userInfo;
   return userInfo;
 }
 
@@ -34,7 +32,7 @@ export async function fetchUserInfo(phoneNumber) {
         const userInfo = res.result;
         // Make sure data is valid
         if (userInfo.phoneNumber) {
-          syncUserInfo(userInfo);
+          saveUserInfoLocally(userInfo);
           resolve(userInfo);
         }
       })
