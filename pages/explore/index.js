@@ -8,6 +8,13 @@ Page({
   data: {
     list: [
       {
+        name: 'DIGITAL AI',
+        description: '运用数码彩AI的先进技术，您可以轻松地将草图、施工图或现有建筑转化为多种您喜爱的风格效果图。',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/333.jpg`,
+        // disabled: accountInfo.miniProgram.envVersion === 'release',
+        dest: '/pages/ai/index',
+      },
+      {
         name: '石漆配色',
         description: '石漆系列电子色卡，配用多个建筑模型，方便随时查看和搭配',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/444.png`,
@@ -32,13 +39,6 @@ Page({
         description: '根据你的五行, 判断出最适合你的颜色',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/555.png`,
         dest: '/pages/wuxing/index',
-      },
-      {
-        name: 'DIGITAL AI',
-        description: '运用数码彩AI的先进技术，您可以轻松地将草图、施工图或现有建筑转化为多种您喜爱的风格效果图。',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/333.jpg`,
-        disabled: accountInfo.miniProgram.envVersion === 'release', // TODO revert this
-        dest: '/pages/ai/index',
       },
     ],
   },

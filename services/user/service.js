@@ -1,3 +1,5 @@
+const MAX_IMAGE_COUNT = 5;
+
 export function getLocalUserInfo() {
   return getApp().globalData.userInfo;
 }
@@ -14,6 +16,35 @@ export async function saveUserInfoLocally(userInfo) {
   wx.setStorageSync('userInfo', userInfo);
   getApp().globalData.userInfo = userInfo;
   return userInfo;
+}
+
+export async function saveUserHistoryLocally(imageUrl, prompt) {
+  try {
+    const history = wx.getStorageSync('userHistory') || [];
+    history.push({
+      imageUrl: imageUrl,
+      time: new Date().getTime(),
+      prompt: prompt,
+    });
+    if (history.length > MAX_IMAGE_COUNT) {
+      const firstElement = history.shift();
+      if (firstElement && firstElement.imageUrl) {
+        wx.getFileSystemManager().unlink({
+          filePath: firstElement.imageUrl,
+          success(res) {
+            console.log('Successful removed local image');
+          },
+          fail(res) {
+            console.error(res);
+            console.log('Fail to remove local image');
+          },
+        });
+      }
+    }
+    wx.setStorageSync('userHistory', history);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export async function fetchUserInfo(phoneNumber) {

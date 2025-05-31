@@ -8,6 +8,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/ai/privacy/index",
+          "pathName": "pages/ai/privacy/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/ai/profile/index",
           "pathName": "pages/ai/profile/index",
           "query": "",
