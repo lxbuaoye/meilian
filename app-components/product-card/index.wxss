@@ -131,7 +131,7 @@
 }
 
 .spec-for-symbol {
-  font-size: 24rpx;
+  font-size: 12rpx;
 }
 
 .one-line {

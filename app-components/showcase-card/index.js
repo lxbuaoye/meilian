@@ -39,7 +39,7 @@ Component({
   methods: {
     navigateToDetail() {
       wx.navigateTo({
-        url: `/pages/showcase-detail/index?id=${this.data.showcaseId}`,
+        url: `/app-pages/showcase-detail/index?id=${this.data.showcaseId}`,
       });
     },
   },

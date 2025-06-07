@@ -19,7 +19,8 @@
     "pages/wuxing/index",
     "app-pages/product-detail/index",
     "pages/ai/profile/index",
-    "pages/ai/privacy/index"
+    "pages/ai/privacy/index",
+    "app-pages/showcase-detail/index"
   ],
   "subPackages": [
     {

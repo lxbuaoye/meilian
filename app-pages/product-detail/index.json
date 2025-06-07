@@ -8,6 +8,7 @@
     "tag": "/app-components/tag/index",
     "price": "/app-components/price/index"
   },
+  "pageOrientation": "landscape",
   "navigationBarTitleText": "产品",
   "navigationStyle": "custom"
 }

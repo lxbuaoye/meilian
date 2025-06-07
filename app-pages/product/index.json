@@ -6,6 +6,7 @@
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
     "header": "/app-components/header/index"
   },
+  "pageOrientation": "landscape",
   "navigationBarTitleText": "产品",
   "navigationStyle": "custom"
 }

@@ -8,6 +8,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "app-pages/showcase-detail/index",
+          "pathName": "app-pages/showcase-detail/index",
+          "query": "id=9fc3269d672b0ae40004446627bb1072",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/ai/privacy/index",
           "pathName": "pages/ai/privacy/index",
           "query": "",
@@ -252,12 +259,6 @@
           "name": "示例页-申请售后",
           "pathName": "pages/order/apply-service/index",
           "query": "orderNo=132222623132329291&skuId=135691625",
-          "scene": null
-        },
-        {
-          "name": "示例页-发票详情",
-          "pathName": "pages/order/invoice/index",
-          "query": "orderNo=132381532610540875",
           "scene": null
         }
       ]
