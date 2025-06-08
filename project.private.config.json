@@ -8,6 +8,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "app-pages/home/home",
+          "pathName": "app-pages/home/home",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "app-pages/showcase-detail/index",
           "pathName": "app-pages/showcase-detail/index",
           "query": "id=9fc3269d672b0ae40004446627bb1072",

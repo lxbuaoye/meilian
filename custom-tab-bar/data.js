@@ -29,7 +29,7 @@ export default [
   {
     icon: 'home',
     text: '首页',
-    url: 'app-pages/home/index',
+    url: 'app-pages/home/home',
   },
   {
     icon: 'menu',

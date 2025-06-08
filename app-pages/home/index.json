@@ -1,9 +1,0 @@
-{
-  "usingComponents": {},
-  "navigationStyle": "custom",
-  "onReachBottomDistance": 10,
-  "backgroundTextStyle": "light",
-  "enablePullDownRefresh": true,
-  "pageOrientation": "landscape",
-  "navigationBarTitleText": "APP - 数码彩"
-}

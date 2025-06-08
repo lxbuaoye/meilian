@@ -13,7 +13,7 @@
     "pages/ai/index",
     "pages/ar/index",
     "pages/explore/index",
-    "app-pages/home/index",
+    "app-pages/home/home",
     "app-pages/showcase/index",
     "app-pages/product/index",
     "pages/wuxing/index",
@@ -72,7 +72,7 @@
       "borderStyle": "black",
       "list": [
         {
-          "pagePath": "app-pages/home/index",
+          "pagePath": "app-pages/home/home",
           "text": "首页"
         },
         {
@@ -95,7 +95,7 @@
       "borderStyle": "black",
       "list": [
         {
-          "pagePath": "app-pages/home/index",
+          "pagePath": "app-pages/home/home",
           "text": "首页"
         },
         {
