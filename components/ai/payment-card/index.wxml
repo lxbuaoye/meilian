@@ -1,0 +1,16 @@
+<view class="container {{active ?  'active' : ''}}">
+  <view class="content-container">
+    <text class="title">{{title}}</text>
+    <view>
+      <text class="symbol">¥</text>
+      <text class="price">{{price}}</text>
+    </view>
+    <view>
+      <text class="symbol-for-original-price">¥</text>
+      <text class="original-price">{{originalPrice}}</text>
+    </view>
+  </view>
+  <view class="description-container {{active ?  'active' : ''}}">
+    <text class="description">{{description}}</text>
+  </view>
+</view>

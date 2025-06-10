@@ -20,7 +20,8 @@
     "app-pages/product-detail/index",
     "pages/ai/profile/index",
     "pages/ai/privacy/index",
-    "app-pages/showcase-detail/index"
+    "app-pages/showcase-detail/index",
+    "pages/ai/payment/index"
   ],
   "subPackages": [
     {
