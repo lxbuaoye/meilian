@@ -40,6 +40,7 @@ exports.main = async (event, context) => {
     await db.collection('transaction').add({
       data: {
         user: userInfo.phoneNumber,
+        openid: wxContext.OPENID,
         time: db.serverDate(),
         balanceAfter: Math.max(userInfo.credits - event.credits, 0),
         type: 'CONSUME',
@@ -87,10 +88,33 @@ exports.main = async (event, context) => {
     await db.collection('transaction').add({
       data: {
         user: userInfo.phoneNumber,
+        openid: wxContext.OPENID,
         time: db.serverDate(),
         balanceAfter: result.data[0].credits + couponResult.data[0].credits,
         type: 'REDEEM',
         credits: couponResult.data[0].credits,
+      },
+    });
+  }
+  if (event.type === 'DEPOSIT') {
+    await db
+      .collection('user')
+      .doc(userInfo._id)
+      .update({
+        data: {
+          credits: userInfo.credits + event.credits,
+        },
+      });
+
+    await db.collection('transaction').add({
+      data: {
+        user: userInfo.phoneNumber,
+        openid: wxContext.OPENID,
+        time: db.serverDate(),
+        planId: event.planId,
+        balanceAfter: result.data[0].credits + event.credits,
+        type: 'DEPOSIT',
+        credits: event.credits,
       },
     });
   }

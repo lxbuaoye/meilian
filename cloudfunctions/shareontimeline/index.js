@@ -57,6 +57,7 @@ exports.main = async (event, context) => {
     data: {
       user: userInfo.phoneNumber,
       time: db.serverDate(),
+      openid: wxContext.OPENID,
       balanceAfter: userInfo.credits + SHARE_CREDITS,
       type: 'SHARE_ON_TIMELINE',
       credits: SHARE_CREDITS,

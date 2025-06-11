@@ -21,7 +21,8 @@
     "pages/ai/profile/index",
     "pages/ai/privacy/index",
     "app-pages/showcase-detail/index",
-    "pages/ai/payment/index"
+    "pages/ai/payment/index",
+    "pages/ai/payment/need-to-know/index"
   ],
   "subPackages": [
     {

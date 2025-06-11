@@ -1,11 +1,15 @@
+<view style="position: absolute; right: 0; top: -20rpx; z-index: 10; width: 113rpx;"
+  wx:if="{{isPromotion}}">
+  <view style="height: 40rpx;background-image: linear-gradient(270deg, #FDCDBC 3%, #F67852 100%);border-radius: 25rpx 25rpx 0 20rpx; justify-content: center; display: flex; align-items: center;"> <text style="font-weight: 700;font-size: 24rpx;color: #FFFFFF;">限时促销</text> </view>
+</view>
 <view class="container {{active ?  'active' : ''}}">
   <view class="content-container">
-    <text class="title">{{title}}</text>
+    <text class="title">{{name}}</text>
     <view>
       <text class="symbol">¥</text>
       <text class="price">{{price}}</text>
     </view>
-    <view>
+    <view wx:if="{{originalPrice}}">
       <text class="symbol-for-original-price">¥</text>
       <text class="original-price">{{originalPrice}}</text>
     </view>
