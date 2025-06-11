@@ -33,14 +33,14 @@ exports.main = async (event, context) => {
         name: name,
         openid: wxContext.OPENID,
         phoneNumber: event.phoneNumber,
-        credits: 50,
+        credits: 30,
       },
     });
     return {
       name: name,
       openid: wxContext.OPENID,
       phoneNumber: event.phoneNumber,
-      credits: 50,
+      credits: 30,
     };
   }
   return result.data[0];
