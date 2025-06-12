@@ -18,13 +18,14 @@ export async function saveUserInfoLocally(userInfo) {
   return userInfo;
 }
 
-export async function saveUserHistoryLocally(imageUrl, prompt) {
+export async function saveUserHistoryLocally(imageUrl, prompt, selectedOptions = []) {
   try {
     const history = wx.getStorageSync('userHistory') || [];
     history.push({
       imageUrl: imageUrl,
       time: new Date().getTime(),
       prompt: prompt,
+      selectedOptions: selectedOptions,
     });
     if (history.length > MAX_IMAGE_COUNT) {
       const firstElement = history.shift();
