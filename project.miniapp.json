@@ -1,7 +1,7 @@
 {
   "miniVersion": "v2",
-  "name": "%name%",
-  "version": "0.0.1",
+  "name": "数码彩",
+  "version": "0.1.0",
   "versionCode": 100,
   "i18nFilePath": "i18n",
   "mini-android": {
@@ -23,11 +23,11 @@
       "xxxhdpi": "resources/icon/192.png"
     },
     "splashscreen": {
-      "hdpi": "",
-      "xhdpi": "",
-      "xxhdpi": ""
+      "hdpi": "resources/launcher/1080·480.png",
+      "xhdpi": "resources/launcher/1620·720.png",
+      "xxhdpi": "resources/launcher/2430·1080.png"
     },
-    "enableVConsole": "open",
+    "enableVConsole": "undefined",
     "privacy": {
       "enable": true
     },

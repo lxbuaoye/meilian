@@ -51,7 +51,8 @@
     <view wx:if="{{!loadingReport}}"
       style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 12rpx;">
 
-      <view style="height: 244rpx; margin: 0 12rpx; width: 100%; background-color: {{result.primaryColor? 'transparent' : 'rgba(0,0,0,0.1)'}}; position: relative; border-radius: 24rpx; overflow: hidden;">
+      <view style="height: 244rpx; margin: 0 12rpx; width: 100%; background-color: rgba(0,0,0,0.1); position: relative; border-radius: 24rpx; overflow: hidden;"
+        wx:if="{{!result.primaryColor}}">
         <image src="{{imageSrc}}"
           style="height: 244rpx; width: 100%;"
           bind:tap="openViewer"
@@ -90,19 +91,25 @@
         style="display: flex; width: 100%; flex-direction: column; margin-top: 12rpx;">
       </view>
       <view wx:if="{{result.primaryColor}}">
-        <view style="background-color: white; margin-top: 12rpx;">
-          <subheader name="你今天的主题色"></subheader>
-          <view style="display: grid; grid-template-columns: repeat(1, 1fr); width: 100%; gap: 20rpx; margin-top: 5rpx;">
-            <view class="color-tile-container">
-              <view class="color-tile"
-                style="background-color: {{result.primaryColor}};"></view>
-              <text class="color-text">{{result.primaryColor}}</text>
-            </view>
-            <!-- <view class="color-tile-container">
+        <view style="display: flex; ">
+          <image src="{{imageSrc}}"
+            bind:tap="openViewer"
+            style="height: 100rpx; max-width: 50%; margin-right: 20rpx; border-radius: 10rpx; align-self: center;">
+          </image>
+          <view style="background-color: white; ">
+            <subheader name="你今天的主题色"></subheader>
+            <view style="width: 100%;margin-top: 5rpx;">
+              <view class="color-tile-container">
+                <view class="color-tile"
+                  style="background-color: {{result.primaryColor}};"></view>
+                <text class="color-text">{{result.primaryColor}}</text>
+              </view>
+              <!-- <view class="color-tile-container">
           <view class="color-tile"
             style="background-color: {{result.secondaryColor}};"></view>
           <text class="color-text">{{result.secondaryColor}}</text>
         </view> -->
+            </view>
           </view>
         </view>
         <view style="margin-top: 12rpx; background-color: white; ">

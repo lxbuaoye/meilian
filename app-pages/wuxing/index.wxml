@@ -87,19 +87,18 @@
         <view class="question-icon">Q</view>
         <text class="question-text">业主的出生年月日时</text>
       </view>
-
-      <t-date-time-picker title="选择日期和时间"
-        t-class="date-time-picker"
-        usePopup="{{false}}"
-        visible="{{true}}"
-        header="{{false}}"
-        mode="hour"
-        defaultValue="{{defaultDate}}"
-        start="{{startDate}}"
-        end="{{endDate}}"
-        bindpick="onDateChange"
-        format="YYYY-MM-DD HH:mm:ss" />
-
+      <view class="date-time-picker">
+        <t-date-time-picker title="选择日期和时间"
+          usePopup="{{false}}"
+          visible="{{true}}"
+          header="{{false}}"
+          mode="hour"
+          defaultValue="{{defaultDate}}"
+          start="{{startDate}}"
+          end="{{endDate}}"
+          bindpick="onDateChange"
+          format="YYYY-MM-DD HH:mm:ss" />
+      </view>
       <view style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; ">
         <view class="button1"
           hover-class="action-tile-hover "

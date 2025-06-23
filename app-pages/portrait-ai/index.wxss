@@ -42,11 +42,11 @@ page {
   background-color: #fff; /* 内容背景为白色 */
   border-radius: 10rpx;
   padding: 0 12rpx; /* 容器左右外边距，形成居中效果 */
-  padding-bottom: 20rpx; /* 底部填充，避免内容紧贴边框 */
+  padding-bottom: 10rpx; /* 底部填充，避免内容紧贴边框 */
 }
 
 .section-heading {
-  font-size: 16rpx;
+  font-size: 14rpx;
   font-weight: bold;
   color: #d94e50;
   margin-top: 12rpx;
@@ -56,14 +56,14 @@ page {
 }
 
 .list-item {
-  font-size: 14rpx;
+  font-size: 12rpx;
   color: #333;
   line-height: 1.6;
   font-weight: bold;
 }
 
 .list-sub-item {
-  font-size: 12rpx;
+  font-size: 10rpx;
   color: #666;
   margin-left: 15rpx; /* 缩进 */
   margin-bottom: 5rpx;
@@ -71,7 +71,7 @@ page {
 }
 
 .list-sub-item-tip {
-  font-size: 12rpx;
+  font-size: 10rpx;
   color: #a0a0a0; /* 提示文字颜色 */
   line-height: 1.4;
   margin-left: 30rpx;
@@ -80,10 +80,10 @@ page {
 }
 
 .footer-signature {
-  font-size: 13rpx;
+  font-size: 11rpx;
   color: #999;
   text-align: center;
-  margin-top: 10rpx;
+  margin-top: 5rpx;
   font-style: italic;
   display: block;
 }
@@ -120,9 +120,9 @@ page {
 }
 
 .color-tile {
-  height: 40rpx;
-  width: 100%;
-  border-radius: 10px;
+  height: 46rpx;
+  width: 130rpx;
+  border-radius: 6rpx;
   margin-bottom: 10rpx;
 }
 
@@ -142,9 +142,9 @@ page {
 .cute-button {
   width: 100%;
   margin-bottom: 12rpx;
-  height: 48rpx; /* 稍微小一点，更显可爱 */
+  height: 38rpx; /* 稍微小一点，更显可爱 */
   border-radius: 24rpx; /* 圆角更大，更可爱 */
-  font-size: 15rpx; /* 字体适中 */
+  font-size: 12rpx; /* 字体适中 */
   font-weight: bold;
   color: var(--text-button); /* 通常为白色 */
   display: flex;
@@ -165,19 +165,6 @@ page {
   font-size: 19rpx; /* 图标大小 */
   line-height: 1;
   vertical-align: middle;
-}
-
-/* 按钮的专属颜色和渐变 */
-.share-to-friend-btn {
-  /* 可爱粉色系渐变，适合分享给朋友的温馨感 */
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  box-shadow: 0 6rpx 15rpx rgba(255, 154, 158, 0.3);
-}
-
-.share-to-timeline-btn {
-  /* 活泼明亮的橘黄到橙色渐变，适合朋友圈的活力 */
-  background: linear-gradient(135deg, #ffc371, #ff5f6d);
-  box-shadow: 0 6rpx 15rpx rgba(255, 195, 113, 0.3);
 }
 
 .retry-button {
