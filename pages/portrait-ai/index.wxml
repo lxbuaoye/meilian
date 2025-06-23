@@ -116,19 +116,12 @@
         <text>发送给朋友</text>
         <text class="button-icon">💌</text>
       </button>
-      <!-- 
+
       <button class="cute-button share-to-timeline-btn"
-        bindtap="generateSharePoster">
+        bindtap="showShareGuideOverlay">
         <text class="button-icon">🎉</text>
         <text>分享到朋友圈</text>
         <text class="button-icon">🎉</text>
-      </button> -->
-
-      <button class="cute-button retry-button"
-        bindtap="resetGame">
-        <text class="button-icon">✨</text>
-        <text>再玩一次</text>
-        <text class="button-icon">✨</text>
       </button>
     </view>
 
@@ -146,6 +139,18 @@
         style="height: 490rpx; width: 100%;"
         mode="aspectFit"></image>
     </view>
+  </view>
+</view>
+
+<view class="share-guide-overlay"
+  wx:if="{{ showGuideOverlay }}"
+  bindtap="hideShareGuideOverlay"
+  catchtouchmove="preventScroll">
+  <view class="guide-content">
+    <t-icon name="arrow-up"
+      class="arrow-icon"
+      size="120rpx" />
+    <text class="guide-text">点击右上角“...”分享朋友圈</text>
   </view>
 </view>
 

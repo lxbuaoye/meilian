@@ -188,7 +188,7 @@ Page({
     this.setData({
       result: wuxing,
       recommendation: recommendationMap.get(generatingWuxing),
-      recommendationText: `从你的命盘来看，主要的五行属性是${wuxing}。所以${generatingWuxing}元素对你的整体运势有所助益。据此，我们为你整理了以下推荐：`,
+      recommendationText: `从你的命盘来看，主要的五行属性是「 ${wuxing} 」。所以「 ${generatingWuxing} 」元素对你的整体运势有所助益。据此，我们为你整理了以下推荐：`,
     });
     this.setData({ showResult: true, isLoading: true });
     setTimeout(() => {

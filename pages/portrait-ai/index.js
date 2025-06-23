@@ -20,6 +20,7 @@ Page({
     imageSrc: '',
     loadingQRCode: true,
     qrcodeSrc: '',
+    arrowSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/arrow.png`,
     robotSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/robot.png`,
     result: {},
   },
@@ -297,6 +298,20 @@ Page({
    */
   onReachBottom() {},
 
+  // 显示分享引导 Overlay
+  showShareGuideOverlay() {
+    this.setData({
+      showGuideOverlay: true,
+    });
+  },
+
+  // 隐藏分享引导 Overlay（点击任意处隐藏）
+  hideShareGuideOverlay() {
+    this.setData({
+      showGuideOverlay: false,
+    });
+  },
+
   // 用户点击分享按钮时触发（open-type="share"）
   onShareAppMessage(res) {
     if (res.from === 'button') {
@@ -304,7 +319,7 @@ Page({
       console.log(res.target);
     }
     return {
-      title: '我在数码彩20周年庆解锁了专属色彩寄语！快来测测你的！',
+      title: '我在数码彩20周年庆解锁了专属色彩寄语！快来看看！',
       path: this.data.result ? `/pages/portrait-ai/index?reportId=${this.data.id}` : `/pages/portrait-ai/index`, // 分享到小程序的哪个页面
       imageUrl: this.data.analyzedImageSrc, // 可以使用分析后的图片作为分享缩略图
     };
@@ -313,7 +328,7 @@ Page({
     // 朋友圈分享
     return {
       query: this.data.result ? `reportId=${this.data.id}` : '',
-      title: '我在数码彩20周年庆解锁了专属色彩寄语！快来测测你的！',
+      title: '我在数码彩20周年庆解锁了专属色彩寄语！快来看看！',
     };
   },
 });

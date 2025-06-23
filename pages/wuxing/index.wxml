@@ -161,7 +161,7 @@
     style="height: 150rpx; margin: 54rpx; display: flex;  align-items: center;">
     <image src="{{robotSrc}}"
       style="width: 150rpx; height: 150rpx; min-width: 150rpx;"></image>
-    <text style="margin-left: 30rpx;color: #1c2023;font-size: 28rpx;">{{recommendationText}}</text>
+    <text style="margin-left: 30rpx;color: #1c2023;font-size: 34rpx;">{{recommendationText}}</text>
   </view>
   <view wx:if="{{!isLoading}}"
     style="margin: 20rpx 24rpx; background-color:white; padding: 30rpx; display: flex; flex-direction: column; margin-bottom: 0; border-radius: 20rpx;">
@@ -171,13 +171,14 @@
       <text style="font-size: 34rpx; font-weight: 700;">推荐参考色</text>
     </view>
     <view wx:for="{{recommendation.samples}}"
+      wx:key="index"
       class="recommendation-container">
       <image class="recommendation-image"
         src="{{item.imageSrc}}">
       </image>
       <view style="display: flex; flex-direction: column;margin: 20rpx; justify-content: center;">
-        <text style="margin-bottom: 35rpx;font-size: 32rpx;color: #1C2023;">{{item.name}}</text>
-        <view style="margin-bottom: 20rpx; font-size: 24rpx;color: #1C2023;">
+        <text style="margin-bottom: 35rpx;font-size: 42rpx;color: #1C2023;">{{item.name}}</text>
+        <view style="margin-bottom: 20rpx; font-size: 32rpx;color: #1C2023;">
           <text>编号: </text><text style="font-weight: 700;">{{item.caseNumber}}</text>
         </view>
       </view>
