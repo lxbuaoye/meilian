@@ -1,0 +1,50 @@
+<view class="header">{{header}}</view>
+<t-radio-group value="{{value}}"
+  bind:change="onChange">
+  <scroll-view scroll-x="true"
+    enable-flex
+    enhanced
+    show-scrollbar="{{false}}"
+    class="scroll-view">
+    <view wx:for="{{list}}"
+      wx:key="index"
+      class="card-container">
+      <view class="card {{value == index ? 'card--active' : ''}}"
+        style="padding: {{outterPadding}}rpx;">
+        <t-icon wx:if="{{value == index}}"
+          name="check"
+          class="card__icon" />
+        <t-radio value="{{index}}"
+          class="radio {{item.moreColorOption ? 'card-more-option' : ''}}"
+          icon="none"
+          borderless>
+          <!-- More color option-->
+          <t-icon class="center"
+            style="width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; "
+            color="rgb(240, 200, 113)"
+            size="80rpx"
+            name="arrow-right"
+            wx:if="{{item.moreColorOption}}"></t-icon>
+          <!-- Normal tile -->
+          <view wx:if="{{!item.moreColorOption}}"
+            style="border-radius: 20rpx; width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; background-color: {{item.color}}; padding: {{innerPadding}}rpx">
+            <image wx:if="{{item.imageSrc}}"
+              src="{{item.imageSrc}}"
+              style="width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; display: flex; "></image>
+          </view>
+        </t-radio>
+      </view>
+      <view class="name-container">
+        <text style="font-size: 24rpx;color: {{item.moreColorOption ? 'rgb(240, 200, 113)': '#1C2023'}};">{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</t-radio-group>
+
+<t-popup visible="{{colorPickerVisible}}"
+  bind:visible-change="onColorPickerVisibleChange"
+  prevent-scroll-through="{{false}}"
+  placement="{{'bottom'}}"
+  close-btn="关闭">
+  <color-picker bind:selectedcolor="onSelectedColor"></color-picker>
+</t-popup>

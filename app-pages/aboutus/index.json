@@ -1,0 +1,15 @@
+{
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "header": "/app-components/header/index",
+    "subheader": "/app-components/subheader/index",
+    "t-swiper": "tdesign-miniprogram/swiper/swiper",
+    "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
+    "number-banner": "../../app-components/number-banner/index"
+  },
+  "pageOrientation": "landscape",
+  "navigationBarTitleText": "品牌介绍",
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#f6f6f6"
+}

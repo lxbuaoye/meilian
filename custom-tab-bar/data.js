@@ -41,6 +41,16 @@ export default [
     text: '案例',
     url: 'app-pages/showcase/index',
   },
+  {
+    icon: 'city-1',
+    text: '公司介绍',
+    url: 'app-pages/aboutus/index',
+  },
+  {
+    icon: 'radar',
+    text: '探索',
+    url: 'app-pages/explore/index',
+  },
   // #endif
 
   // {

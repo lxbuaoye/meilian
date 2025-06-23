@@ -1,4 +1,4 @@
-<header></header>
+<header enable-go-back="{{1}}"></header>
 <view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;"
   wx:if="{{pageLoading}}">
   <t-loading theme="circular"

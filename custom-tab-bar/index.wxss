@@ -4,6 +4,21 @@
   align-items: center;
 }
 
+.tab-bar-container {
+  display: flex; /* 启用 flex 布局 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中，如果需要 */
+
+  /* 如果 t-tab-bar 位于屏幕底部且宽度不定，需要这样设置父容器 */
+  position: fixed; /* 固定在屏幕某个位置 */
+  bottom: 0; /* 距离底部0 */
+  left: 0; /* 距离左边0 */
+  right: 0; /* 距离右边0 */
+  width: 100%; /* 占据整个宽度 */
+  /* height: 80px; */ /* 如果需要固定高度 */
+  /* background-color: #f0f0f0; */ /* 调试背景色 */
+}
+
 .custom-tab-bar-wrapper .text {
   /* #if MP */
   font-size: 20rpx;
@@ -15,7 +30,12 @@
 .tab-bar {
   /* #if IOS || ANDROID*/
   margin-bottom: 15rpx;
-  --td-tab-bar-height: 30rpx;
+  --td-tab-bar-height: 16rpx;
+  width: 500rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin-left: auto;
+  margin-right: auto;
+  --td-tab-bar-bg-color: transparent;
   /* #endif */
   --td-tab-bar-active-color: #f8c301;
 }

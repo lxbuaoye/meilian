@@ -2,7 +2,7 @@
   <!-- Navigation bar-->
   <header></header>
   <!-- Body -->
-  <view style="text-align: center; color: #b9b9b9; margin-top: 20rpx;"
+  <view style="text-align: center; color: #b9b9b9; margin-top: 12rpx;"
     wx:if="{{pageLoading}}">
     <t-loading theme="circular"
       size="10rpx"
@@ -25,7 +25,7 @@
       label="{{item}}"
       value="{{index}}">
       <!-- Add subcategory -->
-      <view style="margin: 15rpx 10rpx 0 10rpx; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12rpx;">
+      <view style="margin: 15rpx 10rpx 0 10rpx; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12rpx;">
         <showcase-card wx:for="{{showcaseMap[item]}}"
           wx:key="index"
           title="{{item.title}}"

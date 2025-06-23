@@ -11,7 +11,7 @@ page {
 .home-page-container {
   height: 100%;
   display: flex;
-  margin: 15rpx;
+  margin: 12rpx;
 }
 
 .home-page-header .swiper-wrap {

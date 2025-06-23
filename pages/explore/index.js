@@ -14,6 +14,12 @@ Page({
         // disabled: accountInfo.miniProgram.envVersion === 'release',
         dest: '/pages/ai/index',
       },
+      // {
+      //   name: '数码彩·印象',
+      //   description: '20周年限时活动',
+      //   imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/666.png`,
+      //   dest: '/pages/portrait-ai/index',
+      // },
       {
         name: '石漆配色',
         description: '石漆系列电子色卡，配用多个建筑模型，方便随时查看和搭配',

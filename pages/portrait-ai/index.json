@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "数码彩·印象",
+  "usingComponents": {
+    "t-message": "tdesign-miniprogram/message/message",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-fab": "tdesign-miniprogram/fab/fab",
+    "t-loading": "tdesign-miniprogram/loading/loading"
+  }
+}

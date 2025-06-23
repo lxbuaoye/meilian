@@ -1,5 +1,5 @@
 <!-- Navigation bar-->
-<header></header>
+<header enable-go-back="{{1}}"></header>
 <view style="height: 100%; display: flex; margin: 15rpx;">
   <!-- Left -->
   <view style="width: 245rpx;min-width: 245rpx; height: 100%; display: flex; border-radius: 10rpx; padding: 15rpx; display: flex; flex-direction: column; background-color: white; align-items: center;">

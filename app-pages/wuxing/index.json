@@ -1,0 +1,17 @@
+{
+  "usingComponents": {
+    "header": "/app-components/header/index",
+    "t-steps": "tdesign-miniprogram/steps/steps",
+    "t-step-item": "tdesign-miniprogram/step-item/step-item",
+    "subheader": "/app-components/subheader/index",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-stepper": "tdesign-miniprogram/stepper/stepper",
+    "t-date-time-picker": "tdesign-miniprogram/date-time-picker/date-time-picker",
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group"
+  },
+  "pageOrientation": "landscape",
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "五行"
+}

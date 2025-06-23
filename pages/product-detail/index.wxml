@@ -40,8 +40,9 @@
       src="/resources/bulletpoint.png"></image>
     <text style="font-size: 34rpx; font-weight: 700;">产品详情</text>
   </view>
-  <view style="display: flex; margin: 30rpx 0 0 0; flex-direction: column;"
-    wx:for="{{instruction.data}}">
+<view style="display: flex; margin: 30rpx 0 0 0; flex-direction: column;"
+    wx:for="{{instruction.data}}"
+    wx:key="index">
     <text style="font-weight: Bold;font-size: 32rpx;color: #f8c301;">{{item.title}}</text>
     <text style="margin:30rpx 0; font-size: 28rpx;color: #1C2023;">{{item.content}}</text>
     <t-divider wx:if="{{index !== (instruction.data.length-1)}}"

@@ -9,6 +9,55 @@
     "miniprogram": {
       "list": [
         {
+          "name": "app-pages/portrait-ai/index",
+          "pathName": "app-pages/portrait-ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "app-pages/portrait-ai/index",
+          "pathName": "app-pages/portrait-ai/index",
+          "query": "reportId=1750242741461-447",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "app-pages/explore/index",
+          "pathName": "app-pages/explore/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "app-pages/wuxing/index",
+          "pathName": "app-pages/wuxing/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "app-pages/aboutus/index",
+          "pathName": "app-pages/aboutus/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/portrait-ai/index",
+          "pathName": "pages/portrait-ai/index",
+          "query": "reportId=1750093110896-926",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/portrait-ai/index",
+          "pathName": "pages/portrait-ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/ai/payment/index",
           "pathName": "pages/ai/payment/index",
           "query": "",

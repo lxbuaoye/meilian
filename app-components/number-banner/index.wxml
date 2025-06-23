@@ -1,9 +1,9 @@
-<view style="margin-top: 20rpx; justify-content: center; align-items: center; width: 100%;  display: grid; grid-template-columns: 1fr 1fr 1fr;gap: 10px; ">
+<view style="margin-top: 12rpx; justify-content: center; align-items: center; width: 100%;  display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; ">
   <view style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 72rpx;"
     wx:for="{{list}}"
     wx:key="*this">
     <text style="color: #F8C301; font-size: 15rpx;"> {{item.number}}
     </text>
-    <text style="margin-top: 2rpx;font-size: 7rpx; "> {{item.text}}</text>
+    <text style="margin-top: 2rpx;font-size: 8rpx; "> {{item.text}}</text>
   </view>
 </view>

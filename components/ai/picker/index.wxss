@@ -1,0 +1,87 @@
+.header {
+  margin: 16rpx 24rpx 0 24rpx;
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #1c2023;
+}
+
+.scroll-view {
+  white-space: nowrap;
+  width: 100%;
+  flex-direction: column;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  display: inline-block;
+}
+
+.card-container:last-child {
+  margin-right: 24rpx;
+}
+
+.card {
+  position: relative;
+  margin: 24rpx 0 0 24rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 24rpx;
+  border: 3rpx solid var(--td-bg-color-container, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.card--active {
+  border-color: rgb(240, 200, 113);
+}
+
+.card--active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  border-width: 28px 28px 28px 0;
+  border-style: solid;
+  border-color: rgb(240, 200, 113) transparent transparent transparent;
+}
+
+.card-more-option {
+  --td-radio-bg-color: transparent;
+}
+
+.card__icon {
+  color: #fff;
+  position: absolute;
+  left: 1.5px;
+  top: 1.5px;
+  z-index: 1;
+}
+
+.card-more-option {
+  --td-radio-bg-color: transparent;
+}
+
+.radio {
+  color: #1c2023;
+  font-size: 24rpx;
+  --td-radio-font-size: 24rpx;
+  --td-radio-vertical-padding: 0;
+}
+
+.name-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 20rpx 0rpx 24rpx 24rpx;
+}

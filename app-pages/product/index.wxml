@@ -10,9 +10,9 @@
       inherit-color />
   </view>
 
-  <view style="display: flex; margin: 15rpx 15rpx 0 15rpx;">
+  <view style="display: flex; margin: 12rpx 15rpx 0 15rpx;">
     <view style="min-width: 155rpx;">
-      <view style="height: 70rpx; width: 155rpx; display: flex; background-color: white; border-radius: 10rpx; justify-content: center; align-items: center; margin-bottom: 10rpx; font-size: 12rpx;"
+      <view style="height: 60rpx; width: 155rpx; display: flex; background-color: white; border-radius: 10rpx; justify-content: center; align-items: center; margin-bottom: 10rpx; font-size: 12rpx;"
         data-index="{{categoryIndex}}"
         class="{{categoryIndex === index ? 'active-category' : ''}}"
         bindtap="changeCategory"

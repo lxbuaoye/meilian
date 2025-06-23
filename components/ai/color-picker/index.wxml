@@ -15,7 +15,7 @@
           <view class="color-tile"
             style="background-color: {{item.color}};">
           </view>
-          <text class="color-name">{{item.index}} </text>
+          <text class="color-name">{{item.name}} </text>
         </view>
       </view>
     </view>

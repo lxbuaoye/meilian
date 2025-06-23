@@ -30,7 +30,6 @@ page {
   --td-tab-border-color: transparent;
   --td-tab-item-active-color: var(--theme-color);
   --td-tab-nav-bg-color: white; /* 整个container背景  */
-  --td-tab-font-size: 14rpx;
-  --td-tab-icon-size: 18rpx;
-  --td-tab-item-height: 48rpx;
+  --td-tab-font-size: 12rpx;
+  --td-tab-item-height: 34rpx;
 }
