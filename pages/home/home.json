@@ -5,6 +5,7 @@
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "t-fab": "tdesign-miniprogram/fab/fab",
     "t-popup": "tdesign-miniprogram/popup/popup",
     "article-card": "/components/article-card/index",
     "showcase-card": "/components/showcase-card/index",
