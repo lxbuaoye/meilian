@@ -202,4 +202,16 @@ Page({
   //       console.log(res);
   //     });
   // },
+  generateqrcode() {
+    wx.cloud
+      .callFunction({
+        // 云函数名称
+        name: 'qrcode',
+        // 传给云函数的参数
+        data: {},
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  },
 });

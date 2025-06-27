@@ -104,3 +104,8 @@
 
   <t-footer text="Copyright © 2024-2025 中山市新谷科技发展有限公司"></t-footer>
 </view>
+
+<!-- <t-fab icon="add"
+  style="bottom: 200rpx; left: 100rpx"
+  bind:click="generateqrcode"
+  aria-label="增加"></t-fab> -->
