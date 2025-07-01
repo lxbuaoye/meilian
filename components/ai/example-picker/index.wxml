@@ -10,7 +10,7 @@
       <t-loading wx:if="{{!skylineRender}}"
         wx:if="{{loadingIndex === index}}"
         theme="circular"
-        size="40rpx"
+        size="60rpx"
         class="loading" />
       <image src="{{item.imageSrc}}"
         data-index="{{index}}"
