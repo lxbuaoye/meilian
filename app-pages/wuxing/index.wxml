@@ -167,7 +167,7 @@
       <image src="{{robotSrc}}"
         style="width: 70rpx; height: 70rpx; min-width: 70rpx;"></image>
       <view style="margin-left: 30rpx; background: #F4F6F9; border-radius: 10rpx; height: 70rpx; display: flex; align-items: center; width: 100%;">
-        <text style="margin: 0 15rpx; color: #1c2023;font-size: 14rpx;">{{recommendationText}}</text>
+        <text style="margin: 0 15rpx; color: #1c2023;font-size: 20rpx;">{{recommendationText}}</text>
       </view>
     </view>
     <view wx:if="{{!isLoading}}"
@@ -180,9 +180,9 @@
           <image class="recommendation-image"
             src="{{item.imageSrc}}">
           </image>
-          <view style="display: flex; flex-direction: column;margin: 20rpx; justify-content: center;">
-            <text style="margin-bottom: 15rpx;font-size: 15rpx;color: #1C2023;">{{item.name}}</text>
-            <view style="margin-bottom: 10rpx; font-size: 12rpx;color: #1C2023;">
+          <view style="display: flex; flex-direction: column;margin: 10rpx; justify-content: center;">
+            <text style="margin-bottom: 15rpx;font-size: 20rpx;color: #1C2023;">{{item.name}}</text>
+            <view style="margin-bottom: 10rpx; font-size: 16rpx;color: #1C2023;">
               <text>编号: </text><text style="font-weight: 700;">{{item.caseNumber}}</text>
             </view>
           </view>

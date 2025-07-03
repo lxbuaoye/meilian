@@ -28,7 +28,7 @@
           style="margin-left: 24rpx; color: white;"></t-icon>
         <button type="primary"
           style="background: transparent; border-color: transparent;"
-          class="small-font"
+          class="small-font button"
           bindtap="chooseImage">选择图片</button>
       </view>
     </block>
@@ -123,6 +123,14 @@
         <text>分享到朋友圈</text>
         <text class="button-icon">🎉</text>
       </button>
+
+      <button class="cute-button retry-button"
+        wx:if="betaVersion"
+        bindtap="resetGame">
+        <text class="button-icon">✨</text>
+        <text>再玩一次</text>
+        <text class="button-icon">✨</text>
+      </button>
     </view>
 
     <view style="display: flex; justify-content: center; align-items: center; margin-top: 40rpx;"
@@ -155,3 +163,4 @@
 </view>
 
 <t-message id="t-message" />
+<t-toast id="t-toast" />

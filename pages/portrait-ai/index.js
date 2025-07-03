@@ -1,9 +1,11 @@
 // pages/portrait-ai/index.js
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
+import { Toast } from 'tdesign-miniprogram';
 import Message from 'tdesign-miniprogram/message/index';
 
 const FormData = require('../ai/helper/formData.js');
 
+const fs = wx.getFileSystemManager(); // 获取文件系统管理器实例
 const accountInfo = wx.getAccountInfoSync();
 const db = wx.cloud.database();
 const _ = db.command;
@@ -18,6 +20,7 @@ Page({
     uploadButtonSrc: `${CLOUD_STROAGE_PATH}/resources/ai/icon/upload.svg`,
     isLoading: false,
     imageSrc: '',
+    betaVersion: accountInfo.miniProgram.envVersion === 'develop' || accountInfo.miniProgram.envVersion === 'trial',
     loadingQRCode: true,
     qrcodeSrc: '',
     arrowSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/arrow.png`,
@@ -49,10 +52,12 @@ Page({
       })
       .get()
       .then((res) => {
-        if (res && res.data) {
+        console.log(res);
+        if (res && res.data && res.data.length > 0) {
           this.setData({
             id: reportId,
             viewOnly: true,
+            qrcodeSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/qrcode/${reportId}.png`,
             imageSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/user_uploads/${reportId}.jpg`,
             result: {
               primaryColor: res.data[0].primaryColor,
@@ -61,12 +66,21 @@ Page({
             },
             loadingReport: false,
           });
+        } else {
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '加载失败',
+            theme: 'error',
+            direction: 'column',
+          });
         }
       });
   },
 
   resetGame() {
     this.setData({
+      qrcodeSrc: '',
       isLoading: false,
       viewOnly: false,
       imageSrc: '',
@@ -83,10 +97,13 @@ Page({
     wx.chooseMedia({
       count: 1,
       mediaType: ['image'],
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
+      sizeType: ['original'],
+      sourceType: ['camera', 'album'],
       success: (res) => {
         this.setData({ imageSrc: res.tempFiles[0].tempFilePath });
+      },
+      fail: (err) => {
+        console.log(err);
       },
     });
   },
@@ -134,6 +151,9 @@ Page({
       success: (res) => {
         console.log(res);
       },
+      fail: (err) => {
+        console.log(err);
+      },
     });
 
     this.generateQRCode();
@@ -167,9 +187,7 @@ Page({
     formData.appendFile('image[]', this.data.imageSrc);
     formData.append('model', 'gpt-image-1');
     formData.append('prompt', prompt);
-    formData.append('quality', this.data.debugMode ? 'low' : 'high');
 
-    const fs = wx.getFileSystemManager(); // 获取文件系统管理器实例
     try {
       const base64Image = fs.readFileSync(this.data.imageSrc, 'base64', 0);
       const payload = {
@@ -184,7 +202,7 @@ Page({
                 {
                   "primaryColor": "提取人物穿着中占比最大的颜色，HEX 格式",
                   "secondaryColor": "提取人物穿着中次要但突出的颜色，HEX 格式",
-                  "compliment": "基于穿着颜色和风格，生成一段优雅的中文赞美文字(至少200字）, 要求1: 引用用户的穿着颜色来做比喻; 要求2: 要融汇一些会议的主题 数码彩20周年庆(数码彩是一家涂料公司)"
+                  "compliment": "对图中的人物衣着作出正面评价 1. 图中的人物先分析一个人还是多个人，性别不需要分析 2. 图中的人物分别给出对应衣服颜色评价，配饰发型等都不用，只是衣服。每个人评价不超过200字 3.评价需要正面，积极，正能量，用比较幽默风趣轻松的语言 4.评价需要跟数码彩涂料20周年相关 5.最后给赠与一句随机生成的正面的人生格言(关于事业拼搏有关的), 前面加上 "今日良哥说:" 6. 以上不用分开写，全部整合成一段文字"
                 }
                 请只输出纯 JSON 内容，不加解释。`,
               },
@@ -210,9 +228,9 @@ Page({
         success: (res) => {
           console.log(res);
 
-          const { content } = res.data.choices[0].message;
-          console.log('模型原始输出：', content);
           try {
+            const { content } = res.data.choices[0].message;
+            console.log('模型原始输出：', content);
             const jsonStr = content.match(/{[\s\S]*}/)?.[0]; // 提取 {...} 部分
             const parsed = JSON.parse(jsonStr);
             this.onSuccess(parsed);
@@ -255,12 +273,19 @@ Page({
       })
       .then((res) => {
         console.log(res);
-        if (res.result && res.result.buffer) {
-          const base64 = wx.arrayBufferToBase64(res.result.buffer);
-          // 设置 Base64 字符串到 data 中，供 <image> 组件使用
+        if (res.result.success) {
           this.setData({
-            qrcodeSrc: `data:${res.result.contentType};base64, ${base64}`, // 注意前缀
+            qrcodeSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/qrcode/${this.data.id}.png`, // 注意前缀
           });
+        } else {
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '生成二维码失败',
+            theme: 'error',
+            direction: 'column',
+          });
+          console.log('WYF?');
         }
       })
       .catch((e) => {
