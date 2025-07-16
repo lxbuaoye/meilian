@@ -448,3 +448,22 @@ page {
   font-size: 22rpx;
   color: #1c2023;
 }
+
+.tab {
+  margin-top: 30rpx;
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-track-color: var(--theme-color);
+}
+
+.header1-container {
+  height: 48rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header1-text {
+  font-size: 34rpx;
+  color: #1c2023;
+  font-weight: 700;
+}

@@ -3,7 +3,13 @@ const { CLOUD_STROAGE_PATH } = getApp().globalData;
 import { Toast } from 'tdesign-miniprogram';
 import Message from 'tdesign-miniprogram/message/index';
 import { toolDefinition } from './tool';
-import { exteriorWallSolutions } from './recommendation';
+import {
+  exteriorWallSolutions,
+  interiorWallSolutions,
+  glassSolutions,
+  woodSolutions,
+  steelSolutions,
+} from './recommendation';
 
 const FormData = require('../ai/helper/formData.js');
 
@@ -12,11 +18,16 @@ const accountInfo = wx.getAccountInfoSync();
 const db = wx.cloud.database();
 const _ = db.command;
 
+const reportTabLabels = ['墙身', '玻璃', '木制品', '金属制品'];
+const reportTabProperty = ['mainWall', 'glass', 'wood', 'steel'];
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    wallType: '',
+    reportTabLabels,
+    reportTabProperty,
     examplePickerVisible: false,
     viewOnly: false,
     loadingReport: false,
@@ -30,28 +41,6 @@ Page({
     robotSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/banner_bg.png`,
     result: {},
     solutions: [],
-    // result: {
-    //   wallType: '外墙',
-    //   buildingInfo: {
-    //     usage: '住宅',
-    //     wallMaterial: '砖混结构',
-    //     wallFinishing: '马赛克面',
-    //   },
-    //   wallAppearance: {
-    //     summary: [
-    //       '墙面整体呈现出老旧的外观，部分区域有明显的污渍和褪色。',
-    //       '窗户周围的墙面有轻微的裂缝和剥落现象，可能需要进一步检查。',
-    //       '墙体底部有积水痕迹，可能与排水系统有关。',
-    //     ],
-    //   },
-    //   wallStructure: {
-    //     details: [
-    //       '墙体结构为砖混结构，整体稳定性较好，但表面处理需要维护。',
-    //       '墙面瓷砖有部分脱落的迹象，可能由于长期暴露在外部环境中。',
-    //       '墙体的防水性能可能受到影响，建议进行防水处理。',
-    //     ],
-    //   },
-    // },
   },
 
   envVersion: accountInfo.miniProgram.envVersion,
@@ -107,6 +96,8 @@ Page({
   resetGame() {
     this.setData({
       qrcodeSrc: '',
+      result: {},
+      wallType: '',
       isLoading: false,
       viewOnly: false,
       imageSrc: '',
@@ -164,7 +155,7 @@ Page({
     // await this.uploadFileToCloud();
     console.log('解析后的 JSON：', parsed);
     this.setData({ result: parsed });
-    this.findSolution(parsed);
+    this.processResult(parsed);
     // Save data
     // await db.collection('portrait_report').add({
     //   // data 字段表示需新增的 JSON 数据
@@ -223,14 +214,14 @@ Page({
           {
             role: 'system',
             content:
-              '你是一个建筑分析专家，接收用户上传的墙面图片，并生成结构化分析报告。每个字段的 notes 字段必须包含 3 条及以上的自然语言说明，用 1. 2. 3. 的格式列出。',
+              '你是一个建筑分析专家，接收用户上传的图片，并生成结构化分析报告。每个字段的 surfaceCondition 和 damageNotes 字段必须包含 3 条及以上的自然语言说明，用 1. 2. 3. 的格式列出。',
           },
           {
             role: 'user',
             content: [
               {
                 type: 'text',
-                text: '根据图片中的墙体进行全面评估。生成结构化 JSON 报告，每个字段必须写得详细、专业、像在写报告一样。请以专家身份完整分析：建筑基本信息、墙体外观与表面状态、墙体构造状态、环境影响因素、翻新建议。',
+                text: '对图片中的墙身,进行全面评估。生成结构化 JSON 报告，每个字段必须写得详细、专业、像在写报告一样。请以专家身份完整分析。',
               },
               {
                 type: 'image_url',
@@ -242,7 +233,7 @@ Page({
           },
         ],
         tools: toolDefinition,
-        tool_choice: { type: 'function', function: { name: 'generate_wall_analysis_report' } },
+        tool_choice: { type: 'function', function: { name: 'generateWallAnalysisReport' } },
         temperature: 0.3,
       };
 
@@ -333,18 +324,86 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    this.findSolution(this.data.result);
+    const temp = {
+      wallType: '内墙',
+      innerWallReport: {
+        basicInfo: {
+          wallFinishing: '瓷砖墙面',
+        },
+        mainWall: {
+          material: '瓷砖',
+          surfaceCondition: [
+            '1. 瓷砖表面整体较为平整，但局部存在轻微的污渍和水渍痕迹。',
+            '2. 表面光泽度尚可，但在某些区域有轻微的磨损迹象。',
+            '3. 接缝处的填缝剂有轻微变色，影响整体美观。',
+          ],
+          damageNotes: [
+            '1. 局部区域可能存在渗水风险，建议进行密封处理。',
+            '2. 瓷砖接缝处可能会出现开裂现象，需定期检查维护。',
+            '3. 若长期不处理，可能导致瓷砖脱落，影响使用安全。',
+          ],
+        },
+        glass: {
+          surfaceCondition: ['1. 玻璃表面较为干净，但有少量指纹和灰尘。', '2. 边缘处有轻微的老化痕迹。'],
+          damageNotes: ['1. 玻璃可能存在轻微松动，建议检查固定情况。', '2. 若不及时维护，可能会出现裂痕，影响安全性。'],
+        },
+        wood: {
+          surfaceCondition: ['1. 木制品表面漆面部分老化，光泽度下降。', '2. 柜门边缘有轻微的磨损痕迹。'],
+          damageNotes: [
+            '1. 柜体下部可能因受潮出现变形，建议进行防潮处理。',
+            '2. 柜门合页处有轻微松动，需定期紧固以确保正常使用。',
+          ],
+        },
+        steel: {
+          surfaceCondition: ['1. 不锈钢表面有轻微的水斑和指纹痕迹。', '2. 部分区域有轻微的划痕。'],
+          damageNotes: [
+            '1. 若不及时清理，可能导致不锈钢表面腐蚀，影响美观。',
+            '2. 建议定期进行清洁和保养，以延长使用寿命。',
+          ],
+        },
+      },
+    };
+    // this.processResult(temp);
   },
 
-  findSolution(result) {
+  processResult(data) {
     console.log('Finding solution');
-    const solutions = exteriorWallSolutions.find((item) => {
-      console.log(item.wallType);
-      console.log(result.buildingInfo.wallFinishing);
-      return item.wallType.includes(result.buildingInfo.wallFinishing);
-    });
-    console.log(solutions);
-    this.setData({ solutions: solutions });
+    const { wallType } = data;
+    this.setData({ wallType: wallType });
+    const result = wallType === '外墙' ? data.outerWallReport : data.innerWallReport;
+
+    const tempReportTabLabels = ['墙身'];
+    const tempReportTabPropertys = ['mainWall'];
+    if (wallType === '外墙') {
+      const solutions = exteriorWallSolutions.find((item) => {
+        return item.wallType.includes(result.basicInfo.wallFinishing);
+      });
+      result.mainWall.solutions = solutions.solutions;
+    } else if (wallType === '内墙') {
+      const solutions = interiorWallSolutions.find((item) => {
+        return item.wallType.includes(result.basicInfo.wallFinishing);
+      });
+      result.mainWall.solutions = solutions.solutions;
+      // Hardcode index=0 for now.
+      if (result.glass && result.glass.surfaceCondition) {
+        result.glass.solutions = glassSolutions[0].solutions;
+        tempReportTabLabels.push('玻璃');
+        tempReportTabPropertys.push('glass');
+      }
+      if (result.wood && result.wood.surfaceCondition) {
+        result.wood.solutions = woodSolutions[0].solutions;
+        tempReportTabLabels.push('木制品');
+        tempReportTabPropertys.push('wood');
+      }
+      if (result.steel && result.steel.surfaceCondition) {
+        result.steel.solutions = steelSolutions[0].solutions;
+        tempReportTabLabels.push('金属制品');
+        tempReportTabPropertys.push('steel');
+      }
+    }
+    console.log(result);
+
+    this.setData({ result: result, reportTabLabels: tempReportTabLabels, reportTabProperty: tempReportTabPropertys });
   },
 
   navigateToProduct(e) {
