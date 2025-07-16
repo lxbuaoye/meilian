@@ -30,3 +30,7 @@ page {
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+.g-hover-scale {
+  transform: scale(0.98, 0.98);
+}

@@ -145,7 +145,7 @@ Page({
   },
 
   uploadFileToCloud() {
-    const cloudPath = `resources/portrait-ai/user_uploads/${this.data.id}.jpg`; // 云端文件路径，确保唯一性
+    const cloudPath = `resources/diagnosis-ai/user_uploads/${this.data.id}.jpg`; // 云端文件路径，确保唯一性
 
     wx.cloud.uploadFile({
       cloudPath: cloudPath,
@@ -333,7 +333,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    // this.findSolution(this.data.result);
+    this.findSolution(this.data.result);
   },
 
   findSolution(result) {
@@ -346,12 +346,17 @@ Page({
     console.log(solutions);
     this.setData({ solutions: solutions });
   },
+
+  navigateToProduct(e) {
+    const { id } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `/pages/product-detail/index?productId=${id}`,
+    });
+  },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-    // TODO rever this
-  },
+  onShow() {},
 
   /**
    * 生命周期函数--监听页面隐藏

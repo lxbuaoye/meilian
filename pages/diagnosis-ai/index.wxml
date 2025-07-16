@@ -119,8 +119,8 @@
       </view>
 
       <view>
-        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023;">材料: </text>
-        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023; font-weight: 700;"> {{result.buildingInfo.wallMaterial}}</text>
+        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023;">墙面材质: </text>
+        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023; font-weight: 700;"> {{result.buildingInfo.wallFinishing}}</text>
       </view>
     </view>
 
@@ -140,7 +140,7 @@
 
     <view class="section-container">
       <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">🏗️ 墙体构造状态（推测）</text>
+        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">🏗️ 墙体现状</text>
       </view>
 
       <view wx:for="{{result.wallStructure.details}}"
@@ -158,7 +158,7 @@
       wx:if="{{solutions.solutions.length > 0}}"
       enhanced
       show-scrollbar="{{false}}"
-      style=" margin-top: 12rpx; overflow: auto; display: flex; flex: 1;">
+      style=" margin-top: 12rpx; overflow: auto; display: flex;">
       <view wx:for="{{solutions.solutions}}"
         class="section-container"
         wx:key="index"
@@ -195,6 +195,7 @@
             style="margin: 5rpx 0;"> 优点: </text>
           <text class="font26"
             wx:for="{{item.advantages}}"
+            wx:key="*this"
             wx:for-item="advantage"
             wx:for-index="advantageIndex"> {{advantageIndex === 0 ? '': ' ,'}} {{advantage}}</text>
         </view>
@@ -203,20 +204,34 @@
           <text class="font28 bold"
             style="margin: 5rpx 0;"> 缺点: </text>
           <text class="font26"
+            wx:key="*this"
             wx:for="{{item.disadvantages}}"
             wx:for-item="disadvantage"
             wx:for-index="disadvantageIndex"> {{disadvantageIndex === 0 ? '': ' ,'}} {{disadvantage}}</text>
         </view>
 
-        <text class="font32 bold"
-          style="margin-top:32rpx;width: 100%; text-align: center; "> 产品推荐 </text>
-        <view style="display: flex;justify-content: center; align-items: center;">
-          <view wx:for="{{item.recommendedProducts}}"
+        <view style="margin-top:32rpx; width: 100%;  display: flex; justify-content: center;align-items: center;">
+          <view style="width: 40rpx; height: 40rpx; background-color: #F8C301; border-radius: 20rpx; display: flex; justify-content: center; align-items: center;">
+            <image style="width: 24rpx; height: 24rpx; "
+              src="{{productRecommendationSrc}}"></image>
+          </view>
+          <text class="font28 bold"
+            style="margin-left: 20rpx;"> 产品推荐 </text>
+        </view>
+
+        <view style="display: flex;justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 20rpx;">
+          <view hover-class="g-hover-scale"
+            bind:tap="navigateToProduct"
+            wx:for="{{item.recommendedProducts}}"
             wx:for-item="recommendedProduct"
-            wx:key="recommendedProductsIndex"
+            wx:key="*this"
+            data-id="{{recommendedProduct.id}}"
             wx:for-index="recommendedProductsIndex"
-            style="width: 200rpx; height: 200rpx; border: 1px solid yellow; margin: 20rpx;">
-            <text>{{recommendedProduct.name}}</text>
+            style="height: 70rpx; padding: 10rpx 20rpx; background: #F7FAFE; border-radius: 20rpx; display: flex; justify-content: center; align-items: center; flex-shrink: 0; margin: 12rpx; ">
+            <text class="font24">{{recommendedProduct.name}}</text>
+            <t-icon name="link"
+              size="24rpx"
+              style="margin-left: 6rpx;"></t-icon>
           </view>
         </view>
       </view>
@@ -278,5 +293,6 @@
 <t-toast id="t-toast" />
 
 <example-picker tab-value="{{0}}"
+  example-type="DIAGNOSIS"
   bind:selectexampleimage="onSelectExampleImage"
   visible="{{examplePickerVisible}}"></example-picker>

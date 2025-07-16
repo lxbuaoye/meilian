@@ -19,7 +19,7 @@ export const toolDefinition = [
               wallMaterial: { type: 'string', description: '墙体主材料' },
               wallFinishing: {
                 type: 'string',
-                description: '墙身类型',
+                description: '墙面材质',
                 enum: [
                   '马赛克面',
                   '瓷砖面',
@@ -53,7 +53,7 @@ export const toolDefinition = [
               details: {
                 type: 'array',
                 items: { type: 'string' },
-                description: '墙体构造状态及潜在问题的自然语言描述',
+                description: '墙面材质的状态及潜在问题的自然语言描述',
               },
             },
           },

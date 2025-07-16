@@ -26,7 +26,6 @@ page {
 .container {
   display: flex;
   flex-direction: column;
-  height: 80vh;
   box-sizing: content-box;
   width: 100%;
 }
@@ -291,7 +290,6 @@ page {
 
 .container {
   background-color: #f8f8f8; /* 背景色 */
-  min-height: 100vh; /* 确保内容撑开整个屏幕 */
   box-sizing: border-box; /* 边框盒模型 */
 }
 
@@ -438,6 +436,11 @@ page {
 
 .font26 {
   font-size: 26rpx;
+  color: #1c2023;
+}
+
+.font24 {
+  font-size: 24rpx;
   color: #1c2023;
 }
 

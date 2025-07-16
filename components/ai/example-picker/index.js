@@ -1,6 +1,77 @@
 // components/ai/example-picker/index.js
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 
+const buildingList = [
+  [
+    {
+      name: '外墙1',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example1.jpg`,
+    },
+    {
+      name: '外墙2',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example2.jpg`,
+    },
+    {
+      name: '外墙3',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example3.jpg`,
+    },
+    {
+      name: '外墙4',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example4.jpg`,
+    },
+  ],
+  [
+    {
+      name: '内墙1',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example1.jpg`,
+    },
+    {
+      name: '内墙2',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example2.jpg`,
+    },
+    {
+      name: '内墙3',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example3.jpg`,
+    },
+    {
+      name: '内墙4',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example4.jpg`,
+    },
+  ],
+];
+
+const diagnosisList = [
+  [
+    {
+      name: '外墙1',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example1.jpg`,
+    },
+    {
+      name: '外墙2',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example2.jpg`,
+    },
+    {
+      name: '内墙1',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example1.jpg`,
+    },
+    {
+      name: '内墙2',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example2.jpg`,
+    },
+  ],
+];
+
+function getList(exampleType) {
+  console.log(exampleType);
+  if (exampleType === 'BUILDING') {
+    return buildingList;
+  }
+  if (exampleType === 'DIAGNOSIS') {
+    return diagnosisList;
+  }
+  return buildingList;
+}
+
 Component({
   /**
    * 组件的属性列表
@@ -14,6 +85,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    exampleType: {
+      type: String,
+      value: 'BUILDING',
+    },
   },
 
   /**
@@ -21,44 +96,13 @@ Component({
    */
   data: {
     loadingIndex: -1,
-    list: [
-      [
-        {
-          name: '外墙1',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example1.jpg`,
-        },
-        {
-          name: '外墙2',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example2.jpg`,
-        },
-        {
-          name: '外墙3',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example3.jpg`,
-        },
-        {
-          name: '外墙4',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example4.jpg`,
-        },
-      ],
-      [
-        {
-          name: '内墙1',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example1.jpg`,
-        },
-        {
-          name: '内墙2',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example2.jpg`,
-        },
-        {
-          name: '内墙3',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example3.jpg`,
-        },
-        {
-          name: '内墙4',
-          imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example4.jpg`,
-        },
-      ],
-    ],
+    list: [],
+  },
+
+  lifetimes: {
+    attached() {
+      this.setData({ list: getList(this.data.exampleType) });
+    },
   },
 
   /**
