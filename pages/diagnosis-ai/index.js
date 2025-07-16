@@ -3,6 +3,7 @@ const { CLOUD_STROAGE_PATH } = getApp().globalData;
 import { Toast } from 'tdesign-miniprogram';
 import Message from 'tdesign-miniprogram/message/index';
 import { toolDefinition } from './tool';
+import { exteriorWallSolutions } from './recommendation';
 
 const FormData = require('../ai/helper/formData.js');
 
@@ -24,41 +25,30 @@ Page({
     imageSrc: '',
     betaVersion: accountInfo.miniProgram.envVersion === 'develop' || accountInfo.miniProgram.envVersion === 'trial',
     qrcodeSrc: '',
+    productRecommendationSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/product_recommendation.png`,
     arrowSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/arrow.png`,
-    robotSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/robot.png`,
+    robotSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/banner_bg.png`,
     result: {},
+    solutions: [],
     // result: {
     //   wallType: '外墙',
-    //   buildingInfo: { usage: '住宅', wallMaterial: '砖' },
+    //   buildingInfo: {
+    //     usage: '住宅',
+    //     wallMaterial: '砖混结构',
+    //     wallFinishing: '马赛克面',
+    //   },
     //   wallAppearance: {
     //     summary: [
-    //       '1. 墙体为红砖结构，未进行外部涂层处理，呈现出原始砖块的自然色泽。',
-    //       '2. 墙面整体平整，但在某些区域可见轻微的风化痕迹，尤其是在靠近地面的部分。',
-    //       '3. 窗户周围的墙面较为干净，但由于缺乏涂层保护，可能容易受到雨水侵蚀。',
+    //       '墙面整体呈现出老旧的外观，部分区域有明显的污渍和褪色。',
+    //       '窗户周围的墙面有轻微的裂缝和剥落现象，可能需要进一步检查。',
+    //       '墙体底部有积水痕迹，可能与排水系统有关。',
     //     ],
     //   },
     //   wallStructure: {
     //     details: [
-    //       '1. 墙体结构坚固，采用传统砖块砌筑，适合承重和隔热。',
-    //       '2. 柱子和横梁采用混凝土浇筑，提供了额外的结构支持。',
-    //       '3. 由于墙体未进行防水处理，可能在长期暴露于潮湿环境下出现渗水问题。',
-    //     ],
-    //   },
-    //   renovationProposal: {
-    //     baseRepair: [
-    //       '1. 建议对墙体进行防水处理，尤其是在底部区域，以防止雨水渗入。',
-    //       '2. 对于出现风化的砖块，建议进行局部更换或修复，以保持墙体的完整性。',
-    //       '3. 墙体接缝处可使用防水密封剂进行密封，增强防水性能。',
-    //     ],
-    //     refinishing: [
-    //       '1. 建议使用仿石漆进行墙面翻新，以增强美观性和耐候性。',
-    //       '2. 推荐采用浅灰色或米色的仿石漆，与红砖形成对比，提升整体视觉效果。',
-    //       '3. 可以考虑在窗户周围添加装饰性窗套线条，增加建筑的立体感。',
-    //     ],
-    //     protection: [
-    //       '1. 墙体外部可加装排水系统，以减少雨水对墙面的直接冲刷。',
-    //       '2. 定期检查和维护墙体，及时修补任何出现的裂缝或损伤。',
-    //       '3. 考虑在建筑周围种植绿化，以减少风沙对墙体的侵蚀。',
+    //       '墙体结构为砖混结构，整体稳定性较好，但表面处理需要维护。',
+    //       '墙面瓷砖有部分脱落的迹象，可能由于长期暴露在外部环境中。',
+    //       '墙体的防水性能可能受到影响，建议进行防水处理。',
     //     ],
     //   },
     // },
@@ -174,7 +164,7 @@ Page({
     // await this.uploadFileToCloud();
     console.log('解析后的 JSON：', parsed);
     this.setData({ result: parsed });
-
+    this.findSolution(parsed);
     // Save data
     // await db.collection('portrait_report').add({
     //   // data 字段表示需新增的 JSON 数据
@@ -231,11 +221,16 @@ Page({
         model: 'gpt-4o',
         messages: [
           {
+            role: 'system',
+            content:
+              '你是一个建筑分析专家，接收用户上传的墙面图片，并生成结构化分析报告。每个字段的 notes 字段必须包含 3 条及以上的自然语言说明，用 1. 2. 3. 的格式列出。',
+          },
+          {
             role: 'user',
             content: [
               {
                 type: 'text',
-                text: "你现在是建筑分析专家，请根据图片中的墙体进行全面评估。生成结构化 JSON 报告，每个字段必须写得详细、专业、像在写报告一样。每项内容请至少输出 3-4 条自然语言段落，使用 ['1. ...', '2. ...'] 的数组形式呈现，风格应类似：['1. 墙体为白色乳胶漆，靠近窗户部分略有污染沉积，整体视觉偏传统。','2. 墙角边缘处可能存在局部老化或划痕，建议细节处理。', '3. 室内光照较强，墙面反光略显刺眼，可改用哑光漆改善观感。'] 请不要缩写、不要省略，请以专家身份完整分析：建筑基本信息、墙体外观与表面状态、墙体构造状态、环境影响因素、翻新建议。",
+                text: '根据图片中的墙体进行全面评估。生成结构化 JSON 报告，每个字段必须写得详细、专业、像在写报告一样。请以专家身份完整分析：建筑基本信息、墙体外观与表面状态、墙体构造状态、环境影响因素、翻新建议。',
               },
               {
                 type: 'image_url',
@@ -337,12 +332,26 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {},
+  onReady() {
+    // this.findSolution(this.data.result);
+  },
 
+  findSolution(result) {
+    console.log('Finding solution');
+    const solutions = exteriorWallSolutions.find((item) => {
+      console.log(item.wallType);
+      console.log(result.buildingInfo.wallFinishing);
+      return item.wallType.includes(result.buildingInfo.wallFinishing);
+    });
+    console.log(solutions);
+    this.setData({ solutions: solutions });
+  },
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
+  onShow() {
+    // TODO rever this
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

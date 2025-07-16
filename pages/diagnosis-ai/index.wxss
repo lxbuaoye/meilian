@@ -186,7 +186,7 @@ page {
 
 .section-container {
   background-color: white;
-  padding: 40rpx 24rpx;
+  padding: 30rpx 24rpx;
   border-radius: 20rpx;
   margin-top: 20rpx;
   display: flex;
@@ -420,4 +420,28 @@ page {
   margin-top: 40rpx;
   padding-top: 20rpx;
   border-top: 1px dashed #eee;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.font32 {
+  font-size: 32rpx;
+  color: #1c2023;
+}
+
+.font28 {
+  font-size: 28rpx;
+  color: #1c2023;
+}
+
+.font26 {
+  font-size: 26rpx;
+  color: #1c2023;
+}
+
+.font22 {
+  font-size: 22rpx;
+  color: #1c2023;
 }

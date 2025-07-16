@@ -110,9 +110,7 @@
 
     <view class="section-container">
       <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-          src="/resources/bulletpoint.png"></image>
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">建筑基本信息</text>
+        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">🏠 建筑基本信息</text>
       </view>
 
       <view>
@@ -129,12 +127,11 @@
 
     <view class="section-container">
       <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-          src="/resources/bulletpoint.png"></image>
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">墙体外观与表面状态</text>
+        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">🎨 墙体外观与表面状态</text>
       </view>
 
       <view wx:for="{{result.wallAppearance.summary}}"
+        wx:key="index"
         style=" margin-top: 12rpx; ">
         <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
       </view>
@@ -143,97 +140,123 @@
 
     <view class="section-container">
       <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-          src="/resources/bulletpoint.png"></image>
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">墙体构造状态（推测）</text>
+        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">🏗️ 墙体构造状态（推测）</text>
       </view>
 
       <view wx:for="{{result.wallStructure.details}}"
+        wx:key="index"
         style=" margin-top: 12rpx; ">
         <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
       </view>
     </view>
 
-    <view class="section-container">
-      <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-          src="/resources/bulletpoint.png"></image>
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">基础修复建议</text>
-      </view>
-
-      <view wx:for="{{result.renovationProposal.baseRepair}}"
-        style=" margin-top: 12rpx; ">
-        <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
-      </view>
+    <view style="height: 48rpx; width: 100%; display: flex;  align-items: center; margin-top: 30rpx;">
+      <text style="font-size: 34rpx;color: #1C2023;font-weight: 700; width: 100%; text-align: center;">🛠️ 改造方案推荐 🛠️</text>
     </view>
+    <scroll-view scroll-x
+      enable-flex
+      wx:if="{{solutions.solutions.length > 0}}"
+      enhanced
+      show-scrollbar="{{false}}"
+      style=" margin-top: 12rpx; overflow: auto; display: flex; flex: 1;">
+      <view wx:for="{{solutions.solutions}}"
+        class="section-container"
+        wx:key="index"
+        style="min-width: 580rpx; height: 100%; margin-right: 20rpx;">
+        <!-- 方案名字 -->
+        <text style="font-size: 28rpx; color:#1c2023; margin: 20rpx 0; width: 100%; text-align: center;">{{item.solutionName}}</text>
 
-    <view class="section-container">
-      <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-          src="/resources/bulletpoint.png"></image>
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">表面翻新建议</text>
-      </view>
+        <!-- 方案流程 -->
+        <view style="display: flex; flex-direction: column;">
+          <text class="font32"
+            style="margin: 5rpx 0;"> 🧱 一、基层处理及修补 </text>
+          <block wx:for="{{item.baseTreatmentAndRepair}}"
+            wx:for-item="baseTreatment"
+            wx:key="baseTreatmentIndex"
+            wx:for-index="baseTreatmentIndex">
+            <text style=" color: #1c2023;font-size: 28rpx; margin-top: 5rpx;  font-weight: 700;"> {{baseTreatmentIndex+1}}. {{baseTreatment.stepName}} :</text><text style=" color: #1c2023;font-size: 28rpx; margin-top: 5rpx;">{{baseTreatment.description}}
+            </text>
+          </block>
+        </view>
+        <!-- 涂料系统施工-->
+        <view style="display: flex; flex-direction: column; margin-top: 16rpx;">
+          <text class="font32"
+            style="margin: 5rpx 0;"> 🎨 二、涂料系统施工 </text>
+          <block wx:for="{{item.coatingSystemConstruction}}"
+            wx:for-item="coatingSystemConstruction"
+            wx:key="coatingSystemConstructionIndex"
+            wx:for-index="coatingSystemConstructionIndex">
+            <text style="color: #1c2023;font-size: 28rpx; margin-top: 5rpx;"> {{coatingSystemConstructionIndex+1}}. {{coatingSystemConstruction}}</text>
+          </block>
+        </view>
 
-      <view wx:for="{{result.renovationProposal.refinishing}}"
-        style=" margin-top: 12rpx; ">
-        <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
-      </view>
-    </view>
+        <view style="margin-top: 36rpx;">
+          <text class="font28 bold"
+            style="margin: 5rpx 0;"> 优点: </text>
+          <text class="font26"
+            wx:for="{{item.advantages}}"
+            wx:for-item="advantage"
+            wx:for-index="advantageIndex"> {{advantageIndex === 0 ? '': ' ,'}} {{advantage}}</text>
+        </view>
 
-    <view class="section-container">
-      <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-          src="/resources/bulletpoint.png"></image>
-        <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">防护处理</text>
-      </view>
+        <view style="margin-top: 16rpx;">
+          <text class="font28 bold"
+            style="margin: 5rpx 0;"> 缺点: </text>
+          <text class="font26"
+            wx:for="{{item.disadvantages}}"
+            wx:for-item="disadvantage"
+            wx:for-index="disadvantageIndex"> {{disadvantageIndex === 0 ? '': ' ,'}} {{disadvantage}}</text>
+        </view>
 
-      <view wx:for="{{result.renovationProposal.protection}}"
-        style=" margin-top: 12rpx; ">
-        <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
+        <text class="font32 bold"
+          style="margin-top:32rpx;width: 100%; text-align: center; "> 产品推荐 </text>
+        <view style="display: flex;justify-content: center; align-items: center;">
+          <view wx:for="{{item.recommendedProducts}}"
+            wx:for-item="recommendedProduct"
+            wx:key="recommendedProductsIndex"
+            wx:for-index="recommendedProductsIndex"
+            style="width: 200rpx; height: 200rpx; border: 1px solid yellow; margin: 20rpx;">
+            <text>{{recommendedProduct.name}}</text>
+          </view>
+        </view>
       </view>
-    </view>
+    </scroll-view>
 
 
     <!-- 分享朋友圈/发送给朋友-->
     <view class="result-actions"
       style="margin-top: 30rpx;">
-      <button class="cute-button share-to-friend-btn"
-        open-type="share">
-        <text class="button-icon">💌</text>
-        <text>发送给朋友</text>
-        <text class="button-icon">💌</text>
-      </button>
 
-      <button class="cute-button share-to-timeline-btn"
+      <!-- <button class="cute-button share-to-timeline-btn"
         bindtap="showShareGuideOverlay">
         <text class="button-icon">🎉</text>
         <text>分享到朋友圈</text>
         <text class="button-icon">🎉</text>
-      </button>
+      </button> -->
 
       <button class="cute-button retry-button"
         wx:if="betaVersion"
         bindtap="resetGame">
         <text class="button-icon">✨</text>
-        <text>再玩一次</text>
+        <text>再来一次</text>
         <text class="button-icon">✨</text>
       </button>
     </view>
 
     <!-- <view style="display: flex; justify-content: center; align-items: center; margin-top: 40rpx;"
       wx:if="{{!viewOnly}}">
-      <t-loading theme="circular"
-        size="40rpx"
-        text="正在生成二维码"
-        layout="vertical"
-        wx:if="{{!qrcodeSrc}}"
-        class="wrapper" />
-      <image src="{{qrcodeSrc}}"
-        wx:if="{{qrcodeSrc}}"
-        show-menu-by-longpress="true"
-        style="height: 490rpx; width: 100%;"
-        mode="aspectFit"></image>
-    </view> -->
+            <t-loading theme="circular"
+              size="40rpx"
+              text="正在生成二维码"
+              layout="vertical"
+              wx:if="{{!qrcodeSrc}}"
+              class="wrapper" />
+            <image src="{{qrcodeSrc}}"
+              wx:if="{{qrcodeSrc}}"
+              show-menu-by-longpress="true"
+              style="height: 490rpx; width: 100%;"
+              mode="aspectFit"></image>
+        </view> -->
   </view>
 </view>
 

@@ -17,6 +17,23 @@ export const toolDefinition = [
             properties: {
               usage: { type: 'string', description: '建筑用途（住宅、商业等）' },
               wallMaterial: { type: 'string', description: '墙体主材料' },
+              wallFinishing: {
+                type: 'string',
+                description: '墙身类型',
+                enum: [
+                  '马赛克面',
+                  '瓷砖面',
+                  '外墙涂料',
+                  '真石漆旧墙',
+                  '氟碳漆',
+                  '浮雕漆',
+                  '拉毛漆',
+                  '水泥抹灰',
+                  '红砖墙',
+                  '洗石米墙',
+                  '其他',
+                ],
+              },
               other: { type: 'string', description: '其他补充信息' },
             },
           },
@@ -40,36 +57,8 @@ export const toolDefinition = [
               },
             },
           },
-          renovationProposal: {
-            type: 'object',
-            properties: {
-              baseRepair: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '基础修复建议的自然语言描述',
-              },
-              refinishing: {
-                type: 'array',
-                items: { type: 'string' },
-                description:
-                  '用自然语言描述的方式, 给出表面翻新的建议 (涂料或者仿石漆), 包含推荐颜色搭配或者风格, 是否添加窗套线条等等',
-              },
-              protection: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '防护处理建议的自然语言描述',
-              },
-            },
-          },
         },
-        required: [
-          'wallType',
-          'buildingInfo',
-          'wallAppearance',
-          'wallStructure',
-          'environmentFactors',
-          'renovationProposal',
-        ],
+        required: ['wallType', 'buildingInfo', 'wallAppearance', 'wallStructure'],
       },
     },
   },
