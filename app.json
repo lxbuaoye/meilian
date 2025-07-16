@@ -28,7 +28,8 @@
     "app-pages/aboutus/index",
     "app-pages/wuxing/index",
     "app-pages/portrait-ai/index",
-    "pages/delivery-standard/index"
+    "pages/delivery-standard/index",
+    "pages/diagnosis-ai/index"
   ],
   "subPackages": [
     {

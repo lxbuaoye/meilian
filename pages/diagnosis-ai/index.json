@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "AI诊断",
+  "usingComponents": {
+    "example-picker": "../../components/ai/example-picker/index",
+    "t-message": "tdesign-miniprogram/message/message",
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-fab": "tdesign-miniprogram/fab/fab",
+    "t-loading": "tdesign-miniprogram/loading/loading"
+  }
+}
