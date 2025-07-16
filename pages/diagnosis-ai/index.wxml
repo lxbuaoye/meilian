@@ -174,7 +174,7 @@
 
             <!-- 方案流程 -->
             <view style="display: flex; flex-direction: column;">
-              <text class="font32"
+              <text class="font32 bold"
                 style="margin: 5rpx 0;"> 🧱 一、基层处理及修补 </text>
               <block wx:for="{{item.baseTreatmentAndRepair}}"
                 wx:for-item="baseTreatment"
@@ -185,7 +185,7 @@
             </view>
             <!-- 涂料系统施工-->
             <view style="display: flex; flex-direction: column; margin-top: 16rpx;">
-              <text class="font32"
+              <text class="font32 bold"
                 style="margin: 5rpx 0;"> 🎨 二、涂料系统施工 </text>
               <block wx:for="{{item.coatingSystemConstruction}}"
                 wx:for-item="coatingSystemConstruction"
@@ -220,7 +220,7 @@
                 <image style="width: 24rpx; height: 24rpx; "
                   src="{{productRecommendationSrc}}"></image>
               </view>
-              <text class="font28 bold"
+              <text class="font32 bold"
                 style="margin-left: 20rpx;"> 产品推荐 </text>
             </view>
 
