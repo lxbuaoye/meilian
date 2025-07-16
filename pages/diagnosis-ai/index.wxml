@@ -35,7 +35,7 @@
     </view>
 
     <view style="position: absolute; bottom: 24rpx; right: 24rpx; border-radius: 32rpx; display: flex; background: rgba(0,0,0,0.5); justify-content: center; align-items: center;"
-      wx:if="{{!result.wallType}}">
+      wx:if="{{!wallType}}">
       <t-icon name="image"
         style="margin-left: 24rpx; color: white;"></t-icon>
       <button type="primary"
