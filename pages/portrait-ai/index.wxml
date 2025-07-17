@@ -60,17 +60,15 @@
           <text class="list-sub-item">它将洞察这些颜色所代表的独特个性与能量！</text>
 
           <text class="list-item">3. 💬 解锁专属寄语：</text>
-          <text class="list-sub-item">根据您的衣着色彩分析结果，AI会为您量身定制一段充满惊喜的个性化评论和周年祝福！</text>
+          <text class="list-sub-item">根据您的衣着色彩分析结果，AI会为您量身定制一段充满惊喜的个性化评论和祝福！</text>
           <text class="list-sub-item">看看您的穿搭会带来怎样的“色彩印记”吧！</text>
 
           <text class="list-item">4. 💖 分享你的“色彩印记”：</text>
           <text class="list-sub-item">对结果满意吗？点击“分享”按钮，将这份独特的色彩印记晒到朋友圈，与朋友们一同感受这份喜悦！</text>
 
           <text class="section-heading">【温馨提示】</text>
-          <text class="list-item">此为20周年庆限时活动，快来参与吧！</text>
+          <text class="list-item">此为限时活动，快来参与吧！</text>
           <text class="list-item">AI生成内容仅供娱乐参考。</text>
-
-          <text class="footer-signature">数码彩20周年，感恩有您，共绘精彩未来！</text>
         </view>
       </scroll-view>
 

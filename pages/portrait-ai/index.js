@@ -3,6 +3,10 @@ const { CLOUD_STROAGE_PATH } = getApp().globalData;
 import { Toast } from 'tdesign-miniprogram';
 import Message from 'tdesign-miniprogram/message/index';
 
+// Change here
+const THEME = '曲靖超级家博会';
+const PERSON = '今日杜总说';
+
 const FormData = require('../ai/helper/formData.js');
 
 const fs = wx.getFileSystemManager(); // 获取文件系统管理器实例
@@ -202,7 +206,7 @@ Page({
                 {
                   "primaryColor": "提取人物穿着中占比最大的颜色，HEX 格式",
                   "secondaryColor": "提取人物穿着中次要但突出的颜色，HEX 格式",
-                  "compliment": "对图中的人物衣着作出正面评价 1. 图中的人物先分析一个人还是多个人，性别不需要分析 2. 图中的人物分别给出对应衣服颜色评价，配饰发型等都不用，只是衣服。每个人评价不超过200字 3.评价需要正面，积极，正能量，用比较幽默风趣轻松的语言 4.评价需要跟数码彩涂料20周年相关 5.最后给赠与一句随机生成的正面的人生格言(关于事业拼搏有关的), 前面加上 "今日良哥说:" 6. 以上不用分开写，全部整合成一段文字"
+                  "compliment": "对图中的人物衣着作出正面评价 1. 图中的人物先分析一个人还是多个人，性别不需要分析 2. 图中的人物分别给出对应衣服颜色评价，配饰发型等都不用，只是衣服。每个人评价不超过200字 3.评价需要正面，积极，正能量，用比较幽默风趣轻松的语言 4.评价需要跟 ${THEME} 相关 5.最后给赠与一句随机生成的正面的人生格言(关于事业拼搏有关的), 前面加上 "${PERSON}:" 6. 以上不用分开写，全部整合成一段文字"
                 }
                 请只输出纯 JSON 内容，不加解释。`,
               },
@@ -344,7 +348,7 @@ Page({
       console.log(res.target);
     }
     return {
-      title: '我在数码彩20周年庆解锁了专属色彩寄语！快来看看！',
+      title: `我在${THEME}解锁了专属色彩寄语！快来看看！`,
       path: this.data.result ? `/pages/portrait-ai/index?reportId=${this.data.id}` : `/pages/portrait-ai/index`, // 分享到小程序的哪个页面
       imageUrl: this.data.analyzedImageSrc, // 可以使用分析后的图片作为分享缩略图
     };
@@ -353,7 +357,7 @@ Page({
     // 朋友圈分享
     return {
       query: this.data.result ? `reportId=${this.data.id}` : '',
-      title: '我在数码彩20周年庆解锁了专属色彩寄语！快来看看！',
+      title: `我在${THEME}庆解锁了专属色彩寄语！快来看看！`,
     };
   },
 });
