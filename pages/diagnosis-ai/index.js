@@ -92,7 +92,7 @@ Page({
   },
 
   handlePanelChange(e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
     this.setData({
       activeValues: e.detail.value,
     });
@@ -491,7 +491,7 @@ Page({
         tempReportTabPropertys.push('steel');
       }
     }
-    console.log(result);
+    // console.log(result);
 
     this.setData({ result: result, reportTabLabels: tempReportTabLabels, reportTabProperty: tempReportTabPropertys });
   },
