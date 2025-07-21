@@ -9,8 +9,9 @@ export const toolDefinition = [
         properties: {
           wallType: {
             type: 'string',
-            enum: ['外墙', '内墙'],
-            description: '墙体类型，用于决定报告结构是外墙或内墙及其部件。',
+            enum: ['外墙', '内墙', '非建筑图像'],
+            description:
+              '墙体类型，用于决定报告结构是外墙或内墙及其部件；如不是墙体图像，可返回 "非建筑图像" 用于跳过分析。',
           },
           outerWallReport: {
             type: 'object',
@@ -54,13 +55,8 @@ export const toolDefinition = [
                 properties: {
                   wallFinishing: {
                     type: 'string',
-                    enum: [
-                      '发霉、渗水、潮湿墙面',
-                      '旧墙面（漆膜老化、起皮脱落、墙体开裂、粉化、掉灰、有钉孔、划痕等表面缺陷）',
-                      '瓷砖墙面',
-                      '其他',
-                    ],
-                    description: '墙面的基本判断, ',
+                    enum: ['发霉、渗水、潮湿墙面', '旧墙面', '瓷砖墙面', '其他'],
+                    description: '墙面的基本判断',
                   },
                 },
               },
@@ -95,12 +91,13 @@ export const toolDefinition = [
                 type: 'array',
                 items: { type: 'string' },
                 description:
-                  '列出不少于 3 条自然语言观察，用 1. 2. 3. 格式，描述表面状况，如是否平整、污染、老化、褪色等。',
+                  '描述外墙表层视觉状态，列出不少于 3 条 (最好是5条)自然语言观察，描述表面状况，如是否色差、泛黄、污染、老化、发白、粗糙、光泽下降, 平整、污染、老化、褪色、泛碱盐析、外墙掉皮、颜色均匀度、传统腻子开裂、外墙掉粉、 发霉问题等。',
               },
               damageNotes: {
                 type: 'array',
                 items: { type: 'string' },
-                description: '列出不少于 3 条自然语言描述，说明开裂、空鼓、渗水等风险，并加入感性词汇增强表达。',
+                description:
+                  '列出不少于 3 条(最好是5条)自然语言描述，列出明确结构性缺陷、破损区域、渗水裂缝开裂、空鼓、掉砖、风化、剥落、结构变形等风险，并加入感性词汇增强表达。',
               },
             },
           },
@@ -114,12 +111,14 @@ export const toolDefinition = [
               surfaceCondition: {
                 type: 'array',
                 items: { type: 'string' },
-                description: '列出不少于 3 条自然语言观察，用 1. 2. 3. 格式，描述是否发霉、污渍、色差等状况。',
+                description:
+                  '描述墙面表层视觉状态，列出不少于 3 条 (最好是5条)自然语言观察，描述表面状况，如是否色差、泛黄、污染、老化、发白、粗糙、光泽下降, 平整、污染、老化、褪色、 泛碱盐析、 掉皮、 颜色均匀度、 传统腻子开裂、 掉粉、 发霉问题等。',
               },
               damageNotes: {
                 type: 'array',
                 items: { type: 'string' },
-                description: '列出不少于 3 条自然语言风险描述，如受潮、开裂、剥落、渗水等。使用强调性语言进行表达。',
+                description:
+                  '列出不少于 3 条(最好是5条)自然语言描述，列出明确结构性缺陷、破损区域、受潮、开裂、剥落、渗水等风险，并加入感性词汇增强表达。',
               },
             },
           },

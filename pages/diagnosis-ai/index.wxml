@@ -1,3 +1,12 @@
+<block wx:if="{{showLoginPopup}}">
+  <ai-login header="📸 智能诊断，一键出方案!"
+    bind:onloginsuccess="onLoginSuccess"> </ai-login>
+</block>
+
+<view style="margin: 24rpx;">
+  <user-header bind:unauthorized="onUnauthorized"></user-header>
+</view>
+
 <block wx:if="{{loadingReport}}">
   <view style="display: flex; justify-content: center; align-items: center; margin-top: 40rpx;">
     <t-loading theme="circular"
@@ -54,15 +63,20 @@
         bind:click="onRemoveImage" />
     </view>
   </view>
+  <!-- For testing -->
+
   <button wx:if="{{!wallType}}"
     style="background: {{isLoading ? 'rgba(0,0,0, 0.2)': '#EDBF58'}} ; border: hidden; color: white; width: 90%; margin-top: 48rpx;"
     bind:tap="generate"
     class="small-font"
     disabled="{{isLoading}}"
-    hover-class="action-tile-hover">开始识别
+    hover-class="action-tile-hover">立即诊断 (消耗5积分)
   </button>
   <t-loading style="margin-top: 40rpx;"
-    wx:if="{{isLoading}}"></t-loading>
+    wx:if="{{isLoading}}"
+    layout="vertical"
+    class="loading"
+    text="报告生成中, 请稍等... "></t-loading>
 
 
   <view wx:if="{{!wallType}}"
@@ -113,19 +127,20 @@
         <text style="font-size: 34rpx;color: #1C2023;font-weight: 700;">🏠 建筑基本信息</text>
       </view>
 
-      <view>
-        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023;">类别: </text>
-        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023; font-weight: 700;">{{wallType}}</text>
+      <view style="margin-top: 10rpx;">
+        <text style="width: 100%; font-size: 28rpx;  margin-top: 24rpx; color:#1c2023;">类别: </text>
+        <text style="width: 100%; font-size: 32rpx;  margin-top: 24rpx; color:#1c2023; font-weight: 700;">「 {{wallType}} 」</text>
       </view>
 
-      <view>
-        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023;">墙面材质: </text>
-        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023; font-weight: 700;"> {{result.basicInfo.wallFinishing}}</text>
+      <view style="margin-top: 10rpx;">
+        <text style="width: 100%; font-size: 28rpx;  margin-top: 24rpx; color:#1c2023;">墙面材质: </text>
+        <text style="width: 100%; font-size: 32rpx;  margin-top: 24rpx; color:#1c2023; font-weight: 700;">「 {{result.basicInfo.wallFinishing}} 」</text>
       </view>
     </view>
 
     <t-tabs defaultValue="{{0}}"
       class="tab"
+      swipeable="{{false}}"
       theme="card">
       <t-tab-panel label="{{report}}"
         wx:for="{{reportTabLabels}}"
@@ -137,7 +152,7 @@
             <text class="header1-text">🎨 外观与表面状态</text>
           </view>
           <view wx:for="{{result[reportTabProperty[index]].surfaceCondition}}"
-            wx:key="index"
+            wx:key="*this"
             style=" margin-top: 12rpx; ">
             <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
           </view>
@@ -149,98 +164,115 @@
           </view>
 
           <view wx:for="{{result[reportTabProperty[index]].damageNotes}}"
-            wx:key="index"
+            wx:key="*this"
             style=" margin-top: 12rpx; ">
             <text style="font-size: 26rpx; color:#1c2023; margin-top: 20rpx;">{{item}}</text>
           </view>
         </view>
 
         <!-- 改造方案推荐 -->
-        <view style="height: 48rpx; width: 100%; display: flex;  align-items: center; margin-top: 30rpx;">
-          <text style="font-size: 34rpx;color: #1C2023;font-weight: 700; width: 100%; text-align: center;">🛠️ 改造方案推荐 🛠️</text>
-        </view>
-        <scroll-view scroll-x
-          enable-flex
-          wx:if="{{result[reportTabProperty[index]].solutions.length > 0}}"
-          enhanced
-          show-scrollbar="{{false}}"
-          style=" margin-top: 12rpx; overflow: auto; display: flex; min-height: 100rpx;">
-          <view wx:for="{{result[reportTabProperty[index]].solutions}}"
-            class="section-container"
-            wx:key="index"
-            style="min-width: 580rpx; margin-right: 20rpx; border: 1px solid rgba(0, 0, 0, 0.5);">
-            <!-- 方案名字 -->
-            <text style="font-size: 28rpx; color:#1c2023; margin: 20rpx 0; width: 100%; text-align: center;">{{item.solutionName}}</text>
-
-            <!-- 方案流程 -->
-            <view style="display: flex; flex-direction: column;">
-              <text class="font32 bold"
-                style="margin: 5rpx 0;"> 🧱 一、基层处理及修补 </text>
-              <block wx:for="{{item.baseTreatmentAndRepair}}"
-                wx:for-item="baseTreatment"
-                wx:key="baseTreatmentIndex"
-                wx:for-index="baseTreatmentIndex">
-                <text style="color: #1c2023;font-size: 28rpx; margin-top: 5rpx;"> {{baseTreatmentIndex+1}}. {{baseTreatment}}</text>
-              </block>
-            </view>
-            <!-- 涂料系统施工-->
-            <view style="display: flex; flex-direction: column; margin-top: 16rpx;">
-              <text class="font32 bold"
-                style="margin: 5rpx 0;"> 🎨 二、涂料系统施工 </text>
-              <block wx:for="{{item.coatingSystemConstruction}}"
-                wx:for-item="coatingSystemConstruction"
-                wx:key="coatingSystemConstructionIndex"
-                wx:for-index="coatingSystemConstructionIndex">
-                <text style="color: #1c2023;font-size: 28rpx; margin-top: 5rpx;"> {{coatingSystemConstructionIndex+1}}. {{coatingSystemConstruction}}</text>
-              </block>
-            </view>
-
-            <view style="margin-top: 36rpx;">
-              <text class="font28 bold"
-                style="margin: 5rpx 0;"> 优点: </text>
-              <text class="font26"
-                wx:for="{{item.advantages}}"
-                wx:key="*this"
-                wx:for-item="advantage"
-                wx:for-index="advantageIndex"> {{advantageIndex === 0 ? '': ' ,'}} {{advantage}}</text>
-            </view>
-
-            <view style="margin-top: 16rpx;">
-              <text class="font28 bold"
-                style="margin: 5rpx 0;"> 缺点: </text>
-              <text class="font26"
-                wx:key="*this"
-                wx:for="{{item.disadvantages}}"
-                wx:for-item="disadvantage"
-                wx:for-index="disadvantageIndex"> {{disadvantageIndex === 0 ? '': ' ,'}} {{disadvantage}}</text>
-            </view>
-
-            <view style="margin-top:32rpx; width: 100%;  display: flex; justify-content: center;align-items: center;">
-              <view style="width: 40rpx; height: 40rpx; background-color: #F8C301; border-radius: 20rpx; display: flex; justify-content: center; align-items: center;">
-                <image style="width: 24rpx; height: 24rpx; "
-                  src="{{productRecommendationSrc}}"></image>
-              </view>
-              <text class="font32 bold"
-                style="margin-left: 20rpx;"> 产品推荐 </text>
-            </view>
-
-            <view style="display: flex;justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 20rpx;">
-              <view hover-class="g-hover-scale"
-                bind:tap="navigateToProduct"
-                wx:for="{{item.recommendedProducts}}"
-                wx:for-item="recommendedProduct"
-                wx:key="*this"
-                data-id="{{recommendedProduct.id}}"
-                wx:for-index="recommendedProductsIndex"
-                style="height: 70rpx; padding: 10rpx 20rpx; background: #F7FAFE; border-radius: 20rpx; display: flex; justify-content: center; align-items: center; flex-shrink: 0; margin: 12rpx; ">
-                <text class="font24">{{recommendedProduct.name}}</text>
-                <t-icon name="link"
-                  size="24rpx"
-                  style="margin-left: 6rpx;"></t-icon>
-              </view>
-            </view>
+        <view style="background-color: #f7fafe; padding: 24rpx 0;">
+          <view style="width: 100%; display: flex;  align-items: center; flex-direction: column;">
+            <text style="font-size: 34rpx;color: #1C2023;font-weight: 700; width: 100%; text-align: center;">🛠️ 改造方案推荐 🛠️</text>
+            <text class="font24"
+              style="text-align: center;"> (仅供参考, 请结合现场实际情况, 由施工团队具体提出落地方案) </text>
           </view>
-        </scroll-view>
+          <scroll-view scroll-x
+            scroll-y
+            enable-flex
+            wx:if="{{result[reportTabProperty[index]].solutions.length > 0}}"
+            enhanced
+            show-scrollbar="{{false}}"
+            style=" margin-top: 12rpx; overflow: auto; display: flex; min-height: 100rpx;">
+
+            <view class="section-container collapse"
+              style="min-width: 580rpx; margin-right: 20rpx;  overflow: visible;"
+              wx:for="{{result[reportTabProperty[index]].solutions}}"
+              wx:key="index">
+              <image style="height: 320rpx; width: 580rpx; border-radius: 20rpx;"
+                mode="aspectFill"
+                data-image-src="{{item.imageSrc}}"
+                bind:tap="previewSolutionImage"
+                src="{{item.imageSrc}}"></image>
+              <t-collapse value="{{activeValues}}"
+                bind:change="handlePanelChange">
+                <t-collapse-panel header="{{item.solutionName}}"
+                  value="{{item.imageSrc}}"
+                  expandIcon>
+
+                  <!-- 方案流程 -->
+                  <view style="display: flex; flex-direction: column;">
+                    <text class="font32 bold"
+                      style="margin: 5rpx 0;"> 🧱 一、基层处理及修补 </text>
+                    <block wx:for="{{item.baseTreatmentAndRepair}}"
+                      wx:for-item="baseTreatment"
+                      wx:key="baseTreatmentIndex"
+                      wx:for-index="baseTreatmentIndex">
+                      <text style="color: #1c2023;font-size: 28rpx; margin-top: 5rpx;"> {{baseTreatmentIndex+1}}. {{baseTreatment}}</text>
+                    </block>
+                  </view>
+                  <!-- 涂料系统施工-->
+                  <view style="display: flex; flex-direction: column; margin-top: 16rpx;">
+                    <text class="font32 bold"
+                      style="margin: 5rpx 0;"> 🎨 二、涂料系统施工 </text>
+                    <block wx:for="{{item.coatingSystemConstruction}}"
+                      wx:for-item="coatingSystemConstruction"
+                      wx:key="coatingSystemConstructionIndex"
+                      wx:for-index="coatingSystemConstructionIndex">
+                      <text style="color: #1c2023;font-size: 28rpx; margin-top: 5rpx;"> {{coatingSystemConstructionIndex+1}}. {{coatingSystemConstruction}}</text>
+                    </block>
+                  </view>
+
+                  <view style="margin-top: 36rpx;">
+                    <text class="font28 bold"
+                      style="margin: 5rpx 0;"> 优点: </text>
+                    <text class="font26"
+                      wx:for="{{item.advantages}}"
+                      wx:key="*this"
+                      wx:for-item="advantage"
+                      wx:for-index="advantageIndex"> {{advantageIndex === 0 ? '': ' ,'}} {{advantage}}</text>
+                  </view>
+
+                  <view style="margin-top: 16rpx;">
+                    <text class="font28 bold"
+                      style="margin: 5rpx 0;"> 缺点: </text>
+                    <text class="font26"
+                      wx:key="*this"
+                      wx:for="{{item.disadvantages}}"
+                      wx:for-item="disadvantage"
+                      wx:for-index="disadvantageIndex"> {{disadvantageIndex === 0 ? '': ' ,'}} {{disadvantage}}</text>
+                  </view>
+
+                  <view style="margin-top:32rpx; width: 100%;  display: flex; justify-content: center;align-items: center;">
+                    <view style="width: 40rpx; height: 40rpx; background-color: #F8C301; border-radius: 20rpx; display: flex; justify-content: center; align-items: center;">
+                      <image style="width: 24rpx; height: 24rpx; "
+                        src="{{productRecommendationSrc}}"></image>
+                    </view>
+                    <text class="font32 bold"
+                      style="margin-left: 20rpx;"> 产品推荐 </text>
+                  </view>
+
+                  <view style="display: flex;justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 20rpx;">
+                    <view hover-class="g-hover-scale"
+                      bind:tap="navigateToProduct"
+                      wx:for="{{item.recommendedProducts}}"
+                      wx:for-item="recommendedProduct"
+                      wx:key="*this"
+                      data-id="{{recommendedProduct.id}}"
+                      wx:for-index="recommendedProductsIndex"
+                      style="height: 70rpx; padding: 10rpx 20rpx; background: #F7FAFE; border-radius: 20rpx; display: flex; justify-content: center; align-items: center; flex-shrink: 0; margin: 12rpx; ">
+                      <text class="font24">{{recommendedProduct.name}}</text>
+                      <t-icon name="link"
+                        size="24rpx"
+                        style="margin-left: 6rpx;"></t-icon>
+                    </view>
+                  </view>
+                </t-collapse-panel>
+              </t-collapse>
+            </view>
+          </scroll-view>
+
+        </view>
       </t-tab-panel>
     </t-tabs>
 
@@ -248,19 +280,17 @@
     <view class="result-actions"
       style="margin-top: 30rpx;">
 
-      <!-- <button class="cute-button share-to-timeline-btn"
-        bindtap="showShareGuideOverlay">
-        <text class="button-icon">🎉</text>
-        <text>分享到朋友圈</text>
-        <text class="button-icon">🎉</text>
-      </button> -->
+      <button class="cute-button jump-to-ai-btn"
+        bindtap="navigateToAI">
+        <text class="button-icon">✨</text>
+        <text>点击使用数码彩AI生成效果图</text>
+        <text class="button-icon">✨</text>
+      </button>
 
       <button class="cute-button retry-button"
         wx:if="betaVersion"
         bindtap="resetGame">
-        <text class="button-icon">✨</text>
         <text>再来一次</text>
-        <text class="button-icon">✨</text>
       </button>
     </view>
 
@@ -281,22 +311,14 @@
   </view>
 </view>
 
-<view class="share-guide-overlay"
-  wx:if="{{ showGuideOverlay }}"
-  bindtap="hideShareGuideOverlay"
-  catchtouchmove="preventScroll">
-  <view class="guide-content">
-    <t-icon name="arrow-up"
-      class="arrow-icon"
-      size="120rpx" />
-    <text class="guide-text">点击右上角“...”分享朋友圈</text>
-  </view>
-
-
-</view>
-
 <t-message id="t-message" />
 <t-toast id="t-toast" />
+
+<t-dialog visible="{{showNoBuildingPopup}}"
+  title="当前图片看起来不像是墙面图哦 🤔"
+  content="建议上传一张包含清晰外墙或内墙的照片，这样我们才能为您生成完整的分析报告～"
+  confirm-btn="{{ {content: '知道了', variant: 'base', class: 'ack-button'}  }}"
+  bind:confirm="closeDialog" />
 
 <example-picker tab-value="{{0}}"
   example-type="DIAGNOSIS"

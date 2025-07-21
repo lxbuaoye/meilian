@@ -1,5 +1,6 @@
 import updateManager from './common/updateManager';
 import { fetchUserInfo } from './services/user/service';
+import { eventBus } from './utils/eventBus';
 
 App({
   globalData: {
@@ -10,6 +11,8 @@ App({
     // #endif
     userInfo: wx.getStorageSync('userInfo'),
   },
+
+  eventBus: eventBus, // Make eventBus globally accessible
   onLaunch: function () {
     // #if MP
 

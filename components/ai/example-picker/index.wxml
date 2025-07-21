@@ -1,5 +1,5 @@
 <t-popup visible="{{visible}}"
-  usingCustomNavbar
+  usingCustomNavbar="{{useCustomNavBar}}"
   class="pop-up"
   bind:visible-change="onVisibleChange"
   placement="{{'center'}}">

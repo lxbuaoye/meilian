@@ -1,9 +1,12 @@
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+
 export const exteriorWallSolutions = [
   {
     wallType: '马赛克面 / 瓷砖面 / 铝板 / 铝塑板',
     solutions: [
       {
         solutionName: '方案一（本方案适合现状是小面积空鼓修补）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/masaike/1-min.png`,
         baseTreatmentAndRepair: [
           '检查空鼓与脱落区域, 敲击检查是否有空鼓、松动、脱落区域，做标记，随后用工具铲除',
           '清理表面污染物, 使用高压水枪或清洁剂清洗墙面，去除油污、灰尘、藻类、水泥残留等，随后保持墙面干燥。',
@@ -29,6 +32,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案二（本方案适合现状是大面积空鼓及脱落）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/masaike/2-min.png`,
         baseTreatmentAndRepair: [
           '检查空鼓与脱落区域: 敲击检查是否有空鼓、松动、脱落区域，做标记，随后用工具铲除',
           '清理表面污染物: 使用高压水枪或清洁剂清洗墙面，去除油污、灰尘、藻类、水泥残留等，随后保持墙面干燥。',
@@ -58,6 +62,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案三（仿石效果更高端）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/masaike/3-min.png`,
         baseTreatmentAndRepair: [
           '检查空鼓与脱落区域: 敲击检查是否有空鼓、松动、脱落区域，做标记，随后用工具铲除',
           '清理表面污染物: 使用高压水枪或清洁剂清洗墙面，去除油污、灰尘、藻类、水泥残留等，随后保持墙面干燥。',
@@ -98,6 +103,7 @@ export const exteriorWallSolutions = [
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/rujiaoqi/1-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查墙面是否粉化、空鼓、起皮、发霉、渗水。判断原涂层附着力，决定是否铲除。拍照记录病害区域，作为修复依据。',
           '原有涂层处理: 粉化严重或附着力差则铲除至牢固基层；若附着力良好：打磨清洁，保留原涂层',
@@ -120,6 +126,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案二',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/rujiaoqi/2-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查墙面是否粉化、空鼓、起皮、发霉、渗水。判断原涂层附着力，决定是否铲除。拍照记录病害区域，作为修复依据。',
           '原有涂层处理: 粉化严重或附着力差则铲除至牢固基层；若附着力良好：打磨清洁，保留原涂层',
@@ -150,6 +157,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案三（仿石效果更高端）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/rujiaoqi/3-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查墙面是否粉化、空鼓、起皮、发霉、渗水。判断原涂层附着力，决定是否铲除。拍照记录病害区域，作为修复依据。',
           '原有涂层处理: 粉化严重或附着力差则铲除至牢固基层；若附着力良好：打磨清洁，保留原涂层',
@@ -191,6 +199,7 @@ export const exteriorWallSolutions = [
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/hongzhuanqiang/1-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查是否有松动砖块、开裂、渗水、风化、白华（泛碱）等问题，判断是否需局部更换砖块或加固。',
           '高压水枪冲洗墙面: 清除灰尘、藻类、油污、浮灰，避免施工附着不牢, 去除粉化物和风化层，确保新涂料附着良好。',
@@ -213,6 +222,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案二（线条分格工艺仿石漆）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/hongzhuanqiang/2-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查是否有松动砖块、开裂、渗水、风化、白华（泛碱）等问题，判断是否需局部更换砖块或加固。',
           '高压水枪冲洗墙面: 清除灰尘、藻类、油污、浮灰，避免施工附着不牢, 去除粉化物和风化层，确保新涂料附着良好。',
@@ -258,6 +268,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案三（仿石效果更高端）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/hongzhuanqiang/3-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查是否有松动砖块、开裂、渗水、风化、白华（泛碱）等问题，判断是否需局部更换砖块或加固。',
           '高压水枪冲洗墙面: 清除灰尘、藻类、油污、浮灰，避免施工附着不牢, 去除粉化物和风化层，确保新涂料附着良好。',
@@ -302,6 +313,7 @@ export const exteriorWallSolutions = [
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/ximishi/1-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查墙面是否有空鼓、开裂、粉化、脱落、霉斑等问题；评估原有洗石米层附着力，决定是否整体铲除或局部修复',
           '高压水枪冲洗墙面: 清除灰尘、藻类、油污、浮灰，避免施工附着不牢。',
@@ -323,6 +335,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案二（线条分格工艺仿石漆）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/ximishi/2-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查墙面是否有空鼓、开裂、粉化、脱落、霉斑等问题；评估原有洗石米层附着力，决定是否整体铲除或局部修复',
           '高压水枪冲洗墙面: 清除灰尘、藻类、油污、浮灰，避免施工附着不牢。',
@@ -352,6 +365,7 @@ export const exteriorWallSolutions = [
       },
       {
         solutionName: '方案三（仿石效果更高端）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/ximishi/3-min.png`,
         baseTreatmentAndRepair: [
           '现场勘查与评估: 检查墙面是否有空鼓、开裂、粉化、脱落、霉斑等问题；评估原有洗石米层附着力，决定是否整体铲除或局部修复',
           '高压水枪冲洗墙面: 清除灰尘、藻类、油污、浮灰，避免施工附着不牢。',
@@ -395,6 +409,7 @@ export const interiorWallSolutions = [
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/famei/1-min.png`,
         baseTreatmentAndRepair: [
           '检查霉变原因（如漏水、渗水、结露、通风差等）,确认受潮范围和墙体损坏程度',
           '清除霉斑：使用刮刀、钢丝刷或砂纸去除表面霉点和松动层，用含氯消毒液（如84稀释液）或专业除霉剂反复擦拭墙面，彻底杀菌',
@@ -429,6 +444,7 @@ export const interiorWallSolutions = [
       },
       {
         solutionName: '方案二（线条分格工艺仿石漆）',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/famei/2-min.png`,
         baseTreatmentAndRepair: [
           '检查霉变原因（如漏水、渗水、结露、通风差等）,确认受潮范围和墙体损坏程度',
           '清除霉斑：使用刮刀、钢丝刷或砂纸去除表面霉点和松动层，用含氯消毒液（如84稀释液）或专业除霉剂反复擦拭墙面，彻底杀菌',
@@ -467,10 +483,11 @@ export const interiorWallSolutions = [
     ],
   },
   {
-    wallType: '旧墙面（漆膜老化、起皮脱落、墙体开裂、粉化、掉灰、有钉孔、划痕等表面缺陷）',
+    wallType: '旧墙面 / 其他',
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/laohua/1-min.png`,
         baseTreatmentAndRepair: [
           '清理表面：铲除起皮、松动旧漆，使用铲刀或打磨机处理',
           '使用嵌缝石膏或防裂腻子填补裂缝或钉孔，必要时贴网格布加强',
@@ -500,7 +517,8 @@ export const interiorWallSolutions = [
         ],
       },
       {
-        solutionName: '方案二（线条分格工艺仿石漆）',
+        solutionName: '方案二',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/laohua/2-min.png`,
         baseTreatmentAndRepair: [
           '清理表面：铲除起皮、松动旧漆，使用铲刀或打磨机处理',
           '除霉（如有）：喷涂专用除霉剂，彻底干燥后清洁',
@@ -540,6 +558,7 @@ export const interiorWallSolutions = [
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/cizhuan/1-min.png`,
         baseTreatmentAndRepair: [
           '清洁瓷砖表面：使用去油剂和清洁剂彻底清洗油污、水垢、霉斑等；',
           '打磨瓷砖面层：用砂纸或电动打磨机粗化瓷砖表面（特别是抛光砖），增强涂料附着力；',
@@ -561,6 +580,7 @@ export const interiorWallSolutions = [
       },
       {
         solutionName: '方案二',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/cizhuan/2-min.png`,
         baseTreatmentAndRepair: [
           '清洁瓷砖表面：使用去油剂和清洁剂彻底清洗油污、水垢、霉斑等；',
           '打磨瓷砖面层：用砂纸或电动打磨机粗化瓷砖表面（特别是抛光砖），增强涂料附着力；',
@@ -597,6 +617,7 @@ export const interiorWallSolutions = [
       },
       {
         solutionName: '方案三',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/cizhuan/3-min.png`,
         baseTreatmentAndRepair: [
           '清洁瓷砖表面：使用去油剂和清洁剂彻底清洗油污、水垢、霉斑等；',
           '打磨瓷砖面层：用砂纸或电动打磨机粗化瓷砖表面（特别是抛光砖），增强涂料附着力；',
@@ -643,6 +664,7 @@ export const glassSolutions = [
     solutions: [
       {
         solutionName: '方案一',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/boli/1-min.png`,
         baseTreatmentAndRepair: [
           '检查玻璃是否存在划痕、水垢、污渍、贴膜残胶或轻微破损',
           '确定是普通玻璃、磨砂玻璃还是镀膜玻璃。',
@@ -666,6 +688,7 @@ export const glassSolutions = [
       },
       {
         solutionName: '方案二',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/boli/2-min.png`,
         baseTreatmentAndRepair: [
           '检查玻璃是否存在划痕、水垢、污渍、贴膜残胶或轻微破损',
           '确定是普通玻璃、磨砂玻璃还是镀膜玻璃。',
@@ -692,6 +715,7 @@ export const woodSolutions = [
     solutions: [
       {
         solutionName: '通用方案',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/wood/1-min.png`,
         baseTreatmentAndRepair: [
           '细砂纸打磨至微磨砂质感，去除表面蜡质和老化涂层',
           '使用酒精或中性清洁剂清理表面灰尘、油污',
@@ -723,6 +747,7 @@ export const steelSolutions = [
     solutions: [
       {
         solutionName: '通用方案',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/steel/1-min.png`,
         baseTreatmentAndRepair: [
           '使用中性清洗剂或专用清洁剂清除油污、灰尘、霉斑等。必要时使用高压水枪。',
           '打磨除锈：对老化漆层、氧化层进行打磨，露出干净铝基面，打磨至无脱粉、无锈蚀。',

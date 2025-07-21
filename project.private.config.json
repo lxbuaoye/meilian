@@ -11,9 +11,16 @@
         {
           "name": "pages/diagnosis-ai/index",
           "pathName": "pages/diagnosis-ai/index",
-          "query": "",
+          "query": "reportId=1753118363965-726",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/diagnosis-ai/index",
+          "pathName": "pages/diagnosis-ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "app-pages/portrait-ai/index",

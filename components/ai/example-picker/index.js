@@ -77,6 +77,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    useCustomNavBar: {
+      type: Boolean,
+      value: false,
+    },
     tabValue: {
       type: Number,
       value: 0,

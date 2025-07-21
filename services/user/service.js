@@ -15,6 +15,8 @@ export async function saveUserInfoLocally(userInfo) {
   }
   wx.setStorageSync('userInfo', userInfo);
   getApp().globalData.userInfo = userInfo;
+  // Boradcast info update
+  getApp().eventBus.emit('userInfoUpdated', userInfo);
   return userInfo;
 }
 

@@ -4,6 +4,12 @@ import { Toast } from 'tdesign-miniprogram';
 import Message from 'tdesign-miniprogram/message/index';
 import { toolDefinition } from './tool';
 import {
+  getLocalUserInfo,
+  fetchUserInfo,
+  saveUserHistoryLocally,
+  saveUserInfoLocally,
+} from '../../services/user/service';
+import {
   exteriorWallSolutions,
   interiorWallSolutions,
   glassSolutions,
@@ -18,6 +24,8 @@ const accountInfo = wx.getAccountInfoSync();
 const db = wx.cloud.database();
 const _ = db.command;
 
+const CREDITS_PER_USAGE = 5;
+
 const reportTabLabels = ['墙身', '玻璃', '木制品', '金属制品'];
 const reportTabProperty = ['mainWall', 'glass', 'wood', 'steel'];
 Page({
@@ -25,7 +33,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showNoBuildingPopup: false,
+    userInfo: {},
+    activeValues: [],
     wallType: '',
+    showLoginPopup: false,
     reportTabLabels,
     reportTabProperty,
     examplePickerVisible: false,
@@ -40,11 +52,51 @@ Page({
     arrowSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/arrow.png`,
     robotSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/banner_bg.png`,
     result: {},
-    solutions: [],
+    solutions: [], // For testing
   },
+  loggedIn: false,
 
   envVersion: accountInfo.miniProgram.envVersion,
 
+  checkLoginStatus() {
+    if (this.loggedIn) {
+      return true;
+    }
+    this.setData({ showLoginPopup: true });
+    return false;
+  },
+
+  onUnauthorized() {
+    this.checkLoginStatus();
+  },
+
+  onLoginSuccess(e) {
+    console.log(e);
+    Message.success({
+      context: this,
+      offset: [20, 32],
+      duration: 3000,
+      content: '登陆成功',
+    });
+    this.loggedIn = false;
+    this.setData({ showLoginPopup: false, userInfo: e.detail });
+  },
+
+  showErrorPopup(text) {
+    Message.error({
+      context: this,
+      offset: [20, 32],
+      duration: 3000,
+      content: `服务器出错 ${text ? ` ${text}` : ''}`,
+    });
+  },
+
+  handlePanelChange(e) {
+    console.log(e.detail.value);
+    this.setData({
+      activeValues: e.detail.value,
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -61,7 +113,7 @@ Page({
 
   loadReport(reportId) {
     this.setData({ loadingReport: true });
-    db.collection('portrait_report')
+    db.collection('diagnosis_report')
       .where({
         reportid: _.eq(reportId),
       })
@@ -69,16 +121,10 @@ Page({
       .then((res) => {
         console.log(res);
         if (res && res.data && res.data.length > 0) {
+          this.processResult(res.data[0].detail); //Maybe need to parse JSON?
           this.setData({
             id: reportId,
-            viewOnly: true,
-            qrcodeSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/qrcode/${reportId}.png`,
-            imageSrc: `${CLOUD_STROAGE_PATH}/resources/portrait-ai/user_uploads/${reportId}.jpg`,
-            result: {
-              primaryColor: res.data[0].primaryColor,
-              secondaryColor: res.data[0].secondaryColor,
-              compliment: res.data[0].compliment,
-            },
+            imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/user_uploads/${reportId}.jpg`,
             loadingReport: false,
           });
         } else {
@@ -102,7 +148,6 @@ Page({
       viewOnly: false,
       imageSrc: '',
       id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-      result: {},
     });
     wx.pageScrollTo({
       scrollTop: 0,
@@ -135,6 +180,13 @@ Page({
     });
   },
 
+  previewSolutionImage(e) {
+    wx.previewImage({
+      current: e.currentTarget.dataset.imageSrc,
+      urls: [e.currentTarget.dataset.imageSrc],
+    });
+  },
+
   uploadFileToCloud() {
     const cloudPath = `resources/diagnosis-ai/user_uploads/${this.data.id}.jpg`; // 云端文件路径，确保唯一性
 
@@ -151,43 +203,81 @@ Page({
     });
   },
 
+  processTransacation() {
+    wx.cloud
+      .callFunction({
+        // 云函数名称
+        name: 'updateuserinfo',
+        // 传给云函数的参数
+        data: {
+          type: 'CONSUME',
+          credits: CREDITS_PER_USAGE,
+          phoneNumber: this.data.userInfo.phoneNumber,
+        },
+      })
+      .then((res) => {
+        if (res.result.errCode === 0) {
+          saveUserInfoLocally(res.result.userInfo);
+          this.setData({
+            userInfo: res.result.userInfo,
+          });
+        }
+      });
+  },
+
+  closeDialog(e) {
+    this.setData({ showNoBuildingPopup: false });
+  },
+
   async onSuccess(parsed) {
-    // await this.uploadFileToCloud();
     console.log('解析后的 JSON：', parsed);
-    this.setData({ result: parsed });
-    this.processResult(parsed);
-    // Save data
-    // await db.collection('portrait_report').add({
-    //   // data 字段表示需新增的 JSON 数据
-    //   data: {
-    //     primaryColor: parsed.primaryColor,
-    //     secondaryColor: parsed.secondaryColor,
-    //     compliment: parsed.compliment,
-    //     reportid: this.data.id,
-    //     createdAt: db.serverDate(),
-    //   },
-    //   success: (res) => {
-    //     console.log(res);
-    //   },
-    //   fail: (err) => {
-    //     console.log(err);
-    //   },
-    // });
+    if (parsed.wallType === '非建筑图像') {
+      this.setData({ showNoBuildingPopup: true });
+      return;
+    }
+    console.log(this.data);
+    // Save report
+    await db.collection('diagnosis_report').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        reportid: this.data.id,
+        user: this.data.userInfo.phoneNumber,
+        detail: parsed,
+        wallType: parsed.wallType,
+        time: db.serverDate(),
+        createdAt: db.serverDate(),
+      },
+      success: (res) => {
+        console.log(res);
+      },
+      fail: (err) => {
+        console.log(err);
+      },
+    });
+    await this.uploadFileToCloud();
+
+    try {
+      this.processResult(parsed);
+      await this.processTransacation();
+    } catch (e) {}
 
     // this.generateQRCode();
   },
 
   async generate() {
-    // this.setData({
-    //   result: {
-    //     isLoading: false,
-    //     compliment:
-    //       '在数码彩20周年庆的盛会上，您的穿着如同一抹深邃的夜空，稳重而不失优雅，仿佛为这场盛会增添了一份宁静的力量。那深邃的色调，犹如数码彩涂料的经典色系，历久弥新，令人难以忘怀。而您衣着中的次要色调，如同沙滩上的细沙，温暖而柔和，正如数码彩在涂料行业中不断创新的精神，温暖着每一位与会者的心。您的穿着不仅展现了个人的品味，更与数码彩的品牌精神相得益彰，仿佛在诉说着一个关于色彩与创新的故事。在这场庆典中，您的存在如同一幅精美的画作，完美地诠释了数码彩20年来的辉煌历程。',
-    //     primaryColor: '#1A1A1A',
-    //     secondaryColor: '#D2B48C',
-    //   },
-    // });
-    // return;
+    if (!this.checkLoginStatus()) {
+      return;
+    }
+
+    if (this.data.userInfo.credits < CREDITS_PER_USAGE) {
+      Message.info({
+        context: this,
+        offset: [20, 32],
+        duration: 2000,
+        // single: false, // 打开注释体验多个消息叠加效果
+        content: '积分不足, 无法诊断',
+      });
+    }
 
     if (!this.data.imageSrc) {
       Message.info({
@@ -262,7 +352,7 @@ Page({
               offset: [20, 32],
               duration: 2000,
               // single: false, // 打开注释体验多个消息叠加效果
-              content: '发生错误, 可能没有检测到建筑...',
+              content: '服务器出错啦...请稍候再试',
             });
           } finally {
             this.setData({ isLoading: false });
@@ -324,46 +414,46 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-    const temp = {
-      wallType: '内墙',
-      innerWallReport: {
-        basicInfo: {
-          wallFinishing: '瓷砖墙面',
-        },
-        mainWall: {
-          material: '瓷砖',
-          surfaceCondition: [
-            '1. 瓷砖表面整体较为平整，但局部存在轻微的污渍和水渍痕迹。',
-            '2. 表面光泽度尚可，但在某些区域有轻微的磨损迹象。',
-            '3. 接缝处的填缝剂有轻微变色，影响整体美观。',
-          ],
-          damageNotes: [
-            '1. 局部区域可能存在渗水风险，建议进行密封处理。',
-            '2. 瓷砖接缝处可能会出现开裂现象，需定期检查维护。',
-            '3. 若长期不处理，可能导致瓷砖脱落，影响使用安全。',
-          ],
-        },
-        glass: {
-          surfaceCondition: ['1. 玻璃表面较为干净，但有少量指纹和灰尘。', '2. 边缘处有轻微的老化痕迹。'],
-          damageNotes: ['1. 玻璃可能存在轻微松动，建议检查固定情况。', '2. 若不及时维护，可能会出现裂痕，影响安全性。'],
-        },
-        wood: {
-          surfaceCondition: ['1. 木制品表面漆面部分老化，光泽度下降。', '2. 柜门边缘有轻微的磨损痕迹。'],
-          damageNotes: [
-            '1. 柜体下部可能因受潮出现变形，建议进行防潮处理。',
-            '2. 柜门合页处有轻微松动，需定期紧固以确保正常使用。',
-          ],
-        },
-        steel: {
-          surfaceCondition: ['1. 不锈钢表面有轻微的水斑和指纹痕迹。', '2. 部分区域有轻微的划痕。'],
-          damageNotes: [
-            '1. 若不及时清理，可能导致不锈钢表面腐蚀，影响美观。',
-            '2. 建议定期进行清洁和保养，以延长使用寿命。',
-          ],
-        },
-      },
-    };
-    // this.processResult(temp);
+    // const temp = {
+    //   wallType: '内墙',
+    //   innerWallReport: {
+    //     basicInfo: {
+    //       wallFinishing: '瓷砖墙面',
+    //     },
+    //     mainWall: {
+    //       material: '马赛克面 / 瓷砖面 / 铝板 / 铝塑板',
+    //       surfaceCondition: [
+    //         '1. 瓷砖表面整体较为平整，但局部存在轻微的污渍和水渍痕迹。',
+    //         '2. 表面光泽度尚可，但在某些区域有轻微的磨损迹象。',
+    //         '3. 接缝处的填缝剂有轻微变色，影响整体美观。',
+    //       ],
+    //       damageNotes: [
+    //         '1. 局部区域可能存在渗水风险，建议进行密封处理。',
+    //         '2. 瓷砖接缝处可能会出现开裂现象，需定期检查维护。',
+    //         '3. 若长期不处理，可能导致瓷砖脱落，影响使用安全。',
+    //       ],
+    //     },
+    //     glass: {
+    //       surfaceCondition: ['1. 玻璃表面较为干净，但有少量指纹和灰尘。', '2. 边缘处有轻微的老化痕迹。'],
+    //       damageNotes: ['1. 玻璃可能存在轻微松动，建议检查固定情况。', '2. 若不及时维护，可能会出现裂痕，影响安全性。'],
+    //     },
+    //     wood: {
+    //       surfaceCondition: ['1. 木制品表面漆面部分老化，光泽度下降。', '2. 柜门边缘有轻微的磨损痕迹。'],
+    //       damageNotes: [
+    //         '1. 柜体下部可能因受潮出现变形，建议进行防潮处理。',
+    //         '2. 柜门合页处有轻微松动，需定期紧固以确保正常使用。',
+    //       ],
+    //     },
+    //     steel: {
+    //       surfaceCondition: ['1. 不锈钢表面有轻微的水斑和指纹痕迹。', '2. 部分区域有轻微的划痕。'],
+    //       damageNotes: [
+    //         '1. 若不及时清理，可能导致不锈钢表面腐蚀，影响美观。',
+    //         '2. 建议定期进行清洁和保养，以延长使用寿命。',
+    //       ],
+    //     },
+    //   },
+    // };
+    // this.processResult(temp); //TODO Rever this!
   },
 
   processResult(data) {
@@ -406,6 +496,12 @@ Page({
     this.setData({ result: result, reportTabLabels: tempReportTabLabels, reportTabProperty: tempReportTabPropertys });
   },
 
+  navigateToAI(e) {
+    wx.navigateTo({
+      url: `/pages/ai/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${this.data.imageSrc}`,
+    });
+  },
+
   navigateToProduct(e) {
     const { id } = e.currentTarget.dataset;
     wx.navigateTo({
@@ -415,7 +511,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
+  onShow() {
+    const userInfo = getLocalUserInfo();
+    if (userInfo && userInfo.phoneNumber) {
+      this.loggedIn = true;
+      this.setData({ userInfo });
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -452,22 +554,17 @@ Page({
   },
 
   // 用户点击分享按钮时触发（open-type="share"）
-  onShareAppMessage(res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target);
-    }
+  onShareAppMessage() {
     return {
-      title: '我的房屋报告, 点击查看!',
+      title: this.data.result ? '数码彩AI智能诊断的墙面报告, 点击查看!' : '🤩 数码彩AI - 墙面智能诊断, 快来试试!',
       path: this.data.result ? `/pages/diagnosis-ai/index?reportId=${this.data.id}` : `/pages/diagnosis-ai/index`, // 分享到小程序的哪个页面
-      imageUrl: this.data.analyzedImageSrc, // 可以使用分析后的图片作为分享缩略图
     };
   },
   onShareTimeline() {
     // 朋友圈分享
     return {
       query: this.data.result ? `reportId=${this.data.id}` : '',
-      title: '我的房屋报告, 点击查看!',
+      title: this.data.result ? '数码彩AI智能诊断的墙面报告, 点击查看!' : '🤩 数码彩AI - 墙面智能诊断, 快来试试!',
     };
   },
   showExamplePicker() {
