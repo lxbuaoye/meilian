@@ -405,17 +405,17 @@ page {
   margin-bottom: 5rpx;
 }
 
-.feature-list,
-.tip-list {
-  margin-left: 20rpx;
+.feature-list {
+  margin-left: 30rpx;
   margin-bottom: 15rpx;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
-.feature-item,
-.tip-item {
+.feature-item {
   display: flex;
+  flex: 1;
   align-items: center;
   font-size: 28rpx;
   color: #555;

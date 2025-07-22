@@ -118,13 +118,16 @@ Page({
         reportid: _.eq(reportId),
       })
       .get()
-      .then((res) => {
+      .then(async (res) => {
         console.log(res);
         if (res && res.data && res.data.length > 0) {
-          this.processResult(res.data[0].detail); //Maybe need to parse JSON?
+          this.processResult(res.data[0].detail);
+          const { tempFilePath } = await wx.cloud.downloadFile({
+            fileID: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/user_uploads/${reportId}.jpg`,
+          });
           this.setData({
             id: reportId,
-            imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/user_uploads/${reportId}.jpg`,
+            imageSrc: tempFilePath,
             loadingReport: false,
           });
         } else {

@@ -91,14 +91,12 @@
           </view>
           <view class="feature-list">
             <view class="feature-item">
-              <text class="feature-icon">📸</text>
-              <text class="feature-text">拍照/上传：</text>
-              <text>快速上传建筑照片</text>
+              <text class="feature-text">📸 拍照/上传：</text>
+              <text style="display: flex;">快速上传建筑照片</text>
             </view>
             <view class="feature-item">
-              <text class="feature-icon">📊</text>
-              <text class="feature-text">诊断报告：</text>
-              <text>提供详细的墙面分析以及生成建议。</text>
+              <text class="feature-text">📊 诊断报告：</text>
+              <text style="display: flex;">提供详细的墙面分析以及生成建议。</text>
             </view>
           </view>
 
