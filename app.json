@@ -29,7 +29,8 @@
     "app-pages/wuxing/index",
     "app-pages/portrait-ai/index",
     "pages/delivery-standard/index",
-    "pages/diagnosis-ai/index"
+    "pages/diagnosis-ai/index",
+    "pages/admin-red-packet/index"
   ],
   "subPackages": [
     {

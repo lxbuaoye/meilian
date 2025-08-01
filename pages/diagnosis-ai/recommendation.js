@@ -443,7 +443,7 @@ export const interiorWallSolutions = [
         ],
       },
       {
-        solutionName: '方案二（线条分格工艺仿石漆）',
+        solutionName: '方案二',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/famei/2-min.png`,
         baseTreatmentAndRepair: [
           '检查霉变原因（如漏水、渗水、结露、通风差等）,确认受潮范围和墙体损坏程度',

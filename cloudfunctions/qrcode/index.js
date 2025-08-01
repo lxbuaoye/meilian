@@ -10,8 +10,8 @@ exports.main = async (event, context) => {
   try {
     const result = await cloud.openapi.wxacode.get({
       // path: `pages/portrait-ai/index`,
-      path: `pages/home/home`,
-      envVersion: 'release',
+      path: `pages/admin-red-packet/index`,
+      envVersion: 'trial',
       autoColor: false,
       width: 1280,
       lineColor: {

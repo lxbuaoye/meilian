@@ -12,12 +12,10 @@
     "product-card": "/components/product-card/index",
     "number-banner": "/components/number-banner/index",
     "t-swiper": "tdesign-miniprogram/swiper/swiper",
-    "t-image": "/components/webp-image/index",
     "t-footer": "tdesign-miniprogram/footer/footer",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-toast": "tdesign-miniprogram/toast/toast",
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
-    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
-    "load-more": "/components/load-more/index"
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel"
   }
 }

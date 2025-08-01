@@ -9,11 +9,18 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/admin-red-packet/index",
+          "pathName": "pages/admin-red-packet/index",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
           "name": "pages/diagnosis-ai/index",
           "pathName": "pages/diagnosis-ai/index",
           "query": "reportId=1753132363432-587",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/diagnosis-ai/index",

@@ -54,6 +54,8 @@ Page({
     result: {},
     solutions: [], // For testing
   },
+
+  needToDownloadImage: false,
   loggedIn: false,
 
   envVersion: accountInfo.miniProgram.envVersion,
@@ -78,7 +80,7 @@ Page({
       duration: 3000,
       content: '登陆成功',
     });
-    this.loggedIn = false;
+    this.loggedIn = true;
     this.setData({ showLoginPopup: false, userInfo: e.detail });
   },
 
@@ -122,12 +124,10 @@ Page({
         console.log(res);
         if (res && res.data && res.data.length > 0) {
           this.processResult(res.data[0].detail);
-          const { tempFilePath } = await wx.cloud.downloadFile({
-            fileID: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/user_uploads/${reportId}.jpg`,
-          });
+          this.needToDownloadImage = true;
           this.setData({
             id: reportId,
-            imageSrc: tempFilePath,
+            imageSrc: `${CLOUD_STROAGE_PATH}/resources/diagnosis-ai/user_uploads/${reportId}.jpg`,
             loadingReport: false,
           });
         } else {
@@ -143,6 +143,7 @@ Page({
   },
 
   resetGame() {
+    this.needToDownloadImage = false;
     this.setData({
       qrcodeSrc: '',
       result: {},
@@ -162,7 +163,7 @@ Page({
     wx.chooseMedia({
       count: 1,
       mediaType: ['image'],
-      sizeType: ['original'],
+      sizeType: ['original', 'compressed'],
       sourceType: ['camera', 'album'],
       success: (res) => {
         this.setData({ imageSrc: res.tempFiles[0].tempFilePath });
@@ -499,9 +500,16 @@ Page({
     this.setData({ result: result, reportTabLabels: tempReportTabLabels, reportTabProperty: tempReportTabPropertys });
   },
 
-  navigateToAI(e) {
+  async navigateToAI(e) {
+    let { imageSrc } = this.data;
+    if (this.needToDownloadImage) {
+      const { tempFilePath } = await wx.cloud.downloadFile({
+        fileID: imageSrc,
+      });
+      imageSrc = tempFilePath;
+    }
     wx.navigateTo({
-      url: `/pages/ai/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${this.data.imageSrc}`,
+      url: `/pages/ai/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${imageSrc}`,
     });
   },
 

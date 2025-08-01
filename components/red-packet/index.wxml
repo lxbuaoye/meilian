@@ -1,0 +1,49 @@
+<view bind:tap="handleRedPacketFabClick"
+  wx:if="{{showRedPacketButton}}"
+  class="animated-view">
+  <view style="display: flex; justify-content: center; align-items: center; flex-direction: column;"
+    bind:tap="handleRedPacketFabClick">
+    <image style="width: 140rpx; height: 140rpx;"
+      src="{{redPacketFabSrc}}"></image>
+    <text wx:if="{{endCountdown}}"
+      class="countdown-text">{{endCountdown}}</text>
+  </view>
+</view>
+
+<t-overlay visible="{{showRedPacketOverlay}}"
+  duration="{{500}}"
+  style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;  flex-direction: column;">
+  <view style="width: 452rpx;height: 761rpx; display: flex; position: relative;">
+    <image class="{{fetchingRedPacket ? 'shaking-animation' :''}} {{!isRedPacketOpened ? 'active' :'none'}}"
+      style="width: 452rpx;height: 624rpx; position: absolute; top: 137rpx;"
+      src="{{redPacketCloseSrc}}"></image>
+    <image class="{{isRedPacketOpened ? 'active' :'none'}}"
+      style="width: 452rpx; height: 761rpx; position: absolute; "
+      src="{{redPacketOpenedSrc}}"></image>
+    <view style="width: 452rpx; height: 761rpx; position: absolute; "
+      wx:if="{{isRedPacketOpened}}">
+      <view style="display: flex; flex-direction: column; align-items: center; padding: 30rpx;">
+        <text class="coupon-title">{{redPacketInfo.type === 'COUPON' ? '现金卷' :'AI积分卷'}}</text>
+        <text class="coupon-money">{{redPacketInfo.type === 'COUPON' ? '¥' :''}}{{redPacketInfo.value}} </text>
+        <text class="coupon-description">红包兑换口令: {{redPacketInfo.redeemCode}} </text>
+        <text class="coupon-description"
+          style="margin: 10rpx 30rpx"> {{redPacketInfo.description}} </text>
+      </view>
+    </view>
+  </view>
+  <button bind:tap="openRedPacket"
+    wx:if="{{!isRedPacketOpened}}"
+    loading="{{fetchingRedPacket}}"
+    disabled="{{fetchingRedPacket}}"
+    class="red-packet-open-button">马上打开</button>
+
+  <view class="close-button-container">
+    <t-icon name="close-circle"
+      size="70rpx"
+      color="white"
+      bind:click="closeRedPacketOverlay" />
+  </view>
+</t-overlay>
+
+
+<t-toast id="t-toast"></t-toast>
