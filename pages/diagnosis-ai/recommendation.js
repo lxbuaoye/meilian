@@ -56,7 +56,7 @@ export const exteriorWallSolutions = [
           },
           {
             name: '外墙-铜墙单组份',
-            id: 'af3da5c8672c5895003092ba586174c',
+            id: 'af3da5c8672c5895003092ba586174ca',
           },
         ],
       },
@@ -151,7 +151,7 @@ export const exteriorWallSolutions = [
           },
           {
             name: '外墙-铜墙单组份',
-            id: 'af3da5c8672c5895003092ba586174c',
+            id: 'af3da5c8672c5895003092ba586174ca',
           },
         ],
       },
@@ -359,7 +359,7 @@ export const exteriorWallSolutions = [
           },
           {
             name: '外墙-铜墙单组份',
-            id: 'af3da5c8672c5895003092ba586174c',
+            id: 'af3da5c8672c5895003092ba586174ca',
           },
         ],
       },
