@@ -9,14 +9,30 @@ import { getLocalUserInfo } from '../../services/user/service';
 
 Component({
   _webSocketService: null,
-
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    sharedToTimeline: {
+      type: Boolean,
+      value: false,
+    },
+  },
+  observers: {
+    sharedToTimeline: function (newValue, oldValue) {
+      if (newValue) {
+        this.hideShareGuideOverlay();
+      }
+    },
+  },
 
   lifetimes: {
     attached() {
+      const menuButton = wx.getMenuButtonBoundingClientRect();
+      this.setData({
+        menuBarTop: menuButton.top,
+        menuBarHeight: menuButton.height,
+      });
       const userInfo = getLocalUserInfo();
       if (userInfo && userInfo.phoneNumber) {
         this.setData({ userInfo });
@@ -51,14 +67,19 @@ Component({
   data: {
     userInfo: {},
     redPacketInfo: {},
+    redPacketInflated: false,
     showRedPacketButton: false,
     showRedPackettOverlay: false,
     isRedPacketOpened: false,
     endCountdown: '',
+    isInflating: false,
     redPacketFabSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_fab.png`,
+    redPacketInflateButtonSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_inflate_button.png`,
     redPacketOpenedSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_opened.png`,
+    inflateRedPacketOpenedSrc: `${CLOUD_STROAGE_PATH}/resources/ai/inflated_red_packet_opened.png`,
     redPacketCloseSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_close.png`,
     fetchingRedPacket: false,
+    sharedToTimeline: false,
   },
 
   /**
@@ -165,6 +186,64 @@ Component({
 
     handleWebSocketError(res) {
       console.error('页面收到 WebSocket 错误通知:', res);
+    },
+
+    showShareGuideOverlay() {
+      this.setData({
+        showGuideOverlay: true,
+      });
+    },
+
+    // 隐藏分享引导 Overlay（点击任意处隐藏）
+    hideShareGuideOverlay() {
+      this.setData({
+        showGuideOverlay: false,
+      });
+    },
+
+    inflateRedPacket(e) {
+      if (this.data.isInflating) {
+        return;
+      }
+      if (!this.data.sharedToTimeline) {
+        this.showShareGuideOverlay();
+        return;
+      }
+      this.setData({ isInflating: true });
+      wx.cloud
+        .callFunction({
+          // 云函数名称
+          name: 'inflateredpacket',
+          // 传给云函数的参数
+          data: {
+            campaignId: this.data.redPacketInfo._id,
+            phoneNumber: this.data.userInfo.phoneNumber,
+          },
+        })
+        .then(async (res) => {
+          console.log(res);
+          if (res.result.success) {
+            this.setData({ redPacketInflated: true });
+          } else {
+            Toast({
+              context: this,
+              selector: '#t-toast',
+              message: `${res.result.message}`,
+              direction: 'column',
+            });
+          }
+          this.setData({ isInflating: false });
+        })
+        .catch((e) => {
+          console.log(e);
+          this.setData({ isInflating: false });
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: '服务器错误...请稍后尝试',
+            direction: 'column',
+          });
+        });
     },
   },
 });

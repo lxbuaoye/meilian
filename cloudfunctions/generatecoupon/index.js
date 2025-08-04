@@ -51,8 +51,8 @@ function generateRandomCodesWithCredit(prefix, count, creditValue) {
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
-  const couponData = [];
-  // const couponData = generateRandomCodesWithCredit('DG21', 80, 100);
+  //const couponData = [];
+  const couponData = generateRandomCodesWithCredit('DG8A', 10, 100);
   // const couponData = generateRandomCodesWithCredit('DG22', 50, 200);
   // const couponData = generateRandomCodesWithCredit('DG23', 40, 300);
   //  const couponData = generateRandomCodesWithCredit('DG25', 30, 500);

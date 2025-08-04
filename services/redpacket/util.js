@@ -1,6 +1,8 @@
 import { getLocalUserInfo } from '../user/service';
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 
+const accountInfo = wx.getAccountInfoSync();
+const { envVersion } = accountInfo.miniProgram;
 const db = wx.cloud.database();
 const _ = db.command;
 
@@ -21,6 +23,10 @@ export const fetchRedPacket = async () => {
     const userInfo = getLocalUserInfo();
     if (userInfo && userInfo.phoneNumber) {
       const { _id } = data[0];
+      // Bypass testing red packet
+      if (data[0].testingOnly && envVersion === 'release') {
+        return;
+      }
       const res2 = await db
         .collection('user_red_packet')
         .where({

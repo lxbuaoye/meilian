@@ -128,6 +128,8 @@ exports.main = async (event, context) => {
       prizeValueAmount: selectedPrizeType.valueAmount,
       prizeValueUnit: selectedPrizeType.valueUnit,
       redeemCode: redeemCode,
+      inflatedValueAmount: selectedPrizeType.valueAmount * 2,
+      inflated: false,
       status: 'unclaimed', // 初始状态为未领取
       receivedAt: db.serverDate(), // 领取时间
       expiresAt: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000), // 示例：30天后过期
@@ -143,10 +145,12 @@ exports.main = async (event, context) => {
       message: '恭喜您，抢到红包！',
       redPacket: {
         // 返回抢到的红包信息给前端
+        campaignId: campaignId,
         name: selectedPrizeType.name,
         type: selectedPrizeType.prizeType,
         description: selectedPrizeType.description,
         value: `${selectedPrizeType.valueAmount}`,
+        inflatedValue: `${selectedPrizeType.valueAmount * 2}`,
         redeemCode: redeemCode,
       },
     };

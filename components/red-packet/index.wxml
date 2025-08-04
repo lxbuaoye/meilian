@@ -13,10 +13,14 @@
 <t-overlay visible="{{showRedPacketOverlay}}"
   duration="{{500}}"
   style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;  flex-direction: column;">
-  <view style="width: 452rpx;height: 761rpx; display: flex; position: relative;">
+
+  <!-- Normal UI && unopened UI-->
+  <view style="width: 452rpx;height: 761rpx; display: flex; position: relative;"
+    wx:if="{{!redPacketInflated}}">
     <image class="{{fetchingRedPacket ? 'shaking-animation' :''}} {{!isRedPacketOpened ? 'active' :'none'}}"
       style="width: 452rpx;height: 624rpx; position: absolute; top: 137rpx;"
       src="{{redPacketCloseSrc}}"></image>
+
     <image class="{{isRedPacketOpened ? 'active' :'none'}}"
       style="width: 452rpx; height: 761rpx; position: absolute; "
       src="{{redPacketOpenedSrc}}"></image>
@@ -26,6 +30,39 @@
         <text class="coupon-title">{{redPacketInfo.type === 'COUPON' ? '现金卷' :'AI积分卷'}}</text>
         <text class="coupon-money">{{redPacketInfo.type === 'COUPON' ? '¥' :''}}{{redPacketInfo.value}} </text>
         <text class="coupon-description">红包兑换口令: {{redPacketInfo.redeemCode}} </text>
+        <text class="coupon-description"
+          style="margin: 10rpx 30rpx"> {{redPacketInfo.description}} </text>
+      </view>
+      <view style="position: absolute; width: 350rpx; height: 100rpx; left: 50%; transform: translate(-50%); bottom: 80rpx; display: flex; justify-content: center; align-items: center;"
+        bind:tap="inflateRedPacket"
+        src="{{redPacketInflateButtonSrc}}">
+        <image style="position: absolute; width: 350rpx; height: 100rpx; left: 0; right: 0; z-index: -1;"
+          class="inflate-animation"
+          src="{{redPacketInflateButtonSrc}}">
+        </image>
+        <t-icon name="lock-on"
+          size="36rpx"
+          wx:if="{{!sharedToTimeline}}"
+          style="margin-right: 20rpx;"
+          color='white'></t-icon>
+        <text style="font-weight: 700;font-size: 36rpx;color: #FFFFFF;">{{isInflating ? '膨胀中...' : '膨胀变大!'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Inflated UI-->
+  <view style="width: 702rpx; height: 945rpx;  display: flex; position: relative; top: -45rpx;"
+    wx:if="{{redPacketInflated}}">
+    <image style="width: 702rpx; height: 945rpx; position: absolute; "
+      src="{{inflateRedPacketOpenedSrc}}"></image>
+    <view style="width: 702rpx; height: 100%; position: absolute; top: 300rpx;">
+      <view style="display: flex; flex-direction: column; align-items: center; padding:0 30rpx;">
+        <text class="inflate-title">恭喜你, 膨胀成功</text>
+        <view class="inflate-value-container">
+          <text class="inflate-type">{{redPacketInfo.type === 'COUPON' ? '现金卷' :'AI积分卷'}}</text>
+          <text class="inflate-value">{{redPacketInfo.type === 'COUPON' ? '¥' :''}}{{redPacketInfo.inflatedValue}} </text>
+        </view>
+        <text class="coupon-description">红包兑换口令: {{redPacketInfo.redeemCode}}</text>
         <text class="coupon-description"
           style="margin: 10rpx 30rpx"> {{redPacketInfo.description}} </text>
       </view>
@@ -47,3 +84,21 @@
 
 
 <t-toast id="t-toast"></t-toast>
+
+<view class="share-guide-overlay"
+  wx:if="{{ showGuideOverlay }}"
+  bindtap="hideShareGuideOverlay"
+  catchtouchmove="preventScroll">
+  <view class="guide-content"
+    style="top: {{menuBarTop + menuBarHeight + 8}}px;">
+    <t-icon name="arrow-up"
+      class="arrow-icon"
+      size="120rpx" />
+    <text class="guide-text">点击右上角“...”分享到朋友圈
+      🔓 立刻解锁膨胀功能!</text>
+  </view>
+</view>
+
+<!-- For caching only-->
+<image style="position: absolute; left: -9999px; z-index: -1;"
+  src="{{inflateRedPacketOpenedSrc}}"></image>

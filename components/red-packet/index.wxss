@@ -32,6 +32,13 @@
   animation-iteration-count: infinite; /* 无限循环 */
 }
 
+.inflate-animation {
+  animation-name: scaleUpDown; /* 动画名称 */
+  animation-duration: 1s; /* 动画持续时间 */
+  animation-timing-function: ease-in-out; /* 动画速度曲线 */
+  animation-iteration-count: infinite; /* 无限循环 */
+}
+
 .red-packet-open-button {
   margin-top: 30rpx;
   width: 320rpx;
@@ -178,4 +185,80 @@
   font-weight: 400;
   font-size: 22rpx;
   color: #4d330e;
+}
+
+/* Overlay 容器 */
+.share-guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+  z-index: 99999; /* 确保在最上层 */
+}
+
+/* 引导内容区域 */
+.guide-content {
+  position: absolute;
+  top: 150rpx; /* 根据实际右上角图标位置调整 */
+  right: 86rpx; /* 根据实际右上角图标位置调整 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* 让箭头和文字靠右对齐 */
+}
+/* 提示文字 */
+.guide-text {
+  color: #fff;
+  font-size: 32rpx;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  max-width: 500rpx; /* 限制文字宽度 */
+  text-align: right; /* 文字右对齐 */
+}
+
+/* 箭头图标 */
+.arrow-icon {
+  color: var(--theme-color);
+  animation: moveUpDown 0.7s ease-in-out infinite alternate;
+}
+/* 定义动画的关键帧 */
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0); /* 初始位置：不偏移 */
+  }
+  100% {
+    transform: translateY(-10px); /* 结束位置：向上移动 50px */
+  }
+}
+
+.inflate-title {
+  font-weight: 700;
+  font-size: 36rpx;
+  color: #e48e1d;
+}
+
+.inflate-type {
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #e48e1d;
+}
+
+.inflate-value {
+  font-weight: 700;
+  font-size: 70rpx;
+  color: #e48e1d;
+}
+
+.inflate-value-container {
+  height: 140rpx;
+  background: #fff9ed;
+  border-radius: 20rpx;
+  width: 300rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10rpx 0;
 }

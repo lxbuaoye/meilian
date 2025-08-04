@@ -281,6 +281,7 @@ Page({
         // single: false, // 打开注释体验多个消息叠加效果
         content: '积分不足, 无法诊断',
       });
+      return;
     }
 
     if (!this.data.imageSrc) {
