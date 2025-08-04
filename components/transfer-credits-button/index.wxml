@@ -1,0 +1,62 @@
+<text style="font-size: 24rpx; background: #1C2023;border-radius: 25rpx; color: white; padding: 12rpx; margin-left: 24rpx; "
+  bind:tap="transferCredits">转移积分</text>
+
+<t-popup visible="{{transferCreditsPopupVisible}}"
+  bind:visible-change="onTransferCreditsPopupVisibleChange"
+  class="popup"
+  placement="center">
+  <view style="width: 660rpx; height: 736rpx; position: relative; z-index: -1;">
+    <image style="position: absolute; height: 736rpx;width: 660rpx; z-index: -1;"
+      src="{{backgroundSrc}}"></image>
+    <view style="padding: 0 30rpx; display: flex; flex-direction: column;">
+      <text class="header"> 积分送好友 </text>
+
+      <view class="section-title">赠送数量</view>
+      <view class="points-selection">
+        <view wx:for="{{pointsOptions}}"
+          wx:key="item"
+          class="points-item {{selectedPoint === item ? 'selected' : ''}}"
+          bindtap="onSelectPoint"
+          data-value="{{item}}">
+          <text>{{item}}</text>
+        </view>
+      </view>
+
+      <view class="custom-points-area">
+        <view class="custom-points-label">自定义积分</view>
+        <input class="custom-points-input"
+          placeholder="请输入自定义积分"
+          placeholder-class="input-placeholder"
+          type="number"
+          value="{{customPoint}}"
+          bindinput="onInputCustomPoint"
+          bindfocus="onFocusCustomPoint" />
+      </view>
+
+      <view class="section-title user-section-title">赠送用户</view>
+      <view class="user-input-area">
+        <input class="user-phone-input"
+          placeholder="请输入赠送的用户电话号码"
+          placeholder-class="input-placeholder"
+          type="number"
+          value="{{userPhone}}"
+          bindinput="onInputUserPhone"
+          maxlength="11" />
+      </view>
+
+      <button class="confirm-button"
+        style="background: {{transferring ? 'rgba(0,0,0, 0.2)': '#EDBF58'}} ;"
+        disabled="{{transferring}}"
+        loading="{{transferring}}"
+        bindtap="onSubmit">
+        确定
+      </button>
+
+    </view>
+  </view>
+  <t-icon class="close-btn"
+    name="close-circle"
+    size="64rpx"
+    color="#fff"
+    bind:tap="closeTransferCreditsPopup" />
+</t-popup>

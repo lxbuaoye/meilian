@@ -1,0 +1,127 @@
+.popup {
+  --td-popup-bg-color: transparent;
+}
+
+.header {
+  font-weight: 700;
+  font-size: 36rpx;
+  color: #1c2023;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.close-btn {
+  margin-top: 50rpx;
+}
+
+/* 标题样式 */
+.section-title {
+  font-size: 24rrpx;
+  color: #1c2023;
+  margin-bottom: 20rpx;
+}
+.user-section-title {
+  margin-top: 40rpx;
+}
+
+/* 积分选择区容器 */
+.points-selection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 积分按钮样式 */
+.points-item {
+  width: 30%;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 10rpx;
+  background-color: #fff;
+  font-size: 32rpx;
+  color: #333;
+  transition: all 0.2s;
+}
+
+/* 选中状态的样式 */
+.points-item.selected {
+  border-color: #edbf58;
+  background-color: #edbf58;
+  color: white;
+}
+
+/* 自定义积分输入区 */
+.custom-points-area {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 18rpx;
+  margin-top: 20rpx;
+  border: 1px solid #e5e5e5;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+
+.custom-points-label {
+  font-size: 30rpx;
+  color: #1c2023;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+}
+
+.custom-points-input {
+  flex-grow: 1;
+  height: 80rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+}
+
+/* 输入框占位符样式 */
+.input-placeholder {
+  color: #c5c8cb;
+  font-size: 30rpx;
+}
+
+/* 新增：赠送用户输入区 */
+.user-input-area {
+  width: 100%;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+
+.user-phone-input {
+  width: 100%;
+  height: 80rpx;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+}
+
+/* 新增：确定按钮样式 */
+.confirm-button {
+  width: 90%;
+  height: 100rpx;
+  margin-top: 40rpx;
+  background-color: rgba(234, 194, 109, 1);
+  border: hidden;
+  color: white;
+  color: #fff;
+  font-size: 36rpx;
+  line-height: 100rpx;
+  border-radius: 10rpx;
+}
+
+.confirm-button::after {
+  border: none;
+}
