@@ -4,8 +4,8 @@ import { Toast } from 'tdesign-miniprogram';
 import Message from 'tdesign-miniprogram/message/index';
 
 // Change here
-const THEME = '曲靖超级家博会';
-const PERSON = '今日杜总说';
+const THEME = '数码彩';
+const PERSON = '今日良哥说';
 
 const FormData = require('../ai/helper/formData.js');
 
@@ -227,6 +227,7 @@ Page({
         method: 'POST',
         data: payload,
         header: {
+          'X-Client-Name': 'DIGITAL',
           'content-type': 'application/json', // 默认值
         },
         success: (res) => {

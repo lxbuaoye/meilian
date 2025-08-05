@@ -337,6 +337,7 @@ Page({
         method: 'POST',
         data: payload,
         header: {
+          'X-Client-Name': 'DIGITAL',
           'content-type': 'application/json', // 默认值
         },
         success: (res) => {
