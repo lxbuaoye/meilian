@@ -119,6 +119,104 @@ exports.main = async (event, context) => {
     });
   }
 
+  if (event.type === 'TRANSFER') {
+    const senderInfo = userInfo;
+    const creditsToTransfer = event.credits;
+    // 查找接收方用户
+    const receiverInfoResult = await db
+      .collection('user')
+      .where({
+        phoneNumber: event.receiverPhoneNumber,
+      })
+      .get();
+
+    // 接收方用户不存在则抛出错误
+    if (receiverInfoResult.data.length === 0) {
+      return {
+        errCode: 2,
+        errMsg: '接收方用户尚未注册或不存在',
+      };
+    }
+    const receiverInfo = receiverInfoResult.data[0];
+
+    // 3. 开始数据库事务
+    try {
+      const transactionResult = await db.runTransaction(async (transaction) => {
+        // 3.1 检查发送方积分是否足够
+        if (senderInfo.credits < creditsToTransfer) {
+          // 如果积分不足，事务回滚
+          return {
+            errCode: 3,
+            errMsg: '积分不足，无法转移',
+          };
+        }
+
+        // 3.2 减少发送方积分
+        await transaction
+          .collection('user')
+          .doc(senderInfo._id)
+          .update({
+            data: {
+              credits: senderInfo.credits - creditsToTransfer,
+            },
+          });
+
+        // 3.3 增加接收方积分
+        await transaction
+          .collection('user')
+          .doc(receiverInfo._id)
+          .update({
+            data: {
+              credits: receiverInfo.credits + creditsToTransfer,
+            },
+          });
+
+        // 3.4 记录发送方交易
+        await transaction.collection('transaction').add({
+          data: {
+            phoneNumber: senderInfo.phoneNumber,
+            openid: wxContext.OPENID,
+            time: db.serverDate(),
+            balanceAfter: senderInfo.credits - creditsToTransfer,
+            type: 'TRANSFER_OUT', // 转出
+            credits: creditsToTransfer,
+            peerId: receiverInfo._id,
+          },
+        });
+        // 3.5 记录接收方交易
+        await transaction.collection('transaction').add({
+          data: {
+            phoneNumber: receiverInfo.phoneNumber,
+            time: db.serverDate(),
+            openid: receiverInfo.openid,
+            balanceAfter: receiverInfo.credits + creditsToTransfer,
+            type: 'TRANSFER_IN', // 转入
+            credits: creditsToTransfer,
+            peerId: senderInfo._id,
+          },
+        });
+
+        // 如果所有操作都成功，提交事务
+        return {
+          errCode: 0,
+          errMsg: '积分转移成功!',
+        };
+      });
+      // Only return if error happened. Otherwise, we should let the function to return new user info.
+      if (transactionResult.errCode !== 0) {
+        return transactionResult;
+      }
+    } catch (e) {
+      console.error('事务提交失败', e);
+      return {
+        success: false,
+        errCode: 3,
+        errMsg: '积分转移失败，请重试',
+        error: e,
+      };
+    }
+  }
+
   // Get updated Data.
   const updatedUserResult = await db
     .collection('user')

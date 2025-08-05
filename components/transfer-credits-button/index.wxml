@@ -60,3 +60,5 @@
     color="#fff"
     bind:tap="closeTransferCreditsPopup" />
 </t-popup>
+
+<t-toast id="t-toast" />

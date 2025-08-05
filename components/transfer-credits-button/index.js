@@ -1,4 +1,5 @@
-import { getLocalUserInfo, fetchUserInfo } from '../../services/user/service';
+import { getLocalUserInfo, saveUserInfoLocally } from '../../services/user/service';
+import { Toast } from 'tdesign-miniprogram';
 
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 Component({
@@ -11,6 +12,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    userInfo: {},
     backgroundSrc: `${CLOUD_STROAGE_PATH}/resources/ai/profile/transfer_credits_background.png`,
     transferCreditsPopupVisible: false,
     transferring: false,
@@ -19,6 +21,15 @@ Component({
     customPoint: null,
     // 新增：赠送用户的手机号码
     userPhone: null,
+  },
+
+  lifetimes: {
+    attached() {
+      const userInfo = getLocalUserInfo();
+      if (userInfo && userInfo.phoneNumber) {
+        this.setData({ userInfo });
+      }
+    },
   },
 
   /**
@@ -97,18 +108,49 @@ Component({
 
       this.setData({ transferring: true });
 
-      setTimeout(() => {
-        this.setData({ transferring: false }); // 这里可以执行你的业务逻辑，比如调用 API
-        console.log('准备提交数据：');
-        console.log('赠送积分:', finalPoints);
-        console.log('赠送用户手机号:', userPhone);
-
-        wx.showToast({
-          title: '转移成功！',
-          icon: 'success',
+      wx.cloud
+        .callFunction({
+          // 云函数名称
+          name: 'updateuserinfo',
+          // 传给云函数的参数
+          data: {
+            type: 'TRANSFER',
+            credits: finalPoints,
+            phoneNumber: this.data.userInfo.phoneNumber,
+            receiverPhoneNumber: userPhone,
+          },
+        })
+        .then((res) => {
+          if (res.result.errCode === 0) {
+            saveUserInfoLocally(res.result.userInfo);
+            this.onSuccess();
+          } else {
+            this.onFail(res.result.errMsg);
+          }
         });
-        this.closeTransferCreditsPopup();
-      }, 3000);
+    },
+
+    onFail(errMessage) {
+      this.setData({ transferring: false });
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        theme: 'warning',
+        message: errMessage,
+        direction: 'column',
+      });
+    },
+
+    onSuccess() {
+      this.setData({ transferring: false });
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        theme: 'success',
+        message: '转移成功!',
+        direction: 'column',
+      });
+      this.closeTransferCreditsPopup();
     },
 
     onTransferCreditsPopupVisibleChange(e) {
