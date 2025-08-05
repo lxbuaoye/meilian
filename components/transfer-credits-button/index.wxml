@@ -1,5 +1,5 @@
 <text style="font-size: 24rpx; background: #1C2023;border-radius: 25rpx; color: white; padding: 12rpx; margin-left: 24rpx; "
-  bind:tap="transferCredits">转移积分</text>
+  bind:tap="transferCredits">转赠积分</text>
 
 <t-popup visible="{{transferCreditsPopupVisible}}"
   bind:visible-change="onTransferCreditsPopupVisibleChange"
@@ -11,7 +11,7 @@
     <view style="padding: 0 30rpx; display: flex; flex-direction: column;">
       <text class="header"> 积分送好友 </text>
 
-      <view class="section-title">赠送数量</view>
+      <view class="section-title">转赠数量</view>
       <view class="points-selection">
         <view wx:for="{{pointsOptions}}"
           wx:key="item"
@@ -33,10 +33,10 @@
           bindfocus="onFocusCustomPoint" />
       </view>
 
-      <view class="section-title user-section-title">赠送用户</view>
+      <view class="section-title user-section-title">转赠用户</view>
       <view class="user-input-area">
         <input class="user-phone-input"
-          placeholder="请输入赠送的用户电话号码"
+          placeholder="请输入转赠的用户电话号码"
           placeholder-class="input-placeholder"
           type="number"
           value="{{userPhone}}"

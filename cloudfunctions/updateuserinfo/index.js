@@ -147,7 +147,7 @@ exports.main = async (event, context) => {
           // 如果积分不足，事务回滚
           return {
             errCode: 3,
-            errMsg: '积分不足，无法转移',
+            errMsg: '积分不足，无法转赠',
           };
         }
 
@@ -199,7 +199,7 @@ exports.main = async (event, context) => {
         // 如果所有操作都成功，提交事务
         return {
           errCode: 0,
-          errMsg: '积分转移成功!',
+          errMsg: '积分转赠成功!',
         };
       });
       // Only return if error happened. Otherwise, we should let the function to return new user info.
@@ -211,7 +211,7 @@ exports.main = async (event, context) => {
       return {
         success: false,
         errCode: 3,
-        errMsg: '积分转移失败，请重试',
+        errMsg: '积分转赠失败，请重试',
         error: e,
       };
     }

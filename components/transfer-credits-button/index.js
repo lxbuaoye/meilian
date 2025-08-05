@@ -76,7 +76,7 @@ Component({
       // 简单的前端校验
       if (!finalPoints) {
         wx.showToast({
-          title: '请选择或输入赠送面额',
+          title: '请选择或输入转赠面额',
           icon: 'none',
         });
         return;
@@ -147,7 +147,7 @@ Component({
         context: this,
         selector: '#t-toast',
         theme: 'success',
-        message: '转移成功!',
+        message: '转赠成功!',
         direction: 'column',
       });
       this.closeTransferCreditsPopup();
