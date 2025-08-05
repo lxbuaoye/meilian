@@ -174,7 +174,7 @@ exports.main = async (event, context) => {
         // 3.4 记录发送方交易
         await transaction.collection('transaction').add({
           data: {
-            phoneNumber: senderInfo.phoneNumber,
+            user: senderInfo.phoneNumber,
             openid: wxContext.OPENID,
             time: db.serverDate(),
             balanceAfter: senderInfo.credits - creditsToTransfer,
@@ -186,7 +186,7 @@ exports.main = async (event, context) => {
         // 3.5 记录接收方交易
         await transaction.collection('transaction').add({
           data: {
-            phoneNumber: receiverInfo.phoneNumber,
+            user: receiverInfo.phoneNumber,
             time: db.serverDate(),
             openid: receiverInfo.openid,
             balanceAfter: receiverInfo.credits + creditsToTransfer,
