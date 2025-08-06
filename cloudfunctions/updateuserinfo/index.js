@@ -121,7 +121,7 @@ exports.main = async (event, context) => {
 
   if (event.type === 'TRANSFER') {
     const senderInfo = userInfo;
-    const creditsToTransfer = event.credits;
+    const creditsToTransfer = parseInt(event.credits);
     // 查找接收方用户
     const receiverInfoResult = await db
       .collection('user')
