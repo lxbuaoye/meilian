@@ -304,7 +304,7 @@ Page({
     try {
       const base64Image = fs.readFileSync(this.data.imageSrc, 'base64', 0);
       const payload = {
-        model: 'gpt-4o',
+        model: 'gpt-5-mini',
         messages: [
           {
             role: 'system',
@@ -329,7 +329,8 @@ Page({
         ],
         tools: toolDefinition,
         tool_choice: { type: 'function', function: { name: 'generateWallAnalysisReport' } },
-        temperature: 0.3,
+        temperature: 1,
+        service_tier: 'priority',
       };
 
       wx.request({

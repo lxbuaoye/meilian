@@ -125,6 +125,7 @@ Component({
           },
         })
         .then((res) => {
+          console.log(this.data.redPacketInfo);
           console.log(res.result);
           if (res.result.success) {
             this.setData({ isRedPacketOpened: true, redPacketInfo: res.result.redPacket });
@@ -209,6 +210,7 @@ Component({
         this.showShareGuideOverlay();
         return;
       }
+      console.log(this.data.redPacketInfo);
       this.setData({ isInflating: true });
       wx.cloud
         .callFunction({
@@ -216,7 +218,7 @@ Component({
           name: 'inflateredpacket',
           // 传给云函数的参数
           data: {
-            campaignId: this.data.redPacketInfo._id,
+            campaignId: this.data.redPacketInfo.campaignId,
             phoneNumber: this.data.userInfo.phoneNumber,
           },
         })

@@ -145,6 +145,7 @@ exports.main = async (event, context) => {
       message: '恭喜您，抢到红包！',
       redPacket: {
         // 返回抢到的红包信息给前端
+        _id: campaignId, // HACK revert once we fix the issue.
         campaignId: campaignId,
         name: selectedPrizeType.name,
         type: selectedPrizeType.prizeType,
