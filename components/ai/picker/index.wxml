@@ -30,6 +30,7 @@
             style="border-radius: 20rpx; width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; background-color: {{item.color}}; padding: {{innerPadding}}rpx">
             <image wx:if="{{item.imageSrc}}"
               src="{{item.imageSrc}}"
+              lazy-load
               style="width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; display: flex; "></image>
           </view>
         </t-radio>
