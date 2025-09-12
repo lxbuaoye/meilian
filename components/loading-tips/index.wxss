@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tips-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-icon {
+  font-size: 40rpx; /* 调整 emoji 大小，使其与文字对齐 */
+  margin-right: 15rpx; /* 添加右边距，与文字分隔 */
+}
+
+.tips-box {
+  /* 保持原样，宽度可以根据需要调整 */
+  width: 500rpx;
+  height: 60rpx;
+  text-align: center; /* 保持文字左对齐 */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.tips-text {
+  opacity: 0;
+  transform: translateY(20px);
+  font-size: 28rpx;
+  color: var(--theme-color);
+}
+
+.fade-in-out-enter {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+.fade-in-out-leave {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

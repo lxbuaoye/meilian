@@ -1,0 +1,23 @@
+<!-- components/image-comparison/image-comparison.wxml -->
+
+<view class="container"
+  bindtouchstart="handleTouchStart"
+  bindtouchmove="handleTouchMove">
+  <!-- 原始图片（背景），src 由外部传入 -->
+  <image class="comparison-image before-image"
+    mode="aspectFit"
+    src="{{beforeImage}}"></image>
+
+  <!-- 对比图片（前景），src 由外部传入，通过 clip-path 控制显示 -->
+
+  <image class="comparison-image after-image"
+    src="{{afterImage}}"
+    style="clip-path: inset(0 calc(100% - {{revealPosition}}%) 0 0);"></image>
+
+  <!-- 滑块和图标 -->
+
+  <view class="comparison-slider"
+    style="left: {{revealPosition}}%;">
+    <view class="icon">↔</view>
+  </view>
+</view>

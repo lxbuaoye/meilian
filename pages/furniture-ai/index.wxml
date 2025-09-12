@@ -1,0 +1,163 @@
+<view>
+  <view>
+    <view style="background-color: transparent; display:flex; height: {{menuBarHeight}}px;margin-bottom: 40rpx; align-items: center; position: absolute; z-index: 10; top: {{menuBarTop}}px; left: 30rpx"
+      class="search-bar">
+      <view bind:tap="goBack"
+        hover-class="view-box-hover">
+        <t-icon name="chevron-left"
+          style="margin-right: 20rpx;"
+          size="50rpx"
+          color="black" />
+      </view>
+    </view>
+    <view style="margin-top: {{menuBarTop}}px; display: flex; align-items: center; width: 100%; height: {{menuBarHeight}}px; justify-content: center;">
+      <image src="{{logoSrc}}"
+        style="margin-left: 24rpx; width: 220rpx; height: {{menuBarHeight}}px;"></image>
+    </view>
+    <view style="margin-top: 24rpx;">
+      <view style="height: 490rpx; margin: 0 24rpx 0 24rpx; background-color: #ffffff; position: relative; border-radius: 20rpx; overflow: hidden;">
+        <t-sticky bind:scroll="onStickyChange"
+          t-class="sticky-container {{activeStickyImage ? 'active': '' }}">
+          <image src="{{imageSrc}}"
+            wx:if="{{imageSrc}}"
+            bind:tap="previewInputImage"
+            class="image {{activeStickyImage ? 'sticky': '' }}"
+            mode="aspectFit"></image>
+        </t-sticky>
+        <view wx:if="{{!imageSrc}}"
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 32rpx; display: flex; color: white; justify-content: center; align-items: center; display: flex; flex-direction: column; width: 100%;">
+          <view style="justify-content: center; align-items: center; display: flex; flex-direction: column;"
+            bind:tap="chooseImage">
+            <image src="{{uploadButtonSrc}}"
+              style="width: 60rpx; height: 60rpx;"></image>
+            <text style="font-size: 28rpx;color: #8F969C; margin-top: 20rpx;">请先选择图片</text>
+          </view>
+          <view style="display: flex; justify-content: center; align-items: center; margin-top: 50rpx;"
+            bindtap="showExamplePicker"
+            wx:if="{{!imageSrc}}">
+            <text style="font-size: 24rpx; color: #8F969C; ">(没有合适的图片? </text>
+            <text style="font-size: 24rpx; color: blue;"> 点击 </text>
+            <text style="font-size: 24rpx; color: #8F969C; ">使用示例图片)</text>
+          </view>
+        </view>
+
+        <view style="position: absolute; bottom: 24rpx; right: 24rpx; border-radius: 32rpx; display: flex; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100;">
+          <t-icon name="image"
+            style="margin-left: 24rpx; color: white;"></t-icon>
+          <button type="primary"
+            style="background: transparent"
+            class="small-font"
+            bindtap="chooseImage">选择图片</button>
+        </view>
+
+        <view style="position: absolute; top: 24rpx; right: 24rpx; border-radius: 32rpx; display: flex; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100;"
+          wx:if="{{imageSrc}}"
+          bind:tap="onRemoveImage">
+          <t-icon name="delete"
+            size="40rpx"
+            color="white"
+            style="padding: 20rpx;"
+            bind:click="onRemoveImage" />
+        </view>
+      </view>
+      <!-- Xuanwu series -->
+      <block wx:for="{{customOptionList}}"
+        wx:key="index">
+        <picker header="{{item.header}}"
+          id="option-{{index}}"
+          list="{{item.data}}"
+          outter-padding="{{item.outterPadding}}"
+          inner-padding="{{item.innerPadding}}"
+          item-height="{{item.height}}"
+          item-width="{{item.width}}"></picker>
+      </block>
+    </view>
+  </view>
+  <view class="footer"
+    style="display: flex; justify-content: center; align-items: center;">
+    <button style="background-color: rgba(234, 194, 109, 1); border: hidden; color: white; width: 80%;"
+      bind:tap="generate"
+      class="small-font"
+      hover-class="action-tile-hover">一键改色
+    </button>
+    <text style="font-size: 22rpx; color: #1C2023; margin-top: 5rpx;"> *效果图仅供参考</text>
+  </view>
+
+  <!-- <t-overlay visible="{{true}}"
+    style="display: flex; flex: 1; justify-content: center; align-items: center; flex-direction: column;">
+    <image-comparison beforeImage="./before.jpeg"
+      afterImage="./after.png"></image-comparison>
+  </t-overlay> -->
+
+
+  <t-overlay visible="{{visible}}"
+    duration="{{300}}"
+    style="display: flex; flex: 1; justify-content: center; align-items: center; flex-direction: column; ">
+    <view class="close-button-container">
+      <t-icon name="close-circle"
+        size="70rpx"
+        color="white"
+        bind:click="closeOverlay" />
+    </view>
+    <view style="position: relative; margin: 0 24rpx; border-radius: 30rpx; display: flex; flex-direction: column; min-width: 600rpx; ">
+      <view style="display: flex; align-items: center; justify-content: center;  flex-direction: column; ">
+        <block wx:if="{{generatedImageSrc}}">
+          <view style="display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;"
+            bind:tap="previewImage">
+            <image src="{{generatedImageSrc}}"
+              style="width: 600rpx; height: 900rpx; border-radius: 20rpx;"
+              mode="aspectFit"></image>
+          </view>
+          <view class="overlay-action-container">
+            <view style="display: flex; align-items: space-between;margin-top: 10rpx; width: 100%;">
+              <button class="download-button"
+                hover-class="g-hover-scale"
+                bind:tap="saveImage">保存图片</button>
+              <button class="preview-button"
+                hover-class="g-hover-scale"
+                bind:tap="previewImage">查看大图</button>
+            </view>
+          </view>
+        </block>
+
+        <view wx:if="{{!generatedImageSrc}}"
+          style="width: 100%; ">
+          <t-progress theme="plump"
+            class="progress"
+            trackColor="grey"
+            strokeWidth="28"
+            color="{{ {from: '#EEC461', to: '#E2AA42' } }}"
+            percentage="{{progress}}"
+            status="active" />
+          <loading-tips></loading-tips>
+          <view style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
+            <t-loading wx:if="{{!generatedImageSrc}}"
+              theme="dots"
+              class="loading"
+              size="80rpx"
+              layout="vertical"
+              style="align-self: center; display: flex;" />
+            <text class="theme-color"
+              style="font-size: 22rpx; text-align: center;"> DIGITAL AI is processing...
+
+              请勿关闭页面</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </t-overlay>
+
+
+</view>
+<t-message id="t-message" />
+<t-toast id="t-toast"></t-toast>
+
+
+<t-footer text="Copyright © 2024-2025 中山市新谷科技发展有限公司"></t-footer>
+
+<example-picker tab-value="{{0}}"
+  usingCustomNavbar
+  example-type="FURNITURE"
+  bind:selectexampleimage="onSelectExampleImage"
+  visible="{{examplePickerVisible}}"></example-picker>

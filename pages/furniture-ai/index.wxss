@@ -1,0 +1,303 @@
+page {
+  box-sizing: border-box;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 166rpx);
+  background-color: #f7fafe;
+}
+
+.privacy {
+  --td-radio-font-size: 28rpx;
+  --td-radio-icon-checked-color: var(--theme-color);
+  --td-radio-content-line-height: 28rpx;
+  --td-radio-label-line-height: 28rpx;
+}
+
+.progress {
+  display: flex;
+}
+
+.tab {
+  /* --td-tab-border-color: transparent; */
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-track-color: var(--theme-color);
+}
+
+.subtab {
+  border-radius: 24rpx;
+  --td-tab-nav-bg-color: transparent;
+  --td-tab-item-active-color: #1c2023 !important;
+  --td-tab-item-tag-active-bg: var(--theme-color) !important;
+  margin-bottom: 50rpx;
+}
+
+.icon-wrapper {
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0 0 30rpx 0 #ebedf0;
+  border-radius: 50rpx;
+}
+
+.center-text {
+  margin-top: 40rpx;
+  font-weight: 700;
+  font-size: 36rpx;
+  color: #1c2023;
+  text-align: center;
+}
+
+.description-text {
+  margin-top: 40rpx;
+  font-size: 26rpx;
+  color: #1c2023;
+  letter-spacing: 0;
+  text-align: center;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
+}
+
+.small-font {
+  font-weight: 700;
+  font-size: 30rpx;
+  color: #1c2023;
+  border: none;
+}
+
+.footer {
+  padding: 12rpx;
+  background: transparent;
+  flex-direction: column;
+  position: absolute;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  bottom: 0;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 96rpx);
+}
+
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}
+
+.login-overlay {
+  width: 100%;
+  height: 100%;
+  --td-overlay-bg-color: white;
+}
+
+.loading-overlay {
+  --td-loading-color: var(--theme-color);
+  --td-loading-text-color: var(--theme-color);
+}
+
+.theme-color {
+  color: var(--theme-color);
+}
+
+.large-font {
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #1c2023;
+}
+
+.header-font {
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #1c2023;
+}
+
+.small-font {
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #1c2023;
+  --td-radio-font-size: 24rpx;
+}
+
+button::after {
+  border: none;
+}
+
+.border {
+  border: 4px solid #edbf58;
+}
+
+.small-font2 {
+  color: #1c2023;
+  font-size: 24rpx;
+  --td-radio-font-size: 24rpx;
+  --td-radio-vertical-padding: 0;
+}
+
+.card {
+  position: relative;
+  margin: 24rpx 0 0 24rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 24rpx;
+  border: 3rpx solid var(--td-bg-color-container, #fff);
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.card--active {
+  border-color: rgb(240, 200, 113);
+}
+
+.card--active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  border-width: 28px 28px 28px 0;
+  border-style: solid;
+  border-color: rgb(240, 200, 113) transparent transparent transparent;
+}
+
+.card-more-option {
+  --td-radio-bg-color: transparent;
+}
+
+.card__icon {
+  color: #fff;
+  position: absolute;
+  left: 1.5px;
+  top: 1.5px;
+  z-index: 1;
+}
+
+/* 横向布局 */
+.horizontal-box {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24rpx;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 24rpx;
+}
+
+.horizontal-box .card {
+  margin: 0;
+}
+.loading {
+  --td-loading-color: var(--theme-color);
+  --td-loading-text-color: white;
+}
+
+.active-dot {
+  border: 3rpx solid;
+  border-color: rgba(255, 255, 255, 0.6);
+  scale: 1.3;
+}
+
+.close-button-container {
+  position: absolute;
+  left: 50%;
+  bottom: 100rpx;
+  transform: translate(-50%);
+}
+
+.close-button-text {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #1c2023;
+}
+
+.enlarge-button {
+  position: absolute;
+  /* 定位到图片底部 */
+  bottom: -90rpx; /* 距离图片下边缘 20rpx */
+
+  /* 居中定位的关键 */
+  left: 50%; /* 距离左边缘 50% */
+  transform: translateX(-50%); /* 向左平移自身宽度的一半，实现精确居中 */
+
+  /* 按钮样式（根据你的设计调整） */
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明背景，保证在图片上清晰 */
+  color: #ffffff; /* 白色文字 */
+  font-size: 24rpx; /* 小一点的字体 */
+  padding: 20rpx 30rpx; /* 内边距 */
+  border-radius: 30rpx; /* 圆角 */
+  line-height: 1; /* 避免按钮高度过高 */
+  display: flex; /* 让按钮内容居中，如果需要 */
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* 边框和内边距包含在宽度内 */
+}
+
+.footer {
+  padding: 12rpx;
+  background: transparent;
+  position: fixed;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  bottom: 0;
+  padding-top: 40rpx;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 40rpx);
+}
+
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}
+
+.sticky-container {
+}
+
+.sticky-container.active {
+  pointer-events: none;
+}
+
+.image {
+  height: 490rpx;
+  width: 100%;
+  transition: transform 0.5s ease-in-out, left 0.5s ease-in-out;
+}
+
+.image.sticky {
+  pointer-events: auto;
+  left: 0;
+  /* 缩小一半，并调整位置以保持垂直居中 */
+  /* scale(0.5) 负责缩小，translate(0, -50%) 负责垂直居中 */
+  transform: scale(0.5) translateX(calc(-50% - (100vw - 90vw) / 2));
+}
+
+.overlay-action-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx; /* 小一点的字体 */
+  display: flex; /* 让按钮内容居中，如果需要 */
+  align-items: center;
+  justify-content: center;
+  width: 600rpx;
+  margin-top: 10rpx;
+}
+
+.download-button {
+  color: var(--theme-color);
+  font-weight: 700;
+  font-size: 30rpx;
+  width: 48%;
+  background-color: white;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+
+.preview-button {
+  color: white;
+  font-weight: 700;
+  font-size: 30rpx;
+  width: 48%;
+  background-color: var(--theme-color);
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}

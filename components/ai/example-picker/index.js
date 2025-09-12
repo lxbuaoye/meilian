@@ -61,6 +61,19 @@ const diagnosisList = [
   ],
 ];
 
+const furnitureList = [
+  [
+    {
+      name: '家具1',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/furniture_example1.jpg`,
+    },
+    {
+      name: '家具2',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/furniture_example2.jpg`,
+    },
+  ],
+];
+
 function getList(exampleType) {
   console.log(exampleType);
   if (exampleType === 'BUILDING') {
@@ -68,6 +81,9 @@ function getList(exampleType) {
   }
   if (exampleType === 'DIAGNOSIS') {
     return diagnosisList;
+  }
+  if (exampleType === 'FURNITURE') {
+    return furnitureList;
   }
   return buildingList;
 }

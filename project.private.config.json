@@ -9,11 +9,25 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/admin-red-packet/index",
-          "pathName": "pages/admin-red-packet/index",
+          "name": "pages/furniture-ai/index",
+          "pathName": "pages/furniture-ai/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/test-drag/index",
+          "pathName": "pages/test-drag/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/admin-red-packet/index",
+          "pathName": "pages/admin-red-packet/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/diagnosis-ai/index",

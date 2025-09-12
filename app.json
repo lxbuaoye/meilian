@@ -30,7 +30,8 @@
     "app-pages/portrait-ai/index",
     "pages/delivery-standard/index",
     "pages/diagnosis-ai/index",
-    "pages/admin-red-packet/index"
+    "pages/admin-red-packet/index",
+    "pages/furniture-ai/index"
   ],
   "subPackages": [
     {
