@@ -10,6 +10,7 @@ App({
     CLOUD_STROAGE_PATH: 'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la', // 多端模式不支持cloudId
     // #endif
     userInfo: wx.getStorageSync('userInfo'),
+    referrer: '',
   },
 
   eventBus: eventBus, // Make eventBus globally accessible

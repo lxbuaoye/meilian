@@ -35,9 +35,20 @@ Page({
     privacyChecked: false,
     value0: 0,
     value1: 0,
-    generatedImageSrc: '',
+    generatedImageSrc: '', //REVERT this
+    // generatedImageSrc: './11.png', //REVERT this
     logoSrc: `${CLOUD_STROAGE_PATH}/resources/ai/logo.png`,
     src: '',
+    customStyle: {
+      title: {
+        color: '#1C2023',
+      },
+      'buy-button': {
+        'border-radius': '20rpx',
+        'background-color': '#F8C301',
+        color: 'white',
+      },
+    },
   },
 
   currentSelection: '',
@@ -172,7 +183,7 @@ Page({
       title: '颜色',
       content: selectedColor.data.color,
     });
-    prompt = `请将图片中的${selectedType.data.selection}颜色变成${selectedColor.data.color}，并保持其他物体不变。`;
+    prompt = `你是一个专业的油漆工, 请将图片中的${selectedType.data.selection}颜色涂成${selectedColor.data.color}且表面没有木头纹理，并保持其他物体不变。`;
 
     this.progressInterval = setInterval(() => {
       if (this.data.progress < 99) {

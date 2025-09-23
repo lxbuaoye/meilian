@@ -217,6 +217,37 @@ exports.main = async (event, context) => {
     }
   }
 
+  if (event.type === 'REFERRAL_AWARD') {
+    await db
+      .collection('user')
+      .doc(userInfo._id)
+      .update({
+        data: {
+          credits: userInfo.credits + event.credits,
+        },
+      });
+
+    await db.collection('transaction').add({
+      data: {
+        user: userInfo.phoneNumber,
+        openid: userInfo.openid,
+        time: db.serverDate(),
+        balanceAfter: userInfo.credits + event.credits,
+        type: 'REFERRAL_AWARD',
+        credits: event.credits,
+      },
+    });
+
+    await db.collection('referral').add({
+      data: {
+        referrer: userInfo.phoneNumber,
+        credits: event.credits,
+        referee: event.referee,
+        time: db.serverDate(),
+      },
+    });
+  }
+
   // Get updated Data.
   const updatedUserResult = await db
     .collection('user')

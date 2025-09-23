@@ -59,6 +59,7 @@ export async function fetchUserInfo(phoneNumber) {
         // 传给云函数的参数
         data: {
           phoneNumber: phoneNumber,
+          referrer: getApp().globalData.referrer,
         },
       })
       .then((res) => {

@@ -36,6 +36,22 @@ exports.main = async (event, context) => {
         credits: 30,
       },
     });
+
+    // For referral:
+    if (event.referrer && event.referrer.length > 0) {
+      await cloud.callFunction({
+        // 要调用的云函数名
+        name: 'updateuserinfo',
+        // 传递给被调用云函数的参数
+        data: {
+          type: 'REFERRAL_AWARD',
+          credits: 5,
+          phoneNumber: event.referrer, // The person who should get the award
+          referee: event.phoneNumber, // Intented!
+        },
+      });
+    }
+
     return {
       name: name,
       openid: wxContext.OPENID,

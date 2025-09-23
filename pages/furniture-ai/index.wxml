@@ -105,11 +105,11 @@
           <view style="display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;"
             bind:tap="previewImage">
             <image src="{{generatedImageSrc}}"
-              style="width: 600rpx; height: 900rpx; border-radius: 20rpx;"
+              style="width: 500rpx; height: 750rpx; border-radius: 20rpx;"
               mode="aspectFit"></image>
           </view>
           <view class="overlay-action-container">
-            <view style="display: flex; align-items: space-between;margin-top: 10rpx; width: 100%;">
+            <view style="display: flex; align-items: space-between;margin-top: 10rpx; width: 100%; margin-bottom: 20rpx;">
               <button class="download-button"
                 hover-class="g-hover-scale"
                 bind:tap="saveImage">保存图片</button>
@@ -117,7 +117,13 @@
                 hover-class="g-hover-scale"
                 bind:tap="previewImage">查看大图</button>
             </view>
+
+            <store-product appid="wxdcf41193e9059a7a"
+              product-id="10000306716544"
+              custom-style="{{customStyle}}">
+            </store-product>
           </view>
+
         </block>
 
         <view wx:if="{{!generatedImageSrc}}"
@@ -152,6 +158,7 @@
 </view>
 <t-message id="t-message" />
 <t-toast id="t-toast"></t-toast>
+
 
 
 <t-footer text="Copyright © 2024-2025 中山市新谷科技发展有限公司"></t-footer>
