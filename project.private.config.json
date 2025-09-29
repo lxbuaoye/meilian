@@ -9,11 +9,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/furniture-ai/index",
-          "pathName": "pages/furniture-ai/index",
+          "name": "pages/furniture-ai/history/index",
+          "pathName": "pages/furniture-ai/history/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/furniture-ai/index",
+          "pathName": "pages/furniture-ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/test-drag/index",

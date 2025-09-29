@@ -75,7 +75,6 @@ const furnitureList = [
 ];
 
 function getList(exampleType) {
-  console.log(exampleType);
   if (exampleType === 'BUILDING') {
     return buildingList;
   }

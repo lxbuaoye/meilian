@@ -68,7 +68,7 @@ Component({
           },
         })
         .then((res) => {
-          this.tryGetUserInfo(res.result.phoneNumber);
+          this.tryGetUserInfo(res.result.phoneNumber, true);
         })
         .catch((err) => {
           Message.error({

@@ -1,4 +1,5 @@
 const MAX_IMAGE_COUNT = 5;
+const MAX_IMAGE_COUNT_FURNITURE = 3;
 
 export function getLocalUserInfo() {
   return getApp().globalData.userInfo;
@@ -50,7 +51,37 @@ export async function saveUserHistoryLocally(imageUrl, prompt, selectedOptions =
   }
 }
 
-export async function fetchUserInfo(phoneNumber) {
+export async function saveFurnitureHistoryLocally(imageUrl, prompt, selectedOptions = []) {
+  try {
+    const history = wx.getStorageSync('furnitureHistory') || [];
+    history.push({
+      imageUrl: imageUrl,
+      time: new Date().getTime(),
+      prompt: prompt,
+      selectedOptions: selectedOptions,
+    });
+    if (history.length > MAX_IMAGE_COUNT_FURNITURE) {
+      const firstElement = history.shift();
+      if (firstElement && firstElement.imageUrl) {
+        wx.getFileSystemManager().unlink({
+          filePath: firstElement.imageUrl,
+          success(res) {
+            console.log('Successful removed local image');
+          },
+          fail(res) {
+            console.error(res);
+            console.log('Fail to remove local image');
+          },
+        });
+      }
+    }
+    wx.setStorageSync('furnitureHistory', history);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function fetchUserInfo(phoneNumber, withReferral = false) {
   return new Promise((resolve, reject) => {
     wx.cloud
       .callFunction({
@@ -59,7 +90,7 @@ export async function fetchUserInfo(phoneNumber) {
         // 传给云函数的参数
         data: {
           phoneNumber: phoneNumber,
-          referrer: getApp().globalData.referrer,
+          referrer: withReferral ? getApp().globalData.referrer : '',
         },
       })
       .then((res) => {

@@ -301,3 +301,21 @@ button::after {
   border-radius: 10rpx;
   box-sizing: border-box;
 }
+
+.history-prompt {
+  font-size: 28rpx;
+  color: white;
+  margin-top: 24rpx;
+}
+
+.history-options {
+  font-size: 22rpx;
+  color: white;
+}
+
+.history-image {
+  margin-top: 30rpx;
+  height: 550rpx;
+  width: 100%;
+  border-radius: 20rpx;
+}

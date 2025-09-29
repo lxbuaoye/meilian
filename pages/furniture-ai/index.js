@@ -3,6 +3,7 @@ const { CLOUD_STROAGE_PATH } = getApp().globalData;
 import Message from 'tdesign-miniprogram/message/index';
 import { Toast } from 'tdesign-miniprogram';
 import { saveBase64ToTempFile, addWatermarkToImage } from '../ai/util';
+import { saveFurnitureHistoryLocally } from '../../services/user/service';
 
 import { customOptionList } from './options';
 
@@ -14,6 +15,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    currentGuide: -1,
+    guideSteps: [],
+    historyViewerVisible: false,
+    loadingHistory: false,
     sharedToTimeline: false,
     colorPickerVisible: false,
     examplePickerVisible: false,
@@ -98,6 +103,74 @@ Page({
     if (options && options.imageSrc) {
       this.setData({ imageSrc: options.imageSrc, tabValue: options.isInterior === '1' ? 1 : 0 });
     }
+    this.checkAndShowGuide();
+  },
+
+  checkAndShowGuide() {
+    const hasGuideShown = wx.getStorageSync('hasGuideShown');
+    if (hasGuideShown) {
+      return;
+    }
+    try {
+      wx.setStorageSync('hasGuideShown', true);
+      console.log('成功设置本地存储标志，下次将不再显示弹窗。');
+    } catch (e) {
+      console.error('设置本地存储失败', e);
+    }
+    this.setData({
+      currentGuide: 0,
+      guideSteps: [
+        {
+          element: () =>
+            new Promise((resolve) =>
+              this.createSelectorQuery()
+                .select('#chooseImageView')
+                .boundingClientRect((rect) => resolve(rect))
+                .exec(),
+            ),
+          title: '📸 拍张照/挑一张',
+          body: '就拍你想换色的家具，或者从相册里挑～',
+          placement: 'center',
+        },
+        {
+          element: () =>
+            new Promise((resolve) =>
+              this.createSelectorQuery()
+                .select('#option-0')
+                .boundingClientRect((rect) => resolve(rect))
+                .exec(),
+            ),
+          title: '🛋️ 选家具类型',
+          body: '沙发？柜子？餐桌？告诉我它是谁！',
+          placement: 'bottom',
+          highlightPadding: 0,
+        },
+        {
+          element: () =>
+            new Promise((resolve) =>
+              this.createSelectorQuery()
+                .select('#option-1')
+                .boundingClientRect((rect) => resolve(rect))
+                .exec(),
+            ),
+          title: '🎨 选个颜色',
+          body: '挑个你喜欢的，随便试，颜色都能换',
+          placement: 'top-right',
+        },
+        {
+          element: () =>
+            new Promise((resolve) =>
+              this.createSelectorQuery()
+                .select('#generateButton')
+                .boundingClientRect((rect) => resolve(rect))
+                .exec(),
+            ),
+          title: '✨AI秒出图',
+          body: '最后, 只需要点一下，30 秒马上见效果 ✨',
+          placement: 'top',
+        },
+      ],
+    });
   },
 
   onStickyChange(e) {
@@ -181,7 +254,7 @@ Page({
     });
     selectedOptions.push({
       title: '颜色',
-      content: selectedColor.data.color,
+      content: selectedColor.data.selection,
     });
     prompt = `你是一个专业的油漆工, 请将图片中的${selectedType.data.selection}颜色涂成${selectedColor.data.color}且表面没有木头纹理，并保持其他物体不变。`;
 
@@ -206,11 +279,19 @@ Page({
     // }
 
     const fileManager = wx.getFileSystemManager();
+
     fileManager.readFile({
       filePath: this.data.imageSrc,
       encoding: 'base64',
       success: (fileRes) => {
         const imageBase64 = fileRes.data;
+        let mimeType = 'image/jpeg';
+        console.log(this.data.imageSrc);
+        if (this.data.imageSrc.toLowerCase().endsWith('.png')) {
+          mimeType = 'image/png';
+        } else if (this.data.imageSrc.toLowerCase().endsWith('.webp')) {
+          mimeType = 'image/webp';
+        }
         const payload = {
           contents: [
             {
@@ -220,7 +301,7 @@ Page({
                 },
                 {
                   inlineData: {
-                    mimeType: 'image/jpeg', // 根据实际图片类型更改
+                    mimeType: mimeType, // 根据实际图片类型更改
                     data: imageBase64,
                   },
                 },
@@ -254,6 +335,8 @@ Page({
                 const generatedImageBase64 = generatedPart.inlineData.data;
                 const tempFileUrl = await saveBase64ToTempFile(generatedImageBase64);
                 const imageSrc = await addWatermarkToImage(tempFileUrl);
+                // Save image locally
+                saveFurnitureHistoryLocally(imageSrc, prompt, selectedOptions);
                 this.setData({ generatedImageSrc: imageSrc, progress: 0 });
               } else {
                 throw 'No image generated.';
@@ -347,7 +430,7 @@ Page({
    */
   onShareAppMessage() {
     return {
-      title: `数码彩AI`,
+      title: `🔥数码彩AI🎨一键家具改色👍快来试试!`,
     };
   },
 
@@ -374,5 +457,66 @@ Page({
 
   showExamplePicker() {
     this.setData({ examplePickerVisible: true });
+  },
+
+  async loadHistory() {
+    this.setData({ loadingHistory: true });
+    try {
+      const history = wx.getStorageSync('furnitureHistory') || [];
+      console.log(history);
+      const revisedHistory = await Promise.all(
+        history.reverse().map(async (item) => {
+          const optionString = item.selectedOptions
+            ? item.selectedOptions.reduce((acc, item, index) => {
+              const currentItemFormatted = `${item.title}: ${item.content}`;
+              if (index === 0) {
+                return currentItemFormatted;
+              }
+              return `${acc}; ${currentItemFormatted}`;
+            }, '')
+            : '';
+          return {
+            ...item,
+            optionString: optionString,
+            imageSrc: item.imageUrl,
+            dateString: this.formatChineseDateTime(item.time),
+          };
+        }),
+      );
+      this.setData({
+        history: revisedHistory,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    this.setData({ loadingHistory: false });
+  },
+
+  openHistoryViewer() {
+    this.setData({ historyViewerVisible: true });
+    this.loadHistory();
+  },
+
+  onHistoryViewerClose() {
+    this.setData({ historyViewerVisible: false });
+  },
+
+  formatChineseDateTime(inputDate) {
+    if (!inputDate) {
+      return 'N/A';
+    }
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 月份从0开始，所以要加1
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    // 辅助函数：确保数字是两位数，如果不足则前面补0
+    const padZero = (num) => (num < 10 ? `0${num}` : num);
+
+    return `${year}年${month}月${day}日 - ${hours}:${padZero(minutes)}:${padZero(seconds)}`;
   },
 });

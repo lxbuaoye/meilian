@@ -6,6 +6,7 @@
     "image-comparison": "../../components/image-comparison/index",
     "color-picker": "../../components/ai/color-picker/index",
     "red-packet": "../../components/red-packet/index",
+    "t-guide": "tdesign-miniprogram/guide/guide",
     "example-picker": "../../components/ai/example-picker/index",
     "user-header": "../../components/user-header/index",
     "picker": "../../components/ai/picker/index",

@@ -14,8 +14,17 @@
       <image src="{{logoSrc}}"
         style="margin-left: 24rpx; width: 220rpx; height: {{menuBarHeight}}px;"></image>
     </view>
+
+    <button style="width: 80%; margin-top: 24rpx;"
+      type="default"
+      bind:tap="openHistoryViewer"
+      class="small-font"
+      hover-class="action-tile-hover">📅 查看历史记录
+    </button>
+
     <view style="margin-top: 24rpx;">
-      <view style="height: 490rpx; margin: 0 24rpx 0 24rpx; background-color: #ffffff; position: relative; border-radius: 20rpx; overflow: hidden;">
+      <view style="height: 490rpx; margin: 0 24rpx 0 24rpx; background-color: #ffffff; position: relative; border-radius: 20rpx; overflow: hidden;"
+        id="chooseImageView">
         <t-sticky bind:scroll="onStickyChange"
           t-class="sticky-container {{activeStickyImage ? 'active': '' }}">
           <image src="{{imageSrc}}"
@@ -41,7 +50,8 @@
           </view>
         </view>
 
-        <view style="position: absolute; bottom: 24rpx; right: 24rpx; border-radius: 32rpx; display: flex; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100;">
+        <view style="position: absolute; bottom: 24rpx; right: 24rpx; border-radius: 32rpx; display: flex; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100;"
+          id="chooseImageButton">
           <t-icon name="image"
             style="margin-left: 24rpx; color: white;"></t-icon>
           <button type="primary"
@@ -75,10 +85,11 @@
   </view>
   <view class="footer"
     style="display: flex; justify-content: center; align-items: center;">
-    <button style="background-color: rgba(234, 194, 109, 1); border: hidden; color: white; width: 80%;"
+    <button style="background-color: rgba(234, 194, 109, 1); border: hidden; color: white; width: 80%; "
       bind:tap="generate"
       class="small-font"
-      hover-class="action-tile-hover">一键改色
+      hover-class="action-tile-hover"
+      id="generateButton">一键改色
     </button>
     <text style="font-size: 22rpx; color: #1C2023; margin-top: 5rpx;"> *效果图仅供参考</text>
   </view>
@@ -168,3 +179,52 @@
   example-type="FURNITURE"
   bind:selectexampleimage="onSelectExampleImage"
   visible="{{examplePickerVisible}}"></example-picker>
+
+<t-guide current="{{currentGuide}}"
+  steps="{{guideSteps}}">
+  <view slot="body-2"
+    class="slot-body"></view>
+</t-guide>
+
+
+<t-overlay visible="{{historyViewerVisible}}"
+  duration="{{500}}"
+  bind:click="onHistoryViewerClose"
+  style="display: flex; justify-content: center; align-items: center;flex: 1; flex-direction: column;">
+  <t-loading theme="spinner"
+    wx:if="{{loadingHistory}}"
+    size="40rpx"
+    style="margin: 40rpx;"
+    text="加载中..."
+    class="loading" />
+  <block wx:if="{{!loadingHistory}}">
+    <view wx:if="{{history.length===0}}"
+      style="height: 100rpx; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <text style="margin-top: 20rpx; font-size: 32rpx; color: white;">🙈 暂无历史图片</text>
+      <text style="margin: 50rpx; font-size: 32rpx; color: white;">快来试试我们的AI魔法，换色你的家具吧！✨</text>
+    </view>
+    <swiper indicator-dots="{{true}}"
+      wx:if="{{history.length>0}}"
+      indicator-color="rgba(255,255 ,255, .6)"
+      indicator-active-color="var(--theme-color)"
+      autoplay="{{false}}"
+      style="height: 800rpx; width: 100%; margin-top: 15rpx;">
+      <swiper-item wx:key="*this"
+        style="display: flex; justify-content: center; flex-direction: column; align-items: center; "
+        wx:for="{{history}}">
+        <image class="history-image"
+          mode="aspectFit"
+          bind:tap="previewImage"
+          src="{{item.imageSrc}}"></image>
+        <text class="history-prompt"> 生成时间: {{item.dateString}} </text>
+        <text wx:if="{{item.optionString}}"
+          class="history-options"> {{item.optionString}} </text>
+      </swiper-item>
+    </swiper>
+  </block>
+  <store-product appid="wxdcf41193e9059a7a"
+    style="width: 80%; margin-top: 40rpx;"
+    product-id="10000306716544"
+    custom-style="{{customStyle}}">
+  </store-product>
+</t-overlay>
