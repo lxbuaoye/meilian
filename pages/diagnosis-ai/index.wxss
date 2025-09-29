@@ -385,8 +385,8 @@ page {
   font-size: 36rpx;
   font-weight: bold;
   color: var(--theme-color); /* 主题色 */
-  margin-bottom: 25rpx;
-  padding-bottom: 10rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 5rpx;
 }
 
 .paragraph {
