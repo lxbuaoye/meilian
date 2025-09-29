@@ -286,7 +286,6 @@ Page({
       success: (fileRes) => {
         const imageBase64 = fileRes.data;
         let mimeType = 'image/jpeg';
-        console.log(this.data.imageSrc);
         if (this.data.imageSrc.toLowerCase().endsWith('.png')) {
           mimeType = 'image/png';
         } else if (this.data.imageSrc.toLowerCase().endsWith('.webp')) {
@@ -468,12 +467,12 @@ Page({
         history.reverse().map(async (item) => {
           const optionString = item.selectedOptions
             ? item.selectedOptions.reduce((acc, item, index) => {
-              const currentItemFormatted = `${item.title}: ${item.content}`;
-              if (index === 0) {
-                return currentItemFormatted;
-              }
-              return `${acc}; ${currentItemFormatted}`;
-            }, '')
+                const currentItemFormatted = `${item.title}: ${item.content}`;
+                if (index === 0) {
+                  return currentItemFormatted;
+                }
+                return `${acc}; ${currentItemFormatted}`;
+              }, '')
             : '';
           return {
             ...item,
