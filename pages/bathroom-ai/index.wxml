@@ -146,7 +146,7 @@
             color="{{ {from: '#EEC461', to: '#E2AA42' } }}"
             percentage="{{progress}}"
             status="active" />
-          <loading-tips></loading-tips>
+          <loading-tips tips="{{tips}}"></loading-tips>
           <view style="display: flex; flex-direction: column;justify-content: center; align-items: center;">
             <t-loading wx:if="{{!generatedImageSrc}}"
               theme="dots"
@@ -201,7 +201,7 @@
     <view wx:if="{{history.length===0}}"
       style="height: 100rpx; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
       <text style="margin-top: 20rpx; font-size: 32rpx; color: white;">🙈 暂无历史图片</text>
-      <text style="margin: 50rpx; font-size: 32rpx; color: white;">快来试试我们的AI魔法，换色你的家具吧！✨</text>
+      <text style="margin: 50rpx; font-size: 32rpx; color: white;">快来试试我们的AI魔法，换色你的浴室吧！✨</text>
     </view>
     <swiper indicator-dots="{{true}}"
       wx:if="{{history.length>0}}"

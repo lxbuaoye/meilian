@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
   try {
     const result = await cloud.openapi.wxacode.get({
       // path: `pages/portrait-ai/index`,
-      path: `pages/admin-red-packet/index`,
+      path: `pages/bathroom-ai/index`,
       envVersion: 'trial',
       autoColor: false,
       width: 1280,

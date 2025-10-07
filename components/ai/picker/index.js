@@ -72,6 +72,11 @@ Component({
           color: this.data.list[index].color,
         });
       }
+      if (this.data.list[index].approximateName) {
+        this.setData({
+          approximateName: this.data.list[index].approximateName,
+        });
+      }
     },
     onChange(e) {
       this.updateSelectionWithIndex(e.detail.value);

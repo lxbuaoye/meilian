@@ -15,6 +15,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tips: [
+      '正在为你施加魔法',
+      '正在为你调配专属色彩',
+      '你的装修即将换上新衣',
+      'AI 正在精准地涂抹每一个像素',
+      '灵感正在加载中，你的创意马上变为现实',
+      '正在处理你的“AI改色”计划',
+    ],
     currentGuide: -1,
     guideSteps: [],
     historyViewerVisible: false,
@@ -252,7 +260,7 @@ Page({
 
     let prompt = '';
     const selectedOptions = [];
-
+    console.log(selectedColor1.data);
     selectedOptions.push({
       title: '墙体颜色',
       content: selectedColor1.data.selection,
@@ -261,15 +269,13 @@ Page({
       title: '地面颜色',
       content: selectedColor2.data.selection,
     });
-    prompt = `我是一名专业的油漆师傅`;
+    prompt = `你是一名专业的油漆师傅`;
 
     if (selectedColor1.data.value !== 0) {
-      prompt = `${prompt}
-      - 请将浴室墙壁的瓷砖恢复到干净、均匀的${selectedColor1.data.color}色，模拟两次面漆后的完美真实的效果。所有花纹都要完全消失，瓷砖表面新颜色均匀一致，全覆盖图案，无任何花纹，颜色平滑无瑕疵，像刷过漆一样，新颜色均匀附着于瓷砖表面，无漏底和色差问题，同时保留了瓷砖之间的灌浆线。`;
+      prompt = `${prompt} 1) 请将浴室墙壁的瓷砖恢复到干净、均匀的 ${selectedColor1.data.approximateName} (精准颜色为 Hex ${selectedColor1.data.color})，模拟两次面漆后的完美真实的效果。所有花纹都要完全消失，瓷砖表面新颜色均匀一致，全覆盖图案，无任何花纹，颜色平滑无瑕疵，像刷过漆一样，新颜色均匀附着于瓷砖表面，无漏底和色差问题，同时保留了瓷砖之间的灌浆线;`;
     }
     if (selectedColor2.data.value !== 0) {
-      prompt = `${prompt}
-      - 请将浴室地面的瓷砖恢复到干净、均匀的${selectedColor2.data.color}色，模拟两次面漆后的完美真实的效果。所有花纹都要完全消失，瓷砖表面新颜色均匀一致，全覆盖图案，无任何花纹，颜色平滑无瑕疵，像刷过漆一样，新颜色均匀附着于瓷砖表面，无漏底和色差问题，同时保留了瓷砖之间的灌浆线。`;
+      prompt = `${prompt} 2) 请将浴室地面的瓷砖恢复到干净、均匀的 ${selectedColor2.data.approximateName} (精准颜色为 Hex ${selectedColor2.data.color})，模拟两次面漆后的完美真实的效果。所有花纹都要完全消失，瓷砖表面新颜色均匀一致，全覆盖图案，无任何花纹，颜色平滑无瑕疵，像刷过漆一样，新颜色均匀附着于瓷砖表面，无漏底和色差问题，同时保留了瓷砖之间的灌浆线。`;
     }
 
     this.progressInterval = setInterval(() => {
@@ -279,7 +285,7 @@ Page({
       if (!this.data.visible || this.data.generatedImageSrc) {
         clearInterval(this.progressInterval);
       }
-    }, 500);
+    }, 1500);
 
     if (this.data.debugMode) {
       console.log(prompt);
@@ -443,14 +449,14 @@ Page({
    */
   onShareAppMessage() {
     return {
-      title: `🔥数码彩AI🎨一键家具改色👍快来试试!`,
+      title: `🔥数码彩AI🎨一键卫浴瓷砖改色👍快来试试!`,
     };
   },
 
   onShareTimeline() {
     this.setData({ sharedToTimeline: true });
     return {
-      title: `🔥数码彩AI🎨一键家具改色👍快来试试!`,
+      title: `🔥数码彩AI🎨一键卫浴瓷砖改色👍快来试试!`,
     };
   },
   goBack() {
@@ -481,12 +487,12 @@ Page({
         history.reverse().map(async (item) => {
           const optionString = item.selectedOptions
             ? item.selectedOptions.reduce((acc, item, index) => {
-              const currentItemFormatted = `${item.title}: ${item.content}`;
-              if (index === 0) {
-                return currentItemFormatted;
-              }
-              return `${acc}; ${currentItemFormatted}`;
-            }, '')
+                const currentItemFormatted = `${item.title}: ${item.content}`;
+                if (index === 0) {
+                  return currentItemFormatted;
+                }
+                return `${acc}; ${currentItemFormatted}`;
+              }, '')
             : '';
           return {
             ...item,
