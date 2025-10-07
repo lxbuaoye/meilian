@@ -74,6 +74,19 @@ const furnitureList = [
   ],
 ];
 
+const bathroomList = [
+  [
+    {
+      name: '浴室1',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/bathroom_example1.jpg`,
+    },
+    {
+      name: '浴室2',
+      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/bathroom_example2.jpg`,
+    },
+  ],
+];
+
 function getList(exampleType) {
   if (exampleType === 'BUILDING') {
     return buildingList;
@@ -83,6 +96,9 @@ function getList(exampleType) {
   }
   if (exampleType === 'FURNITURE') {
     return furnitureList;
+  }
+  if (exampleType === 'BATHROOM') {
+    return bathroomList;
   }
   return buildingList;
 }

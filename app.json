@@ -31,7 +31,8 @@
     "pages/delivery-standard/index",
     "pages/diagnosis-ai/index",
     "pages/admin-red-packet/index",
-    "pages/furniture-ai/index"
+    "pages/furniture-ai/index",
+    "pages/bathroom-ai/index"
   ],
   "subPackages": [
     {

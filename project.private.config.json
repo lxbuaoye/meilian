@@ -9,11 +9,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/furniture-ai/history/index",
-          "pathName": "pages/furniture-ai/history/index",
+          "name": "pages/bathroom-ai/index",
+          "pathName": "pages/bathroom-ai/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/furniture-ai/history/index",
+          "pathName": "pages/furniture-ai/history/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/furniture-ai/index",
