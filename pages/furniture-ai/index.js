@@ -265,7 +265,7 @@ Page({
       if (!this.data.visible || this.data.generatedImageSrc) {
         clearInterval(this.progressInterval);
       }
-    }, 500);
+    }, 1000);
 
     if (this.data.debugMode) {
       console.log(prompt);
@@ -312,7 +312,7 @@ Page({
           },
         };
         this.requestTask = wx.request({
-          url: 'https://ai.zsthinkgood.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent',
+          url: 'https://ai.zsthinkgood.com/v1beta/models/gemini-2.5-flash-image:generateContent',
           timeout: 240000,
           header: {
             'X-Client-Name': 'DIGITAL_GEMINI',
