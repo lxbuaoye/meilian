@@ -12,6 +12,7 @@ page {
   height: 170rpx;
   margin-top: 24rpx;
   overflow: hidden;
+  border: 4rpx solid var(--theme-color);
 }
 
 .border-color {

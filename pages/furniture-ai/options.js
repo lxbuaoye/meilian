@@ -3,8 +3,8 @@ const { CLOUD_STROAGE_PATH } = getApp().globalData;
 export const customOptionList = [
   {
     header: '家具',
-    height: 154,
-    width: 154,
+    height: 124,
+    width: 124,
     innerPadding: 0,
     outterPadding: 10,
     data: [
@@ -21,6 +21,11 @@ export const customOptionList = [
       {
         name: '柜子',
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/furniture-ai/cabinet.png`,
+        prompt: '1.把图2的底色做成图3颜色，保留图2中的纹理和质感不变 2.把图2效果应用在图1墙面3.图1除墙面效果，其它不变',
+      },
+      {
+        name: '门',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/furniture-ai/door.png`,
         prompt: '1.把图2的底色做成图3颜色，保留图2中的纹理和质感不变 2.把图2效果应用在图1墙面3.图1除墙面效果，其它不变',
       },
     ],

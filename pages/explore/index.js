@@ -10,14 +10,14 @@ Page({
       {
         name: 'DIGITAL AI',
         description: '运用数码彩AI的先进技术，您可以轻松地将草图、施工图或现有建筑转化为多种您喜爱的风格效果图。',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/333.jpg`,
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/digital_ai.png`,
         // disabled: accountInfo.miniProgram.envVersion === 'release',
         dest: '/pages/ai/index',
       },
       {
         name: 'AI一键智诊',
-        description: '识别出裂缝、霉变、空鼓、渗水等常见问题，并根据预设的修复方案提供初步的诊断和建议',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/777.png`,
+        description: '识别出裂缝、霉变、渗水等常见问题，并根据修复方案提供初步的诊断和建议',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/diagnosis_ai.png`,
         dest: '/pages/diagnosis-ai/index',
       },
       // {
@@ -27,28 +27,34 @@ Page({
       //   dest: '/pages/portrait-ai/index',
       // },
       {
+        name: '木器翻新',
+        description: 'AI快速模拟翻新效果，为您的木器家具“换装”',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/furniture_ai.png`,
+        dest: '/pages/furniture-ai/index',
+      },
+      {
         name: '色彩检测',
         description: '通过分析，你可以获取涂料里面的配色构成, 更可以精准查看每一个像素',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/111.jpg`,
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/color_detect.png`,
         dest: '/ColorDetector/pages/index',
       },
       {
         name: 'AR (全息透视)',
         description:
           '产品的详细介绍叠加在真实世界中，让你仿佛亲手触摸、告别枯燥的文字描述，体验更生动的产品信息获取方式。',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/222.jpg`,
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/ar.png`,
         dest: '/pages/ar/index',
       },
       {
         name: '五行织色',
         description: '根据你的五行, 判断出最适合你的颜色',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/555.png`,
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/wuxing.png`,
         dest: '/pages/wuxing/index',
       },
       {
         name: '石漆配色',
         description: '石漆系列电子色卡，配用多个建筑模型，方便随时查看和搭配',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/444.png`,
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/shiqi.png`,
         dest: 'wx0a81e9aa1745be90',
         openAnotherMiniProgram: true,
       },

@@ -5,13 +5,12 @@
     <text style="font-size: 34rpx; background: linear-gradient(to right, #f8c301, #ffb347, #ff69b4, #87cefa, #90ee90);line-height: 48rpx; -webkit-background-clip: text; ; background-clip: text; color:transparent;">智慧算法空间</text>
   </view>
 
-  <text style="font-size: 26rpx; color: #1C2023; line-height: 48rpx;">探索 - 数码彩智慧算法空间是一个供用户体验早期阶段数码色彩相关功能并分享反馈的项目。智慧算法空间中的功能，包括人工智能驱动的体验，都处于开发阶段，其质量和可用性可能会有所不同。欢迎您留下宝贵的反馈，以帮助我们改进整体体验。
+  <text style="font-size: 26rpx; color: #1C2023; line-height: 48rpx;">数码彩智慧算法空间是一个持续探索未来数码色彩体验的创新实验室。空间内提供的功能和算法（包括人工智能驱动的体验）代表了我们对色彩科技的最新思考和尝试，
   </text>
   <view wx:for="{{list}}"
     wx:key="*this"
     class="border"
     hover-class="action-tile-hover"
-    style="box-shadow: 1rpx 0rpx 1rpx 1rpx #f8c301; "
     bind:tap="onTap"
     data-disabled="{{item.disabled}}"
     data-open-another-mini-program="{{item.openAnotherMiniProgram}}"
@@ -20,11 +19,9 @@
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.65); color: white; display: flex; justify-content: center; align-items: center; font-size: 24px; ">
       <text style=" transform: rotate(-16deg); font-size: 26rpx;">即将推出</text>
     </view>
-    <view style="width: 15%; display: flex; justify-content: center; background-color: #f8c301; height: 100%; margin-top: 12rpx; margin-bottom: 12rpx;">
-    </view>
-    <view style="width: 70%; display: flex; justify-content: center; flex-direction: column; align-items: center; padding-left: 30rpx; padding-right: 30rpx;">
-      <text style="font-size: 34rpx; margin-bottom: 10rpx;">{{item.name}} </text>
-      <text style="font-size: 22rpx;">{{item.description}} </text>
+    <view style="width: 70%; display: flex; justify-content: center; flex-direction: column; align-items: center; padding-left: 68rpx; padding-right: 30rpx;">
+      <text style="font-size: 32rpx; margin-bottom: 10rpx; color: #1C2023; ;">{{item.name}} </text>
+      <text style="font-size: 24rpx; color: #1C2023">{{item.description}} </text>
     </view>
     <view style="width: 20%; display: flex; align-items: flex-end; flex-direction: column; margin-right: 24rpx;">
       <image src="{{item.imageSrc}}"

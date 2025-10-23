@@ -344,36 +344,6 @@
           "query": "",
           "scene": null
         },
-        {
-          "name": "示例页-售后详情",
-          "pathName": "pages/order/after-service-detail/index",
-          "query": "rightsNo=123123423",
-          "scene": null
-        },
-        {
-          "name": "示例页-搜索页",
-          "pathName": "pages/goods/search/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "示例页-搜索结果",
-          "pathName": "pages/goods/result/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "示例页-商品评价",
-          "pathName": "pages/goods/comments/create/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "示例页-申请售后",
-          "pathName": "pages/order/apply-service/index",
-          "query": "orderNo=132222623132329291&skuId=135691625",
-          "scene": null
-        }
       ]
     }
   }

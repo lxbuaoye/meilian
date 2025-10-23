@@ -1,4 +1,3 @@
-import { fetchHome } from '../../services/home/home';
 import Toast from 'tdesign-miniprogram/toast/index';
 
 const db = wx.cloud.database();

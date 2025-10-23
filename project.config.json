@@ -71,18 +71,6 @@
           "pathName": "pages/home/home",
           "query": "",
           "scene": null
-        },
-        {
-          "name": "示例页-申请售后",
-          "pathName": "pages/order/apply-service/index",
-          "query": "orderNo=132222623132329291&skuId=135691625",
-          "scene": null
-        },
-        {
-          "name": "示例页-发票详情",
-          "pathName": "pages/order/invoice/index",
-          "query": "orderNo=132381532610540875",
-          "scene": null
         }
       ]
     }
