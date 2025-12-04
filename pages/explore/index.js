@@ -20,6 +20,12 @@ Page({
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/diagnosis_ai.png`,
         dest: '/pages/diagnosis-ai/index',
       },
+      {
+        name: 'AI接单快 (BETA)',
+        description: '全方位分析房屋',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/diagnosis_ai.png`,
+        dest: '/pages/area-ai/index',
+      },
       // {
       //   name: '数码彩·印象',
       //   description: '20周年限时活动',

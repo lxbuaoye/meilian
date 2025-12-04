@@ -265,7 +265,7 @@ Page({
       if (!this.data.visible || this.data.generatedImageSrc) {
         clearInterval(this.progressInterval);
       }
-    }, 1000);
+    }, 150);
 
     if (this.data.debugMode) {
       console.log(prompt);
@@ -310,6 +310,25 @@ Page({
           generationConfig: {
             responseModalities: ['IMAGE'],
           },
+          // 在这里添加 safetySettings，位于 contents 同级
+          safetySettings: [
+            {
+              category: 'HARM_CATEGORY_HARASSMENT',
+              threshold: 'BLOCK_ONLY_HIGH', // 仅拦截高风险内容
+            },
+            {
+              category: 'HARM_CATEGORY_HATE_SPEECH',
+              threshold: 'BLOCK_ONLY_HIGH',
+            },
+            {
+              category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+              threshold: 'BLOCK_ONLY_HIGH',
+            },
+            {
+              category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+              threshold: 'BLOCK_ONLY_HIGH',
+            },
+          ],
         };
         this.requestTask = wx.request({
           url: 'https://ai.zsthinkgood.com/v1beta/models/gemini-2.5-flash-image:generateContent',

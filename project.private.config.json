@@ -1,13 +1,39 @@
 {
+  "projectname": "digital",
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false
+  },
   "condition": {
     "miniprogram": {
       "list": [
         {
-          "name": "pages/ai/index",
-          "pathName": "pages/ai/index",
+          "name": "pages/diagnosis-ai/index",
+          "pathName": "pages/diagnosis-ai/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/furniture-ai/index",
+          "pathName": "pages/furniture-ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/area-ai/index",
+          "pathName": "pages/area-ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/ai/index",
+          "pathName": "pages/ai/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "首页入口",
