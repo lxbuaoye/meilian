@@ -525,3 +525,22 @@ page {
   color: #1c2023;
   font-weight: 700;
 }
+
+.sticky-container {
+}
+
+.sticky-container.active {
+  pointer-events: none;
+}
+
+.image {
+  height: 490rpx;
+  width: 100%;
+  transition: transform 0.5s ease-in-out, left 0.5s ease-in-out;
+}
+
+.image.sticky {
+  pointer-events: auto;
+  left: 0;
+  transform: scale(0.5) translateX(calc(-50% - (100vw - 90vw) / 2));
+}

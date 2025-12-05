@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "AI接单快",
+  "navigationBarTitleText": "AI一拍通",
   "usingComponents": {
     "t-overlay": "tdesign-miniprogram/overlay/overlay",
     "t-collapse": "tdesign-miniprogram/collapse/collapse",
@@ -17,6 +17,7 @@
     "t-toast": "tdesign-miniprogram/toast/toast",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-fab": "tdesign-miniprogram/fab/fab",
-    "t-loading": "tdesign-miniprogram/loading/loading"
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-sticky": "tdesign-miniprogram/sticky/sticky"
   }
 }

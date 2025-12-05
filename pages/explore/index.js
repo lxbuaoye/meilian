@@ -21,9 +21,9 @@ Page({
         dest: '/pages/diagnosis-ai/index',
       },
       {
-        name: 'AI接单快 (BETA)',
-        description: '全方位分析房屋',
-        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/diagnosis_ai.png`,
+        name: 'AI一拍通 (BETA)',
+        description: '3秒读懂装修现场',
+        imageSrc: `${CLOUD_STROAGE_PATH}/resources/explore/area_ai.png`,
         dest: '/pages/area-ai/index',
       },
       // {

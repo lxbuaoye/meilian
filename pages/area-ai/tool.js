@@ -3,59 +3,156 @@ export const toolDefinition = [
     type: 'function',
     function: {
       name: 'generateInteriorWallAnalysisReport',
-      description: '根据内墙图片生成全面的分析报告，包括推荐风格、色彩搭配、面积估算、住户分析、风水建议和植物推荐。',
+      description:
+        '根据图片生成全面的分析报告，包括空间画像、推荐搭配（根据图片自动判断建筑类型和风格，给出一种推荐方案）、面积估算、住户分析、风水建议和空间焕新计划建议。',
       parameters: {
         type: 'object',
         properties: {
-          recommendedStyle: {
+          spaceProfile: {
             type: 'object',
-            description: '推荐风格分析',
+            description: '空间画像分析',
             properties: {
+              spaceCondition: {
+                type: 'object',
+                description: '建筑/空间现况分析',
+                properties: {
+                  agingIndex: {
+                    type: 'number',
+                    minimum: 0,
+                    maximum: 100,
+                    description: '老化指数，0-100分，分数越高表示老化程度越严重',
+                  },
+                  wearLevel: {
+                    type: 'number',
+                    minimum: 0,
+                    maximum: 100,
+                    description: '损耗程度，0-100分，分数越高表示损耗越严重',
+                  },
+                  safetyRisk: {
+                    type: 'number',
+                    minimum: 0,
+                    maximum: 100,
+                    description: '安全风险，0-100分，分数越高表示安全风险越大',
+                  },
+                  renovationUrgency: {
+                    type: 'number',
+                    minimum: 0,
+                    maximum: 100,
+                    description: '翻新迫切度，0-100分，分数越高表示越需要翻新',
+                  },
+                  renovationPotential: {
+                    type: 'number',
+                    minimum: 0,
+                    maximum: 100,
+                    description: '改造潜力，0-100分，分数越高表示改造潜力越大',
+                  },
+                },
+                required: ['agingIndex', 'wearLevel', 'safetyRisk', 'renovationUrgency', 'renovationPotential'],
+              },
+              userAnalysis: {
+                type: 'object',
+                description: '建筑/空间使用者分析',
+                properties: {
+                  usagePattern: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description:
+                      '空间使用特征标签，根据图片中可见的物品、布局等判断空间使用方式，返回2-3个简洁的标签，如：["亲子互动型空间", "高密度收纳需求"]。避免直接推测人员结构，而是描述空间使用特征',
+                  },
+                  qualityFocus: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description:
+                      '品质关注方向标签，根据图片中的物品、装修状态等判断用户愿意把钱花在哪里，返回2-3个简洁的标签，如：["实用主义与耐用性", "设计感与氛围营造"]。避免直接推测消费能力，而是描述品质关注方向',
+                  },
+                  styleDiagnosis: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description:
+                      '当前风格诊断标签，评价图片中现有的装修风格状态，返回2-3个简洁的标签，如：["传统风格", "现代化升级潜力"]。不是猜测用户喜欢什么，而是评价现在的状态',
+                  },
+                  keyRenovationTriggers: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description:
+                      '核心改造痛点标签，通过识别空间中的问题（如采光不好、收纳不足、材质磨损等）来指出需要改造的地方，返回2-3个简洁的标签，如：["采光与通透感提升", "收纳扩容"]',
+                  },
+                },
+                required: ['usagePattern', 'qualityFocus', 'styleDiagnosis', 'keyRenovationTriggers'],
+              },
+            },
+            required: ['spaceCondition', 'userAnalysis'],
+          },
+          recommendedMatching: {
+            type: 'object',
+            description: '推荐搭配方案，根据图片中的建筑自动判断风格，给出一种推荐方案',
+            properties: {
+              buildingType: {
+                type: 'string',
+                description: '根据图片判断的建筑类型，如：商业建筑、居住建筑、休闲建筑、办公建筑等',
+              },
               styleName: {
                 type: 'string',
-                description: '推荐的装修风格名称，如：现代简约、北欧风格、中式风格、美式风格、工业风等',
+                description: '根据图片判断的建筑风格名称，如：现代简约、北欧风格、中式风格、工业风等',
               },
               styleDescription: {
                 type: 'string',
-                description: '风格特点的详细描述，说明为什么适合这个空间',
+                description: '一句话表达该风格的特点',
               },
-              styleFeatures: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '该风格的主要特征列表，至少3条',
+              colorScheme: {
+                type: 'object',
+                properties: {
+                  primaryColor: {
+                    type: 'string',
+                    description: '主色调，如：暖白色、浅灰色等',
+                  },
+                  primaryColorRgb: {
+                    type: 'string',
+                    description: '主色调的RGB颜色值，格式为 "rgb(r,g,b)" 或 "#rrggbb"，如：rgb(255,248,220) 或 #FFF8DC',
+                  },
+                  secondaryColors: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      properties: {
+                        color: {
+                          type: 'string',
+                          description: '辅助色彩名称',
+                        },
+                        colorRgb: {
+                          type: 'string',
+                          description:
+                            '辅助色彩的RGB颜色值，格式为 "rgb(r,g,b)" 或 "#rrggbb"，如：rgb(255,248,220) 或 #FFF8DC',
+                        },
+                        usage: {
+                          type: 'string',
+                          description: '建议用于哪里，如：墙面、装饰、家具等',
+                        },
+                      },
+                      required: ['color', 'colorRgb', 'usage'],
+                    },
+                    description: '辅助色彩列表，每个包含颜色名称、RGB颜色值和使用位置说明',
+                  },
+                },
+                required: ['primaryColor', 'primaryColorRgb', 'secondaryColors'],
               },
-              designSuggestions: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '针对该风格的具体设计建议，至少3条',
+              colorCardSeries: {
+                type: 'string',
+                description: '推荐色卡：数码彩涂料系列，如：数码彩经典系列、数码彩艺术系列等',
+              },
+              plantRecommendation: {
+                type: 'string',
+                description: '植物搭配推荐',
               },
             },
-            required: ['styleName', 'styleDescription', 'styleFeatures', 'designSuggestions'],
-          },
-          recommendedColorScheme: {
-            type: 'object',
-            description: '推荐色彩搭配方案',
-            properties: {
-              primaryColor: {
-                type: 'string',
-                description: '主色调，如：暖白色、浅灰色、米黄色等',
-              },
-              secondaryColors: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '辅助色彩列表，至少2-3种颜色',
-              },
-              colorDescription: {
-                type: 'string',
-                description: '色彩搭配的整体说明和设计理念',
-              },
-              colorSuggestions: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '具体的色彩应用建议，至少3条',
-              },
-            },
-            required: ['primaryColor', 'secondaryColors', 'colorDescription', 'colorSuggestions'],
+            required: [
+              'buildingType',
+              'styleName',
+              'styleDescription',
+              'colorScheme',
+              'colorCardSeries',
+              'plantRecommendation',
+            ],
           },
           wallAreaEstimation: {
             type: 'object',
@@ -63,7 +160,7 @@ export const toolDefinition = [
             properties: {
               estimatedArea: {
                 type: 'number',
-                description: '估算的墙面总面积（平方米）',
+                description: '估算的墙面总面积（平方米）可以偏大一点',
               },
               areaRange: {
                 type: 'object',
@@ -87,115 +184,77 @@ export const toolDefinition = [
             },
             required: ['estimatedArea', 'areaRange', 'confidence'],
           },
-          residentAnalysis: {
-            type: 'object',
-            description: '住户现况分析',
-            properties: {
-              imageInformation: {
-                type: 'string',
-                description: '图片所提供的信息描述，包括空间布局、家具、装饰等可见元素',
-              },
-              familyStructure: {
-                type: 'string',
-                description: '推测的家庭结构，如：年轻夫妇、三口之家、老人独居等',
-              },
-              ageGroup: {
-                type: 'string',
-                description: '推测的年龄群体，如：25-35岁、35-45岁、50岁以上等',
-              },
-              aestheticPreference: {
-                type: 'string',
-                description: '推测的审美偏好，如：简约现代、温馨舒适、奢华大气等',
-              },
-              consumptionCapacity: {
-                type: 'string',
-                enum: ['高', '中', '低'],
-                description: '推测的消费能力水平',
-              },
-              salesSuggestions: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '针对性的装修销售建议，至少3条，要具体、可操作',
-              },
-            },
-            required: [
-              'imageInformation',
-              'familyStructure',
-              'ageGroup',
-              'aestheticPreference',
-              'consumptionCapacity',
-              'salesSuggestions',
-            ],
-          },
           fengshui: {
             type: 'object',
             description: '风水分析',
             properties: {
-              overallAssessment: {
-                type: 'string',
-                description: '整体风水评估，包括空间布局、光线、通风等',
+              currentAssessment: {
+                type: 'object',
+                description: '现况评估',
+                properties: {
+                  level: {
+                    type: 'string',
+                    enum: ['优', '中等', '较弱'],
+                    description: '风水现况等级',
+                  },
+                  reason: {
+                    type: 'string',
+                    description: '评估原因，1-2句话说明',
+                  },
+                },
+                required: ['level', 'reason'],
               },
-              fengshuiSuggestions: {
-                type: 'array',
-                items: { type: 'string' },
-                description: '风水改善建议，至少3条',
-              },
-              colorFengshui: {
+              layoutSuggestion: {
                 type: 'string',
-                description: '色彩风水建议，说明适合的颜色及其寓意',
+                description: '布局建议，2-3句话',
               },
-              layoutFengshui: {
+              colorSuggestion: {
                 type: 'string',
-                description: '布局风水建议，包括家具摆放、空间利用等',
+                description: '色彩建议，格式：颜色+有利于……，如：暖色调有利于营造温馨氛围',
+              },
+              objectArrangement: {
+                type: 'string',
+                description: '物件布置建议',
               },
             },
-            required: ['overallAssessment', 'fengshuiSuggestions', 'colorFengshui', 'layoutFengshui'],
+            required: ['currentAssessment', 'layoutSuggestion', 'colorSuggestion', 'objectArrangement'],
           },
-          recommendedPlants: {
+          salesProposals: {
             type: 'object',
-            description: '推荐搭配植物',
+            description:
+              '空间焕新计划建议，根据前四项分析内容（空间画像、推荐搭配、面积估算, 风水）给出3个具体的空间焕新计划',
             properties: {
-              recommendedPlants: {
+              proposals: {
                 type: 'array',
                 items: {
                   type: 'object',
                   properties: {
-                    plantName: {
+                    title: {
                       type: 'string',
-                      description: '植物名称',
+                      description: '方案标题，简洁明了',
                     },
-                    plantDescription: {
+                    description: {
                       type: 'string',
-                      description: '植物特点描述',
-                    },
-                    placement: {
-                      type: 'string',
-                      description: '建议摆放位置',
-                    },
-                    benefits: {
-                      type: 'string',
-                      description: '该植物的好处，如净化空气、装饰效果、风水作用等',
+                      description: '方案描述，简单、贴合实际应用，1-2句话',
                     },
                   },
-                  required: ['plantName', 'plantDescription', 'placement', 'benefits'],
+                  required: ['title', 'description'],
                 },
-                description: '推荐的植物列表，至少3-5种',
-              },
-              overallPlantGuidance: {
-                type: 'string',
-                description: '整体植物搭配指导',
+                minItems: 3,
+                maxItems: 3,
+                description: '3个具体的空间焕新计划建议',
               },
             },
-            required: ['recommendedPlants', 'overallPlantGuidance'],
+            required: ['proposals'],
           },
         },
         required: [
-          'recommendedStyle',
-          'recommendedColorScheme',
+          'spaceProfile',
+          'recommendedMatching',
           'wallAreaEstimation',
           'residentAnalysis',
           'fengshui',
-          'recommendedPlants',
+          'salesProposals',
         ],
       },
     },

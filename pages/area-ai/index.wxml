@@ -21,11 +21,14 @@
   style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 24rpx 24rpx;">
 
   <view style="height: 490rpx; margin: 0 24rpx 0 24rpx; width: 100%; background-color: {{hasResult? 'transparent' : 'rgba(0,0,0,0.1)'}}; position: relative; border-radius: 24rpx; overflow: hidden;">
-    <image src="{{imageSrc}}"
-      wx:if="{{imageSrc}}"
-      bind:tap="openViewer"
-      style="height: 490rpx; width: 100%;"
-      mode="aspectFit"></image>
+    <t-sticky bind:scroll="onStickyChange"
+      t-class="sticky-container {{activeStickyImage ? 'active': '' }}">
+      <image src="{{imageSrc}}"
+        wx:if="{{imageSrc}}"
+        bind:tap="openViewer"
+        class="image {{activeStickyImage ? 'sticky': '' }}"
+        mode="aspectFit"></image>
+    </t-sticky>
     <view wx:if="{{!imageSrc}}"
       style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 32rpx; display: flex; color: white; justify-content: center; align-items: center; display: flex; flex-direction: column; width: 100%;">
       <view style="justify-content: center; align-items: center; display: flex; flex-direction: column;"
@@ -85,7 +88,7 @@
       <view class="container">
 
         <view class="section">
-          <view class="section-title">AI接单快</view>
+          <view class="section-title">AI一拍通</view>
           <view class="feature-list">
             <view class="feature-item">
               <text class="feature-text">📸 拍照/上传：</text>
@@ -108,13 +111,6 @@
   </view>
   <view wx:if="{{hasResult}}"
     style="width: 100%;">
-    <!-- Banner -->
-    <view style="position: relative; margin-top: 20rpx;">
-      <image src="{{robotSrc}}"
-        style="width: 100%; height: 70rpx;">
-      </image>
-      <text style="position: absolute; top: 50%;  left: 50%;  transform: translate(-50%, -50%); font-weight: 700;font-size: 28rpx;color: #1C2023;">分析报告</text>
-    </view>
 
     <t-tabs defaultValue="{{0}}"
       class="tab"
@@ -125,96 +121,208 @@
         wx:for-item="tabLabel"
         wx:key="index"
         value="{{index}}">
-        <!-- 推荐风格 -->
+        <!-- 空间画像 -->
         <block wx:if="{{index === 0}}">
           <view class="section-container">
-            <view class="header1-container">
-              <text class="header1-text">🎨 {{result.recommendedStyle.styleName}}</text>
+            <!-- 现状评估（负向/警示类） -->
+            <view style="margin-top: 20rpx;">
+              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
+                <text style="font-size: 32rpx; margin-right: 8rpx;">⚠️</text>
+                <text class="header1-text"
+                  style="font-size: 30rpx;">现状评估</text>
+              </view>
+              <view style="padding: 24rpx; background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%); border-radius: 16rpx;">
+                <!-- 老化指数 -->
+                <view style="margin-bottom: 20rpx;">
+                  <view style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8rpx;">
+                    <text style="font-size: 26rpx; color:#1c2023;">老化指数</text>
+                    <text style="font-size: 28rpx; color:#ef4444; font-weight: 700;">{{result.spaceProfile.spaceCondition.agingIndex}} 分</text>
+                  </view>
+                  <view style="height: 8rpx; background-color: #fee2e2; border-radius: 4rpx; overflow: hidden;">
+                    <view style="height: 100%; width: {{result.spaceProfile.spaceCondition.agingIndex}}%; background: linear-gradient(90deg, #f97316 0%, #ef4444 100%); border-radius: 4rpx;"></view>
+                  </view>
+                </view>
+                <!-- 损耗程度 -->
+                <view style="margin-bottom: 20rpx;">
+                  <view style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8rpx;">
+                    <text style="font-size: 26rpx; color:#1c2023;">损耗程度</text>
+                    <text style="font-size: 28rpx; color:#ef4444; font-weight: 700;">{{result.spaceProfile.spaceCondition.wearLevel}} 分</text>
+                  </view>
+                  <view style="height: 8rpx; background-color: #fee2e2; border-radius: 4rpx; overflow: hidden;">
+                    <view style="height: 100%; width: {{result.spaceProfile.spaceCondition.wearLevel}}%; background: linear-gradient(90deg, #f97316 0%, #ef4444 100%); border-radius: 4rpx;"></view>
+                  </view>
+                </view>
+                <!-- 安全风险 -->
+                <view style="margin-bottom: 0rpx;">
+                  <view style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8rpx;">
+                    <text style="font-size: 26rpx; color:#1c2023;">安全风险</text>
+                    <text style="font-size: 28rpx; color:#ef4444; font-weight: 700;">{{result.spaceProfile.spaceCondition.safetyRisk}} 分</text>
+                  </view>
+                  <view style="height: 8rpx; background-color: #fee2e2; border-radius: 4rpx; overflow: hidden;">
+                    <view style="height: 100%; width: {{result.spaceProfile.spaceCondition.safetyRisk}}%; background: linear-gradient(90deg, #f97316 0%, #ef4444 100%); border-radius: 4rpx;"></view>
+                  </view>
+                </view>
+              </view>
             </view>
 
-            <!-- 风格描述卡片 -->
-            <view style="margin-top: 20rpx; padding: 24rpx; background: linear-gradient(135deg, #f7fafe 0%, #e8f4fd 100%); border-radius: 16rpx;">
-              <text style="font-size: 28rpx; color:#1c2023; line-height: 1.8;">{{result.recommendedStyle.styleDescription}}</text>
-            </view>
-
-            <!-- 风格特征 -->
+            <!-- 价值评估（正向/机会类） -->
             <view style="margin-top: 24rpx;">
               <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">✨</text>
+                <text style="font-size: 32rpx; margin-right: 8rpx;">💎</text>
                 <text class="header1-text"
-                  style="font-size: 30rpx;">风格特征</text>
+                  style="font-size: 30rpx;">价值评估</text>
               </view>
-              <view wx:for="{{result.recommendedStyle.styleFeatures}}"
-                wx:key="*this"
-                style="margin-top: 12rpx; padding-left: 8rpx;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">• {{item}}</text>
+              <view style="padding: 24rpx; background: linear-gradient(135deg, #fff9e6 0%, #ffe8a1 100%); border-radius: 16rpx;">
+                <!-- 改造潜力 -->
+                <view style="margin-bottom: 20rpx;">
+                  <view style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8rpx;">
+                    <text style="font-size: 26rpx; color:#1c2023;">改造潜力</text>
+                    <text style="font-size: 28rpx; color:#EDBF58; font-weight: 700;">{{result.spaceProfile.spaceCondition.renovationPotential}} 分</text>
+                  </view>
+                  <view style="height: 8rpx; background-color: #fef3c7; border-radius: 4rpx; overflow: hidden;">
+                    <view style="height: 100%; width: {{result.spaceProfile.spaceCondition.renovationPotential}}%; background: linear-gradient(90deg, #EDBF58 0%, #f59e0b 100%); border-radius: 4rpx;"></view>
+                  </view>
+                </view>
+                <!-- 翻新迫切度 -->
+                <view style="margin-bottom: 0rpx;">
+                  <view style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8rpx;">
+                    <text style="font-size: 26rpx; color:#1c2023;">翻新迫切度</text>
+                    <text style="font-size: 28rpx; color:#EDBF58; font-weight: 700;">{{result.spaceProfile.spaceCondition.renovationUrgency}} 分</text>
+                  </view>
+                  <view style="height: 8rpx; background-color: #fef3c7; border-radius: 4rpx; overflow: hidden;">
+                    <view style="height: 100%; width: {{result.spaceProfile.spaceCondition.renovationUrgency}}%; background: linear-gradient(90deg, #EDBF58 0%, #f59e0b 100%); border-radius: 4rpx;"></view>
+                  </view>
+                </view>
               </view>
             </view>
 
-            <!-- 设计建议 -->
+            <!-- 建筑/空间使用者分析 -->
             <view style="margin-top: 24rpx;">
               <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">💡</text>
+                <text style="font-size: 32rpx; margin-right: 8rpx;">👥</text>
                 <text class="header1-text"
-                  style="font-size: 30rpx;">设计建议</text>
+                  style="font-size: 30rpx;">建筑/空间使用者分析</text>
               </view>
-              <view wx:for="{{result.recommendedStyle.designSuggestions}}"
-                wx:key="*this"
-                style="margin-top: 12rpx; padding-left: 8rpx;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">• {{item}}</text>
+              <view style="padding: 24rpx; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 16rpx;">
+                <!-- 空间使用特征 -->
+                <view style="margin-bottom: 20rpx;">
+                  <text style="font-size: 24rpx; color:#8F969C; margin-bottom: 12rpx; display: block;">🏠 空间使用特征</text>
+                  <view style="display: flex; flex-wrap: wrap; margin: -6rpx;">
+                    <view wx:for="{{result.spaceProfile.userAnalysis.usagePattern}}"
+                      wx:key="*this"
+                      style="padding: 12rpx 20rpx; margin: 6rpx; background-color: white; border-radius: 20rpx; border: 1rpx solid #e5e7eb;">
+                      <text style="font-size: 24rpx; color:#1c2023;">{{item}}</text>
+                    </view>
+                  </view>
+                </view>
+                <!-- 品质关注方向 -->
+                <view style="margin-bottom: 20rpx;">
+                  <text style="font-size: 24rpx; color:#8F969C; margin-bottom: 12rpx; display: block;">💎 品质关注方向</text>
+                  <view style="display: flex; flex-wrap: wrap; margin: -6rpx;">
+                    <view wx:for="{{result.spaceProfile.userAnalysis.qualityFocus}}"
+                      wx:key="*this"
+                      style="padding: 12rpx 20rpx; margin: 6rpx; background-color: white; border-radius: 20rpx; border: 1rpx solid #e5e7eb;">
+                      <text style="font-size: 24rpx; color:#1c2023;">{{item}}</text>
+                    </view>
+                  </view>
+                </view>
+                <!-- 当前风格诊断 -->
+                <view style="margin-bottom: 20rpx;">
+                  <text style="font-size: 24rpx; color:#8F969C; margin-bottom: 12rpx; display: block;">🎨 当前风格诊断</text>
+                  <view style="display: flex; flex-wrap: wrap; margin: -6rpx;">
+                    <view wx:for="{{result.spaceProfile.userAnalysis.styleDiagnosis}}"
+                      wx:key="*this"
+                      style="padding: 12rpx 20rpx; margin: 6rpx; background-color: white; border-radius: 20rpx; border: 1rpx solid #e5e7eb;">
+                      <text style="font-size: 24rpx; color:#1c2023;">{{item}}</text>
+                    </view>
+                  </view>
+                </view>
+                <!-- 核心改造痛点 -->
+                <view style="margin-bottom: 0rpx;">
+                  <text style="font-size: 24rpx; color:#8F969C; margin-bottom: 12rpx; display: block;">🔧 核心改造痛点</text>
+                  <view style="display: flex; flex-wrap: wrap; margin: -6rpx;">
+                    <view wx:for="{{result.spaceProfile.userAnalysis.keyRenovationTriggers}}"
+                      wx:key="*this"
+                      style="padding: 12rpx 20rpx; margin: 6rpx; background-color: white; border-radius: 20rpx; border: 1rpx solid #e5e7eb;">
+                      <text style="font-size: 24rpx; color:#1c2023;">{{item}}</text>
+                    </view>
+                  </view>
+                </view>
               </view>
             </view>
           </view>
         </block>
 
-        <!-- 推荐色彩搭配 -->
+        <!-- 推荐搭配 -->
         <block wx:if="{{index === 1}}">
           <view class="section-container">
-            <view class="header1-container">
-              <text class="header1-text">🌈 色彩搭配方案</text>
-            </view>
-
-            <!-- 色彩信息卡片 -->
-            <view style="margin-top: 20rpx; padding: 24rpx; background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%); border-radius: 16rpx;">
-              <view style="margin-bottom: 16rpx;">
-                <text style="font-size: 26rpx; color:#8F969C;">🎯 主色调</text>
+            <!-- 建筑类型和风格 -->
+            <view style="margin-top: 20rpx; padding: 24rpx; background: linear-gradient(135deg, #f7fafe 0%, #e8f4fd 100%); border-radius: 16rpx;">
+              <view style="margin-bottom: 12rpx;">
+                <text style="font-size: 24rpx; color:#8F969C;">建筑类型</text>
                 <view style="margin-top: 8rpx;">
-                  <text style="font-size: 32rpx; color:#1c2023; font-weight: 700;">{{result.recommendedColorScheme.primaryColor}}</text>
+                  <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">{{result.recommendedMatching.buildingType}}</text>
                 </view>
               </view>
-              <view style="margin-top: 20rpx; padding-top: 20rpx; border-top: 1rpx solid rgba(0,0,0,0.1);">
-                <text style="font-size: 26rpx; color:#8F969C;">🎨 辅助色彩</text>
-                <view style="margin-top: 8rpx; display: flex; flex-wrap: wrap;">
-                  <text wx:for="{{result.recommendedColorScheme.secondaryColors}}"
-                    wx:key="*this"
-                    style="font-size: 26rpx; color:#1c2023; margin-right: 16rpx; margin-top: 8rpx;">{{item}}</text>
+              <view style="margin-top: 16rpx; padding-top: 16rpx; border-top: 1rpx solid rgba(0,0,0,0.1);">
+                <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">{{result.recommendedMatching.styleName}}风格</text>
+                <view style="margin-top: 8rpx;">
+                  <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.recommendedMatching.styleDescription}}</text>
                 </view>
               </view>
             </view>
 
-            <!-- 色彩理念 -->
+            <!-- 色彩搭配推荐 -->
             <view style="margin-top: 24rpx;">
               <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">💭</text>
+                <text style="font-size: 32rpx; margin-right: 8rpx;">🌈</text>
                 <text class="header1-text"
-                  style="font-size: 30rpx;">设计理念</text>
+                  style="font-size: 30rpx;">色彩搭配推荐</text>
+              </view>
+              <view style="padding: 24rpx; background-color: #f7fafe; border-radius: 16rpx;">
+                <view style="margin-top: 12rpx; display: flex; align-items: center;">
+                  <text style="font-size: 26rpx; color:#1c2023; margin-right: 12rpx;">主色：</text>
+                  <view style="width: 40rpx; height: 40rpx; border-radius: 8rpx; background-color: {{result.recommendedMatching.colorScheme.primaryColorRgb}}; border: 2rpx solid rgba(0,0,0,0.1); margin-right: 12rpx;"></view>
+                  <text style="font-size: 26rpx; color:#1c2023; font-weight: 700;">{{result.recommendedMatching.colorScheme.primaryColor}}</text>
+                </view>
+                <view style="margin-top: 16rpx;">
+                  <text style="font-size: 26rpx; color:#1c2023; margin-bottom: 8rpx; display: block;">辅助色：</text>
+                  <view style="margin-top: 8rpx;">
+                    <view wx:for="{{result.recommendedMatching.colorScheme.secondaryColors}}"
+                      wx:key="color"
+                      style="display: flex; align-items: center; margin-top: 12rpx;">
+                      <view style="width: 40rpx; height: 40rpx; border-radius: 8rpx; background-color: {{item.colorRgb}}; border: 2rpx solid rgba(0,0,0,0.1); margin-right: 12rpx; flex-shrink: 0;"></view>
+                      <view style="flex: 1;">
+                        <text style="font-size: 26rpx; color:#1c2023; font-weight: 700;">{{item.color}}</text>
+                        <text style="font-size: 24rpx; color:#8F969C; margin-left: 8rpx;">（建议用于{{item.usage}}）</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+
+            <!-- 推荐色卡 -->
+            <view style="margin-top: 24rpx;">
+              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
+                <text style="font-size: 32rpx; margin-right: 8rpx;">🎨</text>
+                <text class="header1-text"
+                  style="font-size: 30rpx;">推荐色卡</text>
               </view>
               <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.recommendedColorScheme.colorDescription}}</text>
+                <text style="font-size: 26rpx; color:#1c2023;">{{result.recommendedMatching.colorCardSeries}}</text>
               </view>
             </view>
 
-            <!-- 应用建议 -->
+            <!-- 植物搭配推荐 -->
             <view style="margin-top: 24rpx;">
               <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">📝</text>
+                <text style="font-size: 32rpx; margin-right: 8rpx;">🌿</text>
                 <text class="header1-text"
-                  style="font-size: 30rpx;">应用建议</text>
+                  style="font-size: 30rpx;">植物搭配推荐</text>
               </view>
-              <view wx:for="{{result.recommendedColorScheme.colorSuggestions}}"
-                wx:key="*this"
-                style="margin-top: 12rpx; padding-left: 8rpx;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">• {{item}}</text>
+              <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
+                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.recommendedMatching.plantRecommendation}}</text>
               </view>
             </view>
           </view>
@@ -223,13 +331,9 @@
         <!-- 估算墙面面积 -->
         <block wx:if="{{index === 2}}">
           <view class="section-container">
-            <view class="header1-container">
-              <text class="header1-text">📐 墙面面积估算</text>
-            </view>
-
             <!-- 主要面积信息卡片 -->
             <view style="margin-top: 20rpx; padding: 32rpx; background: linear-gradient(135deg, #fff9e6 0%, #ffe8a1 100%); border-radius: 16rpx; text-align: center;">
-              <text style="font-size: 24rpx; color:#8F969C;">估算面积</text>
+              <text style="font-size: 24rpx; color:#8F969C;">墙面面积估算</text>
               <view style="margin-top: 12rpx;">
                 <text style="font-size: 56rpx; color:#EDBF58; font-weight: 700;">{{result.wallAreaEstimation.estimatedArea}}</text>
                 <text style="font-size: 32rpx; color:#EDBF58; font-weight: 700; margin-left: 8rpx;">m²</text>
@@ -265,176 +369,84 @@
           </view>
         </block>
 
-        <!-- 住户现况 -->
+        <!-- 风水 -->
         <block wx:if="{{index === 3}}">
           <view class="section-container">
-            <view class="header1-container">
-              <text class="header1-text">👨‍👩‍👧‍👦 住户现况分析</text>
-            </view>
-
-            <!-- 图片信息 -->
+            <!-- 现况评估 -->
             <view style="margin-top: 20rpx;">
               <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">📷</text>
+                <text style="font-size: 32rpx; margin-right: 8rpx;">📊</text>
                 <text class="header1-text"
-                  style="font-size: 30rpx;">图片信息</text>
+                  style="font-size: 30rpx;">现况评估</text>
               </view>
-              <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.residentAnalysis.imageInformation}}</text>
-              </view>
-            </view>
-
-            <!-- 住户特征卡片 -->
-            <view style="margin-top: 24rpx; padding: 24rpx; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 16rpx;">
-              <view style="display: flex; flex-wrap: wrap;">
-                <view style="width: 50%; padding: 8rpx; box-sizing: border-box;">
-                  <view style="padding: 16rpx; background-color: white; border-radius: 12rpx;">
-                    <text style="font-size: 24rpx; color:#8F969C;">👨‍👩‍👧‍👦 家庭结构</text>
-                    <view style="margin-top: 8rpx;">
-                      <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">{{result.residentAnalysis.familyStructure}}</text>
-                    </view>
-                  </view>
+              <view style="padding: 20rpx; background: linear-gradient(135deg, #f7fafe 0%, #e8f4fd 100%); border-radius: 12rpx;">
+                <view style="display: flex; align-items: center; margin-bottom: 12rpx;">
+                  <text style="font-size: 28rpx; color:#1c2023; font-weight: 700; margin-right: 16rpx;">{{result.fengshui.currentAssessment.level}}</text>
+                  <view style="flex: 1; height: 1rpx; background-color: rgba(0,0,0,0.1);"></view>
                 </view>
-                <view style="width: 50%; padding: 8rpx; box-sizing: border-box;">
-                  <view style="padding: 16rpx; background-color: white; border-radius: 12rpx;">
-                    <text style="font-size: 24rpx; color:#8F969C;">🎂 年龄群体</text>
-                    <view style="margin-top: 8rpx;">
-                      <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">{{result.residentAnalysis.ageGroup}}</text>
-                    </view>
-                  </view>
-                </view>
-                <view style="width: 50%; padding: 8rpx; box-sizing: border-box;">
-                  <view style="padding: 16rpx; background-color: white; border-radius: 12rpx;">
-                    <text style="font-size: 24rpx; color:#8F969C;">🎨 审美偏好</text>
-                    <view style="margin-top: 8rpx;">
-                      <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">{{result.residentAnalysis.aestheticPreference}}</text>
-                    </view>
-                  </view>
-                </view>
-                <view style="width: 50%; padding: 8rpx; box-sizing: border-box;">
-                  <view style="padding: 16rpx; background-color: white; border-radius: 12rpx;">
-                    <text style="font-size: 24rpx; color:#8F969C;">💰 消费能力</text>
-                    <view style="margin-top: 8rpx;">
-                      <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">{{result.residentAnalysis.consumptionCapacity}}</text>
-                    </view>
-                  </view>
-                </view>
+                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.currentAssessment.reason}}</text>
               </view>
             </view>
 
-            <!-- 销售建议 -->
+            <!-- 布局建议 -->
             <view style="margin-top: 24rpx;">
               <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">💼</text>
+                <text style="font-size: 32rpx; margin-right: 8rpx;">🏠</text>
                 <text class="header1-text"
-                  style="font-size: 30rpx;">销售建议</text>
+                  style="font-size: 30rpx;">布局建议</text>
               </view>
-              <view wx:for="{{result.residentAnalysis.salesSuggestions}}"
-                wx:key="*this"
-                style="margin-top: 12rpx; padding: 16rpx; background-color: #f7fafe; border-radius: 12rpx; border-left: 4rpx solid #EDBF58;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{item}}</text>
+              <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
+                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.layoutSuggestion}}</text>
+              </view>
+            </view>
+
+            <!-- 色彩建议 -->
+            <view style="margin-top: 24rpx;">
+              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
+                <text style="font-size: 32rpx; margin-right: 8rpx;">🎨</text>
+                <text class="header1-text"
+                  style="font-size: 30rpx;">色彩建议</text>
+              </view>
+              <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
+                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.colorSuggestion}}</text>
+              </view>
+            </view>
+
+            <!-- 物件布置 -->
+            <view style="margin-top: 24rpx;">
+              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
+                <text style="font-size: 32rpx; margin-right: 8rpx;">🪑</text>
+                <text class="header1-text"
+                  style="font-size: 30rpx;">物件布置</text>
+              </view>
+              <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
+                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.objectArrangement}}</text>
               </view>
             </view>
           </view>
         </block>
 
-        <!-- 风水 -->
+        <!-- 空间焕新计划 -->
         <block wx:if="{{index === 4}}">
           <view class="section-container">
-            <view class="header1-container">
-              <text class="header1-text">🔮 风水分析</text>
-            </view>
-
-            <!-- 整体评估 -->
+            <!-- 空间焕新计划列表 -->
             <view style="margin-top: 20rpx;">
-              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">🌟</text>
-                <text class="header1-text"
-                  style="font-size: 30rpx;">整体评估</text>
-              </view>
-              <view style="padding: 20rpx; background: linear-gradient(135deg, #fef3f2 0%, #fee4e2 100%); border-radius: 12rpx;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.overallAssessment}}</text>
-              </view>
-            </view>
-
-            <!-- 色彩和布局风水 -->
-            <view style="margin-top: 24rpx; display: flex; flex-direction: column;">
-              <view style="padding: 20rpx; margin-bottom: 16rpx; background-color: #f7fafe; border-radius: 12rpx;">
-                <view style="display: flex; align-items: center; margin-bottom: 12rpx;">
-                  <text style="font-size: 28rpx; margin-right: 8rpx;">🎨</text>
-                  <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">色彩风水</text>
-                </view>
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.colorFengshui}}</text>
-              </view>
-              <view style="padding: 20rpx; background-color: #f7fafe; border-radius: 12rpx;">
-                <view style="display: flex; align-items: center; margin-bottom: 12rpx;">
-                  <text style="font-size: 28rpx; margin-right: 8rpx;">🏠</text>
-                  <text style="font-size: 28rpx; color:#1c2023; font-weight: 700;">布局风水</text>
-                </view>
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.fengshui.layoutFengshui}}</text>
-              </view>
-            </view>
-
-            <!-- 改善建议 -->
-            <view style="margin-top: 24rpx;">
-              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">✨</text>
-                <text class="header1-text"
-                  style="font-size: 30rpx;">改善建议</text>
-              </view>
-              <view wx:for="{{result.fengshui.fengshuiSuggestions}}"
-                wx:key="*this"
-                style="margin-top: 12rpx; padding: 16rpx; background-color: #f7fafe; border-radius: 12rpx; border-left: 4rpx solid #EDBF58;">
-                <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{item}}</text>
-              </view>
-            </view>
-          </view>
-        </block>
-
-        <!-- 推荐搭配植物 -->
-        <block wx:if="{{index === 5}}">
-          <view class="section-container">
-            <view class="header1-container">
-              <text class="header1-text">🌿 搭配植物</text>
-            </view>
-
-            <!-- 植物列表 -->
-            <view style="margin-top: 20rpx;">
-              <view wx:for="{{result.recommendedPlants.recommendedPlants}}"
-                wx:key="plantName"
-                style="margin-top: 20rpx; padding: 24rpx; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 16rpx;">
-                <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                  <text style="font-size: 36rpx; margin-right: 12rpx;">🌱</text>
-                  <text style="font-size: 32rpx; color:#1c2023; font-weight: 700;">{{item.plantName}}</text>
-                </view>
-                <view style="margin-top: 12rpx; padding: 16rpx; background-color: white; border-radius: 12rpx;">
-                  <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{item.plantDescription}}</text>
-                </view>
-                <view style="margin-top: 16rpx; display: flex; flex-wrap: wrap; margin: -6rpx;">
-                  <view style="flex: 1; min-width: 200rpx; padding: 12rpx; margin: 6rpx; background-color: white; border-radius: 8rpx;">
-                    <text style="font-size: 24rpx; color:#8F969C;">📍 摆放位置</text>
-                    <view style="margin-top: 4rpx;">
-                      <text style="font-size: 26rpx; color:#1c2023; font-weight: 700;">{{item.placement}}</text>
-                    </view>
+              <view wx:for="{{result.salesProposals.proposals}}"
+                wx:key="title"
+                wx:for-index="proposalIndex"
+                style="margin-top: 20rpx; padding: 24rpx; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 16rpx;">
+                <view style="display: flex; align-items: flex-start;">
+                  <view style="width: 48rpx; height: 48rpx; border-radius: 24rpx; background: linear-gradient(135deg, #EDBF58 0%, #f59e0b 100%); display: flex; align-items: center; justify-content: center; margin-right: 16rpx; flex-shrink: 0;">
+                    <text style="font-size: 28rpx; color: white; font-weight: 700;">{{proposalIndex + 1}}</text>
                   </view>
-                  <view style="flex: 1; min-width: 200rpx; padding: 12rpx; margin: 6rpx; background-color: white; border-radius: 8rpx;">
-                    <text style="font-size: 24rpx; color:#8F969C;">💚 好处</text>
-                    <view style="margin-top: 4rpx;">
-                      <text style="font-size: 26rpx; color:#1c2023; font-weight: 700;">{{item.benefits}}</text>
+                  <view style="flex: 1;">
+                    <text style="font-size: 30rpx; color:#1c2023; font-weight: 700;">{{item.title}}</text>
+                    <view style="margin-top: 12rpx;">
+                      <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{item.description}}</text>
                     </view>
                   </view>
                 </view>
               </view>
-            </view>
-
-            <!-- 整体指导 -->
-            <view style="margin-top: 24rpx; padding: 24rpx; background: linear-gradient(135deg, #fef3f2 0%, #fee4e2 100%); border-radius: 16rpx;">
-              <view style="display: flex; align-items: center; margin-bottom: 16rpx;">
-                <text style="font-size: 32rpx; margin-right: 8rpx;">📋</text>
-                <text class="header1-text"
-                  style="font-size: 30rpx;">搭配指导</text>
-              </view>
-              <text style="font-size: 26rpx; color:#1c2023; line-height: 1.8;">{{result.recommendedPlants.overallPlantGuidance}}</text>
             </view>
           </view>
         </block>

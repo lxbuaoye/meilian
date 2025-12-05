@@ -18,15 +18,8 @@ const _ = db.command;
 
 const CREDITS_PER_USAGE = 5;
 
-const reportTabLabels = ['风格推荐', '色彩搭配', '面积估算', '住户现况', '风水', '搭配植物'];
-const reportTabProperty = [
-  'recommendedStyle',
-  'recommendedColorScheme',
-  'wallAreaEstimation',
-  'residentAnalysis',
-  'fengshui',
-  'recommendedPlants',
-];
+const reportTabLabels = ['📊 空间画像', '🎨 推荐搭配', '📐 面积估算', '🔮 风水', '💼 空间焕新计划'];
+const reportTabProperty = ['spaceProfile', 'recommendedMatching', 'wallAreaEstimation', 'fengshui', 'salesProposals'];
 Page({
   /**
    * 页面的初始数据
@@ -37,6 +30,7 @@ Page({
     activeValues: [],
     hasResult: false,
     showLoginPopup: false,
+    activeStickyImage: false,
     reportTabLabels,
     reportTabProperty,
     examplePickerVisible: false,
@@ -303,7 +297,7 @@ Page({
           {
             role: 'system',
             content:
-              '你是一名专业的内墙装修分析专家。你的任务是：根据用户上传的内墙图片，提供全面的装修分析报告，包括推荐风格、色彩搭配、面积估算、住户分析、风水建议和植物推荐。输出必须通过函数调用的方式，以结构化 JSON 形式返回，每个字段都要详细、专业、实用。',
+              '你是一名专业的建筑空间分析专家。你的任务是：根据用户上传的图片，提供全面的空间分析报告，包括空间画像、推荐搭配（根据图片自动判断建筑类型和风格，给出一种推荐方案）、面积估算、住户分析、风水建议和空间焕新计划建议。输出必须通过函数调用的方式，以结构化 JSON 形式返回，每个字段都要详细、专业、实用。',
           },
           {
             role: 'user',
@@ -311,13 +305,16 @@ Page({
               {
                 type: 'text',
                 text:
-                  '请根据这张内墙图片，进行全面分析，生成包含以下6个维度的详细报告：\n' +
-                  '1. 推荐风格：根据空间特点推荐合适的装修风格，并说明理由\n' +
-                  '2. 推荐色彩搭配：提供主色调和辅助色彩方案，说明设计理念\n' +
-                  '3. 估算墙面面积：估算可用涂料/乳胶漆覆盖的墙面面积，给出估算区间和置信度\n' +
-                  '4. 住户现况：分析图片中的信息，推测家庭结构、年龄、审美偏好、消费能力，并给出针对性的装修销售建议\n' +
-                  '5. 风水：提供风水评估和改善建议，包括色彩和布局建议\n' +
-                  '6. 推荐搭配植物：推荐适合的室内植物，说明摆放位置和好处\n' +
+                  '请根据这张建筑图片，进行全面分析，生成包含以下5个维度的详细报告：\n' +
+                  '1. 空间画像：分析建筑/空间现况（老化指数、损耗程度、安全风险、翻新迫切度、改造潜力，每个维度0-100分）和使用者分析：\n' +
+                  '   - 空间使用特征：根据图片中可见的物品、布局等判断空间使用方式，返回2-3个简洁的标签（如：["亲子互动型空间", "高密度收纳需求"]），避免直接推测人员结构\n' +
+                  '   - 品质关注方向：根据图片中的物品、装修状态等判断用户愿意把钱花在哪里，返回2-3个简洁的标签（如：["实用主义与耐用性", "设计感与氛围营造"]），避免直接推测消费能力\n' +
+                  '   - 当前风格诊断：评价图片中现有的装修风格状态，返回2-3个简洁的标签（如：["传统风格", "现代化升级潜力"]），不是猜测用户喜欢什么，而是评价现在的状态\n' +
+                  '   - 核心改造痛点：通过识别空间中的问题（如采光不好、收纳不足、材质磨损等）来指出需要改造的地方，返回2-3个简洁的标签（如：["采光与通透感提升", "收纳扩容"]）\n' +
+                  '2. 推荐搭配：根据图片中的建筑自动判断建筑类型和风格，给出一种推荐方案，包含：建筑类型、风格名称、风格特点、色彩搭配（主色、辅助色及使用位置）、推荐色卡（数码彩涂料系列）、植物搭配推荐\n' +
+                  '3. 估算墙面面积：估算可用涂料/乳胶漆覆盖的墙面面积，给出估算区间和置信度(可以偏大一点)\n' +
+                  '4. 风水：提供现况评估（优/中等/较弱，1-2句原因）、布局建议（2-3句话）、色彩建议（颜色+有利于……）、物件布置建议\n' +
+                  '5. 空间焕新计划：根据前三项分析内容（空间画像、推荐搭配、面积估算），给出3个具体的空间焕新计划建议，方案描述简单，贴合实际应用\n' +
                   '请确保每个维度都详细、专业、实用。',
               },
               {
@@ -544,7 +541,7 @@ Page({
   // 用户点击分享按钮时触发（open-type="share"）
   onShareAppMessage() {
     return {
-      title: this.data.hasResult ? '数码彩AI内墙分析报告, 点击查看!' : '🤩 数码彩AI - 内墙智能分析, 快来试试!',
+      title: this.data.hasResult ? '数码彩AI一拍通, 点击查看!' : '🤩 数码彩AI - 智能分析, 快来试试!',
       path: this.data.hasResult ? `/pages/area-ai/index?reportId=${this.data.id}` : `/pages/area-ai/index`, // 分享到小程序的哪个页面
     };
   },
@@ -552,7 +549,7 @@ Page({
     // 朋友圈分享
     return {
       query: this.data.hasResult ? `reportId=${this.data.id}` : '',
-      title: this.data.hasResult ? '数码彩AI内墙分析报告, 点击查看!' : '🤩 数码彩AI - 内墙智能分析, 快来试试!',
+      title: this.data.hasResult ? '数码彩AI一拍通, 点击查看!' : '🤩 数码彩AI - 智能分析, 快来试试!',
     };
   },
   showExamplePicker() {
@@ -566,6 +563,12 @@ Page({
   onSelectExampleImage(e) {
     if (e.detail.data.imageSrc) {
       this.setData({ imageSrc: e.detail.data.imageSrc });
+    }
+  },
+
+  onStickyChange(e) {
+    if (e.detail.isFixed !== this.data.activeStickyImage) {
+      this.setData({ activeStickyImage: e.detail.isFixed });
     }
   },
 });
