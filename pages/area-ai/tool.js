@@ -24,7 +24,7 @@ export const toolDefinition = [
                   },
                   agingIndexDescription: {
                     type: 'string',
-                    description: '老化指数的简单描述文字，如：房屋老龄化严重, 必须在7个字以内',
+                    description: '老化的简单描述，如：房屋老龄化严重, 必须在7个字以内',
                   },
                   safetyRisk: {
                     type: 'number',
@@ -34,7 +34,7 @@ export const toolDefinition = [
                   },
                   safetyRiskDescription: {
                     type: 'string',
-                    description: '安全风险的描述文字，如：存在掉砖风险, 必须在7个字以内',
+                    description: '最严重的风险描述，如：存在掉砖风险, 必须在7个字以内',
                   },
                   estimatedServiceLife: {
                     type: 'number',
