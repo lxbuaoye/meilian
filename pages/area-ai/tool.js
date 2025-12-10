@@ -22,11 +22,9 @@ export const toolDefinition = [
                     maximum: 100,
                     description: '老化指数，0-100分，分数越高表示老化程度越严重',
                   },
-                  wearLevel: {
-                    type: 'number',
-                    minimum: 0,
-                    maximum: 100,
-                    description: '损耗程度，0-100分，分数越高表示损耗越严重',
+                  agingIndexDescription: {
+                    type: 'string',
+                    description: '老化指数的简单描述文字，如：房屋老龄化严重, 必须在7个字以内',
                   },
                   safetyRisk: {
                     type: 'number',
@@ -34,20 +32,44 @@ export const toolDefinition = [
                     maximum: 100,
                     description: '安全风险，0-100分，分数越高表示安全风险越大',
                   },
-                  renovationUrgency: {
-                    type: 'number',
-                    minimum: 0,
-                    maximum: 100,
-                    description: '翻新迫切度，0-100分，分数越高表示越需要翻新',
+                  safetyRiskDescription: {
+                    type: 'string',
+                    description: '安全风险的描述文字，如：存在掉砖风险, 必须在7个字以内',
                   },
-                  renovationPotential: {
+                  estimatedServiceLife: {
                     type: 'number',
-                    minimum: 0,
-                    maximum: 100,
-                    description: '改造潜力，0-100分，分数越高表示改造潜力越大',
+                    description: '估算使用年限，单位：年',
+                  },
+                  originalPossibleUses: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description: '该建筑/空间原来用途，返回3个可能的用途，如：["住宅", "办公", "商业"]',
+                    minItems: 3,
+                    maxItems: 3,
+                  },
+                  suggestedUse: {
+                    type: 'string',
+                    description: '建议用作，根据分析给出建议的用途，1-2句话',
+                  },
+                  urgentRenovationSuggestions: {
+                    type: 'array',
+                    items: { type: 'string' },
+                    description:
+                      '急需改造建议，返回4个具体的改造建议，如：["墙面翻新", "电路改造", "防水处理", "结构加固"]',
+                    minItems: 4,
+                    maxItems: 4,
                   },
                 },
-                required: ['agingIndex', 'wearLevel', 'safetyRisk', 'renovationUrgency', 'renovationPotential'],
+                required: [
+                  'agingIndex',
+                  'agingIndexDescription',
+                  'safetyRisk',
+                  'safetyRiskDescription',
+                  'estimatedServiceLife',
+                  'originalPossibleUses',
+                  'suggestedUse',
+                  'urgentRenovationSuggestions',
+                ],
               },
               userAnalysis: {
                 type: 'object',

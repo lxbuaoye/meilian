@@ -37,6 +37,8 @@ Page({
     viewOnly: false,
     loadingReport: false,
     uploadButtonSrc: `${CLOUD_STROAGE_PATH}/resources/ai/icon/upload.svg`,
+    serviceLifeSrc: `${CLOUD_STROAGE_PATH}/resources/area-ai/service_life.png`,
+    suggestionsSrc: `${CLOUD_STROAGE_PATH}/resources/area-ai/suggestions.png`,
     isLoading: false,
     imageSrc: '',
     betaVersion: accountInfo.miniProgram.envVersion === 'develop' || accountInfo.miniProgram.envVersion === 'trial',
@@ -51,6 +53,104 @@ Page({
   loggedIn: false,
 
   envVersion: accountInfo.miniProgram.envVersion,
+
+  // Debug模式：加载假数据
+  loadDebugData() {
+    const fakeResult = {
+      spaceProfile: {
+        spaceCondition: {
+          agingIndex: 35,
+          agingIndexDescription: '房屋老龄化严重',
+          safetyRisk: 80,
+          safetyRiskDescription: '存在掉砖风险',
+          estimatedServiceLife: 80,
+          originalPossibleUses: ['住宅', '短租民宿/客房', '小型办公室/工作室'],
+          suggestedUse: '建议改造为现代简约风格的居住空间，适合年轻家庭或单身人士居住，也可作为短租民宿使用。',
+          urgentRenovationSuggestions: [
+            '墙面翻新墙面翻新墙面翻新墙面翻新墙面翻新墙面翻新墙面翻新墙面翻新',
+            '电路改造电路改造电路改造电路改造电路改造电路改造电路改造',
+            '防水处理防水处理防水处理防水处理防水处理防水处理',
+            '结构加固结构加固结构加固结构加固结构加固结构加固',
+          ],
+        },
+        userAnalysis: {
+          usagePattern: ['亲子互动型空间', '高密度收纳需求'],
+          qualityFocus: ['实用主义与耐用性', '设计感与氛围营造'],
+          styleDiagnosis: ['传统风格', '现代化升级潜力'],
+          keyRenovationTriggers: ['采光与通透感提升', '收纳扩容'],
+        },
+      },
+      recommendedMatching: {
+        buildingType: '居住建筑',
+        styleName: '现代简约',
+        styleDescription: '简洁明快的现代风格，注重功能性和空间感',
+        colorScheme: {
+          primaryColor: '暖白色',
+          primaryColorRgb: 'rgb(255,248,220)',
+          secondaryColors: [
+            {
+              color: '浅灰色',
+              colorRgb: 'rgb(230,230,230)',
+              usage: '墙面',
+            },
+            {
+              color: '原木色',
+              colorRgb: 'rgb(222,184,135)',
+              usage: '家具',
+            },
+          ],
+        },
+        colorCardSeries: '数码彩经典系列',
+        plantRecommendation: '推荐搭配绿萝、吊兰等易养护的室内植物，增加空间活力',
+      },
+      wallAreaEstimation: {
+        estimatedArea: 85,
+        areaRange: {
+          min: 75,
+          max: 95,
+        },
+        confidence: '高',
+      },
+      fengshui: {
+        currentAssessment: {
+          level: '中等',
+          reason: '空间布局基本合理，但部分区域采光不足，需要优化',
+        },
+        layoutSuggestion: '建议将主要活动区域设置在采光较好的位置，避免在阴暗角落放置重要家具',
+        colorSuggestion: '暖色调有利于营造温馨氛围，提升居住舒适度',
+        objectArrangement: '建议在客厅中央放置圆形茶几，有助于聚气',
+      },
+      salesProposals: {
+        proposals: [
+          {
+            title: '基础翻新方案',
+            description: '针对墙面、电路、防水进行基础改造，提升空间安全性和舒适度',
+          },
+          {
+            title: '风格升级方案',
+            description: '采用现代简约风格，优化空间布局，增加收纳功能',
+          },
+          {
+            title: '全屋焕新方案',
+            description: '全面改造包括硬装、软装、家具配置，打造高品质居住空间',
+          },
+        ],
+      },
+    };
+
+    this.setData({
+      result: fakeResult,
+      hasResult: true,
+      imageSrc: this.data.imageSrc || 'https://via.placeholder.com/400x300',
+    });
+
+    Message.success({
+      context: this,
+      offset: [20, 32],
+      duration: 2000,
+      content: 'Debug数据已加载',
+    });
+  },
 
   checkLoginStatus() {
     if (this.loggedIn) {
@@ -103,6 +203,9 @@ Page({
         id: `${Date.now()}-${Math.floor(Math.random() * 1000)}`,
       });
     }
+
+    // TODOrever this.
+    // this.loadDebugData();
   },
 
   loadReport(reportId) {
@@ -306,11 +409,13 @@ Page({
                 type: 'text',
                 text:
                   '请根据这张建筑图片，进行全面分析，生成包含以下5个维度的详细报告：\n' +
-                  '1. 空间画像：分析建筑/空间现况（老化指数、损耗程度、安全风险、翻新迫切度、改造潜力，每个维度0-100分）和使用者分析：\n' +
-                  '   - 空间使用特征：根据图片中可见的物品、布局等判断空间使用方式，返回2-3个简洁的标签（如：["亲子互动型空间", "高密度收纳需求"]），避免直接推测人员结构\n' +
-                  '   - 品质关注方向：根据图片中的物品、装修状态等判断用户愿意把钱花在哪里，返回2-3个简洁的标签（如：["实用主义与耐用性", "设计感与氛围营造"]），避免直接推测消费能力\n' +
-                  '   - 当前风格诊断：评价图片中现有的装修风格状态，返回2-3个简洁的标签（如：["传统风格", "现代化升级潜力"]），不是猜测用户喜欢什么，而是评价现在的状态\n' +
-                  '   - 核心改造痛点：通过识别空间中的问题（如采光不好、收纳不足、材质磨损等）来指出需要改造的地方，返回2-3个简洁的标签（如：["采光与通透感提升", "收纳扩容"]）\n' +
+                  '1. 空间画像：分析建筑/空间现况，包括：\n' +
+                  '   - 老化指数（0-100分）及描述文字（如：房屋老龄化严重）\n' +
+                  '   - 安全风险（0-100分）及描述文字（如：存在掉砖风险）\n' +
+                  '   - 估算使用年限（单位：年）\n' +
+                  '   - 该建筑/空间原来可能用作（返回3个可能的用途，如：["住宅", "办公", "商业"]）\n' +
+                  '   - 建议用作（根据分析给出建议的用途，1-2句话）\n' +
+                  '   - 急需改造建议（返回4个具体的改造建议，如：["墙面翻新", "电路改造", "防水处理", "结构加固"]）\n' +
                   '2. 推荐搭配：根据图片中的建筑自动判断建筑类型和风格，给出一种推荐方案，包含：建筑类型、风格名称、风格特点、色彩搭配（主色、辅助色及使用位置）、推荐色卡（数码彩涂料系列）、植物搭配推荐\n' +
                   '3. 估算墙面面积：估算可用涂料/乳胶漆覆盖的墙面面积，给出估算区间和置信度(可以偏大一点)\n' +
                   '4. 风水：提供现况评估（优/中等/较弱，1-2句原因）、布局建议（2-3句话）、色彩建议（颜色+有利于……）、物件布置建议\n' +

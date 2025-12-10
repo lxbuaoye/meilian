@@ -229,7 +229,6 @@ page {
   background-color: white;
   padding: 24rpx;
   border-radius: 20rpx;
-  margin-top: 10rpx;
   display: flex;
   flex-direction: column;
 }

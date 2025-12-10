@@ -8,6 +8,7 @@
     "t-divider": "tdesign-miniprogram/divider/divider",
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
     "t-radio": "tdesign-miniprogram/radio/radio",
+    "gauge": "../../components/gauge/index",
     "ai-login": "../../components/ai-login/index",
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "user-header": "../../components/user-header/index",
