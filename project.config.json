@@ -3,12 +3,12 @@
   "packOptions": {
     "ignore": [
       {
-        "type": "folder",
-        "value": "resources/launcher"
+        "value": "resources/launcher",
+        "type": "folder"
       },
       {
-        "type": "folder",
-        "value": "resources/icon"
+        "value": "resources/icon",
+        "type": "folder"
       }
     ],
     "include": []
@@ -53,11 +53,15 @@
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true,
     "useStaticServer": true,
-    "condition": true
+    "condition": true,
+    "compileWorklet": false,
+    "localPlugins": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
   "libVersion": "latest",
-  "appid": "wx422e25222a1fd968",
+  "appid": "wx94b5cdf2137fea31",
   "projectname": "tdesign-miniprogram-starter-retail",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {
