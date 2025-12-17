@@ -62,9 +62,9 @@ Page({
     if (images.length > 0) {
       imageList = images.map((item) => `${CLOUD_STROAGE_PATH}/product/${productId}/${item}`);
       imageListHiRes = images.map((item) => {
-        const index = item.lastIndexOf('.');
-        const extension = item.substring(item.lastIndexOf('.'));
-        return `${CLOUD_STROAGE_PATH}/product/${productId}/${item.substring(0, index)}@2x${extension}`;
+          const index = item.lastIndexOf('.');
+          const extension = item.substring(item.lastIndexOf('.'));
+          return `${CLOUD_STROAGE_PATH}/product/${productId}/${item.substring(0, index)}@2x${extension}`;
       });
     } else {
       const placeholder = '/image/2.1.3 电子色卡·详情·案例详情·产品 1.png';

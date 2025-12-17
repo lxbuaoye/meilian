@@ -1,41 +1,73 @@
-<view style="padding-top: {{menuBarTop}}px">
-  <!-- Navigation bar-->
-  <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
-    <image src="/resources/logo.png"
-      style="height: 44rpx; width: 300rpx;"
-      mode="scaleToFill"></image>
-  </view>
-
-  <!-- Body -->
-
-  <view style="margin: 60rpx 20rpx 0 20rpx;">
-    <view style="display: flex; align-items: center;"
-      bind:tap="onAreaPicker"
-      hover-class="view-box-hover">
-      <text style="font-size: 24rpx; color: #1C2023"> 广东省佛山市</text>
-      <view class="arrow-down"
-        style="margin-left: 10rpx;"></view>
+<view class="page-container">
+  <!-- Navigation bar -->
+  <view class="nav-bar" style="padding-top: {{menuBarTop}}px; height: {{menuBarHeight}}px;">
+    <view class="nav-content">
+      <image class="logo" src="/image/3.0 预约到店素材/logo@2x.png" mode="aspectFit"></image>
     </view>
-
-    <location-card></location-card>
-    <location-card></location-card>
-    <location-card></location-card>
-    <location-card></location-card>
-    <location-card></location-card>
-    <location-card></location-card>
   </view>
 
-  <t-picker visible="{{areaVisible}}"
-    value="{{areaValue}}"
-    title="选择地区"
-    cancelBtn="取消"
-    confirmBtn="确认"
-    usingCustomNavbar
-    bindchange="onPickerChange"
-    bindpick="onColumnChange"
-    bindcancel="onPickerCancel">
-    <t-picker-item options="{{provinces}}"></t-picker-item>
-    <t-picker-item options="{{cities}}"></t-picker-item>
-    <t-picker-item options="{{counties}}"></t-picker-item>
-  </t-picker>
+  <!-- Main Content -->
+  <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
+    <!-- Main Image Container with Overlay Content -->
+    <view class="image-container">
+      <image class="main-image" src="/image/3.0 预约到店素材/预约到店pic@2x.png" mode="widthFix"></image>
+      
+      <!-- All Content Overlay on Image (Red Line Area) -->
+      <view class="content-overlay">
+        <!-- Card 1: 行业新高度 -->
+        <view class="info-card">
+          <view class="card-content">
+            <view class="card-text">
+              <text class="card-title">行业新高度</text>
+              <text class="card-subtitle">耗时20年打造成优质品牌</text>
+            </view>
+            <image class="top1-badge" src="/image/3.0 预约到店素材/行业新高度 pic@2x.png" mode="aspectFit"></image>
+          </view>
+        </view>
+
+        <!-- Card 2: 品质新高度 -->
+        <view class="info-card">
+          <view class="card-content">
+            <view class="card-text">
+              <text class="card-title">品质新高度</text>
+              <text class="card-subtitle">品牌品质研发成本 TOP1 款</text>
+            </view>
+            <image class="top1-badge" src="/image/3.0 预约到店素材/行业新高度 pic@2x.png" mode="aspectFit"></image>
+          </view>
+        </view>
+
+        <!-- Booking Form -->
+        <view class="form-card">
+          <!-- Phone Input -->
+          <view class="input-container">
+            <input 
+              class="phone-input" 
+              type="number" 
+              placeholder="*请输入您的电话号码(已加密)"
+              value="{{phoneNumber}}"
+              bindinput="onPhoneInput"
+              maxlength="11"
+            />
+          </view>
+
+          <!-- Book Now Button -->
+          <button class="book-button" bindtap="onBookNow" hover-class="button-hover">
+            立即预约
+          </button>
+
+          <!-- Service Buttons -->
+          <view class="service-buttons">
+            <button class="service-button" bindtap="onOnlineService" hover-class="button-hover">
+              <image class="service-icon" src="/image/3.0 预约到店素材/icon-01@2x(1).png" mode="aspectFit"></image>
+              <text class="service-text">在线客服</text>
+            </button>
+            <button class="service-button" bindtap="onPhoneConsult" hover-class="button-hover">
+              <image class="service-icon" src="/image/3.0 预约到店素材/电话@2x.png" mode="aspectFit"></image>
+              <text class="service-text">电话咨询</text>
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
 </view>

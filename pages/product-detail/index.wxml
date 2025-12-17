@@ -33,13 +33,13 @@
       <view class="detail-item">
         <text class="detail-label">产品名称</text>
         <text class="detail-value">{{detailName}}</text>
-      </view>
+  </view>
       <view class="detail-divider"></view>
       <view class="detail-item">
         <text class="detail-label">产品编号</text>
         <text class="detail-value">{{detailCode}}</text>
-      </view>
-    </view>
+  </view>
+</view>
 
     <view class="bottom-gap"></view>
   </scroll-view>

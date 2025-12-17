@@ -23,11 +23,39 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/area-ai/color-change/index",
-          "pathName": "pages/product-detail/index",
+          "name": "pages/ai/profile/index",
+          "pathName": "pages/ai/profile/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/location/index",
+          "pathName": "pages/location/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/color-card/index",
+          "pathName": "pages/color-card/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/showcase-detail/index",
+          "pathName": "pages/color-detail/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/area-ai/color-change/index",
+          "pathName": "pages/showcase-detail/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

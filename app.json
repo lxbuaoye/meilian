@@ -33,7 +33,9 @@
     "pages/furniture-ai/index",
     "pages/bathroom-ai/index",
     "pages/area-ai/index",
-    "pages/area-ai/color-change/index"
+    "pages/area-ai/color-change/index",
+    "pages/color-detail/index",
+    "pages/color-card/index"
   ],
   "subPackages": [
     {

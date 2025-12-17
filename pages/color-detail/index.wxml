@@ -1,0 +1,54 @@
+<view class="page">
+  <!-- 自定义导航栏（从 showcase-detail 复制样式结构） -->
+  <view class="custom-nav-bar">
+    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content">
+      <image class="nav-back"
+        src="/image/2.1.1 电子色卡·详情素材/返回@2x.png"
+        mode="aspectFit"
+        bind:tap="handleBack" />
+      <text class="nav-title">色卡详情</text>
+      <view class="nav-placeholder-right"></view>
+    </view>
+  </view>
+
+  <view class="content">
+    <!-- 顶部色卡卡片 -->
+    <view class="card color-card">
+      <image class="color-image"
+        src="/image/2.1.1 电子色卡·详情.png"
+        mode="aspectFill" />
+
+      <view class="color-info">
+        <text class="color-name">MK8401加仕红</text>
+        <view class="color-actions">
+          <button class="icon-button" hover-class="icon-button--active" bindtap="handleDownload">
+            <image class="icon-image" src="/image/2.1.1 电子色卡·详情素材/下载@2x.png" mode="aspectFit" />
+          </button>
+          <button class="icon-button" hover-class="icon-button--active" bindtap="handleShare">
+            <image class="icon-image" src="/image/2.1.1 电子色卡·详情素材/分享@2x.png" mode="aspectFit" />
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 推荐案例搭配 -->
+    <view class="section">
+      <view class="section-header">
+        <view class="section-dot"></view>
+        <text class="section-title">推荐案例搭配</text>
+      </view>
+
+      <view class="case-list">
+        <view class="case-card" wx:for="{{cases}}" wx:key="index" bindtap="handleCaseTap" data-id="{{item.id}}">
+          <image class="case-image" src="{{item.image}}" mode="aspectFill" />
+          <view class="case-mask">
+            <text class="case-name">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+

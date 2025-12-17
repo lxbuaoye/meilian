@@ -4,7 +4,7 @@ const _ = db.command;
 const { CLOUD_STROAGE_PATH } = getApp().globalData;
 const fakeData = {
   coverImage: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
-  title: '建筑案例一',
+  title: '案例详细一',
   relatedProducts: [
     {
       imageUrl: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628/resources/misc/cover.jpg',
