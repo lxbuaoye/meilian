@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "header": "/app-components/header/index"
-  },
-  "pageOrientation": "landscape",
-  "navigationBarTitleText": "探索",
-  "navigationStyle": "custom"
-}

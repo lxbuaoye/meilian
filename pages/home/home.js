@@ -168,8 +168,9 @@ Page({
   },
 
   navigateToProduct() {
+    // 已删除产品列表页面，跳转到电子色卡
     wx.switchTab({
-      url: `/pages/product/index`,
+      url: `/pages/color-card/index`,
     });
   },
   navigateToShowcase() {
@@ -184,8 +185,10 @@ Page({
     });
   },
   navigateToNews() {
-    wx.navigateTo({
-      url: `/pages/news/index`,
+    // 已删除新闻页面
+    wx.showToast({
+      title: '功能暂未开放',
+      icon: 'none',
     });
   },
 

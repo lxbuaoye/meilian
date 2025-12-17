@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "t-toast": "tdesign-miniprogram/toast/toast",
-    "t-loading": "tdesign-miniprogram/loading/loading"
-  }
-}

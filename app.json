@@ -1,40 +1,15 @@
 {
   "pages": [
     "pages/home/home",
-    "app-pages/home/home",
-    "pages/aboutus/index",
-    "pages/product/index",
     "pages/showcase-list/index",
     "pages/location/index",
     "pages/product-detail/index",
-    "pages/news-detail/index",
-    "pages/contactus/index",
-    "pages/news/index",
-    "pages/ai/index",
-    "pages/ar/index",
-    "pages/explore/index",
-    "app-pages/showcase/index",
-    "app-pages/product/index",
-    "pages/wuxing/index",
-    "app-pages/product-detail/index",
     "pages/ai/profile/index",
-    "pages/ai/privacy/index",
-    "app-pages/showcase-detail/index",
-    "pages/ai/payment/index",
-    "pages/ai/payment/need-to-know/index",
-    "pages/portrait-ai/index",
-    "app-pages/explore/index",
-    "app-pages/aboutus/index",
-    "app-pages/wuxing/index",
-    "app-pages/portrait-ai/index",
-    "pages/diagnosis-ai/index",
-    "pages/admin-red-packet/index",
-    "pages/furniture-ai/index",
-    "pages/bathroom-ai/index",
     "pages/area-ai/index",
     "pages/area-ai/color-change/index",
     "pages/color-detail/index",
-    "pages/color-card/index"
+    "pages/color-card/index",
+    "pages/showcase-detail/index"
   ],
   "subPackages": [
     {
@@ -59,16 +34,16 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/product/index",
-          "text": "产品"
+          "pagePath": "pages/color-card/index",
+          "text": "电子色卡"
         },
         {
-          "pagePath": "pages/aboutus/index",
-          "text": "关于我们"
+          "pagePath": "pages/location/index",
+          "text": "预约到店"
         },
         {
-          "pagePath": "pages/explore/index",
-          "text": "智慧算法空间"
+          "pagePath": "pages/ai/profile/index",
+          "text": "我的美联"
         }
       ]
     }
@@ -82,24 +57,20 @@
       "borderStyle": "black",
       "list": [
         {
-          "pagePath": "app-pages/home/home",
+          "pagePath": "pages/home/home",
           "text": "首页"
         },
         {
-          "pagePath": "app-pages/product/index",
-          "text": "产品"
+          "pagePath": "pages/color-card/index",
+          "text": "电子色卡"
         },
         {
-          "pagePath": "app-pages/showcase/index",
-          "text": "案例"
+          "pagePath": "pages/location/index",
+          "text": "预约到店"
         },
         {
-          "pagePath": "app-pages/aboutus/index",
-          "text": "公司介绍"
-        },
-        {
-          "pagePath": "app-pages/explore/index",
-          "text": "探索"
+          "pagePath": "pages/ai/profile/index",
+          "text": "我的美联"
         }
       ]
     }
@@ -113,24 +84,20 @@
       "borderStyle": "black",
       "list": [
         {
-          "pagePath": "app-pages/home/home",
+          "pagePath": "pages/home/home",
           "text": "首页"
         },
         {
-          "pagePath": "app-pages/product/index",
-          "text": "产品"
+          "pagePath": "pages/color-card/index",
+          "text": "电子色卡"
         },
         {
-          "pagePath": "app-pages/showcase/index",
-          "text": "案例"
+          "pagePath": "pages/location/index",
+          "text": "预约到店"
         },
         {
-          "pagePath": "app-pages/aboutus/index",
-          "text": "公司介绍"
-        },
-        {
-          "pagePath": "app-pages/explore/index",
-          "text": "探索"
+          "pagePath": "pages/ai/profile/index",
+          "text": "我的美联"
         }
       ]
     }

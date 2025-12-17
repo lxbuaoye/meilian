@@ -30,7 +30,8 @@ Component({
     loginLoadingVisible: false,
     logoSrc: `${CLOUD_STROAGE_PATH}/resources/ai/logo.png`,
     navigatorProps: {
-      url: '/pages/ai/privacy/index',
+      // 已删除隐私页面
+      // url: '/pages/ai/privacy/index',
     },
     privacyChecked: false,
     debugMode: accountInfo.miniProgram.envVersion === 'develop',

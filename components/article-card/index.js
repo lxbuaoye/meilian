@@ -45,8 +45,10 @@ Component({
    */
   methods: {
     openArticleDetail() {
-      wx.navigateTo({
-        url: `/pages/news-detail/index?newsId=${this.data.newsId}`,
+      // 已删除新闻详情页面
+      wx.showToast({
+        title: '功能暂未开放',
+        icon: 'none',
       });
     },
   },

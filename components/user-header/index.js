@@ -60,11 +60,13 @@ Component({
       });
     },
     navigateToPayment() {
+      // 已删除支付页面
       if (!this.checkUserLoginStatus()) {
         return;
       }
-      wx.navigateTo({
-        url: '/pages/ai/payment/index',
+      wx.showToast({
+        title: '功能暂未开放',
+        icon: 'none',
       });
     },
   },

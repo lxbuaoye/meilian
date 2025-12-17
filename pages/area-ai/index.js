@@ -588,7 +588,8 @@ Page({
       imageSrc = tempFilePath;
     }
     wx.navigateTo({
-      url: `/pages/ai/index?isInterior=1&imageSrc=${imageSrc}`,
+      // 已删除 pages/ai/index 页面
+      url: `/pages/area-ai/index?imageSrc=${imageSrc}`,
     });
   },
 

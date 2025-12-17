@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "t-fab": "tdesign-miniprogram/fab/fab"
-  },
-  "navigationBarTitleText": "智慧算法空间"
-}
