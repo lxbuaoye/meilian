@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "showcase-card": "/components/showcase-card/index"
+  },
+  "navigationBarTitleText": "案例列表",
+  "navigationBarTextStyle": "black",
+  "navigationStyle": "custom"
+}
+
+

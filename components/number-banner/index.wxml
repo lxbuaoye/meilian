@@ -1,19 +1,10 @@
-<view style="display: flex; flex: 1; margin-top: 60rpx; justify-content: center; align-items: center;">
-  <view style="display: flex; flex: 1; flex-direction: column; justify-content: center; align-items: center;">
-    <text style="color: #F8C301; font-size: 50rpx; line-height: 70rpx;"> 1000+
+<view style="margin-top: 0rpx; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center;">
+  <view style="display: flex; flex-direction: column; align-items: center; justify-content: center;" wx:for="{{list}}" wx:key="*this">
+    <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 50rpx;color: #2E3FA8;letter-spacing: 0;text-align: center;">
+      {{item.number}}
     </text>
-    <text style="margin-top:10rpx;font-size: 24rpx; line-height: 33rpx;"> 高端涂装效果体验店</text>
-  </view>
-  <view style="display: flex; flex: 1; flex-direction: column; justify-content: center; align-items: center;">
-    <text style="color: #F8C301; font-size: 50rpx; line-height: 70rpx;"> 10万+
+    <text style=" font-family: PingFang-SC-Bold;font-weight: 700;font-size: 24rpx;color: #1C2023;letter-spacing: 0;text-align: center;">
+      {{item.text}}
     </text>
-    <text style="margin-top:10rpx;font-size: 24rpx; line-height: 33rpx;">涂装大师</text>
-  </view>
-
-
-  <view style="display: flex; flex: 1; flex-direction: column; justify-content: center; align-items: center;">
-    <text style="color: #F8C301; font-size: 50rpx; line-height: 70rpx;"> 500+
-    </text>
-    <text style="margin-top:10rpx;font-size: 24rpx; line-height: 33rpx;"> 涂装效果材质</text>
   </view>
 </view>

@@ -1,0 +1,36 @@
+page {
+  box-sizing: border-box;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 32rpx);
+}
+
+.tab {
+  /* 未选中样式 */
+  --td-tab-item-color: #8F969C;
+  --td-tab-item-font-size: 28rpx;
+
+  /* 选中样式 */
+  --td-tab-item-active-color: #2E3FA8;
+  --td-tab-item-active-font-weight: 700;
+  --td-tab-item-active-font-size:30rpx;
+
+  /* 下划线样式 */
+  --td-tab-track-color: #2E3FA8;
+  --td-tab-track-height: 6rpx;
+  --td-tab-track-radius: 3rpx;
+}
+
+.loading-container-flex {
+  --td-loading-color: var(--theme-color);
+  --td-loading-text-color: var(--theme-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  margin-bottom: 40rpx;
+}
+
+.showcase-list-page {
+  padding: 0 0 24rpx 0;
+}
+
+

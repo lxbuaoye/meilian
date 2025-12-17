@@ -1,108 +1,77 @@
 <view style="padding-top: {{menuBarTop}}px">
   <!-- Navigation bar-->
   <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
-    <image src="/resources/logo.png"
-      style="height: 44rpx; width: 300rpx;"
-      mode="scaleToFill"></image>
+    <image src="/resources/logo1.png" style="height: 38rpx; width: 253rpx;" mode="scaleToFill"></image>
   </view>
 </view>
-<view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;"
-  wx:if="{{pageLoading}}">
-  <t-loading theme="circular"
-    size="40rpx"
-    text="加载中..."
-    inherit-color />
+<view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;" wx:if="{{pageLoading}}">
+  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
 </view>
 <view class="home-page-container">
-  <view bind:tap="popupBonusScene">
-    <image class="background-theme"
-      src="{{bannerUrl}}"
-      style="width: 100%;height: 550rpx;">
-    </image>
+  <view style="margin: 0 30rpx; display: flex; justify-content: center;">
+    <image src="/resources/banner.png" style="width: 702rpx; height: 550rpx;" mode="scaleToFill" />
   </view>
-  <image src="{{sloganUrl}}"
-    style="margin-top: 40rpx; width: 100%;height: 118rpx;">
-  </image>
-  <view style="margin: 0 30rpx;">
-    <text class="brand-description">数码彩秉承多年的产品研发经验，致力于涂料的卓越品质及新产品的研发创新，提供具有国际先进水平的防水、翻新、环保、省工省时的优质产品，不断为建筑商解决工程涂料装饰难题。</text>
+  <view style="margin: 30rpx 30rpx 0; display: flex; flex-direction: column; align-items: center;">
+    <image src="/resources/title.png" style="width: 702rpx; height: 118rpx;" mode="scaleToFill" />
+    <text class="brand-description" style="margin-top: 0rpx;">
+      美联美墅，怀揣“助力美墅梦想”的使命，秉持“精工惠民、内外兼修、好房好料”的核心价值，以实力为基，以品质为魂，矢志不渝地为中国家庭打造健康、环保、历久弥新的理想人居。我们不仅是涂料的提供者，更是美好生活的筑梦者和守护者。选择美联美墅，共筑美梦家园！
+    </text>
   </view>
   <number-banner></number-banner>
   <!-- Product List -->
-  <view style="height: 48rpx; width: 100%; display: flex; margin: 40rpx 0; align-items: center;">
-    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-      src="/resources/bulletpoint.png"></image>
-    <text style="font-size: 34rpx; font-weight: 700;"> 产品展示</text>
+
+  <view style="height: 48rpx; width: 100%; display: flex; margin: 45rpx 0 40rpx; align-items: center;">
+    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="/resources/homeyuan.png"></image>
+    <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 34rpx;color: #1C2023;letter-spacing: 0;">案例展示</text>
   </view>
-  <view style="display: grid; grid-template-columns: repeat(2, calc(50% - 10rpx));grid-column-gap: 20rpx">
-    <product-card wx:for="{{productList}}"
-      wx:key="index"
-      title="{{item.title}}"
-      price="{{item.price}}"
-      unit="{{(item.unit && item.unit.length >0 ) ? item.unit : ''}}"
-      tags="{{item.tags}}"
-      product-id="{{item._id}}"></product-card>
+  <view style="display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
+    <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
+    <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
+    <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
   </view>
   <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
-    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
-      bind:tap="navigateToProduct"
-      hover-class="action-tile-hover">
+    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; " bind:tap="navigateToShowcase" hover-class="action-tile-hover">
       <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
     </view>
   </view>
-
-  <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 40rpx; align-items: center;">
-    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-      src="/resources/bulletpoint.png"></image>
-    <text style="font-size: 34rpx; font-weight: 700;">案例展示</text>
-  </view>
-
-  <view style="display: flex; position: relative; flex-direction: column;">
-    <showcase-card wx:for="{{showcaseList}}"
-      wx:key="index"
-      title="{{item.title}}"
-      showcase-id="{{item._id}}"
-      tags="{{item.tags}}"></showcase-card>
-  </view>
-  <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
-    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
-      bind:tap="navigateToShowcase"
-      hover-class="action-tile-hover">
-      <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
-    </view>
-  </view>
-
   <view>
     <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 20rpx; align-items: center;">
-      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
-        src="/resources/bulletpoint.png"></image>
+      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="/resources/homeyuan.png"></image>
       <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
     </view>
-    <article-card wx:for="{{newsList}}"
-      wx:key="index"
-      title="{{item.title}}"
-      subtitle="{{item.subtitle}}"
-      news-id="{{item._id}}"
-      description="{{item.description}}"></article-card>
-  </view>
-  <view style="display: flex; flex:1; width: 100%;  margin: 0 0 30rpx 0;justify-content: center;">
-    <view style="display: flex; border-radius: 20rpx; border: 1px solid #E3E4E5; width: 250rpx;justify-content: center; align-items: center; padding: 20rpx; "
-      bind:tap="navigateToNews"
-      hover-class="action-tile-hover">
-      <text style="color: #1C2023; font-size: 28rpx; line-height: 40rpx;"> 查看更多</text>
+    <view style="margin-bottom: 24rpx; padding: 24rpx 0; display: flex;">
+      <view style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <text style="font-size: 30rpx; color: #1C2023; line-height: 42rpx;">美联涂料瓷砖改色涂料新品发布...</text>
+        <text style="margin-top: 8rpx; font-size: 24rpx; color: #8F969C; line-height: 34rpx;">今天最好的表现是明天最低的要求...</text>
+        <text style="margin-top: 16rpx; font-size: 24rpx; color: #B0B3B8;">2013-02-12</text>
+      </view>
+      <view style="width: 220rpx; height: 140rpx; margin-left: 24rpx;">
+        <image src="" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 8rpx;"></image>
+      </view>
+    </view>
+
+    <view style="margin-bottom: 24rpx; padding: 24rpx 0; display: flex;">
+      <view style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <text style="font-size: 30rpx; color: #1C2023; line-height: 42rpx;">MERLIN 艺术漆，重塑家居美学...</text>
+        <text style="margin-top: 8rpx; font-size: 24rpx; color: #8F969C; line-height: 34rpx;">今天最好的表现是明天最低的要求...</text>
+        <text style="margin-top: 16rpx; font-size: 24rpx; color: #B0B3B8;">2013-02-12</text>
+      </view>
+      <view style="width: 220rpx; height: 140rpx; margin-left: 24rpx;">
+        <image src="" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 8rpx;"></image>
+      </view>
+    </view>
+
+    <view style="margin-bottom: 24rpx; padding: 24rpx 0; display: flex;">
+      <view style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+        <text style="font-size: 30rpx; color: #1C2023; line-height: 42rpx;">美联涂料瓷砖改色涂料案例赏析...</text>
+        <text style="margin-top: 8rpx; font-size: 24rpx; color: #8F969C; line-height: 34rpx;">今天最好的表现是明天最低的要求...</text>
+        <text style="margin-top: 16rpx; font-size: 24rpx; color: #B0B3B8;">2013-02-12</text>
+      </view>
+      <view style="width: 220rpx; height: 140rpx; margin-left: 24rpx;">
+        <image src="" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 8rpx;"></image>
+      </view>
     </view>
   </view>
-  <t-popup visible="{{popupVisible}}"
-    usingCustomNavbar
-    class="popup"
-    bind:visible-change="onVisibleChange"
-    bind:tap="closePopup"
-    placement="{{'center'}}">
-    <image class="rotate"
-      mode="aspectFit"
-      src="{{animateUrl}}"> </image>
-  </t-popup>
-
-  <t-footer text="Copyright © 2024-2025 中山市新谷科技发展有限公司"></t-footer>
 </view>
 
 <!-- <t-fab icon="add"

@@ -173,8 +173,8 @@ Page({
     });
   },
   navigateToShowcase() {
-    wx.switchTab({
-      url: `/pages/showcase/index`,
+    wx.navigateTo({
+      url: `/pages/showcase-list/index`,
     });
   },
   navigateToAnotherMiniProgram() {

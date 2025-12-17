@@ -1,0 +1,25 @@
+<view class="showcase-list-page">
+  <!-- 自定义导航栏（含状态栏+标题栏，高度 176rpx；标题区域 88rpx） -->
+  <view style="width: 750rpx; height: 176rpx; background: #FFFFFF; position: relative;">
+    <!-- 标题行：贴近底部，高度 88rpx，文字垂直居中 -->
+    <view style="position: absolute; left: 0; right: 0; bottom: 0; height: 88rpx; display: flex; align-items: center; justify-content: center;">
+      <!-- 返回按钮，和文字同一垂直中线 -->
+      <view style="position: absolute; left: 24rpx; display: flex; align-items: center; justify-content: center;" bind:tap="onBack">
+        <image src="/resources/icon-40px.png" style="width: 40rpx; height: 40rpx;" mode="aspectFit"></image>
+      </view>
+      <text style="width: 144rpx; height: 50rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 36rpx; color: #1C2023; letter-spacing: 0; text-align: center;position: relative;bottom: 44rpx;">
+        案例列表
+      </text>
+    </view>
+  </view>
+  <t-tabs defaultValue="{{0}}" t-class="custom-tabs" class="tab" wx:for-index="categoryIndex" wx:key="categoryIndex" bind:change="onTabsChange" t-class-content="custom-panel">
+    <t-tab-panel wx:for="{{categoryList}}" wx:key="index" label="{{item}}" value="{{index}}">
+      <view style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
+        <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
+        <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
+        <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;">
+        </view>
+      </view>
+    </t-tab-panel>
+  </t-tabs>
+</view>

@@ -55,7 +55,11 @@
           "pathName": "pages/showcase-detail/index",
           "query": "",
           "launchMode": "default",
-          "scene": null
+          "scene": null,
+          "partialCompile": {
+            "enabled": true,
+            "pages": []
+          }
         }
       ]
     }

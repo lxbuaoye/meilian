@@ -108,10 +108,11 @@ page {
 }
 
 .brand-description {
-  font-weight: 400;
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
   font-size: 28rpx;
-  color: #1c2023;
-  line-height: 40rpx;
+  color: #969899;
+  letter-spacing: 0;
 }
 
 .background-theme {
