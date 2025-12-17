@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "t-sticky": "tdesign-miniprogram/sticky/sticky",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+}

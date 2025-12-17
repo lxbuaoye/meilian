@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "usingComponents": {
+    "t-overlay": "tdesign-miniprogram/overlay/overlay",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-fab": "tdesign-miniprogram/fab/fab",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-link": "tdesign-miniprogram/link/link",
+    "t-message": "tdesign-miniprogram/message/message",
+    "t-loading": "tdesign-miniprogram/loading/loading"
+  }
+}

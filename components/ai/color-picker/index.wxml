@@ -1,0 +1,29 @@
+<!--components/ai/color-picker/index.wxml-->
+<view class="component">
+  <view style="position: relative; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <text class="title">CBCC标准建筑色卡</text>
+    <view style="margin:30rpx 20rpx; ">
+      <view class="color-list-container">
+        <view wx:for="{{colorData}}"
+          wx:key="colorCode"
+          data-index="{{index}}"
+          bind:tap="onTileClick"
+          class="block {{selection == index ? 'block--active' : ''}}">
+          <t-icon wx:if="{{selection === index}}"
+            name="check"
+            class="block__icon" />
+          <view class="color-tile"
+            style="background-color: {{item.color}};">
+          </view>
+          <text class="color-name">{{item.name}} </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button style="background-color: #EDBF58 ; border: hidden; color: white; width: auto; left:0; right: 0;position: absolute;border: none; margin: 0 24rpx; bottom: 0; height: 90rpx; display: {{selection !== -1 ? 'unset' :'none'}} "
+    bind:tap="onSelect"
+    disabled="{{selection === -1}}"
+    hover-class="action-tile-hover"><text style="font-weight: 700;font-size: 30rpx;">确定</text>
+  </button>
+</view>

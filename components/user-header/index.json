@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "animate-number": "../animate-number/index",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+}

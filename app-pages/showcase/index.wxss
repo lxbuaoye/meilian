@@ -1,0 +1,29 @@
+page {
+  box-sizing: border-box;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 96rpx);
+  background-color: rgba(244, 246, 249, 1);
+}
+
+.tab {
+  margin-top: 10rpx;
+  --td-tab-border-color: transparent;
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-nav-bg-color: white; /* 整个container背景  */
+  --td-tab-font-size: 12rpx;
+  --td-tab-item-height: 34rpx;
+  /* --td-tab-item-tag-active-bg: white; */
+}
+
+.loading-container-flex {
+  --td-loading-color: var(--theme-color);
+  --td-loading-text-color: var(--theme-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  margin-bottom: 20rpx;
+}
+
+.loading {
+  --td-loading-text-font-size: 12rpx;
+}

@@ -1,0 +1,24 @@
+{
+  "navigationBarTitleText": "色彩检测",
+  "disableScroll": true,
+  "usingComponents": {
+    "t-message": "tdesign-miniprogram/message/message",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-input": "tdesign-miniprogram/input/input",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-progress": "tdesign-miniprogram/progress/progress",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "t-swiper": "tdesign-miniprogram/swiper/swiper",
+    "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
+    "t-image": "tdesign-miniprogram/image/image",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-overlay": "tdesign-miniprogram/overlay/overlay",
+    "t-fab": "tdesign-miniprogram/fab/fab",
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "ec-canvas": "./ec-canvas/ec-canvas"
+  }
+}

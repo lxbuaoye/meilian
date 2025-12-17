@@ -1,0 +1,164 @@
+<block wx:if="{{loadingReport}}">
+  <view style="display: flex; justify-content: center; align-items: center; margin-top: 40rpx;">
+    <t-loading theme="circular"
+      size="40rpx"
+      text="正在加载报告..."
+      layout="vertical"
+      class="wrapper" />
+  </view>
+</block>
+
+<view wx:if="{{!loadingReport}}"
+  style="display: flex; justify-content: center; align-items: center; flex-direction: column; margin: 24rpx 24rpx;">
+
+  <view style="height: 490rpx; margin: 0 24rpx 0 24rpx; width: 100%; background-color: {{result.primaryColor? 'transparent' : 'rgba(0,0,0,0.1)'}}; position: relative; border-radius: 24rpx; overflow: hidden;">
+    <image src="{{imageSrc}}"
+      style="height: 490rpx; width: 100%;"
+      bind:tap="openViewer"
+      mode="aspectFit"></image>
+    <block wx:if="{{!result.primaryColor}}">
+      <view wx:if="{{!imageSrc}}"
+        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 32rpx; display: flex; color: white; justify-content: center; align-items: center; display: flex; flex-direction: column;">
+        <image src="{{uploadButtonSrc}}"
+          style="width: 60rpx; height: 60rpx;"></image>
+        <text style="font-size: 28rpx;color: #8F969C; margin-top: 20rpx;">请先选择图片</text>
+      </view>
+      <view style="position: absolute; bottom: 24rpx; right: 24rpx; border-radius: 32rpx; display: flex; background: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+        <t-icon name="file-image"
+          style="margin-left: 24rpx; color: white;"></t-icon>
+        <button type="primary"
+          style="background: transparent; border-color: transparent;"
+          class="small-font button"
+          bindtap="chooseImage">选择图片</button>
+      </view>
+    </block>
+  </view>
+  <button wx:if="{{!result.primaryColor}}"
+    style="background: {{isLoading ? 'rgba(0,0,0, 0.2)': '#EDBF58'}} ; border: hidden; color: white; width: 90%; margin-top: 48rpx;"
+    bind:tap="generate"
+    class="small-font"
+    disabled="{{isLoading}}"
+    hover-class="action-tile-hover">开始识别
+  </button>
+  <t-loading style="margin-top: 40rpx;"
+    wx:if="{{isLoading}}"></t-loading>
+
+
+  <view wx:if="{{!result.primaryColor}}"
+    style="display: flex; width: 100%; flex-direction: column; margin-top: 30rpx;">
+    <view class="container">
+      <scroll-view scroll-y
+        class="intro-scroll-view">
+        <view class="intro-content">
+          <text class="section-heading">【游戏玩法】</text>
+          <text class="list-item">1. 📸 定格你的“彩”照：</text>
+          <text class="list-sub-item">点击“选择图片”，拍摄或者上传一张您本人的全身或半身照片。</text>
+          <text class="list-sub-item-tip">小贴士：照片清晰、光线充足，能让AI更精准地识别您的衣着色彩哦！</text>
+
+          <text class="list-item">2. ✨ AI智能解码：</text>
+          <text class="list-sub-item">数码彩AI将启动“色彩雷达”，智能分析您照片中衣着的主题色。</text>
+          <text class="list-sub-item">它将洞察这些颜色所代表的独特个性与能量！</text>
+
+          <text class="list-item">3. 💬 解锁专属寄语：</text>
+          <text class="list-sub-item">根据您的衣着色彩分析结果，AI会为您量身定制一段充满惊喜的个性化评论和祝福！</text>
+          <text class="list-sub-item">看看您的穿搭会带来怎样的“色彩印记”吧！</text>
+
+          <text class="list-item">4. 💖 分享你的“色彩印记”：</text>
+          <text class="list-sub-item">对结果满意吗？点击“分享”按钮，将这份独特的色彩印记晒到朋友圈，与朋友们一同感受这份喜悦！</text>
+
+          <text class="section-heading">【温馨提示】</text>
+          <text class="list-item">此为限时活动，快来参与吧！</text>
+          <text class="list-item">AI生成内容仅供娱乐参考。</text>
+        </view>
+      </scroll-view>
+
+    </view>
+  </view>
+  <view wx:if="{{result.primaryColor}}">
+    <view style="background-color: white; padding: 40rpx 24rpx; border-radius: 20rpx; margin-top: 20rpx;">
+      <view style="height: 48rpx; width: 100%; display: flex;  align-items: center;">
+        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+          src="/resources/bulletpoint.png"></image>
+        <text style="font-size: 34rpx; font-weight: 700; color: #1C2023;">你今天的主题色</text>
+      </view>
+      <view style="display: grid; grid-template-columns: repeat(1, 1fr); width: 100%; gap: 20rpx; margin-top: 20rpx;">
+        <view class="color-tile-container">
+          <view class="color-tile"
+            style="background-color: {{result.primaryColor}};"></view>
+          <text class="color-text">{{result.primaryColor}}</text>
+        </view>
+        <!-- <view class="color-tile-container">
+          <view class="color-tile"
+            style="background-color: {{result.secondaryColor}};"></view>
+          <text class="color-text">{{result.secondaryColor}}</text>
+        </view> -->
+      </view>
+    </view>
+    <view style="margin-top: 30rpx; background-color: white; border-radius: 20rpx;">
+      <view style="position: relative;">
+        <image src="{{robotSrc}}"
+          style="width: 100%; height: 140rpx;">
+        </image>
+        <text style="position: absolute; top: 50%;  left: 50%;  transform: translate(-50%, -50%); font-weight: 700;font-size: 28rpx;color: #1C2023;">已经为您解锁了今日穿搭能量</text>
+      </view>
+
+      <view style="margin: 15rpx; padding-bottom: 30rpx;">
+        <text style="width: 100%; font-size: 26rpx;  margin-top: 24rpx; color:#1c2023;">{{result.compliment}}</text>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <button class="cute-button share-to-friend-btn"
+        open-type="share">
+        <text class="button-icon">💌</text>
+        <text>发送给朋友</text>
+        <text class="button-icon">💌</text>
+      </button>
+
+      <button class="cute-button share-to-timeline-btn"
+        bindtap="showShareGuideOverlay">
+        <text class="button-icon">🎉</text>
+        <text>分享到朋友圈</text>
+        <text class="button-icon">🎉</text>
+      </button>
+
+      <button class="cute-button retry-button"
+        wx:if="betaVersion"
+        bindtap="resetGame">
+        <text class="button-icon">✨</text>
+        <text>再玩一次</text>
+        <text class="button-icon">✨</text>
+      </button>
+    </view>
+
+    <view style="display: flex; justify-content: center; align-items: center; margin-top: 40rpx;"
+      wx:if="{{!viewOnly}}">
+      <t-loading theme="circular"
+        size="40rpx"
+        text="正在生成二维码"
+        layout="vertical"
+        wx:if="{{!qrcodeSrc}}"
+        class="wrapper" />
+      <image src="{{qrcodeSrc}}"
+        wx:if="{{qrcodeSrc}}"
+        show-menu-by-longpress="true"
+        style="height: 490rpx; width: 100%;"
+        mode="aspectFit"></image>
+    </view>
+  </view>
+</view>
+
+<view class="share-guide-overlay"
+  wx:if="{{ showGuideOverlay }}"
+  bindtap="hideShareGuideOverlay"
+  catchtouchmove="preventScroll">
+  <view class="guide-content">
+    <t-icon name="arrow-up"
+      class="arrow-icon"
+      size="120rpx" />
+    <text class="guide-text">点击右上角“...”分享朋友圈</text>
+  </view>
+</view>
+
+<t-message id="t-message" />
+<t-toast id="t-toast" />

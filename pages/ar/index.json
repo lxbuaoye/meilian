@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "DIGITAL AR",
+  "usingComponents": {
+    "ar": "../../components/ar/index"
+  },
+  "disableScroll": true
+}

@@ -1,0 +1,35 @@
+/* pages/product/index.wxss */
+page {
+  box-sizing: border-box;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 96rpx);
+  background-color: rgba(244, 246, 249, 1);
+}
+
+.active-category {
+  color: var(--theme-color);
+}
+
+.product-container {
+  margin: 20rpx 20rpx 0 20rpx;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  position: relative;
+}
+
+.tab {
+  /* --td-tab-border-color: transparent; */
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-track-color: var(--theme-color);
+}
+
+.subtab {
+  --td-tab-item-tag-active-bg: var(--theme-color) !important;
+  --td-tab-border-color: transparent;
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-nav-bg-color: white; /* 整个container背景  */
+  --td-tab-font-size: 12rpx;
+  --td-tab-item-height: 34rpx;
+}

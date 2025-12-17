@@ -1,0 +1,69 @@
+<view>
+  <!-- Navigation bar-->
+  <header></header>
+  <!-- Body -->
+  <view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;"
+    wx:if="{{pageLoading}}">
+    <t-loading theme="circular"
+      size="20rpx"
+      text="加载中..."
+      inherit-color />
+  </view>
+
+  <view style="display: flex; margin: 12rpx 15rpx 0 15rpx;">
+    <view style="min-width: 155rpx;">
+      <view style="height: 60rpx; width: 155rpx; display: flex; background-color: white; border-radius: 10rpx; justify-content: center; align-items: center; margin-bottom: 10rpx; font-size: 12rpx;"
+        data-index="{{categoryIndex}}"
+        class="{{categoryIndex === index ? 'active-category' : ''}}"
+        bindtap="changeCategory"
+        wx:for-index="categoryIndex"
+        wx:for="{{category}}">{{item}}</view>
+    </view>
+
+    <view style="width: 100%; margin-left: 10rpx; ">
+      <!--- With subcategory -->
+      <t-tabs value="{{value}}"
+        theme="card"
+        wx:if="{{subcategory[index].length >1}}"
+        defaultValue="{{0}}"
+        style="border-radius: 10rpx"
+        split="{{0}}"
+        class="subtab"
+        swipeable="{{0}}">
+
+        <t-tab-panel wx:for="{{subcategory[index]}}"
+          wx:for-item="subitem"
+          wx:for-index="subindex"
+          wx:key="*this"
+          label="{{subitem}}"
+          value="{{subindex}}">
+          <view class="product-container">
+            <block wx:for="{{categoryList[index][subindex]}}"
+              wx:key="*this">
+              <product-card title="{{item.title}}"
+                price="{{item.price}}"
+                tags="{{item.tags}}"
+                unit="{{(item.unit && item.unit.length >0 ) ? item.unit : ''}}"
+                product-id="{{item._id}}"></product-card>
+            </block>
+          </view>
+        </t-tab-panel>
+      </t-tabs>
+
+      <!-- Without subcategory -->
+      <view wx:if="{{subcategory[index].length <=1}}"
+        class="product-container"
+        style="margin: 0;">
+        <block wx:for="{{categoryList[index][0]}}"
+          wx:key="*this">
+          <product-card title="{{item.title}}"
+            price="{{item.price}}"
+            tags="{{item.tags}}"
+            unit="{{(item.unit && item.unit.length >0 ) ? item.unit : ''}}"
+            product-id="{{item._id}}"></product-card>
+        </block>
+      </view>
+    </view>
+  </view>
+
+</view>

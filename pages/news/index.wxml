@@ -1,0 +1,16 @@
+<view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;"
+  wx:if="{{pageLoading}}">
+  <t-loading theme="circular"
+    size="40rpx"
+    text="加载中..."
+    inherit-color />
+</view>
+<view wx:if="{{!pageLoading}}"
+  style="margin: 0 24rpx; display: flex; flex-direction: column;">
+  <article-card wx:for="{{newsList}}"
+    wx:key="index"
+    title="{{item.title}}"
+    subtitle="{{item.subtitle}}"
+    news-id="{{item._id}}"
+    description="{{item.description}}"></article-card>
+</view>

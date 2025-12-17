@@ -1,0 +1,36 @@
+{
+  "projectname": "meilian",
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false,
+    "bigPackageSizeSupport": true,
+    "coverView": true,
+    "lazyloadPlaceholderEnable": false,
+    "skylineRenderEnable": false,
+    "preloadBackgroundData": false,
+    "autoAudits": false,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showShadowRootInWxmlPanel": true,
+    "useStaticServer": true,
+    "useLanDebug": false,
+    "showES6CompileOption": false,
+    "checkInvalidKey": true,
+    "ignoreDevUnusedFiles": false,
+    "useIsolateContext": true
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/area-ai/color-change/index",
+          "pathName": "pages/product-detail/index",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        }
+      ]
+    }
+  },
+  "libVersion": "3.11.3"
+}

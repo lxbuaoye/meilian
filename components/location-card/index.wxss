@@ -1,0 +1,25 @@
+.title {
+  height: 48rpx;
+  font-weight: 700;
+  font-size: 34rpx;
+  color: #1c2023;
+  line-height: 48rpx;
+}
+
+.address {
+  margin-left: 20rpx;
+  height: 33rpx;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #8f969c;
+  line-height: 33rpx;
+}
+
+.phone-number {
+  margin-left: 20rpx;
+  height: 33rpx;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #8f969c;
+  line-height: 33rpx;
+}

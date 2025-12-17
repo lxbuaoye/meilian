@@ -1,0 +1,69 @@
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="title-container">
+    <text class="title">红包管理后台</text>
+    <text class="subtitle">点击按钮可控制红包的发放与停止状态</text>
+  </view>
+
+  <button type="primary"
+    bind:tap="loadRedPackets"
+    style="margin: 24rpx;"> 刷新 </button>
+
+  <!-- 红包列表容器 -->
+  <view class="envelope-list">
+    <!-- 使用 wx:for 遍历红包列表 -->
+    <view class="envelope-card"
+      wx:for="{{redPackets}}"
+      wx:key="id">
+      <!-- 左侧信息区域 -->
+      <view class="envelope-info">
+        <text class="envelope-name">{{item.name}}</text>
+        <text class="envelope-name">{{item.description}}</text>
+        <text class="envelope-name">红包数量: <text style="color: red;"> {{item.issuedCount}}/{{item.totalQuantity}}</text></text>
+        <!-- 使用 wx:if 来根据状态显示不同的文本 -->
+        <view class="envelope-status">
+          <text wx:if="{{item.status === 'PENDING'}}"
+            class="status-idle">状态: 待发放</text>
+          <text wx:if="{{item.status === 'ACTIVE'}}"
+            class="status-active">状态: 发放中</text>
+          <text wx:if="{{item.status === 'ACTIVE'}}"
+            class="status-active">
+            过期时间: {{item.displayEndTime}}</text>
+          <text wx:if="{{item.status === 'STOPPED'}}"
+            class="status-active">状态: 已停止</text>
+        </view>
+      </view>
+
+      <!-- 右侧操作按钮区域 -->
+      <view class="envelope-actions">
+        <!-- 发放按钮:
+          - 当状态为'active'时，按钮被禁用，样式变灰
+          - 否则，按钮正常显示
+          - bindtap 绑定事件，并传递当前红包的ID
+        -->
+        <button class="action-button issue-button"
+          bindtap="handleIssue"
+          data-id="{{item._id}}"
+          loading="{{serverConnecting}}"
+          disabled="{{item.status === 'STOPPED' || item.status !== 'PENDING'}}">
+          发放
+        </button>
+
+        <!-- 停止按钮:
+          - 当状态不为'active'时，按钮被禁用，样式变灰
+          - 否则，按钮正常显示
+          - bindtap 绑定事件，并传递当前红包的ID
+        -->
+        <button class="action-button stop-button"
+          bindtap="handleStop"
+          data-id="{{item._id}}"
+          loading="{{serverConnecting}}"
+          disabled="{{item.status === 'STOPPED' || item.status !== 'ACTIVE'}}">
+          停止
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<t-toast id="t-toast"></t-toast>

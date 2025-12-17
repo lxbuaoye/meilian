@@ -1,0 +1,50 @@
+<view class="page">
+  <view class="top-bar"></view>
+
+  <scroll-view scroll-y class="body" enable-back-to-top>
+    <view class="hero-wrap">
+      <image class="hero-img" src="{{heroImage}}" mode="widthFix" data-index="0" bind:tap="previewImage" />
+    </view>
+
+    <view class="info-section">
+      <view class="price-row">
+        <text class="price-symbol">{{currency}}</text>
+        <text class="price-text">{{displayPrice}}</text>
+        <text class="price-unit" wx:if="{{unitText}}">{{unitText}}</text>
+      </view>
+      <view class="product-title">{{title}}</view>
+    </view>
+
+    <view class="tag-section">
+      <scroll-view class="tag-scroll" scroll-x enable-flex>
+        <view class="tag-row">
+          <view wx:for="{{tags}}" wx:key="index" class="tag-item">{{item}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="tag-divider"></view>
+
+    <view class="detail-card">
+      <view class="detail-header">
+        <view class="detail-bullet"></view>
+        <text class="detail-title">产品详情</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">产品名称</text>
+        <text class="detail-value">{{detailName}}</text>
+      </view>
+      <view class="detail-divider"></view>
+      <view class="detail-item">
+        <text class="detail-label">产品编号</text>
+        <text class="detail-value">{{detailCode}}</text>
+      </view>
+    </view>
+
+    <view class="bottom-gap"></view>
+  </scroll-view>
+
+  <view class="buy-bar">
+    <button class="buy-button" bindtap="handleBuy">马上购买</button>
+  </view>
+</view>

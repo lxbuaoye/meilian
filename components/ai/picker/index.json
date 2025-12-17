@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "color-picker": "../color-picker/index",
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-radio": "tdesign-miniprogram/radio/radio"
+  }
+}

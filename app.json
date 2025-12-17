@@ -1,0 +1,162 @@
+{
+  "pages": [
+    "pages/home/home",
+    "app-pages/home/home",
+    "pages/aboutus/index",
+    "pages/product/index",
+    "pages/showcase/index",
+    "pages/location/index",
+    "pages/showcase-detail/index",
+    "pages/product-detail/index",
+    "pages/news-detail/index",
+    "pages/contactus/index",
+    "pages/news/index",
+    "pages/ai/index",
+    "pages/ar/index",
+    "pages/explore/index",
+    "app-pages/showcase/index",
+    "app-pages/product/index",
+    "pages/wuxing/index",
+    "app-pages/product-detail/index",
+    "pages/ai/profile/index",
+    "pages/ai/privacy/index",
+    "app-pages/showcase-detail/index",
+    "pages/ai/payment/index",
+    "pages/ai/payment/need-to-know/index",
+    "pages/portrait-ai/index",
+    "app-pages/explore/index",
+    "app-pages/aboutus/index",
+    "app-pages/wuxing/index",
+    "app-pages/portrait-ai/index",
+    "pages/diagnosis-ai/index",
+    "pages/admin-red-packet/index",
+    "pages/furniture-ai/index",
+    "pages/bathroom-ai/index",
+    "pages/area-ai/index",
+    "pages/area-ai/color-change/index"
+  ],
+  "subPackages": [
+    {
+      "root": "ColorDetector",
+      "name": "colorDetector",
+      "pages": [
+        "pages/index",
+        "pages/viewer/index"
+      ]
+    }
+  ],
+  "mini-wechat": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#F8C301",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/product/index",
+          "text": "产品"
+        },
+        {
+          "pagePath": "pages/showcase/index",
+          "text": "案例"
+        },
+        {
+          "pagePath": "pages/aboutus/index",
+          "text": "关于我们"
+        },
+        {
+          "pagePath": "pages/explore/index",
+          "text": "智慧算法空间"
+        }
+      ]
+    }
+  },
+  "mini-ios": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#F8C301",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "app-pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "app-pages/product/index",
+          "text": "产品"
+        },
+        {
+          "pagePath": "app-pages/showcase/index",
+          "text": "案例"
+        },
+        {
+          "pagePath": "app-pages/aboutus/index",
+          "text": "公司介绍"
+        },
+        {
+          "pagePath": "app-pages/explore/index",
+          "text": "探索"
+        }
+      ]
+    }
+  },
+  "mini-android": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#F8C301",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "app-pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "app-pages/product/index",
+          "text": "产品"
+        },
+        {
+          "pagePath": "app-pages/showcase/index",
+          "text": "案例"
+        },
+        {
+          "pagePath": "app-pages/aboutus/index",
+          "text": "公司介绍"
+        },
+        {
+          "pagePath": "app-pages/explore/index",
+          "text": "探索"
+        }
+      ]
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseAddress"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {},
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.camera": {
+      "desc": "摄像头将用于扫描产品信息"
+    },
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "serviceProviderTicket": "+/bz1b28kc10438dO25LBItZjCWVBI2LRCFYrYo71zjbYgnG47TyQhieoS24+Xk+zYT8Fp7JjKRMvJxCI9SvYxz1MZsKm7av9H0="
+}

@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="tips-row">
+    <text class="loading-icon">💡</text>
+    <view class="tips-box">
+      <text class="tips-text {{tipAnimation}}">{{currentTip}}</text>
+    </view>
+  </view>
+</view>

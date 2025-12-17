@@ -1,0 +1,28 @@
+<!-- components/gauge/gauge.wxml -->
+<view class="gauge-card">
+
+  <!-- Canvas 区域 -->
+  <!-- 修改：width: 100% 让它撑满 gauge-card，JS 会测量这个宽度 -->
+  <view class="canvas-wrapper"
+    style="width: 100%; height: {{canvasSize / 2}}px; position: relative;">
+    <block wx:if="{{canvasId}}">
+      <canvas canvas-id="{{canvasId}}"
+        class="gauge-canvas"
+        style="width: {{canvasSize}}px; height: {{canvasSize / 2}}px;" />
+    </block>
+
+    <!-- 中心显示值 (40) -->
+    <view class="gauge-value-container">
+      <text class="gauge-value"
+        style="color: {{valueColor}};">{{displayValue}}</text>
+    </view>
+  </view>
+
+  <!-- 刻度数字行 (0 和 100) -->
+  <!-- 修改：width: 100% 确保数字对齐到最左和最右 -->
+  <view class="gauge-scale-row"
+    style="width: 100%; display: flex; justify-content: space-between; margin-top: 10rpx; padding: 0 10rpx; box-sizing: border-box;">
+    <text style="font-size: 24rpx; color: #9CA3AF;">0</text>
+    <text style="font-size: 24rpx; color: #9CA3AF;">{{maxValue}}</text>
+  </view>
+</view>

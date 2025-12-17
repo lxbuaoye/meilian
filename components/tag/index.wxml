@@ -1,0 +1,4 @@
+<view style=" background: #F7FAFE;  border-radius: 5rpx; width: 145rpx; height: 40rpx; justify-content: center; display: flex; align-items: center; margin: 10rpx 10rpx; box-sizing: content-box;">
+  <text style="color: #C5C8CB; font-size: 22rpx; line-height: 30rpx; padding: 5rpx 10rpx;">{{text}}
+  </text>
+</view>

@@ -1,0 +1,17 @@
+<t-sticky offset-top="{{ 0 }}">
+  <view style="display: flex; flex:1; align-items: center; height: 45rpx; justify-content: center; ">
+    <view style="height: 30rpx; width: 100%;position: absolute; top: 30rpx; left: 15rpx; z-index: 200;display: flex; "
+      bind:tap="goBack"
+      wx:if="{{enableGoBack}}"
+      hover-class="action-tile-hover">
+      <t-icon name="rollback"
+        size="15rpx" />
+      <text style="margin-left: 5rpx;font-size: 12rpx;color: #1C2023;">返回</text>
+    </view>
+    <image src="{{banner}}"
+      style="height: 45rpx; width: 100%; position: absolute; top: 0; left: 0;"></image>
+    <image src="/resources/logo.png"
+      style="height: 22rpx; width: 150rpx; z-index: 100;"
+      mode="scaleToFill"></image>
+  </view>
+</t-sticky>

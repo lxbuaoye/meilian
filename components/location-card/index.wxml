@@ -1,0 +1,21 @@
+<view style="margin: 20rpx 0; border: 1px solid #E3E4E5; border-radius: 20rpx; ">
+  <view style="padding: 30rpx; display: flex;flex-direction: column; justify-content: space-between; height: 180rpx;">
+    <text class="title">数码彩 顺德（总部）
+    </text>
+
+    <view style="display: flex; align-items: center;">
+      <t-icon name="pin"
+        size="30rpx" />
+      <text class="address">河南省三门峡市渑池县华佗街233号
+      </text>
+    </view>
+
+    <view style="display: flex; align-items: center;"
+      bind:tap="makePhoneCall">
+      <t-icon name="call"
+        size="30rpx" />
+      <text class="phone-number">871-24879148
+      </text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,83 @@
+<view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;"
+  wx:if="{{pageLoading}}">
+  <t-loading theme="circular"
+    size="40rpx"
+    text="加载中..."
+    inherit-color />
+</view>
+<view wx:if="{{!pageLoading}}">
+  <view style="padding: 40rpx 24rpx 0 24rpx; display: flex; flex-direction: column; background-color: white;">
+    <image src="{{coverImage}}"
+      style="height: 550rpx; width: 100%; border-radius: 24rpx;"></image>
+
+    <text style="font-weight: 700;font-size: 34rpx;color: #1C2023; margin-top: 30rpx;"> {{title}}</text>
+    <text style="margin-top: 20rpx;font-size: 24rpx;">案例产品</text>
+    <scroll-view scroll-x
+      enable-flex
+      style="display: flex; margin-top: 20rpx;height: 170rpx;">
+      <view wx:for="{{relatedProducts}}"
+        wx:key="index"
+        style="display: flex; flex-direction: column;margin-right: 20rpx; align-items: center; "
+        data-index="{{index}}"
+        bind:tap="popupOverlay"
+        hover-class="action-tile-hover">
+        <image src="{{item.imageUrl}}"
+          mode="aspectFit"
+          style="height: 100rpx; width: 100rpx; border: 1px solid #E3E4E5;border-radius: 10px;"></image>
+        <text style="margin-top:10rpx;font-size: 20rpx;color: #1C2023; white-space: nowrap; text-overflow: ellipsis; max-width: 120rpx; overflow: hidden;">{{item.title}}</text>
+      </view>
+    </scroll-view>
+
+
+
+  </view>
+
+  <view style="margin-top:20rpx; padding: 0 24rpx; background-color: white;">
+    <view style="height: 48rpx; width: 100%; display: flex; padding: 30rpx 0 40rpx; align-items: center;">
+      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+        src="/resources/bulletpoint.png"></image>
+      <text style="font-size: 34rpx; font-weight: 700;">案例介绍</text>
+    </view>
+    <text style="font-size: 26rpx; ">{{descriptionText}}</text>
+    <view style="margin-top: 20rpx;">
+      <image wx:for="{{imageUrl}}"
+        wx:key="index"
+        style="width: 100%; border-radius: 4rpx;"
+        mode="aspectFill"
+        data-index="{{index}}"
+        bind:tap="previewImageList"
+        src="{{item}}"></image>
+    </view>
+  </view>
+
+</view>
+<t-overlay visible="{{overlayVisible}}"
+  duration="{{500}}"
+  bind:click="handleOverlayClick"
+  style="display: flex; flex: 1; justify-content: center; align-items: center; flex-direction: column;">
+  <swiper indicator-dots="{{true}}"
+    indicator-color="rgba(255,255 ,255, .6)"
+    indicator-active-color="var(--theme-color)"
+    autoplay="{{false}}"
+    current="{{swiperIndex}}"
+    style="height: 828rpx; width: 100%;">
+    <block wx:for="{{relatedProducts}}"
+      wx:key="index">
+      <swiper-item>
+        <view class="swiper-item">
+          <image src="{{item.imageUrl}}"
+            mode="aspectFit"
+            style="height: 650rpx; width:100%;"></image>
+          <view style="display: flex; justify-content: center; align-items: center; flex:1"
+            bind:tap="navigateToProductDetail"
+            data-product-id="{{item.productId}}">
+            <text style="font-weight: 700;font-size: 34rpx;color: #1C2023; "> {{item.title}}</text>
+            <t-icon name="link-1"
+              style="margin-left: 10rpx;"
+              size="34rpx" />
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</t-overlay>
