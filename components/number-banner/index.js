@@ -9,14 +9,32 @@ Component({
    * 组件的初始数据
    */
   data: {
-    options: {
-      during: 1, // (number) 动画时间
-      height: 40, // (number) 滚动行高 px
-      width: '100%', // (string) 组件整体宽度
-      ease: 'cubic-bezier(0, 1, 0, 1)', // (string) 动画过渡效果
-      color: '#FF5837', // (string) 字体颜色
-      columnStyle: '', // (string) 字体单元 覆盖样式
-    },
+    list: [
+      {
+        number: '20+',
+        text: '20多年历史',
+      },
+      {
+        number: '30万',
+        text: '满负荷生产(吨)',
+      },
+      {
+        number: '260+',
+        text: '专利数',
+      },
+      {
+        number: '3000+',
+        text: '建筑项目',
+      },
+      {
+        number: '亿+',
+        text: '涂刷面积',
+      },
+      {
+        number: '20万+',
+        text: '家庭服务',
+      },
+    ],
   },
 
   /**

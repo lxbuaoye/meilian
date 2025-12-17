@@ -4,9 +4,8 @@
     "app-pages/home/home",
     "pages/aboutus/index",
     "pages/product/index",
-    "pages/showcase/index",
+    "pages/showcase-list/index",
     "pages/location/index",
-    "pages/showcase-detail/index",
     "pages/product-detail/index",
     "pages/news-detail/index",
     "pages/contactus/index",
@@ -60,10 +59,6 @@
         {
           "pagePath": "pages/product/index",
           "text": "产品"
-        },
-        {
-          "pagePath": "pages/showcase/index",
-          "text": "案例"
         },
         {
           "pagePath": "pages/aboutus/index",
