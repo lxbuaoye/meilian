@@ -1,31 +1,53 @@
 <view class="page">
-  <view class="top-bar"></view>
-
-  <scroll-view scroll-y class="body" enable-back-to-top>
-    <view class="hero-wrap">
-      <image class="hero-img" src="{{heroImage}}" mode="widthFix" data-index="0" bind:tap="previewImage" />
-    </view>
-
-    <view class="info-section">
-      <view class="price-row">
-        <text class="price-symbol">{{currency}}</text>
-        <text class="price-text">{{displayPrice}}</text>
-        <text class="price-unit" wx:if="{{unitText}}">{{unitText}}</text>
+  <view class="custom-nav-bar">
+    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content">
+      <image class="nav-back"
+        src="/image/2.1.3 电子色卡·详情·案例详情·产品 1素材/返回@2x.png"
+        mode="aspectFit"
+        bind:tap="handleBack" />
+      <text class="nav-title">产品详情</text>
+      <view class="nav-right-icons">
+        <text class="nav-icon-more" bind:tap="handleMore">⋯</text>
+        <text class="nav-icon-target" bind:tap="handleShare">◎</text>
       </view>
-      <view class="product-title">{{title}}</view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="body" enable-back-to-top style="padding-top: {{navBarHeight}}px;">
+    <view class="product-image-section">
+      <image class="product-image"
+        src="{{heroImage}}"
+        mode="widthFix"
+        data-index="0"
+        bind:tap="previewImage"
+        lazy-load="{{false}}"
+        binderror="onImageError" />
     </view>
 
-    <view class="tag-section">
-      <scroll-view class="tag-scroll" scroll-x enable-flex>
+    <view class="product-info-section">
+      <view class="price-section">
+        <view class="price-row">
+          <text class="price-symbol">{{currency}}</text>
+          <text class="price-text">{{displayPrice}}</text>
+          <text class="price-unit" wx:if="{{unitText}}">{{unitText}}</text>
+        </view>
+      </view>
+
+      <view class="product-title-section">
+        <text class="product-title">{{title}}</text>
+      </view>
+
+      <view class="tag-section">
         <view class="tag-row">
           <view wx:for="{{tags}}" wx:key="index" class="tag-item">{{item}}</view>
         </view>
-      </scroll-view>
+      </view>
     </view>
 
-    <view class="tag-divider"></view>
+    <view class="divider-line"></view>
 
-    <view class="detail-card">
+    <view class="detail-section">
       <view class="detail-header">
         <view class="detail-bullet"></view>
         <text class="detail-title">产品详情</text>
@@ -33,13 +55,12 @@
       <view class="detail-item">
         <text class="detail-label">产品名称</text>
         <text class="detail-value">{{detailName}}</text>
-  </view>
-      <view class="detail-divider"></view>
+      </view>
       <view class="detail-item">
         <text class="detail-label">产品编号</text>
         <text class="detail-value">{{detailCode}}</text>
-  </view>
-</view>
+      </view>
+    </view>
 
     <view class="bottom-gap"></view>
   </scroll-view>

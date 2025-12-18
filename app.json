@@ -6,6 +6,7 @@
     "pages/product-detail/index",
     "pages/ai/profile/index",
     "pages/area-ai/color-change/index",
+    "pages/area-ai/color-change/result",
     "pages/color-detail/index",
     "pages/color-card/index",
     "pages/showcase-detail/index",

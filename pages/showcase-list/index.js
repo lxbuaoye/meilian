@@ -98,6 +98,13 @@ Page({
       delta: 1,
     });
   },
+
+  onShowcaseClick(e) {
+    const id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: `/pages/showcase-detail/index?id=${id}`,
+    });
+  },
 });
 
 

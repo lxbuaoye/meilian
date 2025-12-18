@@ -23,7 +23,7 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/ai/profile/index",
+          "name": "pages/area-ai/color-change/index",
           "pathName": "pages/area-ai/color-change/index",
           "query": "",
           "scene": null,
@@ -34,9 +34,9 @@
           }
         },
         {
-          "name": "pages/location/index",
-          "pathName": "pages/location/index",
-          "query": "",
+          "name": "pages/color-detail/index",
+          "pathName": "pages/color-detail/index",
+          "query": "name=MK8401%25E5%258A%25A0%25E4%25BB%2595%25E7%25BA%25A2&code=MK8401",
           "launchMode": "default",
           "scene": null
         },
@@ -48,22 +48,11 @@
           "scene": null
         },
         {
-          "name": "pages/showcase-detail/index",
-          "pathName": "pages/color-detail/index",
+          "name": "pages/showcase-list/index",
+          "pathName": "pages/showcase-list/index",
           "query": "",
           "launchMode": "default",
           "scene": null
-        },
-        {
-          "name": "pages/area-ai/color-change/index",
-          "pathName": "pages/showcase-detail/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null,
-          "partialCompile": {
-            "enabled": true,
-            "pages": []
-          }
         }
       ]
     }

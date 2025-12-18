@@ -7,5 +7,5 @@
     "tag": "/components/tag/index",
     "price": "/components/price/index"
   },
-  "navigationBarTitleText": "产品详情"
+  "navigationStyle": "custom"
 }

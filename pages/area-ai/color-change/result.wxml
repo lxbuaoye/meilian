@@ -1,0 +1,53 @@
+<view class="page">
+  <!-- 背景页面 - 可以透视看到 -->
+  <view class="background-page">
+    <!-- 这里可以嵌套显示 color-change/index 页面的内容，或者使用背景图片 -->
+    <image class="result-image" src="/image/2.2 电子色卡·AI 换色·结果素材/pic@2x.png" mode="aspectFill" />
+  </view>
+
+  <!-- 顶部导航栏 - 镂空组件1 -->
+  <view class="top-overlay">
+    <view class="nav-bar-overlay">
+      <view class="nav-left" bindtap="onBackTap">
+        <image class="nav-back-icon" src="/image/2.2 电子色卡·AI 换色·结果素材/返回@2x.png" mode="aspectFit" />
+      </view>
+      <view class="nav-right">
+        <text class="nav-dot" bindtap="onMoreTap">⋯</text>
+        <view class="nav-circle" bindtap="onShareTap"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部产品信息模态框 - 镂空组件2 -->
+  <view class="bottom-modal">
+    <view class="modal-header">
+      <image class="modal-icon" src="/image/2.2 电子色卡·AI 换色·结果素材/icon-40px@2x.png" mode="aspectFit" />
+      <text class="modal-title">产品信息</text>
+    </view>
+    
+    <view class="modal-content">
+      <view class="product-craft">
+        <text class="craft-label">产品工艺:</text>
+        <text class="craft-value">{{craft}}</text>
+      </view>
+      
+      <view class="products-used">
+        <text class="products-label">使用产品:</text>
+        <view class="products-list">
+          <view class="product-bucket-item" wx:for="{{products}}" wx:key="index">
+            <view class="bucket-icon">
+              <view class="bucket-rim"></view>
+              <view class="bucket-body"></view>
+            </view>
+            <text class="product-bucket-name">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <button class="download-button" bindtap="onDownloadTap">直接下载</button>
+    </view>
+  </view>
+</view>
+

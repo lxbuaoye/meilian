@@ -1,5 +1,5 @@
 <view class="page">
-  <!-- 自定义导航栏（从 showcase-detail 复制样式结构） -->
+  <!-- 自定义导航栏 -->
   <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
@@ -12,15 +12,15 @@
     </view>
   </view>
 
-  <view class="content">
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
     <!-- 顶部色卡卡片 -->
     <view class="card color-card">
       <image class="color-image"
-        src="/image/2.1.1 电子色卡·详情.png"
+        src="/image/2.1 电子色卡·电子色卡素材/MK8401加仕红@2x.png"
         mode="aspectFill" />
 
       <view class="color-info">
-        <text class="color-name">MK8401加仕红</text>
+        <text class="color-name">{{colorName}}</text>
         <view class="color-actions">
           <button class="icon-button" hover-class="icon-button--active" bindtap="handleDownload">
             <image class="icon-image" src="/image/2.1.1 电子色卡·详情素材/下载@2x.png" mode="aspectFit" />
@@ -48,7 +48,7 @@
         </view>
       </view>
     </view>
-  </view>
+  </scroll-view>
 </view>
 
 

@@ -6,10 +6,6 @@
         <image class="nav-back-icon" src="/image/2.2电子色卡.AI 换色素材/返回@2x.png" mode="aspectFit" />
       </view>
       <view class="nav-title">AI 换色</view>
-      <view class="nav-right">
-        <view class="nav-dot">···</view>
-        <view class="nav-circle"></view>
-      </view>
     </view>
   </view>
 

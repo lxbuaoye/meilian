@@ -1,24 +1,54 @@
 <view class="showcase-list-page">
-  <!-- 自定义导航栏（含状态栏+标题栏，高度 176rpx；标题区域 88rpx） -->
-  <view style="width: 750rpx; height: 176rpx; background: #FFFFFF; position: relative;">
-    <!-- 标题行：贴近底部，高度 88rpx，文字垂直居中 -->
-    <view style="position: absolute; left: 0; right: 0; bottom: 0; height: 88rpx; display: flex; align-items: center; justify-content: center;">
-      <!-- 返回按钮，和文字同一垂直中线 -->
-      <view style="position: absolute; left: 24rpx; display: flex; align-items: center; justify-content: center;" bind:tap="onBack">
-        <image src="/resources/icon-40px.png" style="width: 40rpx; height: 40rpx;" mode="aspectFit"></image>
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="onBack">
+        <image src="/image/1.1 index·案例列表素材/返回@2x.png" class="back-icon" mode="aspectFit"></image>
       </view>
-      <text style="width: 144rpx; height: 50rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 36rpx; color: #1C2023; letter-spacing: 0; text-align: center;position: relative;bottom: 44rpx;">
-        案例列表
-      </text>
+      <text class="nav-title">案例列表</text>
     </view>
   </view>
-  <t-tabs defaultValue="{{0}}" t-class="custom-tabs" class="tab" wx:for-index="categoryIndex" wx:key="categoryIndex" bind:change="onTabsChange" t-class-content="custom-panel">
+
+  <!-- Tabs -->
+  <t-tabs defaultValue="{{0}}" t-class="custom-tabs" class="tab" bind:change="onTabsChange" t-class-content="custom-panel">
     <t-tab-panel wx:for="{{categoryList}}" wx:key="index" label="{{item}}" value="{{index}}">
-      <view style="margin: 30rpx 20rpx 0 20rpx; display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
-        <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
-        <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;"></view>
-        <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx;">
+      <view class="showcase-list">
+        <!-- 案例卡片 1 -->
+        <view class="showcase-card" bindtap="onShowcaseClick" data-id="1">
+          <image src="/image/1.1 index·案例列表素材/pic@2x.png" class="showcase-image" mode="aspectFill"></image>
+          <view class="showcase-overlay">
+            <text class="showcase-title">美联涂料案例-绿洲中环中心</text>
+          </view>
         </view>
+
+        <!-- 案例卡片 2 -->
+        <view class="showcase-item" bindtap="onShowcaseClick" data-id="2">
+          <view class="showcase-card">
+            <image src="/image/1.1 index·案例列表素材/pic@2x(1).png" class="showcase-image" mode="aspectFill"></image>
+            <view class="showcase-overlay">
+              <text class="showcase-title">深圳佳兆业悦峰花园</text>
+            </view>
+          </view>
+          <view class="showcase-tags">
+            <text class="tag">内墙案例</text>
+            <text class="tag">工厂翻新</text>
+          </view>
+        </view>
+
+        <!-- 案例卡片 3 -->
+        <view class="showcase-item" bindtap="onShowcaseClick" data-id="3">
+          <view class="showcase-card">
+            <image src="/image/1.1 index·案例列表素材/pic@2x(2).png" class="showcase-image" mode="aspectFill"></image>
+            <view class="showcase-overlay">
+              <text class="showcase-title">阳东碧桂园</text>
+            </view>
+          </view>
+          <view class="showcase-tags">
+            <text class="tag">内墙案例</text>
+            <text class="tag">工厂翻新</text>
+          </view>
+        </view>
+
       </view>
     </t-tab-panel>
   </t-tabs>
