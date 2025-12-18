@@ -1,0 +1,7 @@
+<view class="mall-page">
+  <view style="padding: 40rpx; text-align: center; color: #8F969C;">
+    <text style="font-size: 28rpx;">美联商城</text>
+    <text style="display: block; margin-top: 20rpx; font-size: 24rpx;">功能开发中...</text>
+  </view>
+</view>
+

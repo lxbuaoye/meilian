@@ -45,7 +45,8 @@
         wx:for="{{filteredCards}}"
         wx:key="code"
         bindtap="openDetail"
-        data-name="{{item.name}}">
+        data-name="{{item.name}}"
+        data-code="{{item.code}}">
         <image class="grid-img" src="{{item.img}}" mode="aspectFill" />
         <text class="grid-text">{{item.name}}</text>
       </view>

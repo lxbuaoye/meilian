@@ -176,6 +176,19 @@ Page({
       url: `/pages/product-detail/index?productId=${e.currentTarget.dataset.productId}`,
     });
   },
+  
+  // 从使用产品列表直接跳转到产品详情
+  navigateToProductDetailFromList(e) {
+    const productId = e.currentTarget.dataset.productId;
+    if (productId) {
+      wx.navigateTo({
+        url: `/pages/product-detail/index?productId=${productId}`,
+      });
+    } else {
+      // 如果没有 productId，可以打开 overlay 显示详情
+      this.popupOverlay(e);
+    }
+  },
   handleBack() {
     wx.navigateBack({
       delta: 1,

@@ -63,9 +63,9 @@ Page({
 
   handleCaseTap(e) {
     const { id } = e.currentTarget.dataset;
-    console.log('tap case', id);
-    // 可跳转到对应案例详情页
-    // wx.navigateTo({ url: `/pages/showcase-detail/index?id=${id}` });
+    wx.navigateTo({
+      url: `/pages/showcase-detail/index?id=${id}`,
+    });
   },
 
   onShareAppMessage() {

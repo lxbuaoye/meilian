@@ -22,8 +22,8 @@ Component({
       value: 0,
     },
     date: {
-      type: Date,
-      value: [],
+      type: String,
+      value: '',
     },
   },
 

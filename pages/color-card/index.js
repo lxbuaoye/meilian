@@ -85,8 +85,9 @@ Page({
 
   openDetail(e) {
     const name = e.currentTarget.dataset.name || '';
+    const code = e.currentTarget.dataset.code || '';
     wx.navigateTo({
-      url: `/pages/color-detail/index?name=${encodeURIComponent(name)}`,
+      url: `/pages/color-detail/index?name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}`,
     });
   },
 });

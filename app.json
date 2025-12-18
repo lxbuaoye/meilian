@@ -5,11 +5,12 @@
     "pages/location/index",
     "pages/product-detail/index",
     "pages/ai/profile/index",
-    "pages/area-ai/index",
     "pages/area-ai/color-change/index",
     "pages/color-detail/index",
     "pages/color-card/index",
-    "pages/showcase-detail/index"
+    "pages/showcase-detail/index",
+    "pages/product/index",
+    "pages/mall/index"
   ],
   "subPackages": [
     {
@@ -25,7 +26,7 @@
     "tabBar": {
       "custom": true,
       "color": "#666666",
-      "selectedColor": "#F8C301",
+      "selectedColor": "#2E3FA8",
       "backgroundColor": "#ffffff",
       "borderStyle": "black",
       "list": [
@@ -34,12 +35,16 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/color-card/index",
+          "pagePath": "pages/product/index",
           "text": "电子色卡"
         },
         {
           "pagePath": "pages/location/index",
           "text": "预约到店"
+        },
+        {
+          "pagePath": "pages/mall/index",
+          "text": "美联商城"
         },
         {
           "pagePath": "pages/ai/profile/index",
@@ -52,7 +57,7 @@
     "tabBar": {
       "custom": true,
       "color": "#666666",
-      "selectedColor": "#F8C301",
+      "selectedColor": "#2E3FA8",
       "backgroundColor": "#ffffff",
       "borderStyle": "black",
       "list": [
@@ -61,12 +66,16 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/color-card/index",
+          "pagePath": "pages/product/index",
           "text": "电子色卡"
         },
         {
           "pagePath": "pages/location/index",
           "text": "预约到店"
+        },
+        {
+          "pagePath": "pages/mall/index",
+          "text": "美联商城"
         },
         {
           "pagePath": "pages/ai/profile/index",
@@ -79,7 +88,7 @@
     "tabBar": {
       "custom": true,
       "color": "#666666",
-      "selectedColor": "#F8C301",
+      "selectedColor": "#2E3FA8",
       "backgroundColor": "#ffffff",
       "borderStyle": "black",
       "list": [
@@ -88,12 +97,16 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/color-card/index",
+          "pagePath": "pages/product/index",
           "text": "电子色卡"
         },
         {
           "pagePath": "pages/location/index",
           "text": "预约到店"
+        },
+        {
+          "pagePath": "pages/mall/index",
+          "text": "美联商城"
         },
         {
           "pagePath": "pages/ai/profile/index",

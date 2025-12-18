@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
       isHyaline: true,
     });
     const result2 = await cloud.uploadFile({
-      cloudPath: `resources/portrait-ai/qrcode/${event.reportId}.png`, // 自定义云存储路径和文件名
+      cloudPath: `resources/diagnosis-ai/qrcode/${event.reportId}.png`, // 自定义云存储路径和文件名
       fileContent: result.buffer, // 直接上传Buffer数据
     });
     return {

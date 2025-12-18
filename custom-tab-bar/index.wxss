@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-top: 15rpx; /* 其他 icon 距离顶部 15rpx */
 }
 
 .tab-bar-container {
@@ -19,12 +21,31 @@
   /* background-color: #f0f0f0; */ /* 调试背景色 */
 }
 
-.custom-tab-bar-wrapper .text {
-  /* #if MP */
+/* 普通按钮图标样式 */
+.tab-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+/* 普通按钮文字样式 */
+.tab-text {
+  height: 28rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
   font-size: 20rpx;
-  /* #elif IOS || ANDROID*/
-  font-size: 10rpx;
-  /* #endif */
+  color: #C5C8CB;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 4rpx;
+  line-height: 28rpx;
+  white-space: nowrap; /* 不换行 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 选中状态的文字样式 */
+.tab-text.active {
+  color: #2E3FA8;
 }
 
 .tab-bar {
@@ -37,5 +58,18 @@
   margin-right: auto;
   --td-tab-bar-bg-color: transparent;
   /* #endif */
-  --td-tab-bar-active-color: #f8c301;
+  --td-tab-bar-active-color: #2E3FA8;
+}
+
+/* 特殊按钮样式：预约到店（中间按钮） */
+.special-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 11rpx; /* 预约到店按钮距离顶部 11rpx */
+}
+
+.special-button-image {
+  width: 98rpx;
+  height: 98rpx;
 }

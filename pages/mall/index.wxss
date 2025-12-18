@@ -1,0 +1,5 @@
+.mall-page {
+  min-height: 100vh;
+  background-color: #F7FAFE;
+}
+

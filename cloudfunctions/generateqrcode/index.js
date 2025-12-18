@@ -9,8 +9,8 @@ exports.main = async (event, context) => {
   console.log(event);
   try {
     const result = await cloud.openapi.wxacode.get({
-      // path: `pages/portrait-ai/index`,
-      path: `pages/portrait-ai/index?reportId=${event.reportId}`,
+      // path: `pages/portrait-ai/index`, // 页面已删除
+      path: `pages/diagnosis-ai/index?reportId=${event.reportId}`, // 使用 diagnosis-ai 页面替代
       envVersion: event.envVersion ? event.envVersion : 'release',
       autoColor: false,
       lineColor: {
@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
       isHyaline: true,
     });
     const result2 = await cloud.uploadFile({
-      cloudPath: `resources/portrait-ai/qrcode/${event.reportId}.png`, // 自定义云存储路径和文件名
+      cloudPath: `resources/diagnosis-ai/qrcode/${event.reportId}.png`, // 自定义云存储路径和文件名
       fileContent: result.buffer, // 直接上传Buffer数据
     });
     return {

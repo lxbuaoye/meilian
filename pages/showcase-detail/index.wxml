@@ -41,7 +41,8 @@
           wx:key="index"
           class="product-item"
           data-index="{{index}}"
-          bind:tap="popupOverlay"
+          data-product-id="{{item.productId}}"
+          bind:tap="navigateToProductDetailFromList"
           hover-class="product-item--hover">
           <image class="product-icon"
             src="/image/2.1.2 电子色卡·详情·案例详情素材/案例产品 @2x.png"
