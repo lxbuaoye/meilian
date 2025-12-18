@@ -9,26 +9,39 @@ try {
 
 const { CLOUD_STROAGE_PATH } = getApp().globalData || { CLOUD_STROAGE_PATH: '' };
 const fakeData = {
-  coverImage: '',
-  title: '美联涂料案例—绿洲中环中心',
+  coverImage: '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x(1).png',
+  heroImage: '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x(1).png',
+  title: '美联涂料案例–绿洲中环中心',
   projectAddress: '上海普陀',
+  descriptionText: '【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。',
+  detailTextImage: '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x.png',
   relatedProducts: [
     {
-      imageUrl: '',
+      imageUrl: '/image/2.1.2 电子色卡·详情·案例详情素材/pic1@2x.png',
       title: 'M3001哑...',
+      productId: 'M3001',
     },
     {
-      imageUrl: '',
+      imageUrl: '/image/2.1.2 电子色卡·详情·案例详情素材/pic1@2x.png',
       title: 'M601拉...',
+      productId: 'M601',
     },
     {
-      imageUrl: '',
+      imageUrl: '/image/2.1.2 电子色卡·详情·案例详情素材/pic1@2x.png',
       title: '油性底漆',
+      productId: 'oil-primer',
     },
     {
-      imageUrl: '',
+      imageUrl: '/image/2.1.2 电子色卡·详情·案例详情素材/pic1@2x.png',
       title: '内墙漆',
+      productId: 'interior-paint',
     },
+  ],
+  imageUrl: [
+    '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x.png',
+    '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x(1).png',
+    '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x.png',
+    '/image/2.1.2 电子色卡·详情·案例详情素材/pic@2x(1).png',
   ],
 };
 
@@ -42,17 +55,25 @@ Page({
     pageLoading: false,
     overlayVisible: false,
     showcaseImage: '',
+    heroImage: '',
+    detailTextImage: '',
     statusBarHeight: 0,
+    navBarHeight: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 获取状态栏高度
+    // 获取状态栏高度和导航栏总高度
     const systemInfo = wx.getSystemInfoSync();
+    const statusBarHeight = systemInfo.statusBarHeight || 0;
+    // 导航内容高度 100rpx 转换为 px
+    const navContentHeight = (100 / 750) * systemInfo.windowWidth;
+    const navBarHeight = statusBarHeight + navContentHeight;
     this.setData({
-      statusBarHeight: systemInfo.statusBarHeight || 0,
+      statusBarHeight: statusBarHeight,
+      navBarHeight: navBarHeight,
     });
     this.init(options.id);
   },
@@ -64,11 +85,7 @@ Page({
     if (!showcaseId || !db) {
       this.setData({
         ...fakeData,
-        descriptionText: '这里是案例介绍的详细内容，展示了项目的具体信息和特点。',
-        // 使用本地静态图片作为案例展示图，避免 cloud:// 路径在本地环境报错
-        showcaseImage: '/image/2.1.2 电子色卡·详情·案例详情.png',
-        imageUrl: [],
-        imageUrlHiRes: [],
+        imageUrlHiRes: fakeData.imageUrl,
       });
       this.setData({ pageLoading: false });
       return;
@@ -165,6 +182,14 @@ Page({
       });
     }
   },
+  previewDetailTextImage() {
+    if (this.data.detailTextImage) {
+      wx.previewImage({
+        current: this.data.detailTextImage,
+        urls: [this.data.detailTextImage, ...this.data.imageUrl],
+      });
+    }
+  },
 
   handleOverlayClick(e) {
     this.setData({
@@ -185,8 +210,8 @@ Page({
         url: `/pages/product-detail/index?productId=${productId}`,
       });
     } else {
-      // 如果没有 productId，可以打开 overlay 显示详情
-      this.popupOverlay(e);
+      // 如果没有 productId，不执行任何操作
+      console.warn('产品ID不存在，无法跳转到产品详情页');
     }
   },
   handleBack() {

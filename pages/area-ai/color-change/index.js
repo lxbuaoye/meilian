@@ -62,12 +62,25 @@ Page({
   },
 
   onGenerateTap() {
-    wx.showToast({
-      title: 'AI生成中',
-      icon: 'none'
+    wx.showLoading({
+      title: 'AI生成中...',
+      mask: true
     });
+    
+    // 模拟AI生成过程
+    setTimeout(() => {
+      wx.hideLoading();
+      // 跳转到结果页面，传递产品数据和工艺数据
+      const products = JSON.stringify(this.data.products);
+      const selectedCraft = this.data.crafts[this.data.currentCraftIndex]?.name || '新中式, 外墙';
+      wx.navigateTo({
+        url: `/pages/area-ai/color-change/result?products=${encodeURIComponent(products)}&craft=${encodeURIComponent(selectedCraft)}`
+      });
+    }, 1500);
   }
 });
+
+
 
 
 

@@ -52,8 +52,9 @@ page {
 .content {
   background: #f6f9fe;
   padding: 24rpx 24rpx 40rpx;
-  padding-top: calc(100rpx + env(safe-area-inset-top));
+  padding-top: 0; /* 由 JS 动态设置 */
   box-sizing: border-box;
+  height: 100vh;
 }
 
 .card {
@@ -64,13 +65,22 @@ page {
 }
 
 .color-card {
+  width: 702rpx;
+  min-height: 556rpx;
+  padding-top: 40rpx;
   padding-bottom: 24rpx;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .color-image {
-  width: 100%;
-  height: 420rpx;
+  width: 642rpx;
+  height: 390rpx;
   display: block;
+  margin: 0 auto;
+  border-radius: 24rpx;
 }
 
 .color-info {

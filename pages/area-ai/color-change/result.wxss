@@ -1,0 +1,286 @@
+page {
+  background-color: #000000;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 背景页面 - 可以透视看到 */
+.background-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+
+.result-image {
+  width: 650px;
+  height: 975px;
+  border-radius: 20px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 顶部导航栏 - 镂空组件1 */
+.top-overlay {
+  position: fixed;
+  top: calc(50vh - 487.5px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.status-bar {
+  width: 100%;
+  background: transparent;
+  height: 0;
+}
+
+.nav-bar-overlay {
+  height: 88rpx;
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 使用更透明的背景实现镂空透视效果 */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15rpx);
+  -webkit-backdrop-filter: blur(15rpx);
+  border-radius: 20px 20px 0 0;
+  pointer-events: auto;
+}
+
+.nav-left {
+  width: 80rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.nav-back-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.nav-right {
+  width: 120rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24rpx;
+  pointer-events: auto;
+}
+
+.nav-dot {
+  font-size: 40rpx;
+  color: #111827;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.nav-circle {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 2rpx solid #111827;
+  background: transparent;
+}
+
+/* 底部产品信息模态框 - 镂空组件2 */
+.bottom-modal {
+  position: fixed;
+  top: calc(50vh + 487.5px - 480px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 650px;
+  height: 480px;
+  border-radius: 20px;
+  /* 使用更透明的背景实现镂空透视效果，可以看到后面的图片 */
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  padding: 32rpx 24rpx;
+  box-shadow: 0 -4rpx 24rpx rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.modal-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 12rpx;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #111827;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.8);
+}
+
+.modal-content {
+  margin-bottom: 32rpx;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.product-craft {
+  margin-bottom: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.craft-label {
+  font-size: 28rpx;
+  color: #4b5563;
+  margin-right: 8rpx;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.6);
+}
+
+.craft-value {
+  font-size: 28rpx;
+  color: #111827;
+  font-weight: 500;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.6);
+}
+
+.products-used {
+  display: flex;
+  flex-direction: column;
+}
+
+.products-label {
+  font-size: 28rpx;
+  color: #4b5563;
+  margin-bottom: 16rpx;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.6);
+}
+
+.products-list {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.product-bucket-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100rpx;
+}
+
+.bucket-icon {
+  width: 80rpx;
+  height: 80rpx;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8rpx;
+}
+
+.bucket-rim {
+  width: 80rpx;
+  height: 20rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
+  border: 2rpx solid #e4e7ec;
+  box-shadow: inset 0 -4rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.bucket-body {
+  width: 72rpx;
+  height: 60rpx;
+  margin-top: 2rpx;
+  border-radius: 0 0 20rpx 20rpx;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+  border: 2rpx solid #e4e7ec;
+  box-shadow: inset 0 6rpx 10rpx rgba(0, 0, 0, 0.03);
+}
+
+.product-bucket-name {
+  font-size: 20rpx;
+  color: #4b5563;
+  text-align: center;
+  line-height: 1.2;
+  text-shadow: 0 1rpx 2rpx rgba(255, 255, 255, 0.6);
+}
+
+.modal-footer {
+  margin-top: 24rpx;
+}
+
+.download-button {
+  width: 100%;
+  height: 96rpx;
+  line-height: 96rpx;
+  border-radius: 48rpx;
+  background: linear-gradient(180deg, #2e3fa8 0%, #2945d9 100%);
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  box-shadow: 0 4rpx 16rpx rgba(46, 63, 168, 0.3);
+}
+
+.download-button::after {
+  border: none;
+}
+
+/* 镂空效果增强 - 顶部渐变遮罩，中间区域更透明 */
+.top-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%);
+  pointer-events: none;
+}
+
+/* 底部模态框顶部渐变，实现更自然的透视过渡 */
+.bottom-modal::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, 
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 100%);
+  pointer-events: none;
+  border-radius: 20px 20px 0 0;
+}
+

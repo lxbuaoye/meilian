@@ -3,10 +3,10 @@
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
       <image class="nav-back"
-        src="/image/2.1.2 电子色卡·详情·案例详情素材/返回@2x.png"
+        src="/image/2.1.1 电子色卡·详情素材/返回@2x.png"
         mode="aspectFit"
         bind:tap="handleBack" />
-      <text class="nav-title">案例详细</text>
+      <text class="nav-title">案例详情</text>
       <view class="nav-placeholder-right"></view>
     </view>
       </view>
@@ -17,10 +17,10 @@
       inherit-color />
   </view>
 
-  <view wx:if="{{!pageLoading}}" class="content">
+  <view wx:if="{{!pageLoading}}" class="content" style="padding-top: {{navBarHeight}}px;">
     <view class="hero-section" wx:if="{{coverImage}}">
       <image class="hero-image"
-        src="{{showcaseImage || coverImage}}"
+        src="{{heroImage || showcaseImage || coverImage}}"
         mode="aspectFill" />
     </view>
     <view class="hero-section hero-placeholder" wx:else>
@@ -29,7 +29,10 @@
 
     <view class="info-section">
       <text class="case-title">{{title}}</text>
-      <text class="project-address">项目地址: {{projectAddress}}</text>
+      <view class="project-address-row">
+        <text class="project-address-label">项目地址：</text>
+        <text class="project-address-value">{{projectAddress}}</text>
+      </view>
     </view>
 
     <view class="products-section">
@@ -45,7 +48,7 @@
           bind:tap="navigateToProductDetailFromList"
           hover-class="product-item--hover">
           <image class="product-icon"
-            src="/image/2.1.2 电子色卡·详情·案例详情素材/案例产品 @2x.png"
+            src="{{item.imageUrl || '/image/2.1.2 电子色卡·详情·案例详情素材/pic1@2x.png'}}"
             mode="aspectFit" />
           <text class="product-name">{{item.title}}</text>
         </view>
@@ -55,15 +58,12 @@
 
   <view wx:if="{{!pageLoading}}" class="detail-section">
     <view class="detail-header">
-      <view class="detail-bullet"></view>
+      <image class="detail-icon" src="/image/2.1.2 电子色卡·详情·案例详情素材/title@2x.png" mode="aspectFit" />
       <text class="detail-title">案例介绍</text>
     </view>
     <text class="detail-text">{{descriptionText}}</text>
-    <view class="detail-showcase-image" wx:if="{{showcaseImage}}">
-      <image class="showcase-image"
-        src="{{showcaseImage}}"
-        mode="aspectFill"
-        bind:tap="previewShowcaseImage" />
+    <view class="detail-text-image" wx:if="{{detailTextImage}}">
+      <image class="text-image" src="{{detailTextImage}}" mode="aspectFill" bind:tap="previewDetailTextImage" />
     </view>
     <view class="detail-images">
       <image wx:for="{{imageUrl}}"

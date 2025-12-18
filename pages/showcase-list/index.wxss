@@ -1,36 +1,129 @@
 page {
   box-sizing: border-box;
   padding-bottom: calc(env(safe-area-inset-bottom) + 32rpx);
+  background-color: #FFFFFF;
 }
 
+.showcase-list-page {
+  min-height: 100vh;
+}
+
+/* 导航栏 */
+.nav-bar {
+  width: 100%;
+  height: 176rpx;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.nav-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-back {
+  position: absolute;
+  left: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx;
+}
+
+.back-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.nav-title {
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 36rpx;
+  color: #1C2023;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+/* Tabs */
 .tab {
-  /* 未选中样式 */
   --td-tab-item-color: #8F969C;
   --td-tab-item-font-size: 28rpx;
-
-  /* 选中样式 */
   --td-tab-item-active-color: #2E3FA8;
   --td-tab-item-active-font-weight: 700;
-  --td-tab-item-active-font-size:30rpx;
-
-  /* 下划线样式 */
+  --td-tab-item-active-font-size: 30rpx;
   --td-tab-track-color: #2E3FA8;
   --td-tab-track-height: 6rpx;
   --td-tab-track-radius: 3rpx;
 }
 
+/* 案例列表 */
+.showcase-list {
+  padding: 30rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* 案例卡片 */
+.showcase-card {
+  position: relative;
+  width: 100%;
+  height: 300rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.showcase-image {
+  width: 100%;
+  height: 100%;
+}
+
+.showcase-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30rpx;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.showcase-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.showcase-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.showcase-tags {
+  display: flex;
+  gap: 16rpx;
+  padding: 16rpx 0;
+}
+
+.tag {
+  font-size: 24rpx;
+  color: #666666;
+  background-color: #F0F0F0;
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+/* 加载 */
 .loading-container-flex {
-  --td-loading-color: var(--theme-color);
-  --td-loading-text-color: var(--theme-color);
+  --td-loading-color: #2E3FA8;
+  --td-loading-text-color: #2E3FA8;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
-  margin-bottom: 40rpx;
+  padding: 40rpx 0;
 }
-
-.showcase-list-page {
-  padding: 0 0 24rpx 0;
-}
-
-
