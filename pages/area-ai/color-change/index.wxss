@@ -309,4 +309,153 @@ button::after {
   border: none;
 }
 
+/* 生成结果弹窗 */
+.result-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.result-container {
+  width: 700rpx;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.result-close {
+  position: absolute;
+  top: 30rpx;
+  /* container 宽 700rpx，图片宽 650rpx，左右各留 25rpx，此处再加 30rpx 间距贴近图片右侧 */
+  right: 55rpx;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.result-close-icon {
+  width: 40rpx;
+  height: 40rpx;
+  display: block;
+}
+
+.result-image-wrap {
+  width: 650rpx;
+  height: 975rpx;
+  overflow: hidden;
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.result-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
+}
+
+.result-panel {
+  width: 650rpx;
+  height: 480rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.result-panel-inner {
+  width: 100%;
+  height: 100%;
+  padding: 32rpx 32rpx 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-title-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.result-dot {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 12rpx;
+}
+
+.result-title {
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #1C2023;
+  line-height: 44rpx;
+}
+
+.result-text-row {
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 26rpx;
+  color: #5A5F66;
+  line-height: 38rpx;
+  margin-bottom: 12rpx;
+}
+
+.result-products {
+  margin-top: 8rpx;
+  margin-bottom: 24rpx;
+  white-space: nowrap;
+}
+
+.result-product-list {
+  display: flex;
+  align-items: center;
+}
+
+.result-product-item {
+  width: 120rpx;
+  margin-right: 16rpx;
+  text-align: center;
+}
+
+.result-product-icon {
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.result-product-name {
+  margin-top: 8rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #1C2023;
+  line-height: 32rpx;
+  white-space: nowrap; /* 使用产品文字不换行 */
+  text-align: center; /* 在 item 内居中 */
+}
+
+.result-download {
+  margin-top: auto;
+  width: 100%;
+  height: 80rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid #2E3FA8;
+  color: #2E3FA8;
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 76rpx;
+}
+
+.result-download--hover {
+  opacity: 0.9;
+}
+
 

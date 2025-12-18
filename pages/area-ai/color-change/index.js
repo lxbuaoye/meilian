@@ -9,14 +9,24 @@ Page({
       { id: 4, name: '嵌御石' },
       { id: 5, name: '嵌御石' }
     ],
-    selectedProductMap: { 1: true },
+    // 多选：默认都不选中
+    selectedProductMap: {},
     crafts: [
       { id: 1, name: '工艺一' },
       { id: 2, name: '工艺二' },
       { id: 3, name: '工艺三' },
       { id: 4, name: '工艺四' }
     ],
-    selectedCraftMap: { 0: true },
+    // 多选：默认都不选中
+    selectedCraftMap: {},
+    resultVisible: false,
+    resultProducts: [
+      { name: '微岩石' },
+      { name: '峯御石' },
+      { name: '峯御石' },
+      { name: '峯御石' },
+      { name: '峯御石' },
+    ],
   },
 
   onLoad() {
@@ -31,6 +41,12 @@ Page({
     } catch (e) {
       // ignore
     }
+  },
+
+  onShow() {
+    // 再次调用，确保胶囊和分享菜单被隐藏（有些端需在 onShow 调用）
+    wx.hideHomeButton && wx.hideHomeButton();
+    wx.hideShareMenu && wx.hideShareMenu();
   },
 
   onBackTap() {
@@ -62,21 +78,16 @@ Page({
   },
 
   onGenerateTap() {
-    wx.showLoading({
-      title: 'AI生成中...',
-      mask: true
+    // 直接展示结果弹窗
+    this.setData({
+      resultVisible: true,
     });
-    
-    // 模拟AI生成过程
-    setTimeout(() => {
-      wx.hideLoading();
-      // 跳转到结果页面，传递产品数据和工艺数据
-      const products = JSON.stringify(this.data.products);
-      const selectedCraft = this.data.crafts[this.data.currentCraftIndex]?.name || '新中式, 外墙';
-      wx.navigateTo({
-        url: `/pages/area-ai/color-change/result?products=${encodeURIComponent(products)}&craft=${encodeURIComponent(selectedCraft)}`
-      });
-    }, 1500);
+  },
+
+  onCloseResult() {
+    this.setData({
+      resultVisible: false,
+    });
   }
 });
 

@@ -57,4 +57,38 @@
       <text class="primary-button-text">AI生成</text>
     </button>
   </view>
+
+  <!-- 生成结果弹窗 -->
+  <view wx:if="{{resultVisible}}" class="result-mask">
+    <view class="result-container">
+      <!-- 关闭按钮 -->
+      <view class="result-close" bindtap="onCloseResult">
+        <image class="result-close-icon" src="/image/2.2.1电子色卡ai换色结果/错.png" mode="aspectFit" />
+      </view>
+      <!-- 上方大图 -->
+      <view class="result-image-wrap">
+        <image class="result-image" src="/image/2.2.1电子色卡ai换色结果/pic.png" mode="aspectFill" />
+      </view>
+      <!-- 下方白底内容区域 -->
+      <view class="result-panel">
+        <view class="result-panel-inner">
+          <view class="result-title-row">
+            <image class="result-dot" src="/image/2.2.1电子色卡ai换色结果/title.png" mode="aspectFit" />
+            <text class="result-title">产品信息</text>
+          </view>
+          <view class="result-text-row">产品工艺：新中式，外墙</view>
+          <view class="result-text-row">使用产品：</view>
+          <scroll-view class="result-products" scroll-x="true" enable-flex="true">
+            <view class="result-product-list">
+              <view wx:for="{{resultProducts}}" wx:key="index" class="result-product-item">
+                <image class="result-product-icon" src="/image/2.2电子色卡.AI 换色素材/产品.png" mode="aspectFit" />
+                <text class="result-product-name">{{item.name}}</text>
+              </view>
+            </view>
+          </scroll-view>
+          <button class="result-download" hover-class="result-download--hover">直接下载</button>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
