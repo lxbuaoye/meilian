@@ -16,11 +16,9 @@
   <scroll-view class="content" scroll-y="true">
     <!-- 上传图片区域 -->
     <view class="upload-panel">
-      <view class="upload-card">
         <view class="upload-inner" bindtap="onChooseImage">
           <image class="upload-icon" src="/image/2.2电子色卡.AI 换色素材/上传图片@2x.png" mode="aspectFit" />
           <text class="upload-text">拍照/上传图片</text>
-        </view>
       </view>
     </view>
 
@@ -32,24 +30,10 @@
       </view>
       <scroll-view class="product-scroll" scroll-x="true" enable-flex="true">
         <view class="product-list">
-          <view
-            wx:for="{{products}}"
-            wx:key="id"
-            class="product-item {{currentProductIndex === index ? 'product-item--active' : ''}}"
-            bindtap="onSelectProduct"
-            data-index="{{index}}"
-          >
+          <view wx:for="{{products}}" wx:key="id" class="product-item {{selectedProductMap[index] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{index}}">
             <view class="product-image-wrapper">
-              <view class="product-bucket">
-                <view class="bucket-rim"></view>
-                <view class="bucket-body"></view>
-              </view>
-              <image
-                wx:if="{{currentProductIndex === index}}"
-                class="product-check"
-                src="/image/2.2电子色卡.AI 换色素材/选中@2x.png"
-                mode="aspectFit"
-              />
+              <image class="product-image" src="/image/2.2电子色卡.AI 换色素材/产品.png" mode="aspectFill" />
+              <image wx:if="{{selectedProductMap[index]}}" class="product-check" src="/image/2.2电子色卡.AI 换色素材/选中@2x.png" mode="aspectFit" />
             </view>
             <text class="product-name">{{item.name}}</text>
           </view>
@@ -64,13 +48,7 @@
         <text class="section-title">工艺选择</text>
       </view>
       <view class="craft-list">
-        <view
-          wx:for="{{crafts}}"
-          wx:key="id"
-          class="craft-item {{currentCraftIndex === index ? 'craft-item--active' : ''}}"
-          bindtap="onSelectCraft"
-          data-index="{{index}}"
-        >
+        <view wx:for="{{crafts}}" wx:key="id" class="craft-item {{selectedCraftMap[index] ? 'craft-item--active' : ''}}" bindtap="onSelectCraft" data-index="{{index}}">
           <text class="craft-text">{{item.name}}</text>
         </view>
       </view>
@@ -80,9 +58,7 @@
   <!-- 底部按钮 -->
   <view class="footer">
     <button class="primary-button" bindtap="onGenerateTap" hover-class="primary-button--hover">
-      AI生成
+      <text class="primary-button-text">AI生成</text>
     </button>
   </view>
 </view>
-
-

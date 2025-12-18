@@ -70,9 +70,10 @@ page {
 }
 
 .upload-panel {
+  margin-top: 16rpx;
   background-color: #ffffff;
   border-radius: 32rpx;
-  padding: 24rpx;
+  padding: 30rpx;
   box-shadow: 0 8rpx 24rpx rgba(15, 23, 42, 0.04);
 }
 
@@ -87,7 +88,8 @@ page {
   height: 420rpx;
   border-radius: 24rpx;
   background-color: #f9fbff;
-  border: 2rpx dashed #d1d5db;
+  /* 去除虚线边框 */
+  border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,14 +97,21 @@ page {
 }
 
 .upload-icon {
-  width: 120rpx;
-  height: 120rpx;
-  margin-bottom: 24rpx;
+  width: 60rpx;
+  height: 52rpx;
+  margin-bottom: 16rpx;
 }
 
 .upload-text {
+  width: 182rpx;
+  height: 40rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
   font-size: 28rpx;
-  color: #8f969c;
+  color: #8F969C;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 40rpx;
 }
 
 .section {
@@ -112,7 +121,7 @@ page {
 .section-header {
   display: flex;
   align-items: center;
-  margin-bottom: 24rpx;
+  margin-bottom: 30rpx; /* 产品与“产品选择”标题之间间距 30rpx */
 }
 
 .section-dot {
@@ -133,22 +142,31 @@ page {
 
 .product-list {
   display: flex;
+  padding-left: 24rpx; /* 第一个产品左边距 24rpx */
 }
 
 .product-item {
-  width: 128rpx;
-  margin-right: 16rpx;
+  width: 160rpx;
+  margin-right: 20rpx; /* 产品之间间距 20rpx */
+  text-align: center; /* 让下方文字以产品为中心对齐 */
 }
 
 .product-image-wrapper {
   position: relative;
-  width: 128rpx;
-  height: 128rpx;
-  border-radius: 24rpx;
-  background-color: #ffffff;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx; /* 保证边框圆角完整显示 */
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.product-image {
+  width: 120rpx;
+  height: 120rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  box-sizing: border-box; /* 确保加边框后不被容器裁剪 */
 }
 
 .product-bucket {
@@ -182,21 +200,36 @@ page {
 
 .product-check {
   position: absolute;
-  top: -8rpx;
-  left: -8rpx;
-  width: 56rpx;
-  height: 56rpx;
+  top: 0;
+  left: 0;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+/* 选中产品时的边框样式 */
+.product-item--active .product-image {
+  border: 4rpx solid #2E3FA8;
+  border-radius: 20rpx;
 }
 
 .product-name {
-  margin-top: 12rpx;
-  font-size: 22rpx;
-  color: #4b5563;
+  margin-top: 20rpx; /* 上边距 20rpx */
+  min-width: 72rpx;
+  height: 33rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #1C2023;
+  letter-spacing: 0;
   text-align: center;
+  line-height: 33rpx;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
 }
 
 .product-item--active .product-image-wrapper {
-  border: 2rpx solid #2945d9;
+  border: none;
 }
 
 .craft-list {
@@ -206,10 +239,10 @@ page {
 }
 
 .craft-item {
-  min-width: 150rpx;
-  padding: 16rpx 24rpx;
-  border-radius: 28rpx;
-  background-color: #ffffff;
+  width: 160rpx;
+  height: 80rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
   margin-right: 16rpx;
   justify-content: center;
   align-items: center;
@@ -217,8 +250,15 @@ page {
 }
 
 .craft-text {
+  width: 72rpx;
+  height: 33rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
   font-size: 24rpx;
-  color: #4b5563;
+  color: #1C2023;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 33rpx;
 }
 
 .craft-item--active {
@@ -231,24 +271,38 @@ page {
 
 .footer {
   padding: 16rpx 24rpx calc(env(safe-area-inset-bottom) + 32rpx);
-  box-shadow: 0 -4rpx 16rpx rgba(15, 23, 42, 0.08);
+  box-shadow: none; /* 去除上方阴影线条 */
   background-color: #ffffff;
 }
 
 .primary-button {
-  width: 100%;
-  height: 96rpx;
-  line-height: 96rpx;
-  border-radius: 48rpx;
-  background-color: #2945d9;
+  width: 702rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: #2E3FA8;
   color: #ffffff;
-  font-size: 32rpx;
-  font-weight: 600;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .primary-button--hover {
   opacity: 0.9;
+}
+
+.primary-button-text {
+  min-width: 88rpx;
+  height: 42rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 42rpx;
+  white-space: nowrap; /* 不换行 */
+  display: inline-block;
 }
 
 button::after {

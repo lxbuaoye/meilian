@@ -9,14 +9,14 @@ Page({
       { id: 4, name: '嵌御石' },
       { id: 5, name: '嵌御石' }
     ],
-    currentProductIndex: 1,
+    selectedProductMap: { 1: true },
     crafts: [
       { id: 1, name: '工艺一' },
       { id: 2, name: '工艺二' },
       { id: 3, name: '工艺三' },
       { id: 4, name: '工艺四' }
     ],
-    currentCraftIndex: 0
+    selectedCraftMap: { 0: true },
   },
 
   onLoad() {
@@ -48,16 +48,16 @@ Page({
   },
 
   onSelectProduct(e) {
-    const { index } = e.currentTarget.dataset;
+    const index = Number(e.currentTarget.dataset.index);
     this.setData({
-      currentProductIndex: index
+      [`selectedProductMap.${index}`]: !this.data.selectedProductMap?.[index],
     });
   },
 
   onSelectCraft(e) {
-    const { index } = e.currentTarget.dataset;
+    const index = Number(e.currentTarget.dataset.index);
     this.setData({
-      currentCraftIndex: index
+      [`selectedCraftMap.${index}`]: !this.data.selectedCraftMap?.[index],
     });
   },
 

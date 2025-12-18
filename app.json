@@ -10,7 +10,8 @@
     "pages/color-card/index",
     "pages/showcase-detail/index",
     "pages/product/index",
-    "pages/mall/index"
+    "pages/mall/index",
+    "pages/color-change-result"
   ],
   "subPackages": [
     {
