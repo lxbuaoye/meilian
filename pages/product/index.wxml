@@ -10,7 +10,7 @@
         <view style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
           <view>
             <text style="font-family: PingFang-SC-Bold; font-weight: 700; font-size: 36rpx; color: #1C2023; line-height: 50rpx;">{{item.title}}</text>
-          </view>
+  </view>
 
           <view style="margin-top: 0rpx;">
             <text style="font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; line-height: 34rpx;">{{item.subtitle}}</text>

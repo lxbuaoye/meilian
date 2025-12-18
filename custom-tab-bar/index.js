@@ -46,7 +46,7 @@ Component({
       if (item && item.url) {
         const index = this.data.list.indexOf(item);
         this.setData({ active: index });
-        wx.switchTab({
+      wx.switchTab({
           url: item.url.startsWith('/')
             ? item.url
             : `/${item.url}`,
@@ -69,7 +69,7 @@ Component({
           url: item.url.startsWith('/')
             ? item.url
             : `/${item.url}`,
-        });
+      });
       }
     },
 
@@ -85,7 +85,7 @@ Component({
       );
       // 如果找到匹配项，设置为 active；否则保持当前 active（避免占位项被选中）
       if (active !== -1) {
-        this.setData({ active });
+      this.setData({ active });
       }
     },
   },

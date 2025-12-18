@@ -75,13 +75,13 @@ Page({
     }
 
     try {
-      const { data } = await db
-        .collection('showcase')
-        .where({
-          _id: _.eq(showcaseId),
-        })
-        .limit(1)
-        .get();
+    const { data } = await db
+      .collection('showcase')
+      .where({
+        _id: _.eq(showcaseId),
+      })
+      .limit(1)
+      .get();
 
       if (!data || data.length === 0) {
         throw new Error('未找到案例数据');
@@ -91,11 +91,11 @@ Page({
       if (data[0].products && data[0].products.length > 0) {
         try {
           relatedProducts = await db
-            .collection('product')
-            .where({
-              _id: _.in(data[0].products),
-            })
-            .get();
+      .collection('product')
+      .where({
+        _id: _.in(data[0].products),
+      })
+      .get();
         } catch (e) {
           console.warn('获取关联产品失败', e);
         }
@@ -108,27 +108,27 @@ Page({
           ? `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${data[0].images[0]}` 
           : '');
 
-      this.setData({
+    this.setData({
         coverImage: CLOUD_STROAGE_PATH ? `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/cover.jpg` : '',
         title: data[0].title || fakeData.title,
         projectAddress: data[0].address || data[0].projectAddress || fakeData.projectAddress,
-        description: data[0].description,
+      description: data[0].description,
         descriptionText: data[0].descriptionText || '这里是案例介绍的详细内容，展示了项目的具体信息和特点。',
         showcaseImage: showcaseImage,
         imageUrl: data[0].images && CLOUD_STROAGE_PATH ? data[0].images.map((item) => {
-          return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item}`;
+        return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item}`;
         }) : [],
         imageUrlHiRes: data[0].images && CLOUD_STROAGE_PATH ? data[0].images.map((item) => {
-          const index = item.lastIndexOf('.');
-          const extension = item.substring(item.lastIndexOf('.'));
-          return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
+        const index = item.lastIndexOf('.');
+        const extension = item.substring(item.lastIndexOf('.'));
+        return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
         }) : [],
         relatedProducts: relatedProducts.data && relatedProducts.data.length > 0 ? relatedProducts.data.map((item) => {
-          return {
+        return {
             imageUrl: CLOUD_STROAGE_PATH ? `${CLOUD_STROAGE_PATH}/product/${item._id}/cover.jpg` : '',
-            title: item.title,
-            productId: item._id,
-          };
+          title: item.title,
+          productId: item._id,
+        };
         }) : fakeData.relatedProducts,
       });
     } catch (error) {
@@ -140,7 +140,7 @@ Page({
         showcaseImage: '',
         imageUrl: [],
         imageUrlHiRes: [],
-      });
+    });
     }
     
     this.setData({ pageLoading: false });

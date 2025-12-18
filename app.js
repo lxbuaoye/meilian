@@ -17,22 +17,22 @@ App({
   onLaunch: function () {
     // #if MP
     try {
-      wx.cloud.init({
-        // env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
-        env: 'digital-7gwdimnu0a14ab1b',
-        // 是否在将用户访问记录到用户管理中，在控制台中可见，默认为false
-        traceUser: false,
-      });
+    wx.cloud.init({
+      // env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
+      env: 'digital-7gwdimnu0a14ab1b',
+      // 是否在将用户访问记录到用户管理中，在控制台中可见，默认为false
+      traceUser: false,
+    });
     } catch (error) {
       console.warn('云开发初始化失败，请检查云开发环境配置:', error);
       // 云开发环境不存在时，不影响小程序其他功能运行
     }
     // #elif IOS || ANDROID
     try {
-      wx.cloud.init({
-        appid: 'wx422e25222a1fd968', // 创建云开发环境的 AppID（小程序、公众号），不是多端应用 AppID
-        envid: 'digital-7gwdimnu0a14ab1b', // 云开发环境名称
-      });
+    wx.cloud.init({
+      appid: 'wx422e25222a1fd968', // 创建云开发环境的 AppID（小程序、公众号），不是多端应用 AppID
+      envid: 'digital-7gwdimnu0a14ab1b', // 云开发环境名称
+    });
     } catch (error) {
       console.warn('云开发初始化失败，请检查云开发环境配置:', error);
     }

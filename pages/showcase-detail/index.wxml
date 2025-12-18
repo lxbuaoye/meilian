@@ -9,7 +9,7 @@
       <text class="nav-title">案例详细</text>
       <view class="nav-placeholder-right"></view>
     </view>
-  </view>
+      </view>
   <view wx:if="{{pageLoading}}" class="loading-container">
     <t-loading theme="circular"
       size="40rpx"

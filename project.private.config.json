@@ -24,10 +24,14 @@
       "list": [
         {
           "name": "pages/ai/profile/index",
-          "pathName": "pages/ai/profile/index",
+          "pathName": "pages/area-ai/color-change/index",
           "query": "",
           "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "partialCompile": {
+            "enabled": true,
+            "pages": []
+          }
         },
         {
           "name": "pages/location/index",
