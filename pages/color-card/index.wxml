@@ -3,10 +3,7 @@
   <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
-      <image class="nav-back"
-        src="/image/2.1 电子色卡·电子色卡素材/返回@2x.png"
-        mode="aspectFit"
-        bind:tap="handleBack" />
+      <image class="nav-back" src="/image/2.1 电子色卡·电子色卡素材/返回.png" mode="aspectFit" bind:tap="handleBack" />
       <text class="nav-title">电子色卡</text>
       <view class="nav-placeholder-right"></view>
     </view>
@@ -15,12 +12,8 @@
   <view class="content" style="padding-top: {{navBarHeight}}px;">
     <!-- 搜索 -->
     <view class="search-wrap">
-      <image class="search-icon" src="/image/2.1 电子色卡·电子色卡素材/搜索@2x.png" mode="aspectFit" />
-      <input class="search-input"
-        placeholder="请输入色彩编码、名称"
-        placeholder-class="search-placeholder"
-        value="{{keyword}}"
-        bindinput="handleKeywordInput" />
+      <image class="search-icon" src="/image/2.1 电子色卡·电子色卡素材/搜索.png" mode="aspectFit" />
+      <input class="search-input" placeholder="请输入色彩编码、名称" placeholder-class="search-placeholder" value="{{keyword}}" bindinput="handleKeywordInput" />
     </view>
 
     <!-- 一级分类 -->
@@ -32,26 +25,15 @@
 
     <!-- 二级筛选 -->
     <scroll-view class="chips" scroll-x enable-flex>
-      <view class="chip {{activeChip === index ? 'chip--active' : ''}}"
-        wx:for="{{chips}}"
-        wx:key="index"
-        data-index="{{index}}"
-        bindtap="setChip">{{item}}</view>
+      <view class="chip {{activeChip === index ? 'chip--active' : ''}}" wx:for="{{chips}}" wx:key="index" data-index="{{index}}" bindtap="setChip">{{item}}</view>
     </scroll-view>
 
     <!-- 色卡列表 -->
     <view class="grid">
-      <view class="grid-item"
-        wx:for="{{filteredCards}}"
-        wx:key="code"
-        bindtap="openDetail"
-        data-name="{{item.name}}"
-        data-code="{{item.code}}">
+      <view class="grid-item" wx:for="{{filteredCards}}" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}">
         <image class="grid-img" src="{{item.img}}" mode="aspectFill" />
         <text class="grid-text">{{item.name}}</text>
       </view>
     </view>
   </view>
 </view>
-
-

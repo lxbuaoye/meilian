@@ -31,8 +31,8 @@ page {
 }
 
 .nav-back {
-  width: 48rpx;
-  height: 48rpx;
+  width: 40rpx;
+  height: 40rpx;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -10,14 +10,14 @@ Page({
     // 所有色卡数据，包含分类信息
     allCards: [
       // 仿石漆分类的色卡
-      { code: 'MK8401', name: 'MK8401加仕红', img: '/image/2.1 电子色卡·电子色卡素材/MK8401加仕红@2x.png', category: 1 },
-      { code: 'MK8402', name: 'MK8402灰麻石', img: '/image/2.1 电子色卡·电子色卡素材/MK8402灰麻石@2x.png', category: 1 },
-      { code: 'MK8403', name: 'MK8403黄锈石', img: '/image/2.1 电子色卡·电子色卡素材/MK8403黄锈石@2x.png', category: 1 },
-      { code: 'MK8404', name: 'MK8404水晶白麻', img: '/image/2.1 电子色卡·电子色卡素材/MK8404水晶白麻@2x.png', category: 1 },
-      { code: 'MK8405', name: 'MK8405金麻石', img: '/image/2.1 电子色卡·电子色卡素材/MK8405金麻石@2x.png', category: 1 },
-      { code: 'MK8406', name: 'MK8406非洲虾红', img: '/image/2.1 电子色卡·电子色卡素材/MK8406非洲虾红@2x.png', category: 1 },
-      { code: 'MK8407', name: 'MK8407海棠红', img: '/image/2.1 电子色卡·电子色卡素材/MK8407海棠红@2x.png', category: 1 },
-      { code: 'MK8408', name: 'MK8408沙特砖红', img: '/image/2.1 电子色卡·电子色卡素材/MK8408沙特砖红@2x.png', category: 1 },
+      { code: 'MK8401', name: 'MK8401加仕红', img: '/image/2.1 电子色卡·电子色卡素材/MK8401加仕红.png', category: 1 },
+      { code: 'MK8402', name: 'MK8402灰麻石', img: '/image/2.1 电子色卡·电子色卡素材/MK8402灰麻石.png', category: 1 },
+      { code: 'MK8403', name: 'MK8403黄锈石', img: '/image/2.1 电子色卡·电子色卡素材/MK8403黄锈石.png', category: 1 },
+      { code: 'MK8404', name: 'MK8404水晶白麻', img: '/image/2.1 电子色卡·电子色卡素材/MK8404水晶白麻.png', category: 1 },
+      { code: 'MK8405', name: 'MK8405金麻石', img: '/image/2.1 电子色卡·电子色卡素材/MK8405金麻石.png', category: 1 },
+      { code: 'MK8406', name: 'MK8406非洲虾红', img: '/image/2.1 电子色卡·电子色卡素材/MK8406非洲虾红.png', category: 1 },
+      { code: 'MK8407', name: 'MK8407海棠红', img: '/image/2.1 电子色卡·电子色卡素材/MK8407海棠红.png', category: 1 },
+      { code: 'MK8408', name: 'MK8408沙特砖红', img: '/image/2.1 电子色卡·电子色卡素材/MK8408沙特砖红.png', category: 1 },
       // 可以在这里添加其他分类的色卡数据
       // { code: 'XX0001', name: 'XX0001示例', img: '/path/to/image.png', category: 0 }, // 乳胶漆
       // { code: 'XX0002', name: 'XX0002示例', img: '/path/to/image.png', category: 2 }, // 艺术漆

@@ -32,8 +32,8 @@ page {
 }
 
 .nav-back {
-  width: 48rpx;
-  height: 80rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .nav-title {
@@ -61,36 +61,39 @@ page {
 
 /* 搜索 */
 .search-wrap {
-  width: 100%;
-  height: 72rpx;
-  border-radius: 36rpx;
-  background: #f4f6fb;
+  width: 702rpx;
+  height: 70rpx;
+  border-radius: 44rpx;
+  background: #F7FAFE;
   display: flex;
   align-items: center;
-  padding: 0 24rpx;
+  padding: 0 0 0 30rpx;
   margin-top: 20rpx;
   margin-bottom: 0;
   box-sizing: border-box;
 }
 
 .search-icon {
-  width: 32rpx;
-  height: 32rpx;
-  margin-right: 14rpx;
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 20rpx;
   opacity: 0.7;
 }
 
 .search-input {
-  flex: 1;
-  height: 72rpx;
-  line-height: 72rpx;
-  font-size: 28rpx;
-  color: #1c2023;
+  width: 300rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 30rpx;
+  color: #C5C8CB;
+  letter-spacing: 0;
   background: transparent;
 }
 
 .search-placeholder {
-  color: #b8bec7;
+  color: #C5C8CB;
 }
 
 /* 一级 tab */
@@ -156,12 +159,18 @@ page {
   margin-top: 26rpx;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 26rpx 22rpx;
+  gap: 0 20rpx;
+  padding-left: 0;
 }
 
 .grid-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.grid-item:first-child {
+  margin-left: 0;
 }
 
 .grid-img {
@@ -172,9 +181,19 @@ page {
 }
 
 .grid-text {
-  margin-top: 14rpx;
-  font-size: 30rpx;
-  color: #1c2023;
+  width: 223rpx;
+  height: 40rpx;
+  margin-top: 20rpx;
+  margin-bottom: 30rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #1C2023;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 40rpx;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 

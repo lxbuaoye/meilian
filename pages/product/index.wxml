@@ -1,6 +1,6 @@
 <view style="padding-top: {{menuBarTop}}px">
   <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
-    <image src="/resources/logo1.png" style="height: 38rpx; width: 253rpx;" mode="scaleToFill"></image>
+    <image src="/resources/logo1.png" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
   </view>
 
   <view style="margin-top: 40rpx;">

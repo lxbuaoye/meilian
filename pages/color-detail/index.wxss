@@ -30,8 +30,8 @@ page {
 }
 
 .nav-back {
-  width: 48rpx;
-  height: 80rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .nav-title {
@@ -66,49 +66,65 @@ page {
 
 .color-card {
   width: 702rpx;
-  min-height: 556rpx;
-  padding-top: 40rpx;
-  padding-bottom: 24rpx;
+  height: 556rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 36rpx 30rpx 30rpx;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .color-image {
   width: 642rpx;
   height: 390rpx;
   display: block;
-  margin: 0 auto;
-  border-radius: 24rpx;
+  margin: 0;
+  position: absolute;
+  top: 36rpx;
+  left: 30rpx;
 }
 
 .color-info {
-  padding: 24rpx 24rpx 0;
+  position: absolute;
+  bottom: 30rpx;
+  left: 0;
+  right: 0;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 0 30rpx;
+  box-sizing: border-box;
 }
 
 .color-name {
-  font-size: 32rpx;
+  width: 239rpx;
+  height: 48rpx;
+  font-family: PingFang-SC-Bold;
   font-weight: 700;
-  color: #1c2023;
+  font-size: 34rpx;
+  color: #1C2023;
+  letter-spacing: 0;
+  line-height: 48rpx;
+  margin-left: 30rpx;
 }
 
 .color-actions {
   display: flex;
   align-items: center;
-  gap: 24rpx;
+  gap: 30rpx;
 }
 
 .icon-button {
   padding: 0;
   margin: 0;
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 40rpx;
-  background: #f5f7fb;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+  background: #F7FAFE;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,8 +140,8 @@ page {
 }
 
 .icon-image {
-  width: 40rpx;
-  height: 40rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 
 .section {
