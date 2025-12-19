@@ -421,7 +421,9 @@ button::after {
 .result-product-item {
   width: 120rpx;
   margin-right: 16rpx;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .result-product-icon {
@@ -437,7 +439,7 @@ button::after {
   color: #1C2023;
   line-height: 32rpx;
   white-space: nowrap; /* 使用产品文字不换行 */
-  text-align: center; /* 在 item 内居中 */
+  text-align: center;
 }
 
 .result-download {

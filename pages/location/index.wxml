@@ -2,7 +2,7 @@
   <!-- Navigation bar -->
   <view class="nav-bar" style="padding-top: {{menuBarTop}}px; height: {{menuBarHeight}}px;">
     <view class="nav-content">
-      <image class="logo" src="/image/3.0 预约到店素材/logo@2x.png" mode="aspectFit"></image>
+      <image src="/resources/logo1.png" style="height: 38rpx; width: 253rpx;" mode="scaleToFill"></image>
     </view>
   </view>
 
