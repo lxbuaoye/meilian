@@ -89,9 +89,9 @@
 }
 
 .top1-badge {
-  width: 120rpx;
-  height: 120rpx;
-  margin-left: 20rpx;
+  width: 220rpx;
+  height: 90rpx;
+  margin-left: 16rpx;
 }
 
 .form-card {
@@ -150,7 +150,7 @@
   flex: 1;
   height: 80rpx;
   background-color: #ffffff;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #2E3FA8;
   border-radius: 10rpx;
   display: flex;
   align-items: center;
@@ -166,5 +166,5 @@
 
 .service-text {
   font-size: 24rpx;
-  color: #1C2023;
+  color: #2E3FA8;
 }

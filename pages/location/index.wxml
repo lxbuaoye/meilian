@@ -58,11 +58,11 @@
           <!-- Service Buttons -->
           <view class="service-buttons">
             <button class="service-button" bindtap="onOnlineService" hover-class="button-hover">
-              <image class="service-icon" src="/image/3.0 预约到店素材/icon-01@2x(1).png" mode="aspectFit"></image>
+              <image class="service-icon" src="/image/3.0 预约到店素材/电话@2x.png" mode="aspectFit"></image>
               <text class="service-text">在线客服</text>
             </button>
             <button class="service-button" bindtap="onPhoneConsult" hover-class="button-hover">
-              <image class="service-icon" src="/image/3.0 预约到店素材/电话@2x.png" mode="aspectFit"></image>
+              <image class="service-icon" src="/image/3.0 预约到店素材/电话@2x(1).png" mode="aspectFit"></image>
               <text class="service-text">电话咨询</text>
             </button>
           </view>
