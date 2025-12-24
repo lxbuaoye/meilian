@@ -178,6 +178,13 @@ Page({
       url: `/pages/showcase-list/index`,
     });
   },
+  navigateToShowcaseDetail(e) {
+    const id = e?.currentTarget?.dataset?.id;
+    if (!id) return;
+    wx.navigateTo({
+      url: `/pages/showcase-detail/index?id=${id}`,
+    });
+  },
   navigateToAnotherMiniProgram() {
     wx.navigateToMiniProgram({
       appId: 'wx0a81e9aa1745be90',
