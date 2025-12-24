@@ -25,24 +25,14 @@
     <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 34rpx;color: #1C2023;letter-spacing: 0;">案例展示</text>
   </view>
   <view style="display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
-    <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;" bind:tap="navigateToShowcaseDetail" data-id="1" hover-class="action-tile-hover">
-      <image src="/image/v1.0/01.png" mode="aspectFill" style="width: 100%; height: 100%;" />
-      <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
-        <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">河源碧桂园学校</text>
+    <block wx:for="{{showcaseList}}" wx:key="_id">
+      <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;" bind:tap="navigateToShowcaseDetail" data-id="{{item._id}}" hover-class="action-tile-hover">
+        <image src="{{homeShowcaseImageErrorMap[item._id] ? homeShowcaseFallbackImages[index] : item.coverImageUrl}}" mode="aspectFill" style="width: 100%; height: 100%;" binderror="onHomeShowcaseCoverError" data-id="{{item._id}}" />
+        <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
+          <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">{{item.title}}</text>
+        </view>
       </view>
-    </view>
-    <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;" bind:tap="navigateToShowcaseDetail" data-id="2" hover-class="action-tile-hover">
-      <image src="/image/v1.0/02.png" mode="aspectFill" style="width: 100%; height: 100%;" />
-      <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
-        <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">凤岗碧桂园蔷薇花园</text>
-      </view>
-    </view>
-    <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;" bind:tap="navigateToShowcaseDetail" data-id="3" hover-class="action-tile-hover">
-      <image src="/image/v1.0/03.png" mode="aspectFill" style="width: 100%; height: 100%;" />
-      <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
-        <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">潮州碧桂园-韩东府</text>
-      </view>
-    </view>
+    </block>
   </view>
   <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
     <view style="width: 250rpx; height: 80rpx; border: 1rpx solid #E3E4E5; border-radius: 20rpx; display: flex; justify-content: center; align-items: center;" bind:tap="navigateToShowcase" hover-class="action-tile-hover">

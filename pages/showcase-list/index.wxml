@@ -13,41 +13,19 @@
   <t-tabs defaultValue="{{0}}" t-class="custom-tabs" class="tab" bind:change="onTabsChange" t-class-content="custom-panel">
     <t-tab-panel wx:for="{{categoryList}}" wx:key="index" label="{{item}}" value="{{index}}">
       <view class="showcase-list">
-        <!-- 案例卡片 1 -->
-        <view class="showcase-card" bindtap="onShowcaseClick" data-id="1">
-          <image src="/image/v1.1_case_list_assets/pic@2x.png" class="showcase-image" mode="aspectFill"></image>
-          <view class="showcase-overlay">
-            <text class="showcase-title">美联涂料案例-绿洲中环中心</text>
-          </view>
-        </view>
-
-        <!-- 案例卡片 2 -->
-        <view class="showcase-item" bindtap="onShowcaseClick" data-id="2">
-          <view class="showcase-card">
-            <image src="/image/v1.1_case_list_assets/pic@2x(1).png" class="showcase-image" mode="aspectFill"></image>
-            <view class="showcase-overlay">
-              <text class="showcase-title">深圳佳兆业悦峰花园</text>
+        <block wx:for="{{showcaseMap[item]}}" wx:key="_id">
+          <view class="showcase-item" bindtap="onShowcaseClick" data-id="{{item._id}}" hover-class="action-tile-hover">
+            <view class="showcase-card">
+              <image src="{{showcaseImageErrorMap[item._id] ? showcaseFallbackImages[index % showcaseFallbackImages.length] : item.coverImageUrl}}" class="showcase-image" mode="aspectFill" binderror="onShowcaseCoverError" data-id="{{item._id}}"></image>
+              <view class="showcase-overlay">
+                <text class="showcase-title">{{item.title}}</text>
+              </view>
+            </view>
+            <view class="showcase-tags" wx:if="{{item.tags && item.tags.length}}">
+              <text class="tag" wx:for="{{item.tags}}" wx:key="index">{{item}}</text>
             </view>
           </view>
-          <view class="showcase-tags">
-            <text class="tag">内墙案例</text>
-            <text class="tag">工厂翻新</text>
-          </view>
-        </view>
-
-        <!-- 案例卡片 3 -->
-        <view class="showcase-item" bindtap="onShowcaseClick" data-id="3">
-          <view class="showcase-card">
-            <image src="/image/v1.1_case_list_assets/pic@2x(2).png" class="showcase-image" mode="aspectFill"></image>
-            <view class="showcase-overlay">
-              <text class="showcase-title">阳东碧桂园</text>
-            </view>
-          </view>
-          <view class="showcase-tags">
-            <text class="tag">内墙案例</text>
-            <text class="tag">工厂翻新</text>
-          </view>
-        </view>
+        </block>
 
       </view>
     </t-tab-panel>

@@ -118,6 +118,10 @@ page {
   border-radius: 8rpx;
 }
 
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}
+
 /* 加载 */
 .loading-container-flex {
   --td-loading-color: #2E3FA8;

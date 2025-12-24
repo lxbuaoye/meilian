@@ -11,6 +11,8 @@ Page({
     tabList: [],
     productList: [],
     showcaseList: [],
+    homeShowcaseFallbackImages: ['/image/v1.0/01.png', '/image/v1.0/02.png', '/image/v1.0/03.png'],
+    homeShowcaseImageErrorMap: {},
     newsList: [],
     pageLoading: false,
     current: 1,
@@ -114,8 +116,22 @@ Page({
       })
       .limit(3)
       .get();
+    const showcaseList = (data || []).map((item) => {
+      return {
+        ...item,
+        coverImageUrl: `${CLOUD_STROAGE_PATH}/showcase/${item._id}/cover.jpg`,
+      };
+    });
     this.setData({
-      showcaseList: data,
+      showcaseList,
+    });
+  },
+
+  onHomeShowcaseCoverError(e) {
+    const id = e?.currentTarget?.dataset?.id;
+    if (!id) return;
+    this.setData({
+      [`homeShowcaseImageErrorMap.${id}`]: true,
     });
   },
 
