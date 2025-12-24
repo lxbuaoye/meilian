@@ -7,12 +7,7 @@
     wx:for-item="item"
     wx:for-index="index"
     wx:key="index">
-    <!-- 特殊按钮：预约到店（中间按钮） -->
-    <view wx:if="{{item.isSpecial}}" class="special-button" bind:tap="onSpecialButtonTap">
-      <image src="{{item.icon}}" class="special-button-image" mode="aspectFit"></image>
-    </view>
-    <!-- 普通按钮或占位项 -->
-    <view wx:else class="custom-tab-bar-wrapper {{active === index ? 'active' : ''}}" bind:tap="{{item.isPlaceholder ? '' : 'onItemTap'}}" data-index="{{index}}">
+    <view class="custom-tab-bar-wrapper {{active === index ? 'active' : ''}}">
       <image src="{{active === index && item.activeIcon ? item.activeIcon : item.icon}}" class="tab-icon" mode="aspectFit"></image>
       <view class="tab-text {{active === index ? 'active' : ''}}">{{ item.text }}</view>
     </view>

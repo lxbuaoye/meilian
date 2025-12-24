@@ -45,10 +45,6 @@
           "text": "预约到店"
         },
         {
-          "pagePath": "pages/mall/index",
-          "text": "美联商城"
-        },
-        {
           "pagePath": "pages/ai/profile/index",
           "text": "我的美联"
         }
@@ -76,10 +72,6 @@
           "text": "预约到店"
         },
         {
-          "pagePath": "pages/mall/index",
-          "text": "美联商城"
-        },
-        {
           "pagePath": "pages/ai/profile/index",
           "text": "我的美联"
         }
@@ -105,10 +97,6 @@
         {
           "pagePath": "pages/location/index",
           "text": "预约到店"
-        },
-        {
-          "pagePath": "pages/mall/index",
-          "text": "美联商城"
         },
         {
           "pagePath": "pages/ai/profile/index",

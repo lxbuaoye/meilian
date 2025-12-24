@@ -52,24 +52,11 @@
   /* #if IOS || ANDROID*/
   margin-bottom: 15rpx;
   --td-tab-bar-height: 16rpx;
-  width: 500rpx;
+  width: 650rpx;
   background-color: rgba(255, 255, 255, 0.9);
   margin-left: auto;
   margin-right: auto;
   --td-tab-bar-bg-color: transparent;
   /* #endif */
   --td-tab-bar-active-color: #2E3FA8;
-}
-
-/* 特殊按钮样式：预约到店（中间按钮） */
-.special-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 11rpx; /* 预约到店按钮距离顶部 11rpx */
-}
-
-.special-button-image {
-  width: 98rpx;
-  height: 98rpx;
 }

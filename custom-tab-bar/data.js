@@ -13,17 +13,10 @@ export default [
     url: 'pages/product/index',
   },
   {
-    icon: '/image/底部导航栏/预约到店.png',
+    icon: '/image/底部导航栏/icon-01-2.png',
+    activeIcon: '/image/底部导航栏/icon-01.png',
     text: '预约到店',
     url: 'pages/location/index',
-    isSpecial: true, // 标记为特殊按钮（中间按钮）
-  },
-  {
-    icon: '/image/底部导航栏/美联商城未选中.png',
-    activeIcon: '/image/底部导航栏/美联商城未选中.png', // 暂时使用同一张未选中图片
-    text: '美联商城',
-    url: 'pages/mall/index', // 占位页面
-    isPlaceholder: true,
   },
   {
     icon: '/image/底部导航栏/我的美联未选中.png',
