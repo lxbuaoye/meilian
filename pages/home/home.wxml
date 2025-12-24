@@ -54,38 +54,18 @@
       <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="/resources/homeyuan.png"></image>
       <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
     </view>
-    <view style="width: 702rpx; height: 260rpx; margin: 0 24rpx; display: flex; position: relative;">
-      <view style="flex: 1; display: flex; flex-direction: column; align-items: flex-start;">
-        <text style="width: 402rpx; height: 48rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 32rpx; color: #1C2023; letter-spacing: 0; line-height: 48rpx; margin-top: 30rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">美联涂料瓷砖改色涂料新品发布...</text>
-        <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 10rpx;">今天最好的表现是明天最低的要求...</text>
-        <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 76rpx;">2013-02-12</text>
+    <block wx:for="{{newsList}}" wx:key="_id">
+      <view class="home-news-item" bind:tap="onNewsClick" data-url="{{item.sourceUrl}}" hover-class="action-tile-hover">
+        <view class="home-news-content">
+          <text class="home-news-title">{{item.title}}</text>
+          <text class="home-news-subtitle">{{item.subtitle}}</text>
+          <text class="home-news-date">{{item.uploadDateText}}</text>
+        </view>
+        <view class="home-news-cover">
+          <image class="home-news-cover-img" src="/image/v1.0/1.png" mode="aspectFill"></image>
+        </view>
       </view>
-      <view style="width: 270rpx; height: 200rpx; background: #8F969C; border-radius: 20rpx; position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center;">
-        <image src="/image/v1.0/1.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
-      </view>
-    </view>
-
-    <view style="width: 702rpx; height: 260rpx; margin: 0 24rpx; display: flex; position: relative;">
-      <view style="flex: 1; display: flex; flex-direction: column; align-items: flex-start;">
-        <text style="width: 402rpx; height: 48rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 32rpx; color: #1C2023; letter-spacing: 0; line-height: 48rpx; margin-top: 30rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">MERLIN 艺术漆，重塑家居美学...</text>
-        <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 10rpx;">今天最好的表现是明天最低的要求...</text>
-        <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 76rpx;">2013-02-12</text>
-      </view>
-      <view style="width: 270rpx; height: 200rpx; background: #8F969C; border-radius: 20rpx; position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center;">
-        <image src="/image/v1.0/2.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
-      </view>
-    </view>
-
-    <view style="width: 702rpx; height: 260rpx; margin: 0 24rpx; display: flex; position: relative;">
-      <view style="flex: 1; display: flex; flex-direction: column; align-items: flex-start;">
-        <text style="width: 402rpx; height: 48rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 32rpx; color: #1C2023; letter-spacing: 0; line-height: 48rpx; margin-top: 30rpx; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">美联涂料瓷砖改色涂料案例赏析...</text>
-        <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 10rpx;">今天最好的表现是明天最低的要求...</text>
-        <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 76rpx;">2013-02-12</text>
-      </view>
-      <view style="width: 270rpx; height: 200rpx; background: #8F969C; border-radius: 20rpx; position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center;">
-        <image src="/image/v1.0/3.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
-      </view>
-    </view>
+    </block>
   </view>
 </view>
 

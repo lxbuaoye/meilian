@@ -1,4 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
+import dayjs from 'dayjs';
 
 const db = wx.cloud.database();
 const _ = db.command;
@@ -119,19 +120,64 @@ Page({
   },
 
   async loadNews() {
-    const { data } = await db
-      .collection('news')
-      .field({
-        _id: true,
-        title: true,
-        subtitle: true,
-        description: true,
-        uploadDate: true,
-      })
-      .limit(2)
-      .get();
-    this.setData({
-      newsList: data,
+    try {
+      const { data } = await db
+        .collection('news')
+        .field({
+          _id: true,
+          title: true,
+          subtitle: true,
+          description: true,
+          sourceUrl: true,
+          uploadDate: true,
+        })
+        .orderBy('uploadDate', 'desc')
+        .limit(3)
+        .get();
+      const newsList = (data || []).map((item) => {
+        return {
+          ...item,
+          uploadDateText: this.formatNewsDate(item.uploadDate),
+        };
+      });
+      this.setData({
+        newsList,
+      });
+    } catch (err) {
+      console.error('loadNews failed:', err);
+      this.setData({ newsList: [] });
+      wx.showToast({
+        title: '新闻加载失败',
+        icon: 'none',
+      });
+    }
+  },
+
+  formatNewsDate(value) {
+    if (!value) return '';
+    let normalizedValue = value;
+    if (typeof normalizedValue === 'number') {
+      // 兼容秒级(10位)与毫秒级(13位)时间戳
+      if (normalizedValue > 0 && normalizedValue < 1e12) {
+        normalizedValue = normalizedValue * 1000;
+      }
+    }
+    const date = dayjs(normalizedValue);
+    if (!date.isValid()) return '';
+    return date.format('YYYY-MM-DD');
+  },
+
+  onNewsClick(e) {
+    const url = e?.currentTarget?.dataset?.url;
+    if (!url) {
+      wx.showToast({
+        title: '暂无链接',
+        icon: 'none',
+      });
+      return;
+    }
+    wx.navigateTo({
+      url: `/pages/webview/index?url=${encodeURIComponent(url)}`,
     });
   },
   closePopup() {
