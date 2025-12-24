@@ -21,7 +21,7 @@ Page({
     detailName: '',
     detailCode: '',
     tags: [],
-    heroImage: '/image/2.1.3 电子色卡·详情·案例详情·产品 1素材/pic@2x.png',
+    heroImage: '/image/v2.1.3_color_card_detail_case_product_assets/pic@2x.png',
     statusBarHeight: 0,
     navBarHeight: 0,
     // 默认展示数据用于还原效果
@@ -53,7 +53,7 @@ Page({
   async init(productId) {
     console.log(productId);
     // 设置默认图片路径
-    const defaultImage = '/image/2.1.3 电子色卡·详情·案例详情·产品 1素材/pic@2x.png';
+    const defaultImage = '/image/v2.1.3_color_card_detail_case_product_assets/pic@2x.png';
     
     try {
       const { data } = await db

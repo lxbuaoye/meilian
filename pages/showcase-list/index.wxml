@@ -3,7 +3,7 @@
   <view class="nav-bar">
     <view class="nav-content">
       <view class="nav-back" bindtap="onBack">
-        <image src="/image/1.1 index·案例列表素材/返回@2x.png" class="back-icon" mode="aspectFit"></image>
+        <image src="/image/v1.1_case_list_assets/back@2x.png" class="back-icon" mode="aspectFit"></image>
       </view>
       <text class="nav-title">案例列表</text>
     </view>
@@ -15,7 +15,7 @@
       <view class="showcase-list">
         <!-- 案例卡片 1 -->
         <view class="showcase-card" bindtap="onShowcaseClick" data-id="1">
-          <image src="/image/1.1 index·案例列表素材/pic@2x.png" class="showcase-image" mode="aspectFill"></image>
+          <image src="/image/v1.1_case_list_assets/pic@2x.png" class="showcase-image" mode="aspectFill"></image>
           <view class="showcase-overlay">
             <text class="showcase-title">美联涂料案例-绿洲中环中心</text>
           </view>
@@ -24,7 +24,7 @@
         <!-- 案例卡片 2 -->
         <view class="showcase-item" bindtap="onShowcaseClick" data-id="2">
           <view class="showcase-card">
-            <image src="/image/1.1 index·案例列表素材/pic@2x(1).png" class="showcase-image" mode="aspectFill"></image>
+            <image src="/image/v1.1_case_list_assets/pic@2x(1).png" class="showcase-image" mode="aspectFill"></image>
             <view class="showcase-overlay">
               <text class="showcase-title">深圳佳兆业悦峰花园</text>
             </view>
@@ -38,7 +38,7 @@
         <!-- 案例卡片 3 -->
         <view class="showcase-item" bindtap="onShowcaseClick" data-id="3">
           <view class="showcase-card">
-            <image src="/image/1.1 index·案例列表素材/pic@2x(2).png" class="showcase-image" mode="aspectFill"></image>
+            <image src="/image/v1.1_case_list_assets/pic@2x(2).png" class="showcase-image" mode="aspectFill"></image>
             <view class="showcase-overlay">
               <text class="showcase-title">阳东碧桂园</text>
             </view>

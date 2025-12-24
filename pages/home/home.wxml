@@ -26,19 +26,19 @@
   </view>
   <view style="display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
     <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;">
-      <image src="/image/1.0/01.png" mode="aspectFill" style="width: 100%; height: 100%;" />
+      <image src="/image/v1.0/01.png" mode="aspectFill" style="width: 100%; height: 100%;" />
       <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
         <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">河源碧桂园学校</text>
       </view>
     </view>
     <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;">
-      <image src="/image/1.0/02.png" mode="aspectFill" style="width: 100%; height: 100%;" />
+      <image src="/image/v1.0/02.png" mode="aspectFill" style="width: 100%; height: 100%;" />
       <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
         <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">凤岗碧桂园蔷薇花园</text>
       </view>
     </view>
     <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;">
-      <image src="/image/1.0/03.png" mode="aspectFill" style="width: 100%; height: 100%;" />
+      <image src="/image/v1.0/03.png" mode="aspectFill" style="width: 100%; height: 100%;" />
       <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
         <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">潮州碧桂园-韩东府</text>
       </view>
@@ -61,7 +61,7 @@
         <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 76rpx;">2013-02-12</text>
       </view>
       <view style="width: 270rpx; height: 200rpx; background: #8F969C; border-radius: 20rpx; position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center;">
-        <image src="/image/1.0/1.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
+        <image src="/image/v1.0/1.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
       </view>
     </view>
 
@@ -72,7 +72,7 @@
         <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 76rpx;">2013-02-12</text>
       </view>
       <view style="width: 270rpx; height: 200rpx; background: #8F969C; border-radius: 20rpx; position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center;">
-        <image src="/image/1.0/2.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
+        <image src="/image/v1.0/2.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
       </view>
     </view>
 
@@ -83,7 +83,7 @@
         <text style="width: 384rpx; height: 33rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; letter-spacing: 0; line-height: 33rpx; margin-top: 76rpx;">2013-02-12</text>
       </view>
       <view style="width: 270rpx; height: 200rpx; background: #8F969C; border-radius: 20rpx; position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center;">
-        <image src="/image/1.0/3.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
+        <image src="/image/v1.0/3.png" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 20rpx;"></image>
       </view>
     </view>
   </view>

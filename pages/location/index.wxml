@@ -10,7 +10,7 @@
   <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
     <!-- Main Image Container with Overlay Content -->
     <view class="image-container">
-      <image class="main-image" src="/image/3.0 预约到店素材/预约到店pic@2x.png" mode="widthFix"></image>
+      <image class="main-image" src="/image/v3.0_store_appointment_assets/store_appointment_pic@2x.png" mode="widthFix"></image>
       
       <!-- All Content Overlay on Image (Red Line Area) -->
       <view class="content-overlay">
@@ -21,7 +21,7 @@
               <text class="card-title">行业新高度</text>
               <text class="card-subtitle">耗时20年打造成优质品牌</text>
             </view>
-            <image class="top1-badge" src="/image/3.0 预约到店素材/行业新高度 pic@2x.png" mode="aspectFit"></image>
+            <image class="top1-badge" src="/image/v3.0_store_appointment_assets/industry_new_height_pic@2x.png" mode="aspectFit"></image>
           </view>
         </view>
 
@@ -32,7 +32,7 @@
               <text class="card-title">品质新高度</text>
               <text class="card-subtitle">品牌品质研发成本 TOP1 款</text>
             </view>
-            <image class="top1-badge" src="/image/3.0 预约到店素材/行业新高度 pic@2x.png" mode="aspectFit"></image>
+            <image class="top1-badge" src="/image/v3.0_store_appointment_assets/industry_new_height_pic@2x.png" mode="aspectFit"></image>
           </view>
         </view>
 
@@ -58,11 +58,11 @@
           <!-- Service Buttons -->
           <view class="service-buttons">
             <button class="service-button" bindtap="onOnlineService" hover-class="button-hover">
-              <image class="service-icon" src="/image/3.0 预约到店素材/电话@2x.png" mode="aspectFit"></image>
+              <image class="service-icon" src="/image/v3.0_store_appointment_assets/phone@2x.png" mode="aspectFit"></image>
               <text class="service-text">在线客服</text>
             </button>
             <button class="service-button" bindtap="onPhoneConsult" hover-class="button-hover">
-              <image class="service-icon" src="/image/3.0 预约到店素材/电话@2x(1).png" mode="aspectFit"></image>
+              <image class="service-icon" src="/image/v3.0_store_appointment_assets/phone@2x_1.png" mode="aspectFit"></image>
               <text class="service-text">电话咨询</text>
             </button>
           </view>

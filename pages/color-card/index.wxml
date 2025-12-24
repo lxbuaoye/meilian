@@ -3,7 +3,7 @@
   <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
-      <image class="nav-back" src="/image/2.1 电子色卡·电子色卡素材/返回.png" mode="aspectFit" bind:tap="handleBack" />
+      <image class="nav-back" src="/image/v2.1_color_card_assets/back.png" mode="aspectFit" bind:tap="handleBack" />
       <text class="nav-title">电子色卡</text>
       <view class="nav-placeholder-right"></view>
     </view>
@@ -12,7 +12,7 @@
   <view class="content" style="padding-top: {{navBarHeight}}px;">
     <!-- 搜索 -->
     <view class="search-wrap">
-      <image class="search-icon" src="/image/2.1 电子色卡·电子色卡素材/搜索.png" mode="aspectFit" />
+      <image class="search-icon" src="/image/v2.1_color_card_assets/search.png" mode="aspectFit" />
       <input class="search-input" placeholder="请输入色彩编码、名称" placeholder-class="search-placeholder" value="{{keyword}}" bindinput="handleKeywordInput" />
     </view>
 

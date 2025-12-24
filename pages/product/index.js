@@ -4,19 +4,19 @@ Page({
       {
         title: '电子色卡',
         subtitle: '预设文案预设文案预设文案',
-        icon: '/image/2.0电子色卡/色卡.png',
+        icon: '/image/v2.0_color_card/color_card.png',
         url: '/pages/color-card/index',
       },
       {
         title: 'AI换色',
         subtitle: '预设文案预设文案预设文案',
-        icon: '/image/2.0电子色卡/换色.png',
+        icon: '/image/v2.0_color_card/color_change.png',
         url: '/pages/area-ai/color-change/index',
       },
       {
         title: '漆量计算',
         subtitle: '预设文案预设文案预设文案',
-        icon: '/image/2.0电子色卡/计算.png',
+        icon: '/image/v2.0_color_card/calculate.png',
         url: '', // 暂未设置跳转
       },
     ],

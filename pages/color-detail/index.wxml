@@ -4,7 +4,7 @@
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
       <image class="nav-back"
-        src="/image/2.1.1 电子色卡·详情素材/返回.png"
+        src="/image/v2.1.1_color_card_detail_assets/back.png"
         mode="aspectFit"
         bind:tap="handleBack" />
       <text class="nav-title">色卡详情</text>
@@ -16,17 +16,17 @@
     <!-- 顶部色卡卡片 -->
     <view class="card color-card">
       <image class="color-image"
-        src="/image/2.1 电子色卡·电子色卡素材/MK8401加仕红.png"
+        src="/image/v2.1_color_card_assets/MK8401_jia_shi_red.png"
         mode="aspectFill" />
 
       <view class="color-info">
         <text class="color-name">{{colorName}}</text>
         <view class="color-actions">
           <button class="icon-button" hover-class="icon-button--active" bindtap="handleDownload">
-            <image class="icon-image" src="/image/2.1.1 电子色卡·详情素材/下载.png" mode="aspectFit" />
+            <image class="icon-image" src="/image/v2.1.1_color_card_detail_assets/download.png" mode="aspectFit" />
           </button>
           <button class="icon-button" hover-class="icon-button--active" bindtap="handleShare">
-            <image class="icon-image" src="/image/2.1.1 电子色卡·详情素材/分享.png" mode="aspectFit" />
+            <image class="icon-image" src="/image/v2.1.1_color_card_detail_assets/share.png" mode="aspectFit" />
           </button>
         </view>
       </view>

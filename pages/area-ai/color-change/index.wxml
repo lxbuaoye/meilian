@@ -3,7 +3,7 @@
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
     <view class="nav-bar-inner" style="height: {{navBarHeight}}px;">
       <view class="nav-left" bindtap="onBackTap">
-        <image class="nav-back-icon" src="/image/2.2电子色卡.AI 换色素材/返回@2x.png" mode="aspectFit" />
+        <image class="nav-back-icon" src="/image/v2.2_color_card_ai_change_assets/back@2x.png" mode="aspectFit" />
       </view>
       <view class="nav-title">AI 换色</view>
     </view>
@@ -13,7 +13,7 @@
     <!-- 上传图片区域 -->
     <view class="upload-panel">
         <view class="upload-inner" bindtap="onChooseImage">
-          <image class="upload-icon" src="/image/2.2电子色卡.AI 换色素材/上传图片@2x.png" mode="aspectFit" />
+          <image class="upload-icon" src="/image/v2.2_color_card_ai_change_assets/upload_image@2x.png" mode="aspectFit" />
           <text class="upload-text">拍照/上传图片</text>
       </view>
     </view>
@@ -21,15 +21,15 @@
     <!-- 产品选择 -->
     <view class="section">
       <view class="section-header">
-        <image class="section-dot" src="/image/2.2电子色卡.AI 换色素材/title@2x.png" mode="aspectFit" />
+        <image class="section-dot" src="/image/v2.2_color_card_ai_change_assets/title@2x.png" mode="aspectFit" />
         <text class="section-title">产品选择</text>
       </view>
       <scroll-view class="product-scroll" scroll-x="true" enable-flex="true">
         <view class="product-list">
           <view wx:for="{{products}}" wx:key="id" class="product-item {{selectedProductMap[index] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{index}}">
             <view class="product-image-wrapper">
-              <image class="product-image" src="/image/2.2电子色卡.AI 换色素材/产品.png" mode="aspectFill" />
-              <image wx:if="{{selectedProductMap[index]}}" class="product-check" src="/image/2.2电子色卡.AI 换色素材/选中@2x.png" mode="aspectFit" />
+              <image class="product-image" src="/image/v2.2_color_card_ai_change_assets/product.png" mode="aspectFill" />
+              <image wx:if="{{selectedProductMap[index]}}" class="product-check" src="/image/v2.2_color_card_ai_change_assets/selected@2x.png" mode="aspectFit" />
             </view>
             <text class="product-name">{{item.name}}</text>
           </view>
@@ -40,7 +40,7 @@
     <!-- 工艺选择 -->
     <view class="section">
       <view class="section-header">
-        <image class="section-dot" src="/image/2.2电子色卡.AI 换色素材/title@2x.png" mode="aspectFit" />
+        <image class="section-dot" src="/image/v2.2_color_card_ai_change_assets/title@2x.png" mode="aspectFit" />
         <text class="section-title">工艺选择</text>
       </view>
       <view class="craft-list">
@@ -63,17 +63,17 @@
     <view class="result-container">
       <!-- 关闭按钮 -->
       <view class="result-close" bindtap="onCloseResult">
-        <image class="result-close-icon" src="/image/2.2.1电子色卡ai换色结果/错.png" mode="aspectFit" />
+        <image class="result-close-icon" src="/image/v2.2.1_color_card_ai_change_result/wrong.png" mode="aspectFit" />
       </view>
       <!-- 上方大图 -->
       <view class="result-image-wrap">
-        <image class="result-image" src="/image/2.2.1电子色卡ai换色结果/pic.png" mode="aspectFill" />
+        <image class="result-image" src="/image/v2.2.1_color_card_ai_change_result/pic.png" mode="aspectFill" />
       </view>
       <!-- 下方白底内容区域 -->
       <view class="result-panel">
         <view class="result-panel-inner">
           <view class="result-title-row">
-            <image class="result-dot" src="/image/2.2.1电子色卡ai换色结果/title.png" mode="aspectFit" />
+            <image class="result-dot" src="/image/v2.2.1_color_card_ai_change_result/title.png" mode="aspectFit" />
             <text class="result-title">产品信息</text>
           </view>
           <view class="result-text-row">产品工艺：新中式，外墙</view>
@@ -81,7 +81,7 @@
           <scroll-view class="result-products" scroll-x="true" enable-flex="true">
             <view class="result-product-list">
               <view wx:for="{{resultProducts}}" wx:key="index" class="result-product-item">
-                <image class="result-product-icon" src="/image/2.2电子色卡.AI 换色素材/产品.png" mode="aspectFit" />
+                <image class="result-product-icon" src="/image/v2.2_color_card_ai_change_assets/product.png" mode="aspectFit" />
                 <text class="result-product-name">{{item.name}}</text>
               </view>
             </view>

@@ -4,23 +4,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    colorImage: '/image/2.1 电子色卡·电子色卡素材/MK8401加仕红@2x.png',
+    colorImage: '/image/v2.1_color_card_assets/MK8401_jia_shi_red@2x.png',
     colorName: 'MK8401加仕红',
     cases: [
       {
         id: 'case1',
         name: '河源碧桂园学校',
-        image: '/image/1.1 index·案例列表素材/pic@2x.png',
+        image: '/image/v1.1_case_list_assets/pic@2x.png',
       },
       {
         id: 'case2',
         name: '凤岗碧桂园蔷薇花园',
-        image: '/image/1.1 index·案例列表素材/pic@2x(1).png',
+        image: '/image/v1.1_case_list_assets/pic@2x(1).png',
       },
       {
         id: 'case3',
         name: '示例项目三',
-        image: '/image/1.1 index·案例列表素材/pic@2x(2).png',
+        image: '/image/v1.1_case_list_assets/pic@2x(2).png',
       },
     ],
     statusBarHeight: 0,

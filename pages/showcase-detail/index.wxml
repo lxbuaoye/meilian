@@ -2,7 +2,7 @@
   <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
-      <image class="nav-back" src="/image/2.1.1 电子色卡·详情素材/返回.png" mode="aspectFit" bind:tap="handleBack" />
+      <image class="nav-back" src="/image/v2.1.1_color_card_detail_assets/back.png" mode="aspectFit" bind:tap="handleBack" />
       <text class="nav-title">案例详情</text>
       <view class="nav-placeholder-right"></view>
     </view>
@@ -31,7 +31,7 @@
       <text class="products-title">使用产品</text>
       <scroll-view class="products-scroll" scroll-x enable-flex>
         <view wx:for="{{relatedProducts}}" wx:key="index" class="product-item" data-index="{{index}}" data-product-id="{{item.productId}}" bind:tap="navigateToProductDetailFromList" hover-class="product-item--hover">
-          <image class="product-icon" src="{{item.imageUrl || '/image/2.1.2 电子色卡·详情·案例详情素材/pic1@2x.png'}}" mode="aspectFit" />
+          <image class="product-icon" src="{{item.imageUrl || '/image/v2.1.2_color_card_detail_case_assets/pic1@2x.png'}}" mode="aspectFit" />
           <text class="product-name">{{item.title}}</text>
         </view>
       </scroll-view>
@@ -40,7 +40,7 @@
 
   <view wx:if="{{!pageLoading}}" class="detail-section">
     <view class="detail-header">
-      <image class="detail-icon" src="/image/2.1.2 电子色卡·详情·案例详情素材/title@2x.png" mode="aspectFit" />
+      <image class="detail-icon" src="/image/v2.1.2_color_card_detail_case_assets/title@2x.png" mode="aspectFit" />
       <text class="detail-title">案例介绍</text>
     </view>
     <text class="detail-text">{{descriptionText}}</text>
