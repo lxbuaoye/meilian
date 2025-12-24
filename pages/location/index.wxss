@@ -41,24 +41,24 @@
 
 .content-overlay {
   position: absolute;
-  bottom: calc(160rpx + constant(safe-area-inset-bottom));
-  bottom: calc(160rpx + env(safe-area-inset-bottom));
+  bottom: calc(60rpx + constant(safe-area-inset-bottom));
+  bottom: calc(60rpx + env(safe-area-inset-bottom));
   left: 0;
   right: 0;
   padding: 30rpx;
-  padding-bottom: 40rpx;
+  padding-bottom: 20rpx;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 20rpx;
+  gap: 12rpx;
   pointer-events: none;
 }
 
 .info-card {
   background-color: #ffffff;
   border-radius: 20rpx;
-  padding: 30rpx;
+  padding: 24rpx;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
   width: 100%;
   pointer-events: auto;
@@ -97,7 +97,7 @@
 .form-card {
   background-color: #ffffff;
   border-radius: 20rpx;
-  padding: 40rpx 30rpx;
+  padding: 32rpx 30rpx;
   box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
   width: 100%;
   pointer-events: auto;
