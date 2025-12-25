@@ -14,25 +14,27 @@
       
       <!-- All Content Overlay on Image (Red Line Area) -->
       <view class="content-overlay">
-        <!-- Card 1: 行业新高度 -->
-        <view class="info-card">
-          <view class="card-content">
-            <view class="card-text">
-              <text class="card-title">行业新高度</text>
-              <text class="card-subtitle">耗时20年打造成优质品牌</text>
+        <view class="info-card-group">
+          <view class="info-card-item">
+            <view class="card-content">
+              <view class="card-text">
+                <text class="card-title">行业新高度</text>
+                <text class="card-subtitle">耗时20年打造成优质品牌</text>
+              </view>
+              <image class="top1-badge" src="/image/v3.0_store_appointment_assets/industry_new_height_pic@2x.png" mode="aspectFit"></image>
             </view>
-            <image class="top1-badge" src="/image/v3.0_store_appointment_assets/industry_new_height_pic@2x.png" mode="aspectFit"></image>
           </view>
-        </view>
 
-        <!-- Card 2: 品质新高度 -->
-        <view class="info-card">
-          <view class="card-content">
-            <view class="card-text">
-              <text class="card-title">品质新高度</text>
-              <text class="card-subtitle">品牌品质研发成本 TOP1 款</text>
+          <view class="info-divider"></view>
+
+          <view class="info-card-item">
+            <view class="card-content">
+              <view class="card-text">
+                <text class="card-title">品质新高度</text>
+                <text class="card-subtitle">品牌品质研发成本 TOP1 款</text>
+              </view>
+              <image class="top1-badge" src="/image/v3.0_store_appointment_assets/industry_new_height_pic@2x.png" mode="aspectFit"></image>
             </view>
-            <image class="top1-badge" src="/image/v3.0_store_appointment_assets/industry_new_height_pic@2x.png" mode="aspectFit"></image>
           </view>
         </view>
 
