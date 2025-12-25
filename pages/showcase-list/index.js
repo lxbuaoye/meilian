@@ -12,11 +12,12 @@ Page({
     categoryIndex: 0,
     listLoadingStatus: [0, 0],
     showcaseFallbackImages: [
-      '/image/v1.1_case_list_assets/pic@2x.png',
-      '/image/v1.1_case_list_assets/pic@2x(1).png',
-      '/image/v1.1_case_list_assets/pic@2x(2).png',
+      `${CLOUD_STROAGE_PATH}/image/common/pic@2x.png`,
+      `${CLOUD_STROAGE_PATH}/image/common/pic@2x(1).png`,
+      `${CLOUD_STROAGE_PATH}/image/common/pic@2x(2).png`,
     ],
     showcaseImageErrorMap: {},
+    backIcon: `${CLOUD_STROAGE_PATH}/image/common/back@2x.png`,
   },
 
   pagination: [

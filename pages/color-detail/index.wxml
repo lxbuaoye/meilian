@@ -4,7 +4,7 @@
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
       <image class="nav-back"
-        src="/image/v2.1.1_color_card_detail_assets/back.png"
+        src="{{navBackIcon}}"
         mode="aspectFit"
         bind:tap="handleBack" />
       <text class="nav-title">色卡详情</text>
@@ -16,17 +16,17 @@
     <!-- 顶部色卡卡片 -->
     <view class="card color-card">
       <image class="color-image"
-        src="/image/v2.1_color_card_assets/MK8401_jia_shi_red.png"
+        src="{{colorImage}}"
         mode="aspectFill" />
 
       <view class="color-info">
         <text class="color-name">{{colorName}}</text>
         <view class="color-actions">
           <button class="icon-button" hover-class="icon-button--active" bindtap="handleDownload">
-            <image class="icon-image" src="/image/v2.1.1_color_card_detail_assets/download.png" mode="aspectFit" />
+            <image class="icon-image" src="{{downloadIcon}}" mode="aspectFit" />
           </button>
           <button class="icon-button" hover-class="icon-button--active" bindtap="handleShare">
-            <image class="icon-image" src="/image/v2.1.1_color_card_detail_assets/share.png" mode="aspectFit" />
+            <image class="icon-image" src="{{shareIcon}}" mode="aspectFit" />
           </button>
         </view>
       </view>
@@ -35,7 +35,7 @@
     <!-- 推荐案例搭配 -->
     <view class="section">
       <view style="height: 48rpx; width: 100%; display: flex; margin: 45rpx 0 40rpx; align-items: center;">
-        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="/resources/homeyuan.png"></image>
+        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="{{homeyuanIcon}}"></image>
         <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 34rpx;color: #1C2023;letter-spacing: 0;">推荐案例搭配</text>
       </view>
 

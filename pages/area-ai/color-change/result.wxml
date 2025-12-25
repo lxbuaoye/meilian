@@ -2,14 +2,14 @@
   <!-- 背景页面 - 可以透视看到 -->
   <view class="background-page">
     <!-- 这里可以嵌套显示 color-change/index 页面的内容，或者使用背景图片 -->
-    <image class="result-image" src="/image/v2.2_color_card_ai_change_result_assets/pic@2x.png" mode="aspectFill" />
+    <image class="result-image" src="{{resultImage}}" mode="aspectFill" />
   </view>
 
   <!-- 顶部导航栏 - 镂空组件1 -->
   <view class="top-overlay">
     <view class="nav-bar-overlay">
       <view class="nav-left" bindtap="onBackTap">
-        <image class="nav-back-icon" src="/image/v2.2_color_card_ai_change_result_assets/back@2x.png" mode="aspectFit" />
+        <image class="nav-back-icon" src="{{navBackIcon}}" mode="aspectFit" />
       </view>
       <view class="nav-right">
         <text class="nav-dot" bindtap="onMoreTap">⋯</text>
@@ -21,7 +21,7 @@
   <!-- 底部产品信息模态框 - 镂空组件2 -->
   <view class="bottom-modal">
     <view class="modal-header">
-      <image class="modal-icon" src="/image/v2.2_color_card_ai_change_result_assets/icon-40px@2x.png" mode="aspectFit" />
+      <image class="modal-icon" src="{{modalIcon}}" mode="aspectFit" />
       <text class="modal-title">产品信息</text>
     </view>
     

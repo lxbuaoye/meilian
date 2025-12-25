@@ -21,9 +21,10 @@ Page({
     detailName: '',
     detailCode: '',
     tags: [],
-    heroImage: '/image/v2.1.3_color_card_detail_case_product_assets/pic@2x.png',
+    heroImage: `${CLOUD_STROAGE_PATH}/image/product-detail/pic@2x.png`,
     statusBarHeight: 0,
     navBarHeight: 0,
+    navBackIcon: `${CLOUD_STROAGE_PATH}/image/product-detail/back@2x.png`,
     // 默认展示数据用于还原效果
     title: '微岩石',
     detailName: '铜墙铁壁双组份外墙漆',
@@ -53,7 +54,7 @@ Page({
   async init(productId) {
     console.log(productId);
     // 设置默认图片路径
-    const defaultImage = '/image/v2.1.3_color_card_detail_case_product_assets/pic@2x.png';
+    const defaultImage = `${CLOUD_STROAGE_PATH}/image/product-detail/pic@2x.png`;
     
     try {
       const { data } = await db

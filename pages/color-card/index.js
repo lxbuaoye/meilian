@@ -1,4 +1,6 @@
 // pages/color-card/index.js
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+
 Page({
   data: {
     statusBarHeight: 0,
@@ -10,19 +12,21 @@ Page({
     // 所有色卡数据，包含分类信息
     allCards: [
       // 仿石漆分类的色卡
-      { code: 'MK8401', name: 'MK8401加仕红', img: '/image/v2.1_color_card_assets/MK8401_jia_shi_red.png', category: 1 },
-      { code: 'MK8402', name: 'MK8402灰麻石', img: '/image/v2.1_color_card_assets/MK8402_gray_hemp_stone.png', category: 1 },
-      { code: 'MK8403', name: 'MK8403黄锈石', img: '/image/v2.1_color_card_assets/MK8403_yellow_rust_stone.png', category: 1 },
-      { code: 'MK8404', name: 'MK8404水晶白麻', img: '/image/v2.1_color_card_assets/MK8404_crystal_white_hemp.png', category: 1 },
-      { code: 'MK8405', name: 'MK8405金麻石', img: '/image/v2.1_color_card_assets/MK8405_gold_hemp_stone.png', category: 1 },
-      { code: 'MK8406', name: 'MK8406非洲虾红', img: '/image/v2.1_color_card_assets/MK8406_african_shrimp_red.png', category: 1 },
-      { code: 'MK8407', name: 'MK8407海棠红', img: '/image/v2.1_color_card_assets/MK8407_begonia_red.png', category: 1 },
-      { code: 'MK8408', name: 'MK8408沙特砖红', img: '/image/v2.1_color_card_assets/MK8408_saudi_brick_red.png', category: 1 },
+      { code: 'MK8401', name: 'MK8401加仕红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8401_jia_shi_red.png`, category: 1 },
+      { code: 'MK8402', name: 'MK8402灰麻石', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8402_gray_hemp_stone.png`, category: 1 },
+      { code: 'MK8403', name: 'MK8403黄锈石', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8403_yellow_rust_stone.png`, category: 1 },
+      { code: 'MK8404', name: 'MK8404水晶白麻', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8404_crystal_white_hemp.png`, category: 1 },
+      { code: 'MK8405', name: 'MK8405金麻石', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8405_gold_hemp_stone.png`, category: 1 },
+      { code: 'MK8406', name: 'MK8406非洲虾红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8406_african_shrimp_red.png`, category: 1 },
+      { code: 'MK8407', name: 'MK8407海棠红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8407_begonia_red.png`, category: 1 },
+      { code: 'MK8408', name: 'MK8408沙特砖红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8408_saudi_brick_red.png`, category: 1 },
       // 可以在这里添加其他分类的色卡数据
       // { code: 'XX0001', name: 'XX0001示例', img: '/path/to/image.png', category: 0 }, // 乳胶漆
       // { code: 'XX0002', name: 'XX0002示例', img: '/path/to/image.png', category: 2 }, // 艺术漆
     ],
     filteredCards: [],
+    navBackIcon: `${CLOUD_STROAGE_PATH}/image/color-card/back.png`,
+    searchIcon: `${CLOUD_STROAGE_PATH}/image/color-card/search.png`,
   },
 
   onLoad() {

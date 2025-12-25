@@ -3,7 +3,7 @@
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
       <image class="nav-back"
-        src="/image/v2.1.3_color_card_detail_case_product_assets/back@2x.png"
+        src="{{navBackIcon}}"
         mode="aspectFit"
         bind:tap="handleBack" />
       <text class="nav-title">产品详情</text>

@@ -1,30 +1,36 @@
 // pages/color-detail/index.js
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    colorImage: '/image/v2.1_color_card_assets/MK8401_jia_shi_red@2x.png',
+    colorImage: `${CLOUD_STROAGE_PATH}/image/color-card/MK8401_jia_shi_red@2x.png`,
     colorName: 'MK8401加仕红',
     cases: [
       {
         id: 'case1',
         name: '河源碧桂园学校',
-        image: '/image/v1.1_case_list_assets/pic@2x.png',
+        image: `${CLOUD_STROAGE_PATH}/image/common/pic@2x.png`,
       },
       {
         id: 'case2',
         name: '凤岗碧桂园蔷薇花园',
-        image: '/image/v1.1_case_list_assets/pic@2x(1).png',
+        image: `${CLOUD_STROAGE_PATH}/image/common/pic@2x(1).png`,
       },
       {
         id: 'case3',
         name: '示例项目三',
-        image: '/image/v1.1_case_list_assets/pic@2x(2).png',
+        image: `${CLOUD_STROAGE_PATH}/image/common/pic@2x(2).png`,
       },
     ],
     statusBarHeight: 0,
     navBarHeight: 0,
+    navBackIcon: `${CLOUD_STROAGE_PATH}/image/common/back.png`,
+    downloadIcon: `${CLOUD_STROAGE_PATH}/image/common/download.png`,
+    shareIcon: `${CLOUD_STROAGE_PATH}/image/common/share.png`,
+    homeyuanIcon: `${CLOUD_STROAGE_PATH}/resources/homeyuan.png`,
   },
 
   onLoad(options) {

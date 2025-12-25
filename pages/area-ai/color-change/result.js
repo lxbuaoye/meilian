@@ -1,3 +1,5 @@
+const { CLOUD_STROAGE_PATH } = getApp().globalData;
+
 Page({
   data: {
     statusBarHeight: 20,
@@ -8,7 +10,10 @@ Page({
       { name: '蟻御石' },
       { name: '蟻行' }
     ],
-    craft: '新中式, 外墙'
+    craft: '新中式, 外墙',
+    resultImage: `${CLOUD_STROAGE_PATH}/image/area-ai/pic@2x.png`,
+    navBackIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/back@2x.png`,
+    modalIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/icon-40px@2x.png`,
   },
 
   onLoad(options) {

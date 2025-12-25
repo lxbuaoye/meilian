@@ -6,8 +6,15 @@ App({
   globalData: {
     // #if MP
     CLOUD_STROAGE_PATH: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628',
+    CLOUD_IMAGE_BASE: 'https://636c-cloud1-9gz59mfw7610d03f-1392076473.tcb.qcloud.la',
     // #elif IOS || ANDROID
-    CLOUD_STROAGE_PATH: 'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la', // 多端模式不支持cloudId
+    CLOUD_STROAGE_PATH: 'https://636c-cloud1-9gz59mfw7610d03f-1392076473.tcb.qcloud.la', // 多端模式不支持cloudId
+    CLOUD_IMAGE_BASE: 'https://636c-cloud1-9gz59mfw7610d03f-1392076473.tcb.qcloud.la',
+
+    // 图片URL处理函数 - 统一使用HTTPS URL确保兼容性
+    getImageUrl: function(path) {
+      return this.CLOUD_IMAGE_BASE + path;
+    },
     // #endif
     userInfo: wx.getStorageSync('userInfo'),
     referrer: '',

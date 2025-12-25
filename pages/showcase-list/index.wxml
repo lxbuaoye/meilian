@@ -3,7 +3,7 @@
   <view class="nav-bar">
     <view class="nav-content">
       <view class="nav-back" bindtap="onBack">
-        <image src="/image/v1.1_case_list_assets/back@2x.png" class="back-icon" mode="aspectFit"></image>
+        <image src="{{backIcon}}" class="back-icon" mode="aspectFit"></image>
       </view>
       <text class="nav-title">案例列表</text>
     </view>

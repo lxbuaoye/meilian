@@ -17,6 +17,7 @@ Component({
    */
   data: {
     banner: `${CLOUD_STROAGE_PATH}/resources/app/top_banner_bg.png`,
+    logo: `${CLOUD_STROAGE_PATH}/resources/logo.png`,
   },
 
   /**

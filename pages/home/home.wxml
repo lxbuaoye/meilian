@@ -1,7 +1,7 @@
 <view style="padding-top: {{menuBarTop}}px">
   <!-- Navigation bar-->
   <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
-    <image src="/resources/logo1.png" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
+    <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
   </view>
 </view>
 <view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;" wx:if="{{pageLoading}}">
@@ -9,10 +9,10 @@
 </view>
 <view class="home-page-container">
   <view style="margin: 0 30rpx; display: flex; justify-content: center;">
-    <image src="/resources/banner.png" style="width: 702rpx; height: 550rpx;" mode="scaleToFill" />
+    <image src="{{bannerImage}}" style="width: 702rpx; height: 550rpx;" mode="scaleToFill" />
   </view>
   <view style="margin: 30rpx 30rpx 0; display: flex; flex-direction: column; align-items: center;">
-    <image src="/resources/title.png" style="width: 702rpx; height: 118rpx;" mode="scaleToFill" />
+    <image src="{{titleImage}}" style="width: 702rpx; height: 118rpx;" mode="scaleToFill" />
     <text class="brand-description" style="margin-top: 0rpx;" user-select>
       美联美墅，怀揣"助力美墅梦想"的使命，秉持"精工惠民、内外兼修、好房好料"的核心价值，以实力为基，以品质为魂，矢志不渝地为中国家庭打造健康、环保、历久弥新的理想人居。我们不仅是涂料的提供者，更是美好生活的筑梦者和守护者。选择美联美墅，共筑美梦家园！
     </text>
@@ -21,7 +21,7 @@
   <!-- Product List -->
 
   <view style="height: 48rpx; width: 100%; display: flex; margin: 45rpx 0 40rpx; align-items: center;">
-    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="/resources/homeyuan.png"></image>
+    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="{{homeyuanImage}}"></image>
     <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 34rpx;color: #1C2023;letter-spacing: 0;">案例展示</text>
   </view>
   <view style="display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
@@ -41,7 +41,7 @@
   </view>
   <view>
     <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 20rpx; align-items: center;">
-      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="/resources/homeyuan.png"></image>
+      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="{{homeyuanImage}}"></image>
       <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
     </view>
     <block wx:for="{{newsList}}" wx:key="_id">
@@ -52,7 +52,7 @@
           <text class="home-news-date">{{item.uploadDateText}}</text>
         </view>
         <view class="home-news-cover">
-          <image class="home-news-cover-img" src="/image/v1.0/1.png" mode="aspectFill"></image>
+          <image class="home-news-cover-img" src="{{newsCoverImage}}" mode="aspectFill"></image>
         </view>
       </view>
     </block>

@@ -1,0 +1,6 @@
+{
+  "name": "batchUploadImages",
+  "version": "1.0.0",
+  "description": "批量上传图片到云存储",
+  "main": "index.js"
+}

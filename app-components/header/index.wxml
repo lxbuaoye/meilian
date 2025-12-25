@@ -10,7 +10,7 @@
     </view>
     <image src="{{banner}}"
       style="height: 45rpx; width: 100%; position: absolute; top: 0; left: 0;"></image>
-    <image src="/resources/logo.png"
+    <image src="{{logo}}"
       style="height: 22rpx; width: 150rpx; z-index: 100;"
       mode="scaleToFill"></image>
   </view>

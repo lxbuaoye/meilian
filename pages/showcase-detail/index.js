@@ -9,39 +9,39 @@ try {
 
 const { CLOUD_STROAGE_PATH } = getApp().globalData || { CLOUD_STROAGE_PATH: '' };
 const fakeData = {
-  coverImage: '/image/v2.1.2_color_card_detail_case_assets/pic@2x(1).png',
-  heroImage: '/image/v2.1.2_color_card_detail_case_assets/pic@2x(1).png',
+  coverImage: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
+  heroImage: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
   title: '美联涂料案例–绿洲中环中心',
   projectAddress: '上海普陀',
   descriptionText: '【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。',
-  detailTextImage: '/image/v2.1.2_color_card_detail_case_assets/pic@2x.png',
+  detailTextImage: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x.png`,
   relatedProducts: [
     {
-      imageUrl: '/image/v2.1.2_color_card_detail_case_assets/pic1@2x.png',
+      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
       title: 'M3001哑...',
       productId: 'M3001',
     },
     {
-      imageUrl: '/image/v2.1.2_color_card_detail_case_assets/pic1@2x.png',
+      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
       title: 'M601拉...',
       productId: 'M601',
     },
     {
-      imageUrl: '/image/v2.1.2_color_card_detail_case_assets/pic1@2x.png',
+      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
       title: '油性底漆',
       productId: 'oil-primer',
     },
     {
-      imageUrl: '/image/v2.1.2_color_card_detail_case_assets/pic1@2x.png',
+      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
       title: '内墙漆',
       productId: 'interior-paint',
     },
   ],
   imageUrl: [
-    '/image/v2.1.2_color_card_detail_case_assets/pic@2x.png',
-    '/image/v2.1.2_color_card_detail_case_assets/pic@2x(1).png',
-    '/image/v2.1.2_color_card_detail_case_assets/pic@2x.png',
-    '/image/v2.1.2_color_card_detail_case_assets/pic@2x(1).png',
+    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x.png`,
+    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
+    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x.png`,
+    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
   ],
 };
 
@@ -59,6 +59,9 @@ Page({
     detailTextImage: '',
     statusBarHeight: 0,
     navBarHeight: 0,
+    navBackIcon: `${CLOUD_STROAGE_PATH}/image/common/back.png`,
+    detailIcon: `${CLOUD_STROAGE_PATH}/image/showcase-detail/title@2x.png`,
+    defaultProductIcon: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
   },
 
   /**

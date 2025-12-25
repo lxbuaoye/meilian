@@ -1,5 +1,5 @@
 <view style="height: 21rpx; width: 100%; display: flex; align-items: center;">
   <image style="height: 15rpx; width: 15rpx; margin-right: 10rpx;"
-    src="/resources/bulletpoint.png"></image>
+    src="{{bulletPointImage}}"></image>
   <text style="font-size: 15rpx;color: #1C2023;font-weight: 700;">{{name}}</text>
 </view>
