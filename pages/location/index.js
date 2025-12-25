@@ -1,4 +1,4 @@
-import { getLocalUserInfo } from '../../services/user/service';
+import { getLocalUserInfo, fetchUserInfo } from '../../services/user/service';
 
 // pages/location/index.js
 Page({
@@ -9,8 +9,6 @@ Page({
     menuBarTop: 44,
     menuBarHeight: 32,
     phoneNumber: '',
-    loginVisible: false,
-    pendingBooking: false,
   },
 
   /**
@@ -57,29 +55,69 @@ Page({
       });
       return;
     }
-
     const userInfo = getLocalUserInfo();
-    if (!userInfo || !userInfo.phoneNumber) {
-      this.setData({
-        loginVisible: true,
-        pendingBooking: true,
+    // 如果本地有用户信息则随带提交，否则以空对象提交（云函数会以 openid 去重）
+    this.submitBooking(userInfo || {});
+  },
+
+  /**
+   * 处理从微信获取到的加密手机号（open-type=getRealtimePhoneNumber 回调）
+   */
+  onGetRealTimePhoneNumber(e) {
+    const code = e && e.detail && e.detail.code;
+    if (!code) {
+      wx.showToast({
+        title: '获取手机号失败',
+        icon: 'none',
       });
       return;
     }
 
-    this.submitBooking(userInfo);
-  },
-
-  onLoginSuccess(e) {
-    const userInfo = e.detail;
-    const { pendingBooking } = this.data;
-    this.setData({
-      loginVisible: false,
-      pendingBooking: false,
+    wx.showLoading({
+      title: '获取手机号...',
     });
-    if (pendingBooking) {
-      this.submitBooking(userInfo);
-    }
+
+    wx.cloud
+      .callFunction({
+        name: 'verifyphonenumber',
+        data: {
+          code,
+        },
+      })
+      .then((res) => {
+        const phone = res && res.result && res.result.phoneNumber;
+        if (!phone) {
+          wx.showToast({
+            title: '无法获取手机号',
+            icon: 'none',
+          });
+          return;
+        }
+
+        // 将手机号填入输入框
+        this.setData({
+          phoneNumber: phone,
+        });
+
+        // 尝试拉取用户信息（若已在系统中存在），再提交预约；若失败也继续提交
+        fetchUserInfo(phone)
+          .then((userInfo) => {
+            this.submitBooking(userInfo);
+          })
+          .catch(() => {
+            this.submitBooking({ phoneNumber: phone });
+          });
+      })
+      .catch((err) => {
+        console.error('verifyphonenumber error', err);
+        wx.showToast({
+          title: '获取手机号失败',
+          icon: 'none',
+        });
+      })
+      .finally(() => {
+        wx.hideLoading();
+      });
   },
 
   submitBooking(userInfo) {

@@ -6,7 +6,7 @@
     </view>
   </view>
 
-  <ai-login visible="{{loginVisible}}" bind:onloginsuccess="onLoginSuccess" />
+  <!-- 已移除独立登录覆盖页，立即预约按钮将直接从微信获取手机号 -->
 
   <!-- Main Content -->
   <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
@@ -54,8 +54,11 @@
             />
           </view>
 
-          <!-- Book Now Button -->
-          <button class="book-button" bindtap="onBookNow" hover-class="button-hover">
+          <!-- Book Now Button（改为直接获取微信绑定手机号并回调） -->
+          <button class="book-button"
+            open-type="getRealtimePhoneNumber"
+            bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
+            hover-class="button-hover">
             立即预约
           </button>
 
