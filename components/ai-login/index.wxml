@@ -1,4 +1,4 @@
-<t-overlay visible
+<t-overlay visible="{{visible}}"
   class="login-overlay">
   <view style="margin-top: {{usingCustomNavbar ? 300: 200}}rpx; width: 100%;  display: flex;justify-content: center; align-items: center; flex-direction: column;">
     <view class="icon-wrapper">
@@ -44,7 +44,7 @@
     aria-label="login"></t-fab>
 </t-overlay>
 
-<t-overlay visible="{{loginLoadingVisible}}"
+<t-overlay visible="{{visible && loginLoadingVisible}}"
   duration="{{500}}"
   class="loading-overlay"
   style="display: flex; flex: 1; justify-content: center; align-items: center; flex-direction: column; ">

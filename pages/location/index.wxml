@@ -6,6 +6,8 @@
     </view>
   </view>
 
+  <ai-login visible="{{loginVisible}}" bind:onloginsuccess="onLoginSuccess" />
+
   <!-- Main Content -->
   <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
     <!-- Main Image Container with Overlay Content -->

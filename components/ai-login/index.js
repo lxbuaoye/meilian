@@ -12,6 +12,10 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    visible: {
+      type: Boolean,
+      value: false,
+    },
     usingCustomNavbar: {
       type: Boolean,
       value: false,
