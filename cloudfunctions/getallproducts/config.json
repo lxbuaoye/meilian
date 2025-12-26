@@ -1,7 +1,7 @@
 {
   "permissions": {
     "openapi": [
-      "storage:upload"
+      "database:read"
     ]
   }
 }

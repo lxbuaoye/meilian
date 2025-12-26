@@ -1,7 +1,9 @@
 import { getLocalUserInfo, saveUserInfoLocally } from '../../services/user/service';
 import { Toast } from 'tdesign-miniprogram';
 
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 Component({
   /**
    * 组件的属性列表
@@ -13,7 +15,7 @@ Component({
    */
   data: {
     userInfo: {},
-    backgroundSrc: `${CLOUD_STROAGE_PATH}/resources/ai/profile/transfer_credits_background.png`,
+    backgroundSrc: `${CLOUD_IMAGE_BASE}/resources/ai/profile/transfer_credits_background.png`,
     transferCreditsPopupVisible: false,
     transferring: false,
     pointsOptions: [10, 100, 500],

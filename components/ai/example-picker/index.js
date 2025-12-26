@@ -1,41 +1,43 @@
 // components/ai/example-picker/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 const buildingList = [
   [
     {
       name: '外墙1',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example1.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/example1.jpg`,
     },
     {
       name: '外墙2',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example2.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/example2.jpg`,
     },
     {
       name: '外墙3',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example3.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/example3.jpg`,
     },
     {
       name: '外墙4',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example4.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/example4.jpg`,
     },
   ],
   [
     {
       name: '内墙1',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example1.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/in_example1.jpg`,
     },
     {
       name: '内墙2',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example2.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/in_example2.jpg`,
     },
     {
       name: '内墙3',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example3.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/in_example3.jpg`,
     },
     {
       name: '内墙4',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example4.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/in_example4.jpg`,
     },
   ],
 ];
@@ -44,19 +46,19 @@ const diagnosisList = [
   [
     {
       name: '外墙1',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example1.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/example1.jpg`,
     },
     {
       name: '外墙2',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/example2.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/example2.jpg`,
     },
     {
       name: '内墙1',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example1.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/in_example1.jpg`,
     },
     {
       name: '内墙2',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/in_example2.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/in_example2.jpg`,
     },
   ],
 ];
@@ -65,11 +67,11 @@ const furnitureList = [
   [
     {
       name: '家具1',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/furniture_example1.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/furniture_example1.jpg`,
     },
     {
       name: '家具2',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/furniture_example2.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/furniture_example2.jpg`,
     },
   ],
 ];
@@ -78,11 +80,11 @@ const bathroomList = [
   [
     {
       name: '浴室1',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/bathroom_example1.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/bathroom_example1.jpg`,
     },
     {
       name: '浴室2',
-      imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/example/bathroom_example2.jpg`,
+      imageSrc: `${CLOUD_IMAGE_BASE}/resources/ai/example/bathroom_example2.jpg`,
     },
   ],
 ];

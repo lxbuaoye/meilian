@@ -1,5 +1,7 @@
 // app-components/header/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Component({
   /**
@@ -16,8 +18,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    banner: `${CLOUD_STROAGE_PATH}/resources/app/top_banner_bg.png`,
-    logo: `${CLOUD_STROAGE_PATH}/resources/logo.png`,
+    banner: `${CLOUD_IMAGE_BASE}/resources/app/top_banner_bg.png`,
+    logo: `${CLOUD_IMAGE_BASE}/resources/logo.png`,
   },
 
   /**

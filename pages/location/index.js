@@ -1,6 +1,8 @@
 import { getLocalUserInfo, fetchUserInfo } from '../../services/user/service';
 
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 // pages/location/index.js
 Page({
@@ -11,11 +13,11 @@ Page({
     menuBarTop: 44,
     menuBarHeight: 32,
     phoneNumber: '',
-    storeAppointmentPic: `${CLOUD_STROAGE_PATH}/image/location/store_appointment_pic@2x.png`,
-    industryNewHeightPic: `${CLOUD_STROAGE_PATH}/image/location/industry_new_height_pic@2x.png`,
-    phoneIcon: `${CLOUD_STROAGE_PATH}/image/location/phone@2x.png`,
-    phoneIconAlt: `${CLOUD_STROAGE_PATH}/image/location/phone@2x_1.png`,
-    logoImage: `${CLOUD_STROAGE_PATH}/resources/logo1.png`,
+    storeAppointmentPic: `${CLOUD_IMAGE_BASE}/image/location/store_appointment_pic@2x.png`,
+    industryNewHeightPic: `${CLOUD_IMAGE_BASE}/image/location/industry_new_height_pic@2x.png`,
+    phoneIcon: `${CLOUD_IMAGE_BASE}/image/location/phone@2x.png`,
+    phoneIconAlt: `${CLOUD_IMAGE_BASE}/image/location/phone@2x_1.png`,
+    logoImage: `${CLOUD_IMAGE_BASE}/resources/logo1.png`,
   },
 
   /**

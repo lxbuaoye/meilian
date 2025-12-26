@@ -7,41 +7,43 @@ try {
   console.warn('云开发环境未初始化', e);
 }
 
-const { CLOUD_STROAGE_PATH } = getApp().globalData || { CLOUD_STROAGE_PATH: '' };
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 const fakeData = {
-  coverImage: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
-  heroImage: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
+  coverImage: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x(1).png`,
+  heroImage: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x(1).png`,
   title: '美联涂料案例–绿洲中环中心',
   projectAddress: '上海普陀',
   descriptionText: '【预设文案】京实商派角派养油直张形族九许究列完提动争起开花选色成比志很务比长为业取你最命量收是千六太。命任科写调按至织反响感传开严才运研参中即国问以律向立值可反将当备任主看场社动体约如部现与务分不听利入么研部色连属。',
-  detailTextImage: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x.png`,
+  detailTextImage: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x.png`,
   relatedProducts: [
     {
-      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
+      imageUrl: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png`,
       title: 'M3001哑...',
       productId: 'M3001',
     },
     {
-      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
+      imageUrl: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png`,
       title: 'M601拉...',
       productId: 'M601',
     },
     {
-      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
+      imageUrl: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png`,
       title: '油性底漆',
       productId: 'oil-primer',
     },
     {
-      imageUrl: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
+      imageUrl: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png`,
       title: '内墙漆',
       productId: 'interior-paint',
     },
   ],
   imageUrl: [
-    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x.png`,
-    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
-    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x.png`,
-    `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic@2x(1).png`,
+    `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x.png`,
+    `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x(1).png`,
+    `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x.png`,
+    `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic@2x(1).png`,
   ],
 };
 
@@ -59,9 +61,9 @@ Page({
     detailTextImage: '',
     statusBarHeight: 0,
     navBarHeight: 0,
-    navBackIcon: `${CLOUD_STROAGE_PATH}/image/common/back.png`,
-    detailIcon: `${CLOUD_STROAGE_PATH}/image/showcase-detail/title@2x.png`,
-    defaultProductIcon: `${CLOUD_STROAGE_PATH}/image/showcase-detail/pic1@2x.png`,
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/common/back.png`,
+    detailIcon: `${CLOUD_IMAGE_BASE}/image/showcase-detail/title@2x.png`,
+    defaultProductIcon: `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png`,
   },
 
   /**
@@ -123,29 +125,29 @@ Page({
 
       // 获取展示图片（优先使用 showcaseImage，否则使用第一张图片）
       const showcaseImage = data[0].showcaseImage 
-        ? (CLOUD_STROAGE_PATH ? `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${data[0].showcaseImage}` : '')
-        : (data[0].images && data[0].images.length > 0 && CLOUD_STROAGE_PATH 
-          ? `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${data[0].images[0]}` 
+        ? (CLOUD_IMAGE_BASE ? `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/${data[0].showcaseImage}` : '')
+        : (data[0].images && data[0].images.length > 0 && CLOUD_IMAGE_BASE 
+          ? `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/${data[0].images[0]}` 
           : '');
 
     this.setData({
-        coverImage: CLOUD_STROAGE_PATH ? `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/cover.jpg` : '',
+        coverImage: CLOUD_IMAGE_BASE ? `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/cover.jpg` : '',
         title: data[0].title || fakeData.title,
         projectAddress: data[0].address || data[0].projectAddress || fakeData.projectAddress,
       description: data[0].description,
         descriptionText: data[0].descriptionText || '这里是案例介绍的详细内容，展示了项目的具体信息和特点。',
         showcaseImage: showcaseImage,
-        imageUrl: data[0].images && CLOUD_STROAGE_PATH ? data[0].images.map((item) => {
-        return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item}`;
+        imageUrl: data[0].images && CLOUD_IMAGE_BASE ? data[0].images.map((item) => {
+        return `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/${item}`;
         }) : [],
-        imageUrlHiRes: data[0].images && CLOUD_STROAGE_PATH ? data[0].images.map((item) => {
+        imageUrlHiRes: data[0].images && CLOUD_IMAGE_BASE ? data[0].images.map((item) => {
         const index = item.lastIndexOf('.');
         const extension = item.substring(item.lastIndexOf('.'));
-        return `${CLOUD_STROAGE_PATH}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
+        return `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
         }) : [],
         relatedProducts: relatedProducts.data && relatedProducts.data.length > 0 ? relatedProducts.data.map((item) => {
         return {
-            imageUrl: CLOUD_STROAGE_PATH ? `${CLOUD_STROAGE_PATH}/product/${item._id}/cover.jpg` : '',
+            imageUrl: CLOUD_IMAGE_BASE ? `${CLOUD_IMAGE_BASE}/product/${item._id}/cover.jpg` : '',
           title: item.title,
           productId: item._id,
         };

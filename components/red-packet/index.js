@@ -1,5 +1,7 @@
 // components/red-packet/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 import { createPageWebSocketService } from '../../services/socket/util'; // 导入模块
 import { fetchRedPacket } from '../../services/redpacket/util';
@@ -73,11 +75,11 @@ Component({
     isRedPacketOpened: false,
     endCountdown: '',
     isInflating: false,
-    redPacketFabSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_fab.png`,
-    redPacketInflateButtonSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_inflate_button.png`,
-    redPacketOpenedSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_opened.png`,
-    inflateRedPacketOpenedSrc: `${CLOUD_STROAGE_PATH}/resources/ai/inflated_red_packet_opened.png`,
-    redPacketCloseSrc: `${CLOUD_STROAGE_PATH}/resources/ai/red_packet_close.png`,
+    redPacketFabSrc: `${CLOUD_IMAGE_BASE}/resources/ai/red_packet_fab.png`,
+    redPacketInflateButtonSrc: `${CLOUD_IMAGE_BASE}/resources/ai/red_packet_inflate_button.png`,
+    redPacketOpenedSrc: `${CLOUD_IMAGE_BASE}/resources/ai/red_packet_opened.png`,
+    inflateRedPacketOpenedSrc: `${CLOUD_IMAGE_BASE}/resources/ai/inflated_red_packet_opened.png`,
+    redPacketCloseSrc: `${CLOUD_IMAGE_BASE}/resources/ai/red_packet_close.png`,
     fetchingRedPacket: false,
     sharedToTimeline: false,
   },

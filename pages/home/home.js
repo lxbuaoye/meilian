@@ -3,7 +3,9 @@ import dayjs from 'dayjs';
 
 const db = wx.cloud.database();
 const _ = db.command;
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   data: {
@@ -11,13 +13,13 @@ Page({
     tabList: [],
     productList: [],
     showcaseList: [],
-    homeShowcaseFallbackImages: [`${CLOUD_STROAGE_PATH}/image/home/01.png`, `${CLOUD_STROAGE_PATH}/image/home/02.png`, `${CLOUD_STROAGE_PATH}/image/home/03.png`],
+    homeShowcaseFallbackImages: [`${CLOUD_IMAGE_BASE}/image/home/01.png`, `${CLOUD_IMAGE_BASE}/image/home/02.png`, `${CLOUD_IMAGE_BASE}/image/home/03.png`],
     homeShowcaseImageErrorMap: {},
-    newsCoverImage: `${CLOUD_STROAGE_PATH}/image/home/1.png`,
-    logoImage: `${CLOUD_STROAGE_PATH}/resources/logo1.png`,
-    bannerImage: `${CLOUD_STROAGE_PATH}/resources/banner.png`,
-    titleImage: `${CLOUD_STROAGE_PATH}/resources/title.png`,
-    homeyuanImage: `${CLOUD_STROAGE_PATH}/resources/homeyuan.png`,
+    newsCoverImage: `${CLOUD_IMAGE_BASE}/image/home/1.png`,
+    logoImage: `${CLOUD_IMAGE_BASE}/resources/logo1.png`,
+    bannerImage: `${CLOUD_IMAGE_BASE}/resources/banner.png`,
+    titleImage: `${CLOUD_IMAGE_BASE}/resources/title.png`,
+    homeyuanImage: `${CLOUD_IMAGE_BASE}/resources/homeyuan.png`,
     newsList: [],
     pageLoading: false,
     current: 1,
@@ -66,9 +68,9 @@ Page({
     });
     // Load resources
     this.setData({
-      bannerUrl: `${CLOUD_STROAGE_PATH}/resources/home/banner.png`,
-      sloganUrl: `${CLOUD_STROAGE_PATH}/resources/home/slogan.png`,
-      animateUrl: `${CLOUD_STROAGE_PATH}/resources/home/animate.png`,
+      bannerUrl: `${CLOUD_IMAGE_BASE}/resources/home/banner.png`,
+      sloganUrl: `${CLOUD_IMAGE_BASE}/resources/home/slogan.png`,
+      animateUrl: `${CLOUD_IMAGE_BASE}/resources/home/animate.png`,
     });
     this.loadHomePage();
   },
@@ -124,7 +126,7 @@ Page({
     const showcaseList = (data || []).map((item) => {
       return {
         ...item,
-        coverImageUrl: `${CLOUD_STROAGE_PATH}/showcase/${item._id}/cover.jpg`,
+        coverImageUrl: `${CLOUD_IMAGE_BASE}/showcase/${item._id}/cover.jpg`,
       };
     });
     this.setData({

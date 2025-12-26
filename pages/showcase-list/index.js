@@ -1,7 +1,9 @@
 // pages/showcase-list/index.js
 const db = wx.cloud.database();
 const _ = db.command;
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   data: {
@@ -12,12 +14,12 @@ Page({
     categoryIndex: 0,
     listLoadingStatus: [0, 0],
     showcaseFallbackImages: [
-      `${CLOUD_STROAGE_PATH}/image/common/pic@2x.png`,
-      `${CLOUD_STROAGE_PATH}/image/common/pic@2x(1).png`,
-      `${CLOUD_STROAGE_PATH}/image/common/pic@2x(2).png`,
+      `${CLOUD_IMAGE_BASE}/image/common/pic@2x.png`,
+      `${CLOUD_IMAGE_BASE}/image/common/pic@2x(1).png`,
+      `${CLOUD_IMAGE_BASE}/image/common/pic@2x(2).png`,
     ],
     showcaseImageErrorMap: {},
-    backIcon: `${CLOUD_STROAGE_PATH}/image/common/back@2x.png`,
+    backIcon: `${CLOUD_IMAGE_BASE}/image/common/back@2x.png`,
   },
 
   pagination: [
@@ -67,7 +69,7 @@ Page({
     const showcaseList = (data || []).map((item) => {
       return {
         ...item,
-        coverImageUrl: `${CLOUD_STROAGE_PATH}/showcase/${item._id}/cover.jpg`,
+        coverImageUrl: `${CLOUD_IMAGE_BASE}/showcase/${item._id}/cover.jpg`,
       };
     });
     this.pagination[this.data.categoryIndex].index++;

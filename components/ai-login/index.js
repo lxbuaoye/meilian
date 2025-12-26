@@ -2,7 +2,7 @@ import { getLocalUserInfo, fetchUserInfo } from '../../services/user/service';
 
 import Message from 'tdesign-miniprogram/message/index';
 
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const { CLOUD_IMAGE_BASE } = getApp().globalData;
 const accountInfo = wx.getAccountInfoSync();
 const db = wx.cloud.database();
 const _ = db.command;
@@ -32,7 +32,7 @@ Component({
   data: {
     userInfo: {},
     loginLoadingVisible: false,
-    logoSrc: `${CLOUD_STROAGE_PATH}/resources/ai/logo.png`,
+    logoSrc: `${CLOUD_IMAGE_BASE}/resources/ai/logo.png`,
     navigatorProps: {
       // 已删除隐私页面
       // url: '/pages/ai/privacy/index',

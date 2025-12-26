@@ -2,18 +2,5 @@
   "component": true,
   "usingComponents": {
     "tag": "/app-components/tag/index"
-  },
-  "tabBar": {
-    "custom": true,
-    "color": "#666666",
-    "selectedColor": "#F8C301",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "app-pages/showcase/index",
-        "text": "首页"
-      }
-    ]
   }
 }

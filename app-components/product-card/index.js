@@ -1,5 +1,7 @@
 // components/product-card/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 Component({
   /**
    * 组件的属性列表
@@ -37,7 +39,7 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        imageUrl: `${CLOUD_STROAGE_PATH}/product/${this.data.productId}/cover.jpg`,
+        imageUrl: `${CLOUD_IMAGE_BASE}/product/${this.data.productId}/cover.jpg`,
       });
     },
   },
@@ -48,7 +50,7 @@ Component({
   methods: {
     clickHandle() {
       wx.navigateTo({
-        url: `/app-pages/product-detail/index?productId=${this.data.productId}`,
+        url: `/pages/product-detail/index?productId=${this.data.productId}`,
       });
     },
   },

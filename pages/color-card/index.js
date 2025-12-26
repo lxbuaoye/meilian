@@ -1,32 +1,25 @@
 // pages/color-card/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   data: {
     statusBarHeight: 0,
     navBarHeight: 0, // 导航栏总高度（状态栏 + 导航内容）
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/common/back.png`,
     keyword: '',
-    activeTopTab: 1, // 默认仿石漆 (0: 乳胶漆, 1: 仿石漆, 2: 艺术漆)
+    // 0: 乳胶漆, 1: 仿石漆, 2: 艺术漆
+    activeTopTab: 1,
     activeChip: 0,
-    chips: ['峨坤石', '峨御石', '峨恒石', '峨玑石', '峨锦石'],
-    // 所有色卡数据，包含分类信息
-    allCards: [
-      // 仿石漆分类的色卡
-      { code: 'MK8401', name: 'MK8401加仕红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8401_jia_shi_red.png`, category: 1 },
-      { code: 'MK8402', name: 'MK8402灰麻石', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8402_gray_hemp_stone.png`, category: 1 },
-      { code: 'MK8403', name: 'MK8403黄锈石', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8403_yellow_rust_stone.png`, category: 1 },
-      { code: 'MK8404', name: 'MK8404水晶白麻', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8404_crystal_white_hemp.png`, category: 1 },
-      { code: 'MK8405', name: 'MK8405金麻石', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8405_gold_hemp_stone.png`, category: 1 },
-      { code: 'MK8406', name: 'MK8406非洲虾红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8406_african_shrimp_red.png`, category: 1 },
-      { code: 'MK8407', name: 'MK8407海棠红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8407_begonia_red.png`, category: 1 },
-      { code: 'MK8408', name: 'MK8408沙特砖红', img: `${CLOUD_STROAGE_PATH}/image/color-card/MK8408_saudi_brick_red.png`, category: 1 },
-      // 可以在这里添加其他分类的色卡数据
-      // { code: 'XX0001', name: 'XX0001示例', img: '/path/to/image.png', category: 0 }, // 乳胶漆
-      // { code: 'XX0002', name: 'XX0002示例', img: '/path/to/image.png', category: 2 }, // 艺术漆
-    ],
+    chips: [], // 二级分类（根据选择的一级分类动态生成）
+    // 所有色卡数据（从云 DB 加载）
+    allCards: [],
     filteredCards: [],
-    navBackIcon: `${CLOUD_STROAGE_PATH}/image/color-card/back.png`,
-    searchIcon: `${CLOUD_STROAGE_PATH}/image/color-card/search.png`,
+    // 映射索引到一级分类名称（与数据库中的 category 字段匹配）
+    topCategoryNames: ['乳胶漆', '仿石漆', '艺术漆'],
+    // 占位图片（当 tpdz 为空时）
+    placeholderImage: '/image/v2.1_color_card_assets/placeholder.png',
   },
 
   onLoad() {
@@ -41,7 +34,9 @@ Page({
       statusBarHeight: statusBarHeight,
       navBarHeight: navBarHeight,
     });
-    this.applyFilter();
+
+    // 从云数据库加载产品数据
+    this.fetchProductsFromDB().catch(err => console.error('加载产品数据失败:', err));
   },
 
   handleBack() {
@@ -53,29 +48,107 @@ Page({
     this.applyFilter();
   },
 
+  // 切换一级分类（索引）
   setTopTab(e) {
     const index = Number(e.currentTarget.dataset.index) || 0;
-    this.setData({ activeTopTab: index });
-    this.applyFilter();
-  },
-
-  setChip(e) {
-    this.setData({ activeChip: Number(e.currentTarget.dataset.index) || 0 });
-    this.applyFilter();
-  },
-
-  applyFilter() {
-    const { keyword, activeTopTab, allCards } = this.data;
-    const kw = (keyword || '').trim().toLowerCase();
-    
-    // 先根据分类筛选
-    let filtered = allCards.filter((card) => {
-      // 如果卡片没有 category 字段，默认显示在仿石漆分类
-      const cardCategory = card.category !== undefined ? card.category : 1;
-      return cardCategory === activeTopTab;
+    this.setData({ activeTopTab: index, activeChip: 0 }, () => {
+      this.buildChipsForActiveTopTab();
     });
-    
-    // 再根据关键词筛选（搜索编码和名称）
+  },
+
+  // 切换二级分类芯片
+  setChip(e) {
+    const idx = Number(e.currentTarget.dataset.index) || 0;
+    this.setData({ activeChip: idx }, () => {
+      this.applyFilter();
+    });
+  },
+
+  // 从云函数获取所有产品数据
+  async fetchProductsFromDB() {
+    if (!wx.cloud) {
+      console.warn('wx.cloud 未初始化，无法调用云函数');
+      return;
+    }
+
+    try {
+      const result = await wx.cloud.callFunction({
+        name: 'getallproducts'
+      });
+
+      if (result.result.success) {
+        const allDocs = result.result.data;
+        console.log(`总共读取到 ${allDocs.length} 条产品记录`);
+
+        const mapped = allDocs.map((d) => {
+          return {
+            // 使用数据库字段映射到页面需要的字段
+            categoryName: d.category || '', // 一级分类（字符串）
+            subcategory: d.subcategory || '', // 二级分类（字符串）
+            name: d.cpmc || '', // 产品名称
+            code: d.cpmc || '', // 使用名称作为 code，若有专用编码请替换
+            img: d.tpdz || this.data.placeholderImage, // 图片路径
+          };
+        });
+
+        this.setData({ allCards: mapped }, () => {
+          this.buildChipsForActiveTopTab();
+        });
+      } else {
+        console.error('云函数返回错误：', result.result.error);
+        this.setData({ allCards: [] }, () => {
+          this.buildChipsForActiveTopTab();
+        });
+      }
+    } catch (err) {
+      console.error('调用云函数失败', err);
+      // 失败时保留现有数据（如果需要可以设置默认）
+      this.setData({ allCards: [] }, () => {
+        this.buildChipsForActiveTopTab();
+      });
+    }
+  },
+
+  // 根据当前 activeTopTab 构建二级 chips（去重子类）
+  buildChipsForActiveTopTab() {
+    const { allCards, activeTopTab, topCategoryNames } = this.data;
+    const topName = topCategoryNames[activeTopTab] || '';
+    const subSet = new Set();
+    allCards.forEach((item) => {
+      if (item.categoryName === topName) {
+        const key = item.subcategory || '其他';
+        subSet.add(key);
+      }
+    });
+    const chips = Array.from(subSet);
+    // 如果没有子类则保留空数组（显示全部）
+    this.setData({ chips: chips }, () => {
+      // 如果当前 activeChip 超出范围，重置为 0
+      const activeChip = this.data.activeChip >= chips.length ? 0 : this.data.activeChip;
+      this.setData({ activeChip }, () => {
+        this.applyFilter();
+      });
+    });
+  },
+
+  // 根据关键字、一级分类和二级分类筛选
+  applyFilter() {
+    const { keyword, activeTopTab, allCards, topCategoryNames, chips, activeChip } = this.data;
+    const kw = (keyword || '').trim().toLowerCase();
+    const topName = topCategoryNames[activeTopTab] || '';
+
+    let filtered = allCards.filter((card) => {
+      // 过滤一级分类
+      if (topName && card.categoryName !== topName) return false;
+      // 过滤二级分类（如果存在 chips 并且有选中的子类）
+      if (chips && chips.length > 0) {
+        const selectedSub = chips[activeChip] || '';
+        if (selectedSub && card.subcategory !== selectedSub) return false;
+      }
+      return true;
+    });
+
+    // 关键字搜索（名称或编码）
     if (kw) {
       filtered = filtered.filter((card) => {
         const name = (card.name || '').toLowerCase();
@@ -83,16 +156,33 @@ Page({
         return name.includes(kw) || code.includes(kw);
       });
     }
-    
+
     this.setData({ filteredCards: filtered });
   },
 
   openDetail(e) {
     const name = e.currentTarget.dataset.name || '';
     const code = e.currentTarget.dataset.code || '';
+    const img = e.currentTarget.dataset.img || '';
     wx.navigateTo({
-      url: `/pages/color-detail/index?name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}`,
+      url: `/pages/color-detail/index?name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}&img=${encodeURIComponent(img)}`,
     });
+  },
+
+  // 图片加载时缓存到全局，避免切换选项卡或再次进入详情时重复加载
+  onImageLoad(e) {
+    try {
+      const code = e.currentTarget.dataset.code || '';
+      const img = e.currentTarget.dataset.img || '';
+      const app = getApp();
+      if (!app.globalData) app.globalData = {};
+      if (!app.globalData.colorCardImageCache) app.globalData.colorCardImageCache = {};
+      if (code) {
+        app.globalData.colorCardImageCache[code] = img;
+      }
+    } catch (err) {
+      console.warn('onImageLoad cache fail', err);
+    }
   },
 });
 

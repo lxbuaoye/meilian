@@ -1,5 +1,5 @@
 // components/showcase-card/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = getApp().globalData;
 
 Component({
   /**
@@ -28,7 +28,7 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        coverImageUrl: `${CLOUD_STROAGE_PATH}/showcase/${this.data.showcaseId}/cover.jpg`,
+        coverImageUrl: `${CLOUD_IMAGE_BASE}/showcase/${this.data.showcaseId}/cover.jpg`,
       });
     },
   },

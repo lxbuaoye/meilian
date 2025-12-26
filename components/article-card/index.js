@@ -1,5 +1,7 @@
 // components/article-card/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 Component({
   /**
    * 组件的属性列表
@@ -35,7 +37,7 @@ Component({
   lifetimes: {
     attached() {
       this.setData({
-        imageUrl: `${CLOUD_STROAGE_PATH}/news/${this.data.newsId}/cover.jpg`,
+        imageUrl: `${CLOUD_IMAGE_BASE}/news/${this.data.newsId}/cover.jpg`,
       });
       console.log(this.data.imageUrl);
     },

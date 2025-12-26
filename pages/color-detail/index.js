@@ -1,36 +1,38 @@
 // pages/color-detail/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    colorImage: `${CLOUD_STROAGE_PATH}/image/color-card/MK8401_jia_shi_red@2x.png`,
+    colorImage: `${CLOUD_IMAGE_BASE}/image/color-card/MK8401_jia_shi_red@2x.png`,
     colorName: 'MK8401加仕红',
     cases: [
       {
         id: 'case1',
         name: '河源碧桂园学校',
-        image: `${CLOUD_STROAGE_PATH}/image/common/pic@2x.png`,
+        image: `${CLOUD_IMAGE_BASE}/image/common/pic@2x.png`,
       },
       {
         id: 'case2',
         name: '凤岗碧桂园蔷薇花园',
-        image: `${CLOUD_STROAGE_PATH}/image/common/pic@2x(1).png`,
+        image: `${CLOUD_IMAGE_BASE}/image/common/pic@2x(1).png`,
       },
       {
         id: 'case3',
         name: '示例项目三',
-        image: `${CLOUD_STROAGE_PATH}/image/common/pic@2x(2).png`,
+        image: `${CLOUD_IMAGE_BASE}/image/common/pic@2x(2).png`,
       },
     ],
     statusBarHeight: 0,
     navBarHeight: 0,
-    navBackIcon: `${CLOUD_STROAGE_PATH}/image/common/back.png`,
-    downloadIcon: `${CLOUD_STROAGE_PATH}/image/common/download.png`,
-    shareIcon: `${CLOUD_STROAGE_PATH}/image/common/share.png`,
-    homeyuanIcon: `${CLOUD_STROAGE_PATH}/resources/homeyuan.png`,
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/common/back.png`,
+    downloadIcon: `${CLOUD_IMAGE_BASE}/image/common/download.png`,
+    shareIcon: `${CLOUD_IMAGE_BASE}/image/common/share.png`,
+    homeyuanIcon: `${CLOUD_IMAGE_BASE}/resources/homeyuan.png`,
   },
 
   onLoad(options) {
@@ -51,6 +53,52 @@ Page({
       this.setData({
         colorName: decodeURIComponent(options.name),
       });
+    }
+
+    // 如果传入 img 参数，先使用；否则从云数据库按 name/code 查询图片以保证准确
+    if (options && options.img) {
+      this.setData({
+        colorImage: decodeURIComponent(options.img),
+      });
+    } else if (options && (options.code || options.name)) {
+      const queryKey = decodeURIComponent(options.code || options.name);
+      this.fetchImageFromDB(queryKey).catch((err) => {
+        console.warn('从数据库获取图片失败，使用默认图片', err);
+      });
+    }
+  },
+
+  // 按产品名称或编码从云数据库中查询图片路径（tpdz 字段）
+  async fetchImageFromDB(queryKey) {
+    if (!wx.cloud || !wx.cloud.database) {
+      console.warn('wx.cloud 未初始化，无法从云数据库获取图片');
+      return;
+    }
+    try {
+      const db = wx.cloud.database();
+      const res = await db.collection('product_dzsk').where({
+        cpmc: queryKey
+      }).limit(1).get();
+      const doc = (res && res.data && res.data[0]) || null;
+      if (doc && doc.tpdz) {
+        this.setData({
+          colorImage: doc.tpdz
+        });
+      } else {
+        // 如果没有按 cpmc 找到，再尝试按 name 字段或 category/subcategory 匹配
+        const res2 = await db.collection('product_dzsk').where({
+          cpmc: db.command.regex({
+            regexp: queryKey,
+            options: 'i'
+          })
+        }).limit(1).get();
+        const doc2 = (res2 && res2.data && res2.data[0]) || null;
+        if (doc2 && doc2.tpdz) {
+          this.setData({ colorImage: doc2.tpdz });
+        }
+      }
+    } catch (err) {
+      console.error('fetchImageFromDB error', err);
     }
   },
 

@@ -1,4 +1,4 @@
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = getApp().globalData;
 
 Page({
   data: {
@@ -29,14 +29,14 @@ Page({
       { name: '峯御石' },
       { name: '峯御石' },
     ],
-    navBackIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/back@2x.png`,
-    uploadIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/upload_image@2x.png`,
-    sectionDot: `${CLOUD_STROAGE_PATH}/image/area-ai/title@2x.png`,
-    productIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/product.png`,
-    selectedIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/selected@2x.png`,
-    resultCloseIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/wrong.png`,
-    resultImage: `${CLOUD_STROAGE_PATH}/image/area-ai/pic.png`,
-    resultDot: `${CLOUD_STROAGE_PATH}/image/area-ai/title.png`,
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/back@2x.png`,
+    uploadIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/upload_image@2x.png`,
+    sectionDot: `${CLOUD_IMAGE_BASE}/image/area-ai/title@2x.png`,
+    productIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/product.png`,
+    selectedIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/selected@2x.png`,
+    resultCloseIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/wrong.png`,
+    resultImage: `${CLOUD_IMAGE_BASE}/image/area-ai/pic.png`,
+    resultDot: `${CLOUD_IMAGE_BASE}/image/area-ai/title.png`,
   },
 
   onLoad() {

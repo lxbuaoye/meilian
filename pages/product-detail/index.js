@@ -1,7 +1,9 @@
 // pages/product-detail/index.js
 const db = wx.cloud.database();
 const _ = db.command;
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   /**
@@ -21,10 +23,10 @@ Page({
     detailName: '',
     detailCode: '',
     tags: [],
-    heroImage: `${CLOUD_STROAGE_PATH}/image/product-detail/pic@2x.png`,
+    heroImage: `${CLOUD_IMAGE_BASE}/image/product-detail/pic@2x.png`,
     statusBarHeight: 0,
     navBarHeight: 0,
-    navBackIcon: `${CLOUD_STROAGE_PATH}/image/product-detail/back@2x.png`,
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/product-detail/back@2x.png`,
     // 默认展示数据用于还原效果
     title: '微岩石',
     detailName: '铜墙铁壁双组份外墙漆',
@@ -54,7 +56,7 @@ Page({
   async init(productId) {
     console.log(productId);
     // 设置默认图片路径
-    const defaultImage = `${CLOUD_STROAGE_PATH}/image/product-detail/pic@2x.png`;
+    const defaultImage = `${CLOUD_IMAGE_BASE}/image/product-detail/pic@2x.png`;
     
     try {
       const { data } = await db
@@ -79,11 +81,11 @@ Page({
       let heroImage = defaultImage;
       
       if (images.length > 0) {
-        imageList = images.map((item) => `${CLOUD_STROAGE_PATH}/product/${productId}/${item}`);
+        imageList = images.map((item) => `${CLOUD_IMAGE_BASE}/product/${productId}/${item}`);
         imageListHiRes = images.map((item) => {
             const index = item.lastIndexOf('.');
             const extension = item.substring(item.lastIndexOf('.'));
-            return `${CLOUD_STROAGE_PATH}/product/${productId}/${item.substring(0, index)}@2x${extension}`;
+            return `${CLOUD_IMAGE_BASE}/product/${productId}/${item.substring(0, index)}@2x${extension}`;
         });
         heroImage = imageList[0];
       } else {

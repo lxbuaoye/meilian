@@ -1,4 +1,6 @@
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const app$ = typeof getApp === 'function' ? getApp() : {};
+const appGlobal$ = app$.globalData || {};
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   data: {
@@ -11,9 +13,9 @@ Page({
       { name: '蟻行' }
     ],
     craft: '新中式, 外墙',
-    resultImage: `${CLOUD_STROAGE_PATH}/image/area-ai/pic@2x.png`,
-    navBackIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/back@2x.png`,
-    modalIcon: `${CLOUD_STROAGE_PATH}/image/area-ai/icon-40px@2x.png`,
+    resultImage: `${CLOUD_IMAGE_BASE}/image/area-ai/pic@2x.png`,
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/back@2x.png`,
+    modalIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/icon-40px@2x.png`,
   },
 
   onLoad(options) {

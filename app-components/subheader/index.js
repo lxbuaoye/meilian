@@ -1,5 +1,5 @@
 // app-components/subheader/index.js
-const { CLOUD_STROAGE_PATH } = getApp().globalData;
+const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = getApp().globalData;
 
 Component({
   /**
@@ -16,7 +16,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    bulletPointImage: `${CLOUD_STROAGE_PATH}/resources/bulletpoint.png`,
+    bulletPointImage: `${CLOUD_IMAGE_BASE}/resources/bulletpoint.png`,
   },
 
   /**
