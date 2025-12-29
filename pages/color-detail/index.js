@@ -122,6 +122,15 @@ Page({
     });
   },
 
+  previewImage() {
+    const currentImage = this.data.colorImage;
+    if (!currentImage) return;
+    wx.previewImage({
+      current: currentImage,
+      urls: [currentImage],
+    });
+  },
+
   handleCaseTap(e) {
     const { id } = e.currentTarget.dataset;
     wx.navigateTo({

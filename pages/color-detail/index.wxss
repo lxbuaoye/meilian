@@ -101,8 +101,7 @@ page {
 }
 
 .color-name {
-  width: 239rpx;
-  height: 48rpx;
+  /* 使用弹性布局：尽可能展示名称，靠近右侧操作按钮时才省略 */
   font-family: PingFang-SC-Bold;
   font-weight: 700;
   font-size: 34rpx;
@@ -110,6 +109,14 @@ page {
   letter-spacing: 0;
   line-height: 48rpx;
   margin-left: 30rpx;
+  margin-right: 20rpx;
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0; /* 允许在 flex 布局下正确触发溢出 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: keep-all;
 }
 
 .color-actions {

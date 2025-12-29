@@ -17,7 +17,8 @@
     <view class="card color-card">
       <image class="color-image"
         src="{{colorImage}}"
-        mode="aspectFill" />
+        mode="aspectFill"
+        bindtap="previewImage" />
 
       <view class="color-info">
         <text class="color-name">{{colorName}}</text>
