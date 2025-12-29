@@ -30,8 +30,8 @@
 
     <!-- 色卡列表 -->
     <view class="grid">
-      <view class="grid-item" wx:for="{{filteredCards}}" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}" data-img="{{item.img}}">
-        <image class="grid-img" src="{{item.img}}" mode="aspectFill" />
+      <view class="grid-item" wx:for="{{filteredCards}}" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}" data-img="{{item.originalImg}}">
+        <image class="grid-img" src="{{item.img}}" mode="aspectFill" bindload="onImageLoad" binderror="onImageError" data-code="{{item.code}}" data-img="{{item.img}}" data-original="{{item.originalImg}}" />
         <text class="grid-text">{{item.name}}</text>
       </view>
     </view>

@@ -72,6 +72,11 @@ Page({
     }
 
     try {
+      // #region agent log
+      try {
+        fetch('http://127.0.0.1:7242/ingest/4dfd47dc-5184-408a-80e6-ead7f5d01f49',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'pages/color-card/index.js:fetchProductsFromDB',message:'callFunction start',data:{},timestamp:Date.now()})}).catch(()=>{});
+      } catch(e) {}
+      // #endregion
       const result = await wx.cloud.callFunction({
         name: 'getallproducts'
       });
@@ -81,17 +86,38 @@ Page({
         console.log(`总共读取到 ${allDocs.length} 条产品记录`);
 
         const mapped = allDocs.map((d) => {
+          const originalImage = d.tpdz || this.data.placeholderImage;
+          // 将原图路径转换为压缩图路径进行预览
+          let compressedImage = originalImage;
+          if (originalImage && originalImage.includes('/product/')) {
+            compressedImage = originalImage.replace('/product/', '/compressed_color_cards/');
+          }
+
+          // #region agent log
+          try {
+            if ((d.cpmc && d.cpmc.includes('MH6401')) || (compressedImage && compressedImage.includes('MH6401'))) {
+              fetch('http://127.0.0.1:7242/ingest/4dfd47dc-5184-408a-80e6-ead7f5d01f49',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'pages/color-card/index.js:map',message:'item mapped',data:{cpmc:d.cpmc,originalImage:originalImage,compressedImage:compressedImage},timestamp:Date.now()})}).catch(()=>{});
+            }
+          } catch(e) {}
+          // #endregion
+
           return {
             // 使用数据库字段映射到页面需要的字段
             categoryName: d.category || '', // 一级分类（字符串）
             subcategory: d.subcategory || '', // 二级分类（字符串）
             name: d.cpmc || '', // 产品名称
             code: d.cpmc || '', // 使用名称作为 code，若有专用编码请替换
-            img: d.tpdz || this.data.placeholderImage, // 图片路径
+            img: compressedImage, // 预览时使用压缩图
+            originalImg: originalImage, // 保存原图路径
           };
         });
 
         this.setData({ allCards: mapped }, () => {
+          // #region agent log
+          try {
+            fetch('http://127.0.0.1:7242/ingest/4dfd47dc-5184-408a-80e6-ead7f5d01f49',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3',location:'pages/color-card/index.js:setData',message:'mapped set to state',data:{mappedLength:mapped.length},timestamp:Date.now()})}).catch(()=>{});
+          } catch(e) {}
+          // #endregion
           this.buildChipsForActiveTopTab();
         });
       } else {
@@ -180,8 +206,51 @@ Page({
       if (code) {
         app.globalData.colorCardImageCache[code] = img;
       }
+      // #region agent log
+      try {
+        fetch('http://127.0.0.1:7242/ingest/4dfd47dc-5184-408a-80e6-ead7f5d01f49',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H4',location:'pages/color-card/index.js:onImageLoad',message:'image load',data:{code:code,img:img},timestamp:Date.now()})}).catch(()=>{});
+      } catch(e) {}
+      // #endregion
     } catch (err) {
       console.warn('onImageLoad cache fail', err);
+    }
+  },
+
+  // 图片加载失败回退处理：如果压缩图不可用，使用原图（originalImg）
+  onImageError(e) {
+    try {
+      const code = e.currentTarget.dataset.code || '';
+      const originalImg = e.currentTarget.dataset.original || '';
+      if (!code || !originalImg) return;
+
+      // 更新 filteredCards 中对应项的 img 字段（回退到原图）
+      const updatedFiltered = (this.data.filteredCards || []).map((item) => {
+        if (item.code === code) {
+          return Object.assign({}, item, { img: originalImg });
+        }
+        return item;
+      });
+
+      // 同步更新 allCards，以免再次切换过滤导致仍然使用不可用的压缩图
+      const updatedAll = (this.data.allCards || []).map((item) => {
+        if (item.code === code) {
+          return Object.assign({}, item, { img: originalImg, originalImg: originalImg });
+        }
+        return item;
+      });
+
+      this.setData({
+        filteredCards: updatedFiltered,
+        allCards: updatedAll,
+      }, () => {
+        // 将原图放入全局缓存，避免重复请求
+        const app = getApp();
+        if (!app.globalData) app.globalData = {};
+        if (!app.globalData.colorCardImageCache) app.globalData.colorCardImageCache = {};
+        app.globalData.colorCardImageCache[code] = originalImg;
+      });
+    } catch (err) {
+      console.warn('onImageError handling failed', err);
     }
   },
 });

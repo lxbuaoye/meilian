@@ -57,6 +57,11 @@ Page({
 
     // 如果传入 img 参数，先使用；否则从云数据库按 name/code 查询图片以保证准确
     if (options && options.img) {
+      // #region agent log
+      try {
+        fetch('http://127.0.0.1:7242/ingest/4dfd47dc-5184-408a-80e6-ead7f5d01f49',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'D1',location:'pages/color-detail/index.js:onLoad',message:'options.img present',data:{img:options.img,name:options.name,code:options.code},timestamp:Date.now()})}).catch(()=>{});
+      } catch(e) {}
+      // #endregion
       this.setData({
         colorImage: decodeURIComponent(options.img),
       });
