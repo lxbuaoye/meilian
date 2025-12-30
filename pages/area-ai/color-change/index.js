@@ -128,7 +128,7 @@ Page({
     resultImage: `${CLOUD_IMAGE_BASE}/image/area-ai/pic.png`,
     resultDot: `${CLOUD_IMAGE_BASE}/image/area-ai/title.png`,
     // 产品展示配置
-    visibleProductsCount: 4,
+    visibleProductsCount: 8,
     visibleProducts: [],
     showMoreModal: false,
   },
@@ -265,13 +265,20 @@ Page({
         console.warn('获取压缩色卡失败，使用默认图片', e);
       }
 
-      const mapped = products.map((product) => ({
-        id: product._id || product._id || product._id,
-        name: product.name || product.colorName || product.cpmc || '',
-        imageSrc: product.imageSrc || compressedColorCardsUrl || product.thumbnail || product.image || '',
-        colorCode: product.colorCode || product.cpmc || product.colorName || '',
-        category: product.category || '',
-      }));
+      const mapped = products.map((product) => {
+        const rawCode = product.colorCode || product.cpmc || product.colorName || '';
+        // Remove leading alphanumeric/hyphen characters and optional following space
+        const displayName = rawCode.replace(/^[A-Za-z0-9-]+\s*/, '');
+
+        return {
+          id: product._id || product._id || product._id, // Keep existing ID logic, though redundant
+          name: product.name || product.colorName || product.cpmc || '',
+          imageSrc: product.imageSrc || compressedColorCardsUrl || product.thumbnail || product.image || '',
+          colorCode: rawCode,
+          displayName: displayName,
+          category: product.category || '',
+        };
+      });
 
       this.setData({
         products: mapped,
@@ -423,6 +430,8 @@ Page({
       .map(key => this.data.products.find(p => p.id === key))
       .filter(Boolean);
 
+    const currentStyle = this.data.styleOptionsForInterior[this.data.value0].name;
+
     // 如果没有选择产品但选择了玄武系列或其他需要颜色的风格，使用默认颜色
     if (selectedProducts.length === 0 && (this.data.value0 === 10 || this.data.value0 === 11)) {
       this.showInfoMessage('请选择色卡产品或使用自定义颜色');
@@ -440,9 +449,9 @@ Page({
     // 内墙处理（室内装修场景）
     selectedOptions.push({
       title: '风格',
-      content: this.data.styleOptionsForInterior[this.data.value0].name,
+      content: currentStyle,
     });
-    if (this.data.styleOptionsForInterior[this.data.value0].name === '自定义') {
+    if (currentStyle === '自定义') {
       const downloadList = [];
       this.data.interiorCustomOptionList.forEach((item, index) => {
         const child = this.selectComponent(`#interior-option-${index}`);
@@ -471,7 +480,7 @@ Page({
       } else {
         prompt = `1.把图中这个空间墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 2. 然后把图中整体墙面改成 ${colorChild.data.color} 颜色(不需要改地板和天花, 只是墙身); 3.保持图中建筑结构和布局不改变， 图片比例不改变`;
       }
-    } else if (this.data.styleOptionsForInterior[this.data.value0].name === '玄武系列') {
+    } else if (currentStyle === '玄武系列') {
       let colorPrompt = '';
       if (selectedProducts.length > 0) {
         // 使用选择的色卡颜色
@@ -536,7 +545,15 @@ Page({
           const base64Json = jsonResponse.data[0].b64_json;
           const tempFileUrl = await saveBase64ToTempFile(base64Json);
           const imageSrc = await addWatermarkToImage(tempFileUrl);
-          this.setData({ generatedImageSrc: imageSrc, progress: 0 });
+          this.setData({
+            generatedImageSrc: imageSrc,
+            progress: 0,
+            visible: false,
+            resultImage: imageSrc,
+            resultVisible: true,
+            resultProducts: selectedProducts,
+            resultStyle: currentStyle
+          });
 
           // Save image locally
           saveUserHistoryLocally(tempFileUrl, prompt, selectedOptions);
@@ -718,6 +735,8 @@ Page({
       title: `🔥数码彩AI🎨内外墙一键翻新👍接单神器免费用!`,
     };
   },
+
+  onDoNothing() { },
 });
 
 

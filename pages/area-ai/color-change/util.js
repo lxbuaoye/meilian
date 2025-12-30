@@ -1,5 +1,4 @@
-const watermarkSrc =
-  'https://6469-digital-7gwdimnu0a14ab1b-1330344628.tcb.qcloud.la/resources/ai/watermark.png?sign=2c0c0a6558a57cd4643f3171beca5db3&t=1745914583';
+const watermarkSrc = '/image/location/logo@2x.png';
 
 export function getImageBase64(filePath) {
   return new Promise((resolve, reject) => {
@@ -109,7 +108,7 @@ export async function addWatermarkToImage(imageUrl) {
         ctx.globalAlpha = 1;
         ctx.font = '42px serif';
         ctx.fillStyle = 'white';
-        ctx.fillText('图片由数码彩AI生成', originalImage.width - 420, originalImage.height - 50);
+        ctx.fillText('图片由美联美墅AI生成', originalImage.width - 420, originalImage.height - 50);
 
         // 3. 导出结果
         resolve(offscreenCanvas.toDataURL());

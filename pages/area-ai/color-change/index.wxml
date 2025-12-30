@@ -28,54 +28,30 @@
       </view>
     </view>
 
-    <!-- 生成结果预览 -->
-    <view wx:if="{{generatedImageSrc}}" class="result-preview-panel">
-      <view class="result-preview">
-        <image class="preview-image" src="{{generatedImageSrc}}" mode="aspectFill" bindtap="previewImage" />
-        <view class="result-actions">
-          <button class="action-btn save-btn" bindtap="saveImage">保存图片</button>
-        </view>
-      </view>
-    </view>
-
+    <!-- 生成结果预览 (已移动到弹窗中) -->
+    
     <!-- 产品选择 -->
     <view class="section">
       <view class="section-header">
         <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
         <text class="section-title">产品选择</text>
       </view>
-      <scroll-view class="product-scroll" scroll-x="true" enable-flex="true">
+      <view class="product-scroll">
         <view class="product-list">
           <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
           <view wx:if="{{!loadingProducts}}" class="products-wrapper">
-            <!-- 仅展示首行可见色卡 -->
+            <!-- 仅展示可见色卡 -->
             <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
               <view class="product-image-wrapper">
                 <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
                 <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
               </view>
-              <text class="product-name">{{item.colorCode}}</text>
-            </view>
-            <!-- 更多色卡按钮 -->
-            <view class="more-cards-wrapper">
-              <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+              <text class="product-name">{{item.displayName}}</text>
             </view>
           </view>
-        </view>
-      </scroll-view>
-    </view>
-
-    <!-- 展示所有色卡的网格（放在产品选择图片正下方居中） -->
-    <view wx:if="{{showMoreModal}}" class="more-grid">
-      <view class="more-grid-inner">
-        <view class="more-grid-header">
-          <text class="more-grid-title">所有色卡</text>
-          <button class="more-grid-close" bindtap="closeMoreCards">关闭</button>
-        </view>
-        <view class="more-grid-list">
-          <view wx:for="{{products}}" wx:key="id" class="more-grid-item" bindtap="onSelectProduct" data-index="{{item.id}}">
-            <image class="more-grid-image" src="{{item.imageSrc}}" mode="aspectFill" />
-            <text class="more-grid-label">{{item.colorCode}}</text>
+          <!-- 更多色卡按钮 -->
+          <view class="more-cards-wrapper">
+            <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
           </view>
         </view>
       </view>
@@ -88,7 +64,10 @@
         <text class="section-title">风格选择</text>
       </view>
       <view class="craft-list">
-        <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
+        <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{index === 0 ? 'craft-item--full' : ''}} {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
+          <view wx:if="{{value0 === index}}" class="active-badge">
+             <text class="active-icon">✓</text>
+          </view>
           <text class="craft-text">{{item.name}}</text>
         </view>
       </view>
@@ -120,8 +99,8 @@
   </view>
 
   <!-- 生成结果弹窗 -->
-  <view wx:if="{{resultVisible}}" class="result-mask">
-    <view class="result-container">
+  <view wx:if="{{resultVisible}}" class="result-mask" bindtap="onCloseResult">
+    <view class="result-container" catchtap="onDoNothing">
       <!-- 关闭按钮 -->
       <view class="result-close" bindtap="onCloseResult">
         <image class="result-close-icon" src="{{resultCloseIcon}}" mode="aspectFit" />
@@ -137,19 +116,41 @@
             <image class="result-dot" src="{{resultDot}}" mode="aspectFit" />
             <text class="result-title">产品信息</text>
           </view>
-          <view class="result-text-row">产品工艺：新中式，外墙</view>
+          <view class="result-text-row">产品工艺：{{resultStyle}}</view>
           <view class="result-text-row">使用产品：</view>
           <scroll-view class="result-products" scroll-x="true" enable-flex="true">
             <view class="result-product-list">
               <view wx:for="{{resultProducts}}" wx:key="index" class="result-product-item">
-                <image class="result-product-icon" src="{{productIcon}}" mode="aspectFit" />
-                <text class="result-product-name">{{item.name}}</text>
+                <image class="result-product-icon" src="{{item.imageSrc}}" mode="aspectFill" />
+                <text class="result-product-name">{{item.displayName}}</text>
               </view>
             </view>
           </scroll-view>
-          <button class="result-download" hover-class="result-download--hover">直接下载</button>
+          <button class="result-download" hover-class="result-download--hover" bindtap="saveImage">直接下载</button>
         </view>
       </view>
+    </view>
+  </view>
+  <!-- 更多色卡弹窗 -->
+  <view wx:if="{{showMoreModal}}" class="more-modal-mask" bindtap="closeMoreCards" catchtouchmove="true">
+    <view class="more-modal-content" catchtap="onDoNothing">
+      <view class="more-modal-header">
+        <text class="more-modal-title">所有色卡</text>
+        <view class="more-modal-close-wrap" bindtap="closeMoreCards">
+            <image class="more-modal-close-icon" src="{{resultCloseIcon}}" mode="aspectFit" />
+        </view>
+      </view>
+      <scroll-view scroll-y="true" class="more-modal-scroll">
+          <view class="more-modal-list">
+            <view wx:for="{{products}}" wx:key="id" class="more-modal-item" bindtap="onSelectProduct" data-index="{{item.id}}">
+              <view class="more-modal-image-wrapper">
+                <image class="more-modal-image" src="{{item.imageSrc}}" mode="aspectFill" />
+                <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" style="width:30rpx;height:30rpx;position:absolute;top:0;left:0;"/>
+              </view>
+              <text class="more-modal-label">{{item.displayName}}</text>
+            </view>
+          </view>
+      </scroll-view>
     </view>
   </view>
 </view>
