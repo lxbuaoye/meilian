@@ -11,10 +11,30 @@
 
   <scroll-view class="content" scroll-y="true">
     <!-- 上传图片区域 -->
-    <view class="upload-panel">
+    <view wx:if="{{!imageSrc}}" class="upload-panel">
         <view class="upload-inner" bindtap="onChooseImage">
           <image class="upload-icon" src="{{uploadIcon}}" mode="aspectFit" />
           <text class="upload-text">拍照/上传图片</text>
+        </view>
+    </view>
+
+    <!-- 已选择图片预览 -->
+    <view wx:if="{{imageSrc}}" class="image-preview-panel">
+      <view class="image-preview">
+        <image class="preview-image" src="{{imageSrc}}" mode="aspectFill" bindtap="previewInputImage" />
+        <view class="image-actions">
+          <button class="action-btn" bindtap="onRemoveImage">重新选择</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 生成结果预览 -->
+    <view wx:if="{{generatedImageSrc}}" class="result-preview-panel">
+      <view class="result-preview">
+        <image class="preview-image" src="{{generatedImageSrc}}" mode="aspectFill" bindtap="previewImage" />
+        <view class="result-actions">
+          <button class="action-btn save-btn" bindtap="saveImage">保存图片</button>
+        </view>
       </view>
     </view>
 
@@ -26,34 +46,75 @@
       </view>
       <scroll-view class="product-scroll" scroll-x="true" enable-flex="true">
         <view class="product-list">
-          <view wx:for="{{products}}" wx:key="id" class="product-item {{selectedProductMap[index] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{index}}">
-            <view class="product-image-wrapper">
-              <image class="product-image" src="{{productIcon}}" mode="aspectFill" />
-              <image wx:if="{{selectedProductMap[index]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+          <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
+          <view wx:if="{{!loadingProducts}}" class="products-wrapper">
+            <!-- 仅展示首行可见色卡 -->
+            <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
+              <view class="product-image-wrapper">
+                <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
+                <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+              </view>
+              <text class="product-name">{{item.colorCode}}</text>
             </view>
-            <text class="product-name">{{item.name}}</text>
+            <!-- 更多色卡按钮 -->
+            <view class="more-cards-wrapper">
+              <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+            </view>
           </view>
         </view>
       </scroll-view>
+    </view>
+
+    <!-- 展示所有色卡的网格（放在产品选择图片正下方居中） -->
+    <view wx:if="{{showMoreModal}}" class="more-grid">
+      <view class="more-grid-inner">
+        <view class="more-grid-header">
+          <text class="more-grid-title">所有色卡</text>
+          <button class="more-grid-close" bindtap="closeMoreCards">关闭</button>
+        </view>
+        <view class="more-grid-list">
+          <view wx:for="{{products}}" wx:key="id" class="more-grid-item" bindtap="onSelectProduct" data-index="{{item.id}}">
+            <image class="more-grid-image" src="{{item.imageSrc}}" mode="aspectFill" />
+            <text class="more-grid-label">{{item.colorCode}}</text>
+          </view>
+        </view>
+      </view>
     </view>
 
     <!-- 工艺选择 -->
     <view class="section">
       <view class="section-header">
         <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
-        <text class="section-title">工艺选择</text>
+        <text class="section-title">风格选择</text>
       </view>
       <view class="craft-list">
-        <view wx:for="{{crafts}}" wx:key="id" class="craft-item {{selectedCraftMap[index] ? 'craft-item--active' : ''}}" bindtap="onSelectCraft" data-index="{{index}}">
+        <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
           <text class="craft-text">{{item.name}}</text>
         </view>
       </view>
     </view>
+
+    <!-- 自定义选项 -->
+    <view wx:if="{{interiorPaintsOptionsActive}}" class="custom-options">
+      <!-- 这里可以添加自定义选项的组件 -->
+    </view>
   </scroll-view>
 
+  <!-- AI生成进度 -->
+  <view wx:if="{{visible}}" class="progress-panel">
+    <view class="progress-container">
+      <text class="progress-text">AI正在生成中...</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
+      </view>
+      <text class="progress-percent">{{progress}}%</text>
+    </view>
+    <button class="cancel-btn" bindtap="closeOverlay">取消生成</button>
+  </view>
+
   <!-- 底部按钮 -->
-  <view class="footer">
-    <button class="primary-button" bindtap="onGenerateTap" hover-class="primary-button--hover">
+  <view wx:if="{{!visible}}" class="footer">
+    <button class="primary-button" bindtap="onGenerateTap" hover-class="primary-button--hover" disabled="{{!imageSrc}}">
       <text class="primary-button-text">AI生成</text>
     </button>
   </view>

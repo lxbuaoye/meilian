@@ -142,6 +142,9 @@ page {
 
 .product-list {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
   padding-left: 24rpx; /* 第一个产品左边距 24rpx */
 }
 
@@ -149,6 +152,12 @@ page {
   width: 160rpx;
   margin-right: 20rpx; /* 产品之间间距 20rpx */
   text-align: center; /* 让下方文字以产品为中心对齐 */
+}
+
+.products-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .product-image-wrapper {
@@ -460,4 +469,269 @@ button::after {
   opacity: 0.9;
 }
 
+/* 图片预览样式 */
+.image-preview-panel {
+  padding: 32rpx;
+}
 
+.image-preview {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 12rpx;
+  display: block;
+}
+
+.image-actions {
+  margin-top: 24rpx;
+  text-align: center;
+}
+
+.action-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 16rpx 32rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+/* 生成结果预览 */
+.result-preview-panel {
+  padding: 32rpx;
+}
+
+.result-preview {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  position: relative;
+}
+
+.result-actions {
+  margin-top: 24rpx;
+  text-align: center;
+}
+
+.save-btn {
+  background: #10b981;
+  color: #ffffff;
+}
+
+/* 进度条样式 */
+.progress-panel {
+  padding: 32rpx;
+  background: #ffffff;
+  margin: 32rpx;
+  border-radius: 16rpx;
+}
+
+.progress-container {
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.progress-text {
+  font-size: 32rpx;
+  color: #374151;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8rpx;
+  background: #e5e7eb;
+  border-radius: 4rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 4rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-percent {
+  font-size: 28rpx;
+  color: #6b7280;
+}
+
+.cancel-btn {
+  width: 100%;
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  font-size: 32rpx;
+}
+
+/* 产品样式更新 */
+.product-code {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-top: 8rpx;
+}
+
+.loading-text {
+  text-align: center;
+  padding: 40rpx;
+  color: #6b7280;
+  font-size: 28rpx;
+}
+
+/* 自定义选项样式 */
+.custom-options {
+  padding: 32rpx;
+}
+
+/* 更多色卡按钮 */
+.more-cards-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0;
+}
+.more-cards-btn {
+  background: #eef2ff;
+  color: #2e3fa8;
+  border: none;
+  padding: 18rpx 36rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+
+/* 更多色卡弹窗 */
+.more-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.more-modal {
+  width: 100%;
+  background: #ffffff;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  max-height: 60vh;
+}
+.more-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.more-modal-title {
+  font-size: 32rpx;
+  color: #111827;
+  font-weight: 700;
+}
+.more-modal-close {
+  background: transparent;
+  color: #6b7280;
+  border: none;
+}
+.more-modal-scroll {
+  width: 100%;
+}
+.more-modal-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.more-modal-item {
+  width: 32%;
+  margin-bottom: 18rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.more-modal-image {
+  width: 100%;
+  height: 140rpx;
+  border-radius: 8rpx;
+  background: #f3f4f6;
+  object-fit: cover;
+}
+.more-modal-label {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #374151;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Inline 网格式更多色卡（放在产品下面） */
+.more-grid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 24rpx;
+}
+.more-grid-inner {
+  width: 100%;
+  max-width: 820rpx;
+  background: transparent;
+}
+.more-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  padding: 0 24rpx;
+}
+.more-grid-title {
+  font-size: 28rpx;
+  color: #111827;
+  font-weight: 600;
+}
+.more-grid-close {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+}
+.more-grid-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18rpx;
+  padding: 0 24rpx 24rpx 24rpx;
+}
+.more-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.more-grid-image {
+  width: 220rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  background: #f3f4f6;
+  object-fit: cover;
+}
+.more-grid-label {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #374151;
+  text-align: center;
+  word-break: break-word;
+}
