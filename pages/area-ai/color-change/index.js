@@ -111,6 +111,7 @@ Page({
     ],
     interiorPaintsOptionsActive: false,
     interiorPaintsColorOnly: false,
+    displayCustomOptionList: interiorCustomOptionList, // 用于控制显示的自定义选项列表
     visible: false,
     progress: 0,
     privacyChecked: false,
@@ -187,11 +188,12 @@ Page({
   onChange0(e) {
     const { index } = e.currentTarget.dataset;
     this.setData({ value0: index });
-    // 仅当选择“自定义”时弹出自定义选项，不再对“玄武系列”自动展开产品选择
+    // 仅当选择"自定义"时弹出自定义选项，不再对"玄武系列"自动展开产品选择
     if (this.data.styleOptionsForInterior[index].name === '自定义') {
       this.setData({
         interiorPaintsOptionsActive: true,
         interiorPaintsColorOnly: false,
+        displayCustomOptionList: [], // 自定义模式下不显示艺术效果和CBCC标准色卡
       });
       wx.pageScrollTo({
         selector: `#interior-${index}`,
@@ -199,7 +201,10 @@ Page({
         offsetTop: 0 - this.data.menuBarHeight - this.data.menuBarTop - 50,
       });
     } else {
-      this.setData({ interiorPaintsOptionsActive: false });
+      this.setData({
+        interiorPaintsOptionsActive: false,
+        displayCustomOptionList: this.data.interiorCustomOptionList, // 恢复显示完整选项列表
+      });
     }
   },
 

@@ -2,10 +2,7 @@
   <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
-      <image class="nav-back"
-        src="{{navBackIcon}}"
-        mode="aspectFit"
-        bind:tap="handleBack" />
+      <image class="nav-back" src="{{navBackIcon}}" mode="aspectFit" bind:tap="handleBack" />
       <text class="nav-title">产品详情</text>
       <view class="nav-right-icons">
         <text class="nav-icon-more" bind:tap="handleMore">⋯</text>
@@ -16,13 +13,7 @@
 
   <scroll-view scroll-y class="body" enable-back-to-top style="padding-top: {{navBarHeight}}px;">
     <view class="product-image-section">
-      <image class="product-image"
-        src="{{heroImage}}"
-        mode="widthFix"
-        data-index="0"
-        bind:tap="previewImage"
-        lazy-load="{{false}}"
-        binderror="onImageError" />
+      <image class="product-image" src="{{heroImage}}" mode="widthFix" data-index="0" bind:tap="previewImage" lazy-load="{{false}}" binderror="onImageError" />
     </view>
 
     <view class="product-info-section">
@@ -64,8 +55,4 @@
 
     <view class="bottom-gap"></view>
   </scroll-view>
-
-  <view class="buy-bar">
-    <button class="buy-button" bindtap="handleBuy">马上购买</button>
-  </view>
 </view>

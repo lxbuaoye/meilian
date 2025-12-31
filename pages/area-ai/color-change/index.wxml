@@ -79,8 +79,8 @@
         </view>
       </view>
 
-      <!-- 内部自定义选项组（渲染 interiorCustomOptionList） -->
-      <view class="section" wx:for="{{interiorCustomOptionList}}" wx:for-item="group" wx:for-index="gIndex" wx:key="gIndex" id="interior-option-{{gIndex}}">
+      <!-- 内部自定义选项组（渲染 displayCustomOptionList） -->
+      <view class="section" wx:for="{{displayCustomOptionList}}" wx:for-item="group" wx:for-index="gIndex" wx:key="gIndex" id="interior-option-{{gIndex}}">
         <view class="section-header">
           <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
           <text class="section-title">{{group.header}}</text>

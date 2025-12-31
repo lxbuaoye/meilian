@@ -78,13 +78,13 @@ page {
 }
 
 .color-image {
-  width: 642rpx;
-  height: 390rpx;
+  width: 702rpx;
+  height: 420rpx;
   display: block;
   margin: 0;
   position: absolute;
-  top: 36rpx;
-  left: 30rpx;
+  top: 0rpx;
+  left: 0rpx;
 }
 
 .color-info {
