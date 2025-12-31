@@ -581,6 +581,45 @@ Page({
     //   return;
     // }
 
+    // 下载并添加选中的色卡图片
+    if (selectedProducts.length > 0) {
+      const colorCardDownloads = selectedProducts.map(async (product) => {
+        if (!product.imageSrc) return null;
+        try {
+          let tempFilePath;
+          // 判断链接类型并下载
+          if (product.imageSrc.startsWith('cloud://')) {
+            const res = await wx.cloud.downloadFile({ fileID: product.imageSrc });
+            tempFilePath = res.tempFilePath;
+          } else if (product.imageSrc.startsWith('http') || product.imageSrc.startsWith('https')) {
+            const res = await new Promise((resolve, reject) => {
+              wx.downloadFile({
+                url: product.imageSrc,
+                success: resolve,
+                fail: reject
+              });
+            });
+            tempFilePath = res.tempFilePath;
+          } else {
+            // 可能是本地路径
+            tempFilePath = product.imageSrc;
+          }
+          console.log(`Color card downloaded: ${tempFilePath}`);
+          return tempFilePath;
+        } catch (e) {
+          console.error('Download color card failed:', product.name, e);
+          return null;
+        }
+      });
+
+      const downloadedCards = await Promise.all(colorCardDownloads);
+      downloadedCards.forEach(path => {
+        if (path) {
+          formData.appendFile('image[]', path);
+        }
+      });
+    }
+
     formData.append('model', 'gpt-image-1');
     formData.append('prompt', prompt);
     formData.append('quality', this.data.debugMode ? 'low' : 'high');
@@ -604,7 +643,15 @@ Page({
           }
           const jsonResponse = res.data;
           const base64Json = jsonResponse.data[0].b64_json;
+
+          // 让出主线程，避免界面卡顿
+          await new Promise(resolve => setTimeout(resolve, 100));
+
           const tempFileUrl = await saveBase64ToTempFile(base64Json);
+
+          // 再次让出主线程
+          await new Promise(resolve => setTimeout(resolve, 50));
+
           const imageSrc = await addWatermarkToImage(tempFileUrl);
           this.setData({
             generatedImageSrc: imageSrc,
