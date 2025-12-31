@@ -9,52 +9,6 @@ page {
   position: relative;
 }
 
-/* 导航栏（与 showcase-detail 同名同结构） */
-.custom-nav-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: #ffffff;
-}
-
-.nav-status-bar {
-  width: 100%;
-}
-
-.nav-content {
-  height: 100rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24rpx;
-}
-
-.nav-back {
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.nav-back-placeholder {
-  width: 40rpx;
-  height: 40rpx;
-}
-
-.nav-title {
-  width: 288rpx;
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  font-size: 34rpx;
-  font-weight: 700;
-  color: #1c2023;
-}
-
-.nav-placeholder-right {
-  width: 48rpx;
-  height: 80rpx;
-}
 
 .content {
   padding-top: 0; /* 由 JS 动态设置 */

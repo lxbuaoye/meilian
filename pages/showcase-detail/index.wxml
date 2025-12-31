@@ -59,8 +59,8 @@
         <view class="swiper-item">
           <image src="{{item.imageUrl}}" mode="aspectFit" style="height: 650rpx; width:100%;"></image>
           <view style="display: flex; justify-content: center; align-items: center; flex:1" bind:tap="navigateToProductDetail" data-product-id="{{item.productId}}">
-            <text style="font-weight: 700;font-size: 34rpx;color: #1C2023; "> {{item.title}}</text>
-            <t-icon name="link-1" style="margin-left: 10rpx;" size="34rpx" />
+            <text style="font-weight: 700;font-size: 34rpx;color: #FFFFFF; "> {{item.title}}</text>
+            <t-icon name="link-1" style="margin-left: 10rpx;" size="34rpx" color="#FFFFFF" />
           </view>
         </view>
       </swiper-item>

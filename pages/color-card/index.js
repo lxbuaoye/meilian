@@ -5,8 +5,8 @@ const { CLOUD_STROAGE_PATH, CLOUD_IMAGE_BASE } = appGlobal$;
 
 Page({
   data: {
-    statusBarHeight: 0,
-    navBarHeight: 0, // 导航栏总高度（状态栏 + 导航内容）
+    menuBarTop: 44, // 胶囊按钮顶部位置
+    menuBarHeight: 32, // 胶囊按钮高度
     navBackIcon: `${CLOUD_IMAGE_BASE}/image/common/back.png`,
     logoImage: `${CLOUD_IMAGE_BASE}/resources/logo1.png`,
     keyword: '',
@@ -24,16 +24,11 @@ Page({
   },
 
   onLoad() {
-    const systemInfo = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
-    const statusBarHeight = systemInfo.statusBarHeight || 0;
-    const windowWidth = systemInfo.windowWidth || 375; // 默认 iPhone 6/7/8 宽度
-    // 导航栏总高度 = 状态栏高度(px) + 导航内容高度(100rpx 转 px)
-    // 100rpx = windowWidth * 100 / 750
-    const navContentHeightPx = (windowWidth * 100) / 750;
-    const navBarHeight = statusBarHeight + navContentHeightPx + 20; // 额外 20px 间距确保不重叠
+    // 初始化导航栏信息，与首页保持一致
+    const menuButton = wx.getMenuButtonBoundingClientRect();
     this.setData({
-      statusBarHeight: statusBarHeight,
-      navBarHeight: navBarHeight,
+      menuBarTop: menuButton.top,
+      menuBarHeight: menuButton.height,
     });
 
     // 从云数据库加载产品数据

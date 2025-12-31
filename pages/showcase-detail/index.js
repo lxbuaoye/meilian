@@ -252,24 +252,10 @@ Page({
   
   // 从使用产品列表直接跳转到产品详情
   navigateToProductDetailFromList(e) {
-    const productId = e.currentTarget.dataset.productId;
-    console.log('navigateToProductDetailFromList -> productId:', productId, 'event:', e);
-    if (!productId) {
-      console.warn('navigateToProductDetailFromList: 产品ID不存在，无法跳转到产品详情页');
-      return;
-    }
-    wx.navigateTo({
-      url: `/pages/product-detail/index?productId=${encodeURIComponent(productId)}`,
-      success: () => {
-        console.log('navigateToProductDetailFromList: navigation success', productId);
-      },
-      fail: (err) => {
-        console.error('navigateToProductDetailFromList: navigation failed', err, productId);
-      },
-      complete: () => {
-        console.log('navigateToProductDetailFromList: navigation complete', productId);
-      },
-    });
+    const index = e.currentTarget.dataset.index;
+    console.log('navigateToProductDetailFromList -> index:', index, 'event:', e);
+    // 点击产品后打开轮播图
+    this.popupOverlay(e);
   },
   handleBack() {
     wx.navigateBack({

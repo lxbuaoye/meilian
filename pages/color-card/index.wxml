@@ -1,15 +1,12 @@
 <view class="page">
-  <!-- 导航栏：复用 pages/showcase-detail/index 的结构与类名 -->
-  <view class="custom-nav-bar">
-    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
-    <view class="nav-content">
-      <view style="display: flex; flex:1; align-items: center; height: 100rpx; justify-content: center;">
-        <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
-      </view>
+  <!-- Navigation bar-->
+  <view style="padding-top: {{menuBarTop}}px">
+    <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
+      <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
     </view>
   </view>
 
-  <view class="content" style="padding-top: {{navBarHeight}}px;">
+  <view class="content" style="padding-top: {{menuBarHeight}}px;">
     <!-- 搜索 -->
     <view class="search-wrap">
       <t-icon name="search" class="search-icon" />
