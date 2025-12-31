@@ -8,6 +8,9 @@
       <view class="nav-title">AI 换色</view>
     </view>
   </view>
+  <!-- tdesign message & toast 组件（Message/Toast 需要页面中存在对应组件实例） -->
+  <t-message id="t-message" />
+  <t-toast id="t-toast" />
 
   <scroll-view class="content" scroll-y="true">
     <!-- 上传图片区域 -->
@@ -30,32 +33,7 @@
 
     <!-- 生成结果预览 (已移动到弹窗中) -->
     
-    <!-- 产品选择 -->
-    <view class="section">
-      <view class="section-header">
-        <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
-        <text class="section-title">产品选择</text>
-      </view>
-      <view class="product-scroll">
-        <view class="product-list">
-          <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
-          <view wx:if="{{!loadingProducts}}" class="products-wrapper">
-            <!-- 仅展示可见色卡 -->
-            <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
-              <view class="product-image-wrapper">
-                <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
-                <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
-              </view>
-              <text class="product-name">{{item.displayName}}</text>
-            </view>
-          </view>
-          <!-- 更多色卡按钮 -->
-          <view class="more-cards-wrapper">
-            <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
-          </view>
-        </view>
-      </view>
-    </view>
+    <!-- 产品选择（已移至自定义选项卡） -->
 
     <!-- 工艺选择 -->
     <view class="section">
@@ -64,7 +42,7 @@
         <text class="section-title">风格选择</text>
       </view>
       <view class="craft-list">
-        <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{index === 0 ? 'craft-item--full' : ''}} {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
+      <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{index === 0 ? 'craft-item--full' : ''}} {{item.name === '自定义' ? 'craft-item--double' : ''}} {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
           <view wx:if="{{value0 === index}}" class="active-badge">
              <text class="active-icon">✓</text>
           </view>
@@ -73,9 +51,47 @@
       </view>
     </view>
 
-    <!-- 自定义选项 -->
+    <!-- 自定义选项（产品选择放在这里） -->
     <view wx:if="{{interiorPaintsOptionsActive}}" class="custom-options">
-      <!-- 这里可以添加自定义选项的组件 -->
+      <view class="section">
+        <view class="section-header">
+          <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+          <text class="section-title">产品选择</text>
+        </view>
+        <view class="product-scroll">
+          <view class="product-list">
+            <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
+            <view wx:if="{{!loadingProducts}}" class="products-wrapper">
+              <!-- 仅展示可见色卡 -->
+              <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
+                <view class="product-image-wrapper">
+                  <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
+                  <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+                </view>
+                <text class="product-name">{{item.displayName}}</text>
+              </view>
+            </view>
+            <!-- 更多色卡按钮 -->
+            <view class="more-cards-wrapper">
+              <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 内部自定义选项组（渲染 interiorCustomOptionList） -->
+      <view class="section" wx:for="{{interiorCustomOptionList}}" wx:for-item="group" wx:for-index="gIndex" wx:key="gIndex" id="interior-option-{{gIndex}}">
+        <view class="section-header">
+          <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+          <text class="section-title">{{group.header}}</text>
+        </view>
+        <view class="interior-option-list">
+          <view class="interior-option-item" wx:for="{{group.data}}" wx:for-item="option" wx:for-index="optIndex" wx:key="optIndex" bindtap="onSelectInteriorOption" data-group="{{gIndex}}" data-index="{{optIndex}}">
+            <image src="{{option.inputImageSrc || option.imageSrc || ''}}" mode="aspectFill" style="width:120rpx;height:80rpx;border-radius:8rpx;background:#f3f4f6;"></image>
+            <text>{{option.name}}</text>
+          </view>
+        </view>
+      </view>
     </view>
   </scroll-view>
 

@@ -4,6 +4,12 @@
   align-items: center;
   justify-content: center;
   margin-top: 15rpx; /* 其他 icon 距离顶部 15rpx */
+  /* 使每个 tab 项目占据相等宽度，保证中间项水平位置与其他项一致 */
+  flex: 1;
+  min-width: 0;
+  /* 保证五个项在水平方向等分 */
+  width: 20%;
+  box-sizing: border-box;
 }
 
 .tab-bar-container {
@@ -52,11 +58,50 @@
   /* #if IOS || ANDROID*/
   margin-bottom: 15rpx;
   --td-tab-bar-height: 16rpx;
-  width: 650rpx;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   margin-left: auto;
   margin-right: auto;
   --td-tab-bar-bg-color: transparent;
   /* #endif */
   --td-tab-bar-active-color: #2E3FA8;
+}
+
+/* 中间椭圆样式 */
+.middle-oval {
+  width: 150rpx;
+  height: 72rpx;
+  border-radius: 36rpx;
+  background: #2E3FA8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0rpx; /* 中间提升，不和其它图标同一高度 */
+  box-shadow: 0 4rpx 12rpx rgba(46,63,168,0.2);
+}
+.middle-oval-text {
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 28rpx;
+}
+.custom-tab-bar-wrapper.active .middle-oval {
+  /* 选中状态可略微放大（保留占位以兼容旧样式引用） */
+  transform: scale(1.02);
+}
+
+/* 中间图片替代原椭圆的样式 */
+.middle-icon {
+  /* 与其他图标保持一致的尺寸与间距 */
+  width: 40rpx;
+  height: 40rpx;
+  /* 与普通 tab-icon 对齐，不额外偏移 */
+  margin-top: 0rpx;
+}
+
+/* 中间图片下方文字样式 */
+.middle-text {
+  /* 与普通 tab-text 保持一致 */
+  margin-top: 4rpx;
+  font-size: 20rpx;
 }

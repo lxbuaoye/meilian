@@ -1,7 +1,10 @@
 {
   "navigationBarTitleText": "AI 换色",
   "navigationStyle": "custom",
-  "usingComponents": {}
+  "usingComponents": {
+    "t-message": "tdesign-miniprogram/message/message",
+    "t-toast": "tdesign-miniprogram/toast/toast"
+  }
 }
 
 

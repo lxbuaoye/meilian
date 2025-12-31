@@ -38,8 +38,12 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/product/index",
+          "pagePath": "pages/color-card/index",
           "text": "电子色卡"
+        },
+        {
+          "pagePath": "pages/product/index",
+          "text": "探索更多"
         },
         {
           "pagePath": "pages/location/index",
@@ -65,8 +69,12 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/product/index",
+          "pagePath": "pages/color-card/index",
           "text": "电子色卡"
+        },
+        {
+          "pagePath": "pages/showcase-list/index",
+          "text": "探索更多"
         },
         {
           "pagePath": "pages/location/index",
@@ -92,8 +100,12 @@
           "text": "首页"
         },
         {
-          "pagePath": "pages/product/index",
+          "pagePath": "pages/color-card/index",
           "text": "电子色卡"
+        },
+        {
+          "pagePath": "pages/showcase-list/index",
+          "text": "探索更多"
         },
         {
           "pagePath": "pages/location/index",

@@ -3,9 +3,9 @@
   <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
-      <image class="nav-back" src="{{navBackIcon}}" mode="aspectFit" bind:tap="handleBack" />
-      <text class="nav-title">电子色卡</text>
-      <view class="nav-placeholder-right"></view>
+      <view style="display: flex; flex:1; align-items: center; height: 100rpx; justify-content: center;">
+        <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
+      </view>
     </view>
   </view>
 

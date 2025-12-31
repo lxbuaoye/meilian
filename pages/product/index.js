@@ -6,12 +6,6 @@ Page({
   data: {
     featureList: [
       {
-        title: '电子色卡',
-        subtitle: '预设文案预设文案预设文案',
-        icon: `${CLOUD_IMAGE_BASE}/image/product/color_card.png`,
-        url: '/pages/color-card/index',
-      },
-      {
         title: 'AI换色',
         subtitle: '预设文案预设文案预设文案',
         icon: `${CLOUD_IMAGE_BASE}/image/product/color_change.png`,

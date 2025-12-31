@@ -8,6 +8,7 @@ Page({
     statusBarHeight: 0,
     navBarHeight: 0, // 导航栏总高度（状态栏 + 导航内容）
     navBackIcon: `${CLOUD_IMAGE_BASE}/image/common/back.png`,
+    logoImage: `${CLOUD_IMAGE_BASE}/resources/logo1.png`,
     keyword: '',
     // 0: 乳胶漆, 1: 仿石漆, 2: 艺术漆
     activeTopTab: 1,
@@ -37,6 +38,19 @@ Page({
 
     // 从云数据库加载产品数据
     this.fetchProductsFromDB().catch(err => console.error('加载产品数据失败:', err));
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   * 确保每次切换回该页面时都刷新自定义 TabBar 的 active 状态
+   */
+  onShow() {
+    if (this.getTabBar && typeof this.getTabBar === 'function') {
+      const tabBar = this.getTabBar();
+      if (tabBar && typeof tabBar.init === 'function') {
+        tabBar.init();
+      }
+    }
   },
 
   handleBack() {

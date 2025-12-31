@@ -131,6 +131,8 @@ Page({
     visibleProductsCount: 8,
     visibleProducts: [],
     showMoreModal: false,
+    // 用户在自定义选项中每组的选择状态
+    interiorOptionSelections: [],
   },
 
   currentSelection: '',
@@ -185,13 +187,11 @@ Page({
   onChange0(e) {
     const { index } = e.currentTarget.dataset;
     this.setData({ value0: index });
-    if (
-      this.data.styleOptionsForInterior[index].name === '自定义' ||
-      this.data.styleOptionsForInterior[index].name === '玄武系列'
-    ) {
+    // 仅当选择“自定义”时弹出自定义选项，不再对“玄武系列”自动展开产品选择
+    if (this.data.styleOptionsForInterior[index].name === '自定义') {
       this.setData({
         interiorPaintsOptionsActive: true,
-        interiorPaintsColorOnly: this.data.styleOptionsForInterior[index].name === '玄武系列',
+        interiorPaintsColorOnly: false,
       });
       wx.pageScrollTo({
         selector: `#interior-${index}`,
@@ -374,6 +374,34 @@ Page({
     });
   },
 
+  onSelectInteriorOption(e) {
+    try {
+      const group = Number(e.currentTarget.dataset.group);
+      const idx = Number(e.currentTarget.dataset.index);
+      if (Number.isNaN(group) || Number.isNaN(idx)) return;
+      const groupData = this.data.interiorCustomOptionList[group];
+      const option = groupData && groupData.data && groupData.data[idx];
+      const selection = option ? option.name : '';
+      const shouldDownload = !!(option && option.shouldDownload);
+      const inputImageSrc = option && (option.inputImageSrc || option.imageSrc) ? (option.inputImageSrc || option.imageSrc) : '';
+      const color = option && option.color ? option.color : '';
+      const header = groupData && groupData.header ? groupData.header : '';
+
+      const updated = this.data.interiorOptionSelections ? this.data.interiorOptionSelections.slice() : [];
+      updated[group] = {
+        selection,
+        selectionIndex: idx,
+        shouldDownload,
+        inputImageSrc,
+        header,
+        color,
+      };
+      this.setData({ interiorOptionSelections: updated });
+    } catch (err) {
+      console.error('onSelectInteriorOption error', err);
+    }
+  },
+
   openMoreCards() {
     this.setData({ showMoreModal: true });
   },
@@ -390,14 +418,8 @@ Page({
   },
 
   onGenerateTap() {
-    // 检查是否选择了产品
-    const selectedProducts = Object.keys(this.data.selectedProductMap).filter(key => this.data.selectedProductMap[key]);
-    if (selectedProducts.length === 0) {
-      this.showInfoMessage('请先选择色卡产品');
-      return;
-    }
-
-    // 调用AI生成
+    // 允许用户仅选择风格即可触发 AI 生成（产品为可选）
+    // 保留后续 generate() 内对特定风格（如玄武系列）对颜色/产品的校验逻辑
     this.generate();
   },
 
@@ -452,33 +474,50 @@ Page({
       content: currentStyle,
     });
     if (currentStyle === '自定义') {
+      // 使用已选的自定义选项中的 prompt 字段直接拼接为 AI 调用的提示词（选中什么用什么 prompt）
       const downloadList = [];
-      this.data.interiorCustomOptionList.forEach((item, index) => {
-        const child = this.selectComponent(`#interior-option-${index}`);
-        console.log(child);
-        if (child.data.shouldDownload) {
-          downloadList.push(child.data.inputImageSrc);
+      const selections = this.data.interiorOptionSelections || [];
+      const promptParts = [];
+
+      this.data.interiorCustomOptionList.forEach((group, gIndex) => {
+        const sel = selections[gIndex];
+        let chosen = null;
+        if (sel && typeof sel.selectionIndex === 'number') {
+          chosen = group.data && group.data[sel.selectionIndex];
+        } else {
+          chosen = group.data && group.data.length ? group.data[0] : null;
         }
-        selectedOptions.push({
-          title: child.data.header,
-          content: child.data.selection,
-        });
+        if (chosen) {
+          // 收集需要下载的 inputImageSrc
+          if (chosen.shouldDownload) {
+            downloadList.push(chosen.inputImageSrc || chosen.imageSrc || '');
+          }
+          // 如果选项包含 prompt 字段，则直接加入到 promptParts
+          if (chosen.prompt && typeof chosen.prompt === 'string' && chosen.prompt.trim().length > 0) {
+            promptParts.push(chosen.prompt.trim());
+          } else if (chosen.name) {
+            // 兜底：若没有 prompt，使用名称作为简短描述
+            promptParts.push(chosen.name);
+          }
+        }
       });
 
+      // 下载所需素材并附加到 formData
       for (let i = 0; i < downloadList.length; i++) {
+        const fileId = downloadList[i];
+        if (!fileId) continue;
         const { tempFilePath } = await wx.cloud.downloadFile({
-          fileID: downloadList[i],
+          fileID: fileId,
         });
         formData.appendFile('image[]', tempFilePath);
       }
 
-      const colorChild = this.selectComponent(`#interior-option-1`);
-
-      // Apply texture
-      if (downloadList.length > 0) {
-        prompt = `1. 把图中这个空间墙面的孔洞，发霉等补平整; 2.把图2的底色改成 ${colorChild.data.color}，保留图2中的纹理和质感不变; 3.把图2效果应用在图1墙面(不需要改地板和天花, 只是墙身); 4.图1除墙面效果，其它不变`;
+      // 最终 prompt：将所有选项的 promptParts 用分号连接
+      if (promptParts.length > 0) {
+        prompt = promptParts.join('；');
       } else {
-        prompt = `1.把图中这个空间墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 2. 然后把图中整体墙面改成 ${colorChild.data.color} 颜色(不需要改地板和天花, 只是墙身); 3.保持图中建筑结构和布局不改变， 图片比例不改变`;
+        // 若没有任何自定义 prompt，则回退为简单风格说明
+        prompt = '请按所选风格对图中墙面进行翻新与配色，保持空间结构不变。';
       }
     } else if (currentStyle === '玄武系列') {
       let colorPrompt = '';
@@ -487,13 +526,18 @@ Page({
         const selectedColors = selectedProducts.map(p => p.colorCode || p.name).join(' 或 ');
         colorPrompt = selectedColors;
       } else {
-        // 使用组件选择的颜色
-        const colorChild = this.selectComponent(`#xuanwu-option-0`);
-        colorPrompt = colorChild.data.color;
-        selectedOptions.push({
-          title: '颜色',
-          content: colorChild.data.selection,
-        });
+        // 组件可能不存在（未渲染），改为使用默认的 xuanwuCustomOptionList 第一项或名称作为回退
+        const xuanwuGroup = this.data.xuanwuCustomOptionList && this.data.xuanwuCustomOptionList[0];
+        const defaultOption = xuanwuGroup && xuanwuGroup.data && xuanwuGroup.data[0];
+        if (defaultOption) {
+          colorPrompt = defaultOption.color || defaultOption.name || '';
+          selectedOptions.push({
+            title: '颜色',
+            content: defaultOption.name || colorPrompt,
+          });
+        } else {
+          colorPrompt = '';
+        }
       }
       prompt = `1.把图中这个空间墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 2. 然后把图中整体墙面改成 ${colorPrompt} 颜色 (不需要改地板和天花, 只是墙身); 3.保持图中建筑结构和布局不改变， 图片比例不改变`;
     } else {

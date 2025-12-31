@@ -36,6 +36,11 @@ page {
   height: 40rpx;
 }
 
+.nav-back-placeholder {
+  width: 40rpx;
+  height: 40rpx;
+}
+
 .nav-title {
   width: 288rpx;
   height: 100rpx;

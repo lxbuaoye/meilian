@@ -22,32 +22,81 @@ Component({
           type: 'medium',
         });
       }
-      const index = event.detail.value;
+      // Ensure index is number and valid
+      const rawIndex = event && event.detail ? event.detail.value : undefined;
+      const index = typeof rawIndex === 'string' ? Number(rawIndex) : rawIndex;
+      if (typeof index !== 'number' || Number.isNaN(index) || index < 0 || index >= (this.data.list || []).length) {
+        console.warn('custom-tab-bar.onChange: invalid index', rawIndex);
+        return;
+      }
       const item = this.data.list[index];
 
+      // Immediately reflect UI selection
       this.setData({ active: index });
-      if (item.url) {
+
+      if (item && item.url) {
+        const target = item.url.startsWith('/') ? item.url : `/${item.url}`;
+        console.log('custom-tab-bar.onChange: switching to', index, target);
         wx.switchTab({
-          url: item.url.startsWith('/')
-            ? item.url
-            : `/${item.url}`,
+          url: target,
+          fail: (err) => {
+            console.error('custom-tab-bar.onChange: switchTab failed', err, target);
+            // fallback to navigateTo if switchTab fails for any reason
+            try {
+              wx.navigateTo({ url: target });
+            } catch (e) {
+              console.error('custom-tab-bar.onChange: navigateTo fallback failed', e, target);
+            }
+          },
         });
+      } else {
+        console.warn('custom-tab-bar.onChange: item has no url', item);
       }
     },
 
     init() {
       const page = getCurrentPages().pop();
-      const route = page ? page.route.split('?')[0] : '';
-      const active = this.data.list.findIndex(
-        (item) => {
-          if (!item.url) return false;
-          const itemUrl = item.url.startsWith('/') ? item.url.substr(1) : item.url;
-          return itemUrl === `${route}`;
+      const route = page ? (page.route || '').split('?')[0] : '';
+      // 规范化函数：去掉开头斜杠并去掉尾部的 index 文件名
+      const normalize = (p = '') => {
+        if (!p) return '';
+        let s = p.startsWith('/') ? p.substr(1) : p;
+        // remove trailing '/index' or ending 'index'
+        s = s.replace(/\/index$/, '').replace(/index$/, '');
+        return s;
+      };
+
+      const routeNorm = normalize(route);
+      // 先尝试严格匹配，其次尝试包含或尾部匹配以提高容错性
+      let active = -1;
+      for (let i = 0; i < this.data.list.length; i++) {
+        const item = this.data.list[i];
+        if (!item || !item.url) continue;
+        const itemUrlNorm = normalize(item.url);
+        if (!itemUrlNorm) continue;
+        if (itemUrlNorm === routeNorm) {
+          active = i;
+          break;
         }
-      );
-      // 如果找到匹配项，设置为 active；否则保持当前 active（避免占位项被选中）
+      }
+      if (active === -1) {
+        for (let i = 0; i < this.data.list.length; i++) {
+          const item = this.data.list[i];
+          if (!item || !item.url) continue;
+          const itemUrlNorm = normalize(item.url);
+          if (!itemUrlNorm) continue;
+          // route contains item url or vice versa
+          if (routeNorm.includes(itemUrlNorm) || itemUrlNorm.includes(routeNorm)) {
+            active = i;
+            break;
+          }
+        }
+      }
       if (active !== -1) {
-      this.setData({ active });
+        this.setData({ active });
+      } else {
+        // 如果未找到，保持当前 active 不变（避免占位项被选中）
+        console.warn('custom-tab-bar.init: no matching tab for route', route, 'kept active', this.data.active);
       }
     },
   },

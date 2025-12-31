@@ -13,7 +13,15 @@ export default [
     icon: `${IMAGE_BASE_URL}/image/common/color_card_unselected.png`,
     activeIcon: `${IMAGE_BASE_URL}/image/common/color_card_selected.png`,
     text: '电子色卡',
+    url: 'pages/color-card/index',
+  },
+  {
+    // 中间大椭圆按钮，使用本地资源作为参考图，文本会在渲染层覆盖以显示“探索更多”
+    icon: `${IMAGE_BASE_URL}/image/common/explore more1.png`,
+    activeIcon: `${IMAGE_BASE_URL}/image/common/explore more.png`,
+    text: '探索更多',
     url: 'pages/product/index',
+    isMiddle: true,
   },
   {
     icon: `${IMAGE_BASE_URL}/image/common/icon-01-2.png`,
