@@ -1,12 +1,4 @@
-// 底部导航栏使用HTTPS URL，确保在所有环境下都能正常加载
-const IMAGE_BASE_URL = 'https://636c-cloud1-9gz59mfw7610d03f-1392076473.tcb.qcloud.la';
-
-// 获取缓存的图标路径，如果没有缓存则使用原始URL
-function getCachedIcon(url) {
-  const app = getApp();
-  const iconCache = app && app.globalData && app.globalData.tabIconCache;
-  return iconCache && iconCache[url] ? iconCache[url] : url;
-}
+// 底部导航栏使用本地静态资源，确保加载速度和稳定性
 
 export default [
   // #if MP

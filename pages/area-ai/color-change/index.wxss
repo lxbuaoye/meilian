@@ -674,9 +674,10 @@ button::after {
 
 .more-modal-scroll {
   flex: 1;
-  overflow-y: auto;
   padding: 24rpx;
   box-sizing: border-box;
+  height: calc(100% - 100rpx); /* 减去header高度 */
+  overflow-y: scroll; /* 确保可以滚动 */
 }
 
 .more-modal-list {
