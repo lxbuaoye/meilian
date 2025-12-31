@@ -738,3 +738,73 @@ button::after {
   font-size: 24rpx;
   color: #333;
 }
+
+/* 更多色卡筛选样式 */
+.more-filter-section {
+  background: #fff;
+  padding: 0 24rpx;
+  border-bottom: 2rpx solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+.more-filter-tabs {
+  display: flex;
+  height: 88rpx;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.more-filter-tab-item {
+  position: relative;
+  margin-right: 48rpx;
+  font-size: 28rpx;
+  color: #6b7280;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+}
+
+.more-filter-tab-item.active {
+  color: #111827;
+  font-weight: 600;
+  font-size: 30rpx;
+}
+
+.more-filter-tab-line {
+  position: absolute;
+  bottom: 0rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  background: #2e3fa8;
+  border-radius: 3rpx;
+}
+
+.more-filter-chips {
+  display: flex;
+  white-space: nowrap;
+  height: 70rpx;
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+}
+
+.more-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56rpx;
+  padding: 0 24rpx;
+  background: #f3f4f6;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  color: #374151;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.more-filter-chip.active {
+  background: #eef2ff;
+  color: #2e3fa8;
+  font-weight: 500;
+}

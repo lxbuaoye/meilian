@@ -282,14 +282,30 @@ Page({
           colorCode: rawCode,
           displayName: displayName,
           category: product.category || '',
+          subcategory: product.subcategory || '',
         };
       });
+
+      // 提取所有一级分类
+      const categories = [...new Set(mapped.map(p => p.category).filter(Boolean))];
+      // 默认选中第一个分类
+      const activeCategory = categories[0] || '';
+
+      // 根据第一个分类提取二级分类
+      const subCategories = [...new Set(mapped.filter(p => p.category === activeCategory).map(p => p.subcategory).filter(Boolean))];
+      const activeSubCategory = subCategories.length > 0 ? subCategories[0] : '';
 
       this.setData({
         products: mapped,
         visibleProducts: mapped.slice(0, this.data.visibleProductsCount),
         compressedColorCardsUrl,
         loadingProducts: false,
+        // 更多色卡筛选相关数据
+        moreModalCategories: categories,
+        moreModalActiveCategory: activeCategory,
+        moreModalSubCategories: subCategories,
+        moreModalActiveSubCategory: activeSubCategory,
+        moreModalFilteredProducts: this.filterProducts(mapped, activeCategory, activeSubCategory),
       });
     } catch (e) {
       console.error('加载产品数据失败', e);
@@ -301,6 +317,40 @@ Page({
         content: '加载产品数据失败',
       });
     }
+  },
+
+  filterProducts(products, category, subcategory) {
+    return products.filter(p => {
+      const catMatch = !category || p.category === category;
+      const subMatch = !subcategory || subcategory === '全部' || p.subcategory === subcategory;
+      return catMatch && subMatch;
+    });
+  },
+
+  onMoreCategoryTap(e) {
+    const category = e.currentTarget.dataset.category;
+    if (category === this.data.moreModalActiveCategory) return;
+
+    // 更新一级分类，并重新计算二级分类
+    const subCategories = [...new Set(this.data.products.filter(p => p.category === category).map(p => p.subcategory).filter(Boolean))];
+    const activeSubCategory = subCategories.length > 0 ? subCategories[0] : '';
+
+    this.setData({
+      moreModalActiveCategory: category,
+      moreModalSubCategories: subCategories,
+      moreModalActiveSubCategory: activeSubCategory,
+      moreModalFilteredProducts: this.filterProducts(this.data.products, category, activeSubCategory)
+    });
+  },
+
+  onMoreSubCategoryTap(e) {
+    const sub = e.currentTarget.dataset.sub;
+    if (sub === this.data.moreModalActiveSubCategory) return;
+
+    this.setData({
+      moreModalActiveSubCategory: sub,
+      moreModalFilteredProducts: this.filterProducts(this.data.products, this.data.moreModalActiveCategory, sub)
+    });
   },
 
   onStickyChange(e) {
@@ -535,6 +585,11 @@ Page({
       } else {
         // 若没有任何自定义 prompt，则回退为简单风格说明
         prompt = '请按所选风格对图中墙面进行翻新与配色，保持空间结构不变。';
+      }
+
+      // 无论有无选中其他选项，只要选中了色卡，就添加这一句
+      if (selectedProducts.length > 0) {
+        prompt = `请充分使用我给出的色卡将图片中的墙壁区域替换成我给出的色卡样式。${prompt}`;
       }
     } else if (currentStyle === '玄武系列') {
       let colorPrompt = '';

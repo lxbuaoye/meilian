@@ -138,9 +138,31 @@
           <image class="more-modal-close-icon" src="{{resultCloseIcon}}" mode="aspectFit" />
         </view>
       </view>
+
+      <!-- 筛选区域 -->
+      <view class="more-filter-section">
+        <!-- 一级分类 Tab -->
+        <view class="more-filter-tabs">
+          <view wx:for="{{moreModalCategories}}" wx:key="*this" 
+                class="more-filter-tab-item {{moreModalActiveCategory === item ? 'active' : ''}}" 
+                bindtap="onMoreCategoryTap" data-category="{{item}}">
+            {{item}}
+            <view class="more-filter-tab-line" wx:if="{{moreModalActiveCategory === item}}"></view>
+          </view>
+        </view>
+        <!-- 二级分类 Chips -->
+        <scroll-view class="more-filter-chips" scroll-x enable-flex>
+          <view wx:for="{{moreModalSubCategories}}" wx:key="*this" 
+                class="more-filter-chip {{moreModalActiveSubCategory === item ? 'active' : ''}}" 
+                bindtap="onMoreSubCategoryTap" data-sub="{{item}}">
+            {{item}}
+          </view>
+        </scroll-view>
+      </view>
+
       <scroll-view scroll-y="true" enable-flex="true" scroll-with-animation="false" class="more-modal-scroll">
         <view class="more-modal-list">
-          <view wx:for="{{products}}" wx:key="id" class="more-modal-item" bindtap="onSelectProduct" data-index="{{item.id}}">
+          <view wx:for="{{moreModalFilteredProducts}}" wx:key="id" class="more-modal-item" bindtap="onSelectProduct" data-index="{{item.id}}">
             <view class="more-modal-image-wrapper">
               <image class="more-modal-image" src="{{item.imageSrc}}" mode="aspectFill" />
               <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" style="width:30rpx;height:30rpx;position:absolute;top:0;left:0;" />
