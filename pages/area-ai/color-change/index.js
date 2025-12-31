@@ -374,9 +374,21 @@ Page({
 
   onSelectProduct(e) {
     const productId = e.currentTarget.dataset.index;
-    this.setData({
-      [`selectedProductMap.${productId}`]: !this.data.selectedProductMap?.[productId],
-    });
+    const currentSelected = this.data.selectedProductMap?.[productId];
+
+    // 如果当前产品已经选中，则取消选中（单选模式下点击选中项取消选中）
+    if (currentSelected) {
+      this.setData({
+        [`selectedProductMap.${productId}`]: false,
+      });
+    } else {
+      // 创建新的选中状态对象，只选中当前产品
+      const newSelectedProductMap = {};
+      newSelectedProductMap[productId] = true;
+      this.setData({
+        selectedProductMap: newSelectedProductMap,
+      });
+    }
   },
 
   onSelectInteriorOption(e) {

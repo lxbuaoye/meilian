@@ -3,15 +3,21 @@ page {
 }
 
 .page {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+  /* 修改：移除 Flex 布局，改为块级布局，允许页面产生原生滚动 */
+  display: block;
+  min-height: 100vh;
   box-sizing: border-box;
 }
 
 .nav-bar {
   background-color: #ffffff;
   box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
+  /* 修改：固定在顶部 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .nav-bar-inner {
@@ -64,9 +70,10 @@ page {
 }
 
 .content {
-  flex: 1;
-  padding: 24rpx;
+  /* 修改：移除 flex: 1，依靠 padding 来撑开布局 */
   box-sizing: border-box;
+  padding: 24rpx;
+  /* 上下 padding 由 wxml style 属性控制 */
 }
 
 .upload-panel {
@@ -88,7 +95,6 @@ page {
   height: 420rpx;
   border-radius: 24rpx;
   background-color: #f9fbff;
-  /* 去除虚线边框 */
   border: none;
   display: flex;
   flex-direction: column;
@@ -121,7 +127,7 @@ page {
 .section-header {
   display: flex;
   align-items: center;
-  margin-bottom: 30rpx; /* 产品与“产品选择”标题之间间距 30rpx */
+  margin-bottom: 30rpx;
 }
 
 .section-dot {
@@ -165,7 +171,7 @@ page {
   position: relative;
   width: 120rpx;
   height: 120rpx;
-  border-radius: 20rpx; /* 保证边框圆角完整显示 */
+  border-radius: 20rpx;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -176,36 +182,7 @@ page {
   height: 120rpx;
   background: #FFFFFF;
   border-radius: 20rpx;
-  box-sizing: border-box; /* 确保加边框后不被容器裁剪 */
-}
-
-.product-bucket {
-  width: 90rpx;
-  height: 90rpx;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.bucket-rim {
-  width: 90rpx;
-  height: 24rpx;
-  border-radius: 20rpx;
-  background: linear-gradient(180deg, #ffffff 0%, #eef1f5 100%);
-  border: 2rpx solid #e4e7ec;
-  box-shadow: inset 0 -4rpx 8rpx rgba(0, 0, 0, 0.04);
-}
-
-.bucket-body {
-  width: 80rpx;
-  height: 68rpx;
-  margin-top: 2rpx;
-  border-radius: 0 0 22rpx 22rpx;
-  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
-  border: 2rpx solid #e4e7ec;
-  box-shadow: inset 0 6rpx 10rpx rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
 }
 
 .product-check {
@@ -216,14 +193,13 @@ page {
   height: 30rpx;
 }
 
-/* 选中产品时的边框样式 */
 .product-item--active .product-image {
   border: 4rpx solid #2E3FA8;
   border-radius: 20rpx;
 }
 
 .product-name {
-  margin-top: 20rpx; /* 上边距 20rpx */
+  margin-top: 20rpx;
   min-width: 72rpx;
   height: 33rpx;
   font-family: PingFang-SC-Regular;
@@ -255,7 +231,7 @@ page {
   background: #FFFFFF;
   border-radius: 16rpx;
   margin-bottom: 20rpx;
-  margin-right: 0; /* Clear previous margin */
+  margin-right: 0;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -269,7 +245,6 @@ page {
   width: 100%;
 }
 
-/* 自定义占两格 */
 .craft-item--double {
   width: 66%;
 }
@@ -285,7 +260,7 @@ page {
 
 .craft-item--active {
   background-color: #FFFFFF;
-  border-color: #FACC15; /* Golden yellow */
+  border-color: #FACC15;
 }
 
 .craft-item--active .craft-text {
@@ -314,8 +289,15 @@ page {
 
 .footer {
   padding: 16rpx 24rpx calc(env(safe-area-inset-bottom) + 32rpx);
-  box-shadow: none; /* 去除上方阴影线条 */
+  box-shadow: none;
   background-color: #ffffff;
+  /* 修改：固定在底部，确保悬浮 */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  box-sizing: border-box;
 }
 
 .primary-button {
@@ -344,7 +326,7 @@ page {
   letter-spacing: 0;
   text-align: center;
   line-height: 42rpx;
-  white-space: nowrap; /* 不换行 */
+  white-space: nowrap;
   display: inline-block;
 }
 
@@ -352,7 +334,7 @@ button::after {
   border: none;
 }
 
-/* 生成结果弹窗 */
+/* 生成结果弹窗相关样式 (无变动) */
 .result-mask {
   position: fixed;
   top: 0;
@@ -378,7 +360,6 @@ button::after {
 .result-close {
   position: absolute;
   top: 80rpx;
-  /* container 宽 700rpx，图片宽 650rpx，左右各留 25rpx，此处再加 30rpx 间距贴近图片右侧 */
   right: 55rpx;
   width: 40rpx;
   height: 40rpx;
@@ -484,7 +465,7 @@ button::after {
   font-size: 22rpx;
   color: #1C2023;
   line-height: 32rpx;
-  white-space: nowrap; /* 使用产品文字不换行 */
+  white-space: nowrap;
   text-align: center;
 }
 
@@ -539,28 +520,6 @@ button::after {
   font-size: 28rpx;
 }
 
-/* 生成结果预览 */
-.result-preview-panel {
-  padding: 32rpx;
-}
-
-.result-preview {
-  background: #ffffff;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  position: relative;
-}
-
-.result-actions {
-  margin-top: 24rpx;
-  text-align: center;
-}
-
-.save-btn {
-  background: #10b981;
-  color: #ffffff;
-}
-
 /* 进度条样式 */
 .progress-panel {
   padding: 32rpx;
@@ -605,7 +564,6 @@ button::after {
 }
 
 .cancel-btn {
-  /* 调整为与主按钮相同尺寸，但为红色样式 */
   width: 100%;
   max-width: 702rpx;
   height: 80rpx;
@@ -621,7 +579,7 @@ button::after {
   margin: 16rpx auto 0;
 }
 
-/* 产品样式更新 */
+/* 产品样式 */
 .product-code {
   font-size: 24rpx;
   color: #6b7280;
@@ -656,7 +614,7 @@ button::after {
   font-size: 28rpx;
 }
 
-/* 更多色卡弹窗 */
+/* 更多色卡弹窗相关样式 */
 .more-modal-mask {
   position: fixed;
   left: 0;
@@ -737,7 +695,7 @@ button::after {
 .more-modal-image-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 75%; /* Aspect ratio */
+  padding-bottom: 75%;
   border-radius: 12rpx;
   overflow: hidden;
   margin-bottom: 12rpx;
@@ -761,4 +719,18 @@ button::after {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.interior-option-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.interior-option-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx;
+  color: #333;
 }
