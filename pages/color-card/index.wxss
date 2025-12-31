@@ -60,7 +60,14 @@ page {
   padding-top: 0; /* 由 JS 动态设置 */
   padding-left: 24rpx;
   padding-right: 24rpx;
-  padding-bottom: 40rpx;
+  
+  /* 修改此处：
+     140rpx = 100rpx (预留导航栏高度) + 40rpx (原有底部间距)
+     env(safe-area-inset-bottom) = 适配全面屏底部黑条高度
+  */
+  padding-bottom: calc(140rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(140rpx + env(safe-area-inset-bottom));
+  
   box-sizing: border-box;
 }
 

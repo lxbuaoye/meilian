@@ -1,6 +1,7 @@
 import updateManager from './common/updateManager';
 import { fetchUserInfo } from './services/user/service';
 import { eventBus } from './utils/eventBus';
+import { initIconCache } from './utils/iconCache';
 
 App({
   globalData: {
@@ -18,6 +19,8 @@ App({
     // #endif
     userInfo: wx.getStorageSync('userInfo'),
     referrer: '',
+    // 底部导航栏图标缓存
+    tabIconCache: null,
   },
 
   eventBus: eventBus, // Make eventBus globally accessible
@@ -44,7 +47,25 @@ App({
       console.warn('云开发初始化失败，请检查云开发环境配置:', error);
     }
     // #endif
+
+    // 初始化底部导航栏图标缓存
+    this.initTabIconCache();
   },
+
+  /**
+   * 初始化底部导航栏图标缓存
+   */
+  initTabIconCache: function() {
+    initIconCache()
+      .then(iconCache => {
+        this.globalData.tabIconCache = iconCache;
+        console.log('底部导航栏图标缓存初始化完成');
+      })
+      .catch(error => {
+        console.error('底部导航栏图标缓存初始化失败:', error);
+      });
+  },
+
   onShow: function () {
     updateManager();
     var userInfo = wx.getStorageSync('userInfo');
