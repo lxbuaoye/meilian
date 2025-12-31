@@ -138,7 +138,7 @@
           <image class="more-modal-close-icon" src="{{resultCloseIcon}}" mode="aspectFit" />
         </view>
       </view>
-      <scroll-view scroll-y="true" class="more-modal-scroll">
+      <scroll-view scroll-y="true" enable-flex="true" scroll-with-animation="false" class="more-modal-scroll">
         <view class="more-modal-list">
           <view wx:for="{{products}}" wx:key="id" class="more-modal-item" bindtap="onSelectProduct" data-index="{{item.id}}">
             <view class="more-modal-image-wrapper">

@@ -633,8 +633,7 @@ button::after {
   max-height: 80vh;
   background: #ffffff;
   border-radius: 24rpx;
-  display: flex;
-  flex-direction: column;
+  display: block;
   overflow: hidden;
   padding-bottom: 30rpx;
 }
@@ -673,11 +672,11 @@ button::after {
 }
 
 .more-modal-scroll {
-  flex: 1;
+  height: calc(80vh - 130rpx); /* 弹窗最大高度减去header和padding */
   padding: 24rpx;
   box-sizing: border-box;
-  height: calc(100% - 100rpx); /* 减去header高度 */
-  overflow-y: scroll; /* 确保可以滚动 */
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; /* 启用iOS触摸滚动 */
 }
 
 .more-modal-list {
