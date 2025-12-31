@@ -13,6 +13,7 @@ exports.main = async (event, context) => {
   const openid = wxContext.OPENID;
 
   const bookingPhoneNumber = event.bookingPhoneNumber;
+  const bookingName = event.bookingName;
   const userPhoneNumber = event.userPhoneNumber;
 
   if (!openid) {
@@ -50,6 +51,7 @@ exports.main = async (event, context) => {
         openid: openid,
         userPhoneNumber: userPhoneNumber || '',
         bookingPhoneNumber: String(bookingPhoneNumber),
+        bookingName: bookingName || '',
         createdAt: db.serverDate(),
       },
     });

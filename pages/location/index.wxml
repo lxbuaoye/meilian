@@ -42,6 +42,18 @@
 
         <!-- Booking Form -->
         <view class="form-card">
+          <!-- Name Input -->
+          <view class="input-container">
+            <input
+              class="name-input"
+              type="text"
+              placeholder="请输入您的姓名"
+              value="{{userName}}"
+              bindinput="onNameInput"
+              maxlength="20"
+            />
+          </view>
+
           <!-- Phone Input -->
           <view class="input-container">
             <input 
@@ -62,13 +74,9 @@
             立即预约
           </button>
 
-          <!-- Service Buttons -->
-          <view class="service-buttons">
-            <button class="service-button" bindtap="onOnlineService" hover-class="button-hover">
-              <image class="service-icon" src="{{phoneIcon}}" mode="aspectFit"></image>
-              <text class="service-text">在线客服</text>
-            </button>
-            <button class="service-button" bindtap="onPhoneConsult" hover-class="button-hover">
+          <!-- Service Buttons: keep only phone consult and make it full width -->
+          <view class="service-buttons single">
+            <button class="service-button full-width" bindtap="onPhoneConsult" hover-class="button-hover">
               <image class="service-icon" src="{{phoneIconAlt}}" mode="aspectFit"></image>
               <text class="service-text">电话咨询</text>
             </button>

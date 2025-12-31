@@ -13,6 +13,7 @@ Page({
     menuBarTop: 44,
     menuBarHeight: 32,
     phoneNumber: '',
+    userName: '',
     storeAppointmentPic: `${CLOUD_IMAGE_BASE}/image/location/store_appointment_pic@2x.png`,
     industryNewHeightPic: `${CLOUD_IMAGE_BASE}/image/location/industry_new_height_pic@2x.png`,
     phoneIcon: `${CLOUD_IMAGE_BASE}/image/location/phone@2x.png`,
@@ -49,6 +50,15 @@ Page({
   onPhoneInput(e) {
     this.setData({
       phoneNumber: e.detail.value,
+    });
+  },
+
+  /**
+   * 姓名输入
+   */
+  onNameInput(e) {
+    this.setData({
+      userName: e.detail.value,
     });
   },
 
@@ -130,7 +140,7 @@ Page({
   },
 
   submitBooking(userInfo) {
-    const { phoneNumber } = this.data;
+    const { phoneNumber, userName } = this.data;
     wx.showLoading({
       title: '提交中...',
     });
@@ -139,6 +149,7 @@ Page({
         name: 'saveuserbooking',
         data: {
           bookingPhoneNumber: phoneNumber,
+          bookingName: userName || '',
           userPhoneNumber: userInfo && userInfo.phoneNumber ? userInfo.phoneNumber : '',
         },
       })
@@ -151,6 +162,7 @@ Page({
           });
           this.setData({
             phoneNumber: '',
+            userName: '',
           });
           return;
         }
