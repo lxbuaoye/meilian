@@ -146,8 +146,19 @@ Page({
         return `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
         }) : [],
         relatedProducts: relatedProducts.data && relatedProducts.data.length > 0 ? relatedProducts.data.map((item) => {
+        // 优先使用产品文档内的 cover 字段或 images[0]，避免直接拼 cover.jpg 导致 404
+        let imageUrl = '';
+        if (CLOUD_IMAGE_BASE && item.cover) {
+          imageUrl = `${CLOUD_IMAGE_BASE}/product/${item._id}/${item.cover}`;
+        } else if (CLOUD_IMAGE_BASE && item.images && item.images.length > 0) {
+          imageUrl = `${CLOUD_IMAGE_BASE}/product/${item._id}/${item.images[0]}`;
+        } else {
+          imageUrl = '';
+        }
+        // 如果没有有效 imageUrl，回退为页面默认的产品图（与 data 中的 defaultProductIcon 保持一致）
+        const fallbackProductIcon = CLOUD_IMAGE_BASE ? `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png` : '';
         return {
-            imageUrl: CLOUD_IMAGE_BASE ? `${CLOUD_IMAGE_BASE}/product/${item._id}/cover.jpg` : '',
+            imageUrl: imageUrl || fallbackProductIcon,
           title: item.title,
           productId: item._id,
         };
@@ -178,6 +189,23 @@ Page({
       urls: this.data.imageUrlHiRes,
     });
   },
+  onProductImageError(e) {
+    try {
+      const idx = e.currentTarget.dataset.index;
+      const fallback = this.data.defaultProductIcon || (this.data.coverImage ? this.data.coverImage : '');
+      if (typeof idx !== 'undefined' && this.data.relatedProducts && this.data.relatedProducts.length > idx) {
+        const key = `relatedProducts[${idx}].imageUrl`;
+        this.setData({
+          [key]: fallback,
+        });
+        console.warn('onProductImageError: replaced relatedProducts image at index', idx, 'with fallback');
+      } else {
+        console.warn('onProductImageError: index out of range or relatedProducts missing', idx);
+      }
+    } catch (err) {
+      console.error('onProductImageError error', err);
+    }
+  },
   previewShowcaseImage() {
     if (this.data.showcaseImage) {
       const allImages = [this.data.showcaseImage, ...this.data.imageUrl];
@@ -202,22 +230,46 @@ Page({
     });
   },
   navigateToProductDetail(e) {
+    const productId = e.currentTarget.dataset.productId;
+    console.log('navigateToProductDetail -> productId:', productId, 'event:', e);
+    if (!productId) {
+      console.warn('navigateToProductDetail: missing productId, abort navigation');
+      return;
+    }
     wx.navigateTo({
-      url: `/pages/product-detail/index?productId=${e.currentTarget.dataset.productId}`,
+      url: `/pages/product-detail/index?productId=${encodeURIComponent(productId)}`,
+      success: () => {
+        console.log('navigateToProductDetail: navigation success', productId);
+      },
+      fail: (err) => {
+        console.error('navigateToProductDetail: navigation failed', err, productId);
+      },
+      complete: () => {
+        console.log('navigateToProductDetail: navigation complete', productId);
+      },
     });
   },
   
   // 从使用产品列表直接跳转到产品详情
   navigateToProductDetailFromList(e) {
     const productId = e.currentTarget.dataset.productId;
-    if (productId) {
-      wx.navigateTo({
-        url: `/pages/product-detail/index?productId=${productId}`,
-      });
-    } else {
-      // 如果没有 productId，不执行任何操作
-      console.warn('产品ID不存在，无法跳转到产品详情页');
+    console.log('navigateToProductDetailFromList -> productId:', productId, 'event:', e);
+    if (!productId) {
+      console.warn('navigateToProductDetailFromList: 产品ID不存在，无法跳转到产品详情页');
+      return;
     }
+    wx.navigateTo({
+      url: `/pages/product-detail/index?productId=${encodeURIComponent(productId)}`,
+      success: () => {
+        console.log('navigateToProductDetailFromList: navigation success', productId);
+      },
+      fail: (err) => {
+        console.error('navigateToProductDetailFromList: navigation failed', err, productId);
+      },
+      complete: () => {
+        console.log('navigateToProductDetailFromList: navigation complete', productId);
+      },
+    });
   },
   handleBack() {
     wx.navigateBack({

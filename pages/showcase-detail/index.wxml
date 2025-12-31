@@ -30,8 +30,8 @@
     <view class="products-section">
       <text class="products-title">使用产品</text>
       <scroll-view class="products-scroll" scroll-x enable-flex>
-        <view wx:for="{{relatedProducts}}" wx:key="index" class="product-item" data-index="{{index}}" data-product-id="{{item.productId}}" bind:tap="navigateToProductDetailFromList" hover-class="product-item--hover">
-          <image class="product-icon" src="{{item.imageUrl || defaultProductIcon}}" mode="aspectFit" />
+        <view wx:for="{{relatedProducts}}" wx:key="index" class="product-item" data-index="{{index}}" data-product-id="{{item.productId}}" catchtap="navigateToProductDetailFromList" hover-class="product-item--hover">
+          <image class="product-icon" src="{{item.imageUrl || defaultProductIcon}}" mode="aspectFit" binderror="onProductImageError" data-index="{{index}}" />
           <text class="product-name">{{item.title}}</text>
         </view>
       </scroll-view>

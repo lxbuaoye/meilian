@@ -28,6 +28,7 @@ page {
   align-items: center;
   justify-content: space-between;
   padding: 0 24rpx;
+  position: relative;
 }
 
 .nav-back {
@@ -36,14 +37,21 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 .nav-title {
-  flex: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 100rpx;
+  line-height: 100rpx;
   text-align: center;
   font-size: 34rpx;
   font-weight: 700;
   color: #1c2023;
+  z-index: 1;
 }
 
 .nav-right-icons {

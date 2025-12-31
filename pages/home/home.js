@@ -143,36 +143,46 @@ Page({
   },
 
   async loadNews() {
+    // 使用指定的三篇公众号文章内容替换首页新闻（由产品/运营提供）
     try {
-      const { data } = await db
-        .collection('news')
-        .field({
-          _id: true,
-          title: true,
-          subtitle: true,
-          description: true,
-          sourceUrl: true,
-          uploadDate: true,
-        })
-        .orderBy('uploadDate', 'desc')
-        .limit(3)
-        .get();
-      const newsList = (data || []).map((item) => {
-        return {
-          ...item,
-          uploadDateText: this.formatNewsDate(item.uploadDate),
-        };
-      });
+      const staticNews = [
+        {
+          _id: 'news-1',
+          title: '石意玲珑，历久弥新',
+          subtitle:
+            '业主常居东莞，因从事建材行业，对材质与细节尤为讲究，他曾收藏一块心仪的石材样本，希望将其色彩与纹理复刻于家中外墙。美联美墅团队据此独家调色，采用「水包砂深槽工艺」，配合窗套、鹰嘴、滴水线等全方位施工，不仅还原石材的肌理，更规避了石材的色差、成本高昂等问题。',
+          sourceUrl: 'https://mp.weixin.qq.com/s/GP9ScvfOLJdoKaZsorAcnQ',
+          uploadDate: '2025-12-30',
+        },
+        {
+          _id: 'news-2',
+          title: '美联嵄锦石：外墙仿石漆施工指南',
+          subtitle:
+            '麻点花岗岩效果：精准模仿传统麻点花岗岩的质感与色彩，提供煅烧面效果，麻点细腻逼真。轻质高效，用料节省：自重轻、负载小，超强耐候，绿色环保。附着力强，柔韧抗裂：漆膜柔韧，附着力强，适用于复杂造型墙面。',
+          sourceUrl: 'https://mp.weixin.qq.com/s/Ngufi0hGMAVAtSmbVBCT7Q',
+          uploadDate: '2025-12-29',
+        },
+        {
+          _id: 'news-3',
+          title: '当艺术遇见安心丨美联美墅X深时美术馆，共筑「深」诞奇妙夜！',
+          subtitle:
+            '圣诞的钟声已敲响对于孩子而言是童话，是闪闪发光的期待；而对于父母，最大的心愿或许是在绚烂之外为他们筑起一道安心的屏障，最好的礼物是陪伴，最棒的创作环境是安全。美联美墅与深时美术馆携手，开启这场特别亲子艺术之旅——「深」诞奇妙夜。',
+          sourceUrl: 'https://mp.weixin.qq.com/s/JTlPHeOTM4rhHCdI3dH9OQ',
+          uploadDate: '2025-12-25',
+        },
+      ];
+
+      const newsList = staticNews.map((item) => ({
+        ...item,
+        uploadDateText: this.formatNewsDate(item.uploadDate),
+      }));
+
       this.setData({
         newsList,
       });
     } catch (err) {
-      console.error('loadNews failed:', err);
+      console.error('loadNews (static) failed:', err);
       this.setData({ newsList: [] });
-      wx.showToast({
-        title: '新闻加载失败',
-        icon: 'none',
-      });
     }
   },
 

@@ -23,10 +23,10 @@ Page({
     detailName: '',
     detailCode: '',
     tags: [],
-    heroImage: `${CLOUD_IMAGE_BASE}/image/product-detail/pic@2x.png`,
+    heroImage: `${CLOUD_IMAGE_BASE}/image/area-ai/product.png`,
     statusBarHeight: 0,
     navBarHeight: 0,
-    navBackIcon: `${CLOUD_IMAGE_BASE}/image/product-detail/back@2x.png`,
+    navBackIcon: `${CLOUD_IMAGE_BASE}/image/area-ai/back@2x.png`,
     // 默认展示数据用于还原效果
     title: '微岩石',
     detailName: '铜墙铁壁双组份外墙漆',
@@ -53,10 +53,30 @@ Page({
     this.init(options.productId);
   },
 
+  onReady() {
+    console.log('product-detail.onReady');
+  },
+
+  onShow() {
+    console.log('product-detail.onShow');
+  },
+
+  onHide() {
+    console.log('product-detail.onHide');
+  },
+
+  onUnload() {
+    console.log('product-detail.onUnload');
+  },
+
   async init(productId) {
-    console.log(productId);
-    // 设置默认图片路径
-    const defaultImage = `${CLOUD_IMAGE_BASE}/image/product-detail/pic@2x.png`;
+    console.log('product-detail.init productId:', productId);
+    if (!productId) {
+      console.warn('product-detail.init: missing productId, skipping db fetch and keeping default data');
+      return;
+    }
+    // 设置默认图片路径（使用云资源中的 area-ai 产品预览图）
+    const defaultImage = `${CLOUD_IMAGE_BASE}/image/area-ai/product.png`;
     
     try {
       const { data } = await db
@@ -155,6 +175,16 @@ Page({
   onImageError(e) {
     console.error('图片加载失败:', e.detail);
     console.error('图片路径:', this.data.heroImage);
+    // 回退到默认的云端产品图片，避免空白显示
+    const fallback = `${CLOUD_IMAGE_BASE}/image/area-ai/product.png`;
+    if (this.data.heroImage !== fallback) {
+      this.setData({
+        heroImage: fallback,
+        imageList: [fallback],
+        imageListHiRes: [fallback],
+      });
+      console.warn('onImageError: heroImage replaced with fallback', fallback);
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
