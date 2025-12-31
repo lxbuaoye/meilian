@@ -1,4 +1,3 @@
-import { getLocalUserInfo, fetchUserInfo } from '../../services/user/service';
 
 const app$ = typeof getApp === 'function' ? getApp() : {};
 const appGlobal$ = app$.globalData || {};
@@ -63,83 +62,61 @@ Page({
   },
 
   /**
-   * 立即预约
+   * 验证手机号格式
    */
-  onBookNow() {
-    const { phoneNumber } = this.data;
-    if (!phoneNumber || phoneNumber.length !== 11) {
-      wx.showToast({
-        title: '请输入正确的手机号码',
-        icon: 'none',
-      });
-      return;
+  validatePhoneNumber(phoneNumber) {
+    // 检查是否为空
+    if (!phoneNumber || phoneNumber.trim() === '') {
+      return { valid: false, message: '请输入手机号码' };
     }
-    const userInfo = getLocalUserInfo();
-    // 如果本地有用户信息则随带提交，否则以空对象提交（云函数会以 openid 去重）
-    this.submitBooking(userInfo || {});
+
+    // 检查长度是否为11位
+    if (phoneNumber.length !== 11) {
+      return { valid: false, message: '手机号码必须为11位数字' };
+    }
+
+    // 检查是否全为数字
+    const phoneRegex = /^[0-9]+$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      return { valid: false, message: '手机号码只能包含数字' };
+    }
+
+    // 检查是否以1开头
+    if (!phoneNumber.startsWith('1')) {
+      return { valid: false, message: '手机号码必须以1开头' };
+    }
+
+    return { valid: true };
   },
 
   /**
-   * 处理从微信获取到的加密手机号（open-type=getRealtimePhoneNumber 回调）
+   * 立即预约
    */
-  onGetRealTimePhoneNumber(e) {
-    const code = e && e.detail && e.detail.code;
-    if (!code) {
+  onBookNow() {
+    const { phoneNumber, userName } = this.data;
+
+    // 验证手机号
+    const phoneValidation = this.validatePhoneNumber(phoneNumber);
+    if (!phoneValidation.valid) {
       wx.showToast({
-        title: '获取手机号失败',
+        title: phoneValidation.message,
         icon: 'none',
       });
       return;
     }
-
-    wx.showLoading({
-      title: '获取手机号...',
-    });
-
-    wx.cloud
-      .callFunction({
-        name: 'verifyphonenumber',
-        data: {
-          code,
-        },
-      })
-      .then((res) => {
-        const phone = res && res.result && res.result.phoneNumber;
-        if (!phone) {
-          wx.showToast({
-            title: '无法获取手机号',
-            icon: 'none',
-          });
-          return;
-        }
-
-        // 将手机号填入输入框
-        this.setData({
-          phoneNumber: phone,
-        });
-
-        // 尝试拉取用户信息（若已在系统中存在），再提交预约；若失败也继续提交
-        fetchUserInfo(phone)
-          .then((userInfo) => {
-            this.submitBooking(userInfo);
-          })
-          .catch(() => {
-            this.submitBooking({ phoneNumber: phone });
-          });
-      })
-      .catch((err) => {
-        console.error('verifyphonenumber error', err);
-        wx.showToast({
-          title: '获取手机号失败',
-          icon: 'none',
-        });
-      })
-      .finally(() => {
-        wx.hideLoading();
+    if (!userName || userName.trim() === '') {
+      wx.showToast({
+        title: '请输入您的姓名',
+        icon: 'none',
       });
+      return;
+    }
+    // 直接提交预约信息到云函数
+    this.submitBooking();
   },
 
-  submitBooking(userInfo) {
+
+  submitBooking() {
     const { phoneNumber, userName } = this.data;
     wx.showLoading({
       title: '提交中...',
@@ -149,8 +126,7 @@ Page({
         name: 'saveuserbooking',
         data: {
           bookingPhoneNumber: phoneNumber,
-          bookingName: userName || '',
-          userPhoneNumber: userInfo && userInfo.phoneNumber ? userInfo.phoneNumber : '',
+          bookingName: userName,
         },
       })
       .then((res) => {

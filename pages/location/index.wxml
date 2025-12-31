@@ -66,10 +66,9 @@
             />
           </view>
 
-          <!-- Book Now Button（改为直接获取微信绑定手机号并回调） -->
+          <!-- Book Now Button（直接提交预约信息） -->
           <button class="book-button"
-            open-type="getRealtimePhoneNumber"
-            bindgetrealtimephonenumber="onGetRealTimePhoneNumber"
+            bindtap="onBookNow"
             hover-class="button-hover">
             立即预约
           </button>
