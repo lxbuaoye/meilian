@@ -1,0 +1,187 @@
+<wxs module="_">
+  module.exports.getText = function (value, curr) {
+    if (value > curr) return '已完成'; if (value == curr)
+      return '当前步骤'; return '未完成';
+  }
+</wxs>
+
+<view class="steps"
+  wx:if="{{!showResult}}">
+  <t-steps current="{{currentIndex}}"
+    bind:change="onChange">
+    <t-step-item wx:for="{{4}}"
+      wx:key="index"
+      class="step-item" />
+
+  </t-steps>
+
+  <!-- Step 1-->
+  <view class="step-content-container"
+    wx:if="{{currentIndex === 0}}">
+    <view class="question-container">
+      <view class="question-icon">Q</view>
+      <text class="question-text">请问您房子的正门朝向</text>
+    </view>
+
+    <t-radio-group t-class="radio-container"
+      default-value="east">
+      <t-radio label="{{item.label}}"
+        class="checkbox"
+        wx:key="*this"
+        wx:for="{{direction}}"
+        value="{{item.value}}" />
+    </t-radio-group>
+
+
+    <view class="button"
+      hover-class="action-tile-hover "
+      bindtap="next">
+      <text class="button-text">下一题</text>
+    </view>
+
+  </view>
+
+  <!-- Step 2-->
+  <view class="step-content-container"
+    wx:if="{{currentIndex === 1}}">
+    <view class="question-container">
+      <view class="question-icon">Q</view>
+      <text class="question-text">请问业主的性别</text>
+    </view>
+
+    <t-radio-group t-class="radio-container"
+      default-value="man">
+      <t-radio label="{{item.label}}"
+        class="checkbox"
+        wx:key="*this"
+        wx:for="{{gender}}"
+        value="{{item.value}}" />
+    </t-radio-group>
+
+    <view style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; ">
+      <view class="button1"
+        hover-class="action-tile-hover "
+        bindtap="previous">
+        <text class="button1-text">上一题</text>
+      </view>
+
+      <view class="button"
+        hover-class="action-tile-hover "
+        bindtap="next">
+        <text class="button-text">下一题</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- Step 3-->
+  <view class="step-content-container"
+    wx:if="{{currentIndex === 2}}">
+    <view class="question-container">
+      <view class="question-icon">Q</view>
+      <text class="question-text">业主的出生年月日时</text>
+    </view>
+
+    <t-date-time-picker title="选择日期和时间"
+      usePopup="{{false}}"
+      style="margin-top: 50rpx;"
+      visible="{{true}}"
+      header="{{false}}"
+      mode="hour"
+      defaultValue="{{defaultDate}}"
+      start="{{startDate}}"
+      end="{{endDate}}"
+      bindpick="onDateChange"
+      format="YYYY-MM-DD HH:mm:ss" />
+
+    <view style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; ">
+      <view class="button1"
+        hover-class="action-tile-hover "
+        bindtap="previous">
+        <text class="button1-text">上一题</text>
+      </view>
+
+      <view class="button"
+        hover-class="action-tile-hover "
+        bindtap="next">
+        <text class="button-text">下一题</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- Step 4-->
+  <view class="step-content-container"
+    wx:if="{{currentIndex === 3}}">
+    <view class="question-container">
+      <view class="question-icon">Q</view>
+      <text class="question-text">主要居住人口数</text>
+    </view>
+
+    <view style="width: 100%; display: flex;align-items: center; margin: 30rpx;">
+      <t-stepper defaultValue="1"
+        size="large"
+        min="1"
+        theme="normal" />
+    </view>
+
+    <view style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; ">
+      <view class="button1"
+        hover-class="action-tile-hover "
+        bindtap="previous">
+        <text class="button1-text">上一题</text>
+      </view>
+
+      <view class="button"
+        hover-class="action-tile-hover "
+        bindtap="submit">
+        <text class="button-text">提交</text>
+      </view>
+    </view>
+
+  </view>
+
+</view>
+
+
+
+<view wx:if="{{showResult}}">
+  <view wx:if="{{isLoading}}"
+    style="width: 100%; height: 500rpx; display: flex; align-items: center; justify-content: center;"
+    class="loading">
+    <t-loading theme="circular"
+      class="loading"
+      size="80rpx"
+      layout="vertical"
+      text="分析中..."
+      class="wrapper" />
+  </view>
+
+  <view wx:if="{{!isLoading}}"
+    style="height: 150rpx; margin: 54rpx; display: flex;  align-items: center;">
+    <image src="{{robotSrc}}"
+      style="width: 150rpx; height: 150rpx; min-width: 150rpx;"></image>
+    <text style="margin-left: 30rpx;color: #1c2023;font-size: 34rpx;">{{recommendationText}}</text>
+  </view>
+  <view wx:if="{{!isLoading}}"
+    style="margin: 20rpx 24rpx; background-color:white; padding: 30rpx; display: flex; flex-direction: column; margin-bottom: 0; border-radius: 20rpx;">
+    <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 20rpx; align-items: center;">
+      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;"
+        src="/resources/bulletpoint.png"></image>
+      <text style="font-size: 34rpx; font-weight: 700;">推荐参考色</text>
+    </view>
+    <view wx:for="{{recommendation.samples}}"
+      wx:key="index"
+      class="recommendation-container">
+      <image class="recommendation-image"
+        src="{{item.imageSrc}}">
+      </image>
+      <view style="display: flex; flex-direction: column;margin: 20rpx; justify-content: center;">
+        <text style="margin-bottom: 35rpx;font-size: 42rpx;color: #1C2023;">{{item.name}}</text>
+        <view style="margin-bottom: 20rpx; font-size: 32rpx;color: #1C2023;">
+          <text>编号: </text><text style="font-weight: 700;">{{item.caseNumber}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

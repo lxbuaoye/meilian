@@ -13,7 +13,10 @@
     "pages/showcase-detail/index",
     "pages/product/index",
     "pages/mall/index",
-    "pages/color-change-result"
+    "pages/color-change-result",
+    "pages/diagnosis-ai/index",
+    "pages/furniture-ai/index",
+    "pages/wuxing/index"
   ],
   "subPackages": [
     {
