@@ -430,13 +430,18 @@ Page({
     if (currentSelected) {
       this.setData({
         [`selectedProductMap.${productId}`]: false,
+        currentSelection: '',
       });
     } else {
       // 创建新的选中状态对象，只选中当前产品
       const newSelectedProductMap = {};
       newSelectedProductMap[productId] = true;
+      // 查找当前产品名称用于展示
+      const product = this.data.products.find(p => p.id === productId) || {};
+      const productNameToShow = product.displayName || product.name || '';
       this.setData({
         selectedProductMap: newSelectedProductMap,
+        currentSelection: productNameToShow,
       });
     }
   },

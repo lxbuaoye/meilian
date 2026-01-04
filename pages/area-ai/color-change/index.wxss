@@ -359,7 +359,8 @@ button::after {
 
 .result-close {
   position: absolute;
-  top: 80rpx;
+  /* moved down to avoid being overlapped by status/notch areas */
+  top: calc(120rpx + env(safe-area-inset-top));
   right: 55rpx;
   width: 40rpx;
   height: 40rpx;
@@ -528,6 +529,36 @@ button::after {
   border-radius: 16rpx;
 }
 
+/* Footer-specific override so progress UI sits inside the fixed footer area */
+.footer .footer-progress {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+.footer .progress-container {
+  margin-bottom: 12rpx;
+  padding: 0 16rpx;
+}
+.footer .progress-text {
+  font-size: 28rpx;
+  margin-bottom: 8rpx;
+}
+.footer .progress-bar {
+  height: 10rpx;
+  margin-bottom: 8rpx;
+}
+.footer .progress-percent {
+  display: inline-block;
+  font-size: 24rpx;
+  margin-top: 6rpx;
+}
+.footer .cancel-btn {
+  margin: 12rpx auto 0;
+  max-width: 702rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+}
+
 .progress-container {
   text-align: center;
   margin-bottom: 24rpx;
@@ -639,7 +670,7 @@ button::after {
   border-radius: 24rpx;
   display: block;
   overflow: hidden;
-  padding-bottom: 30rpx;
+  padding-bottom: 90rpx; /* increased to avoid bottom rows被固定底栏遮挡 */
 }
 
 .more-modal-header {
@@ -675,9 +706,51 @@ button::after {
     height: 32rpx;
 }
 
+/* Selected color card display (placed under header) */
+.more-modal-selected {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 0 12rpx;
+  background: transparent;
+  border-bottom: none;
+  white-space: nowrap;
+  max-width: 320rpx;
+  justify-content: flex-end;
+}
+.selected-label {
+  font-size: 22rpx;
+  color: #6b7280;
+}
+.selected-name {
+  font-size: 22rpx;
+  color: #111827;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200rpx;
+}
+
+.more-filter-tabs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+.more-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  flex: 1;
+  overflow: hidden;
+}
+
 .more-modal-scroll {
-  height: calc(80vh - 130rpx); /* 弹窗最大高度减去header和padding */
-  padding: 24rpx;
+  /* ensure scroll area leaves space on the right for the native scrollbar
+     and extra bottom padding so last row isn't overlapped by footer */
+  height: calc(80vh - 180rpx);
+  padding: 24rpx 36rpx 48rpx 24rpx; /* extra right and bottom padding */
   box-sizing: border-box;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch; /* 启用iOS触摸滚动 */
