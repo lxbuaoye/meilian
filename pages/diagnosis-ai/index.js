@@ -262,26 +262,43 @@ Page({
 
     try {
       this.processResult(parsed);
-      await this.processTransacation();
+      // 开发环境/测试跳过扣积分逻辑，避免实际扣减用户积分
+      if (!this.data.betaVersion) {
+        await this.processTransacation();
+      } else {
+        // DEV: skip processTransacation in beta/develop environments
+        console.log('DEV MODE: skipping credits deduction (processTransacation)');
+      }
     } catch (e) {}
 
     // this.generateQRCode();
   },
 
   async generate() {
-    if (!this.checkLoginStatus()) {
-      return;
+    // 保留登录与积分 UI 交互，但在开发/测试环境跳过积分校验及扣减
+    // In dev/trial (betaVersion) allow generating without login to ease testing.
+    if (!this.data.betaVersion) {
+      if (!this.checkLoginStatus()) {
+        return;
+      }
+    } else {
+      console.log('DEV MODE: skipping login requirement for generate()');
     }
 
-    if (this.data.userInfo.credits < CREDITS_PER_USAGE) {
-      Message.info({
-        context: this,
-        offset: [20, 32],
-        duration: 2000,
-        // single: false, // 打开注释体验多个消息叠加效果
-        content: '积分不足, 无法诊断',
-      });
-      return;
+    if (!this.data.betaVersion) {
+      if (this.data.userInfo.credits < CREDITS_PER_USAGE) {
+        Message.info({
+          context: this,
+          offset: [20, 32],
+          duration: 2000,
+          // single: false, // 打开注释体验多个消息叠加效果
+          content: '积分不足, 无法诊断',
+        });
+        return;
+      }
+    } else {
+      // DEV: in beta/develop environment, skip credit check and proceed directly
+      console.log('DEV MODE: skipping credits check, proceeding to call AI API without deducting credits');
     }
 
     if (!this.data.imageSrc) {
@@ -511,8 +528,9 @@ Page({
       });
       imageSrc = tempFilePath;
     }
+    // Redirect to AI 换色 page (area-ai/color-change) with original image
     wx.navigateTo({
-      url: `/pages/ai/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${imageSrc}`,
+      url: `/pages/area-ai/color-change/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${imageSrc}`,
     });
   },
 

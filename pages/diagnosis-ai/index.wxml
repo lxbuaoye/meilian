@@ -281,7 +281,7 @@
       <button class="cute-button jump-to-ai-btn"
         bindtap="navigateToAI">
         <text class="button-icon">✨</text>
-        <text>点击使用数码彩AI生成效果图</text>
+        <text>点击使用美联美墅AI生成效果图</text>
         <text class="button-icon">✨</text>
       </button>
 

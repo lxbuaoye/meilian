@@ -86,20 +86,20 @@
   <!-- Footer: when visible show progress UI here so it appears above system nav, otherwise show generate button -->
   <view class="footer">
     <view wx:if="{{visible}}" class="footer-progress">
-      <view class="progress-container">
-        <text class="progress-text">AI正在生成中...</text>
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: {{progress}}%"></view>
-        </view>
-        <text class="progress-percent">{{progress}}%</text>
+    <view class="progress-container">
+      <text class="progress-text">AI正在生成中...</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
       </view>
-      <button class="cancel-btn" bindtap="closeOverlay">取消生成</button>
+      <text class="progress-percent">{{progress}}%</text>
     </view>
+    <button class="cancel-btn" bindtap="closeOverlay">取消生成</button>
+  </view>
 
     <view wx:if="{{!visible}}" class="footer-action">
-      <button class="primary-button" bindtap="onGenerateTap" hover-class="primary-button--hover" disabled="{{!imageSrc}}">
-        <text class="primary-button-text">AI生成</text>
-      </button>
+    <button class="primary-button" bindtap="onGenerateTap" hover-class="primary-button--hover" disabled="{{!imageSrc}}">
+      <text class="primary-button-text">AI生成</text>
+    </button>
     </view>
   </view>
 
@@ -145,19 +145,19 @@
       <view class="more-filter-section">
     <!-- 一级分类 Tab (with selected name to the right) -->
     <view class="more-filter-tabs-row">
-      <view class="more-filter-tabs">
-        <view wx:for="{{moreModalCategories}}" wx:key="*this" 
-              class="more-filter-tab-item {{moreModalActiveCategory === item ? 'active' : ''}}" 
-              bindtap="onMoreCategoryTap" data-category="{{item}}">
-          {{item}}
-          <view class="more-filter-tab-line" wx:if="{{moreModalActiveCategory === item}}"></view>
+        <view class="more-filter-tabs">
+          <view wx:for="{{moreModalCategories}}" wx:key="*this" 
+                class="more-filter-tab-item {{moreModalActiveCategory === item ? 'active' : ''}}" 
+                bindtap="onMoreCategoryTap" data-category="{{item}}">
+            {{item}}
+            <view class="more-filter-tab-line" wx:if="{{moreModalActiveCategory === item}}"></view>
         </view>
       </view>
       <view class="more-modal-selected" wx:if="{{currentSelection}}">
         <text class="selected-label">已选色卡：</text>
         <text class="selected-name">{{currentSelection}}</text>
-      </view>
-    </view>
+          </view>
+        </view>
         <!-- 二级分类 Chips -->
         <scroll-view class="more-filter-chips" scroll-x enable-flex>
           <view wx:for="{{moreModalSubCategories}}" wx:key="*this" 
