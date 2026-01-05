@@ -118,32 +118,16 @@ Page({
             code: d.cpmc || '', // 使用名称作为 code，若有专用编码请替换
             img: compressedImage, // 预览时使用压缩图
             originalImg: originalImage, // 保存原图路径
+            color: d.color || null, // 颜色字段，用于无图片时的色块显示，null表示无颜色
           };
         });
-        // 如果数据库中没有乳胶漆类，注入七色色块作为占位（红 橙 黄 绿 青 蓝 紫）
-        const latexCategoryName = '乳胶漆';
-        const hasLatex = mapped.some(item => (item.categoryName || '') === latexCategoryName);
-        if (!hasLatex) {
-          const defaultColors = [
-            { name: '红', code: 'LAT-RED', color: '#E53935' },
-            { name: '橙', code: 'LAT-ORANGE', color: '#FB8C00' },
-            { name: '黄', code: 'LAT-YELLOW', color: '#FDD835' },
-            { name: '绿', code: 'LAT-GREEN', color: '#43A047' },
-            { name: '青', code: 'LAT-CYAN', color: '#00ACC1' },
-            { name: '蓝', code: 'LAT-BLUE', color: '#1E88E5' },
-            { name: '紫', code: 'LAT-PURPLE', color: '#8E24AA' },
-          ];
-          defaultColors.forEach(c => {
-            mapped.push({
-              categoryName: latexCategoryName,
-              subcategory: '默认',
-              name: c.name,
-              code: c.code,
-              img: '', // 无图片，前端会用 color 字段渲染色块
-              originalImg: '',
-              color: c.color,
-            });
-          });
+
+        // 乳胶漆色卡完全从数据库读取，不再使用默认硬编码数据
+        const latexCards = mapped.filter(item => item.categoryName === '乳胶漆');
+        if (latexCards.length > 0) {
+          console.log(`从数据库加载到 ${latexCards.length} 个乳胶漆色卡`);
+        } else {
+          console.log('数据库中没有乳胶漆数据');
         }
 
         this.setData({ allCards: mapped }, () => {
