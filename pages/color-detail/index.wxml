@@ -15,13 +15,21 @@
   <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
     <!-- 顶部色卡卡片 -->
     <view class="card color-card">
-      <image class="color-image"
-        src="{{colorImage}}"
-        mode="aspectFill"
-        bindtap="previewImage" />
+      <block wx:if="{{colorHex}}">
+        <view class="color-swatch" style="background-color: {{colorHex}};" />
+      </block>
+      <block wx:else>
+        <image class="color-image"
+          src="{{colorImage}}"
+          mode="aspectFill"
+          bindtap="previewImage" />
+      </block>
 
       <view class="color-info">
         <text class="color-name">{{colorName}}</text>
+        <view class="color-meta">
+          <text class="color-code" wx:if="{{colorHex}}">{{colorHex}}</text>
+        </view>
         <view class="color-actions">
           <button class="icon-button" hover-class="icon-button--active" bindtap="handleDownload">
             <image class="icon-image" src="{{downloadIcon}}" mode="aspectFit" />

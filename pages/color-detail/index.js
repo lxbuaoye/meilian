@@ -64,9 +64,17 @@ Page({
       // #endregion
       this.setData({
         colorImage: decodeURIComponent(options.img),
+        colorHex: decodeURIComponent(options.color || '') || '',
       });
     } else if (options && (options.code || options.name)) {
       const queryKey = decodeURIComponent(options.code || options.name);
+      // 如果传入 color（纯色色块）则直接使用，不从 DB 查图
+      if (options.color) {
+        this.setData({
+          colorHex: decodeURIComponent(options.color),
+        });
+        return;
+      }
       this.fetchImageFromDB(queryKey).catch((err) => {
         console.warn('从数据库获取图片失败，使用默认图片', err);
       });
@@ -114,7 +122,17 @@ Page({
   },
 
   handleDownload() {
-    // 这里只做占位交互，真实逻辑可接入下载接口
+    // If this is a pure color (no image), copy color hex code to clipboard
+    if (this.data.colorHex) {
+      wx.setClipboardData({
+        data: this.data.colorHex,
+        success: () => {
+          wx.showToast({ title: '色号已复制', icon: 'success' });
+        },
+      });
+      return;
+    }
+    // 否则保持原有下载提示（真实逻辑可以实现保存图片）
     wx.showToast({
       title: '已保存到相册',
       icon: 'success',

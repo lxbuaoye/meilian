@@ -120,6 +120,31 @@ Page({
             originalImg: originalImage, // 保存原图路径
           };
         });
+        // 如果数据库中没有乳胶漆类，注入七色色块作为占位（红 橙 黄 绿 青 蓝 紫）
+        const latexCategoryName = '乳胶漆';
+        const hasLatex = mapped.some(item => (item.categoryName || '') === latexCategoryName);
+        if (!hasLatex) {
+          const defaultColors = [
+            { name: '红', code: 'LAT-RED', color: '#E53935' },
+            { name: '橙', code: 'LAT-ORANGE', color: '#FB8C00' },
+            { name: '黄', code: 'LAT-YELLOW', color: '#FDD835' },
+            { name: '绿', code: 'LAT-GREEN', color: '#43A047' },
+            { name: '青', code: 'LAT-CYAN', color: '#00ACC1' },
+            { name: '蓝', code: 'LAT-BLUE', color: '#1E88E5' },
+            { name: '紫', code: 'LAT-PURPLE', color: '#8E24AA' },
+          ];
+          defaultColors.forEach(c => {
+            mapped.push({
+              categoryName: latexCategoryName,
+              subcategory: '默认',
+              name: c.name,
+              code: c.code,
+              img: '', // 无图片，前端会用 color 字段渲染色块
+              originalImg: '',
+              color: c.color,
+            });
+          });
+        }
 
         this.setData({ allCards: mapped }, () => {
           // #region agent log
@@ -199,8 +224,10 @@ Page({
     const name = e.currentTarget.dataset.name || '';
     const code = e.currentTarget.dataset.code || '';
     const img = e.currentTarget.dataset.img || '';
+    const color = e.currentTarget.dataset.color || '';
+    const params = `name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}&img=${encodeURIComponent(img)}&color=${encodeURIComponent(color)}`;
     wx.navigateTo({
-      url: `/pages/color-detail/index?name=${encodeURIComponent(name)}&code=${encodeURIComponent(code)}&img=${encodeURIComponent(img)}`,
+      url: `/pages/color-detail/index?${params}`,
     });
   },
 

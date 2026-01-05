@@ -87,6 +87,27 @@ page {
   left: 0rpx;
 }
 
+.color-swatch {
+  width: 702rpx;
+  height: 420rpx;
+  border-radius: 20rpx;
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 0rpx;
+  left: 0rpx;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+}
+
+.color-meta {
+  margin-top: 8rpx;
+}
+.color-code {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-right: 12rpx;
+}
+
 .color-info {
   position: absolute;
   bottom: 30rpx;

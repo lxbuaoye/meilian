@@ -146,6 +146,14 @@ page {
   background: #f5f7fb;
 }
 
+.swatch {
+  width: 100%;
+  height: 150rpx;
+  border-radius: 22rpx;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+  background-clip: padding-box;
+}
+
 .grid-text {
   width: 223rpx;
   height: 40rpx;
