@@ -27,7 +27,7 @@
 
     <!-- 色卡列表 -->
     <view class="grid">
-      <view class="grid-item" wx:for="{{filteredCards}}" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}" data-img="{{item.originalImg}}">
+      <view class="grid-item" wx:for="{{filteredCards}}" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}" data-img="{{item.originalImg}}" data-color="{{item.color}}">
         <block wx:if="{{item.color}}">
           <view class="swatch" style="background-color: {{item.color}};"></view>
         </block>
