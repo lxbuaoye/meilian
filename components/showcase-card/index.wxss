@@ -1,0 +1,3 @@
+.action-tile-hover {
+  transform: scale(0.98, 0.98);
+}

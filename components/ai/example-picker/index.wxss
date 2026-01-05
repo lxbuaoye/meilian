@@ -1,0 +1,37 @@
+.pop-up {
+  --td-popup-bg-color: transparent;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  width: calc(100% - 48rpx);
+  height: 100%;
+  margin: 24rpx;
+}
+
+.block {
+  overflow: hidden;
+  position: relative;
+  color: var(--td-text-color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 350rpx;
+  height: 300rpx;
+}
+.image {
+  display: flex;
+  width: 350rpx;
+  height: 300rpx;
+  border-radius: 20rpx;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  --td-loading-color: var(--theme-color);
+}

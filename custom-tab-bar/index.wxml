@@ -1,0 +1,23 @@
+<t-tab-bar value="{{active}}"
+  bindchange="onChange"
+  class="tab-bar"
+  shape="{{isMp? 'normal' : 'round'}}"
+  split="{{false}}">
+  <t-tab-bar-item wx:for="{{list}}"
+    wx:for-item="item"
+    wx:for-index="index"
+    wx:key="index">
+    <view class="custom-tab-bar-wrapper {{active === index ? 'active' : ''}}">
+      <block wx:if="{{!item.isMiddle}}">
+        <image src="{{active === index && item.activeIcon ? item.activeIcon : item.icon}}" class="tab-icon" mode="aspectFit"></image>
+        <view class="tab-text {{active === index ? 'active' : ''}}">{{ item.text }}</view>
+      </block>
+      <block wx:if="{{item.isMiddle}}">
+        <block>
+          <image src="{{active === index && item.activeIcon ? item.activeIcon : item.icon}}" class="tab-icon middle-icon" mode="aspectFit"></image>
+          <view class="tab-text {{active === index ? 'active' : ''}} middle-text">{{ item.text }}</view>
+        </block>
+      </block>
+    </view>
+  </t-tab-bar-item>
+</t-tab-bar>

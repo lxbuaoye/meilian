@@ -1,0 +1,883 @@
+page {
+  background-color: #f7f8fc;
+}
+
+.page {
+  /* 修改：移除 Flex 布局，改为块级布局，允许页面产生原生滚动 */
+  display: block;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.nav-bar {
+  background-color: #ffffff;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.04);
+  /* 修改：固定在顶部 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.nav-bar-inner {
+  padding: 0 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.nav-left {
+  width: 120rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-back-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #111827;
+}
+
+.nav-right {
+  width: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-dot {
+  font-size: 32rpx;
+  color: #111827;
+  margin-right: 24rpx;
+}
+
+.nav-circle {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 22rpx;
+  border: 2rpx solid #111827;
+}
+
+.content {
+  /* 修改：移除 flex: 1，依靠 padding 来撑开布局 */
+  box-sizing: border-box;
+  padding: 24rpx;
+  /* 上下 padding 由 wxml style 属性控制 */
+}
+
+.upload-panel {
+  margin-top: 16rpx;
+  background-color: #ffffff;
+  border-radius: 32rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(15, 23, 42, 0.04);
+}
+
+.upload-card {
+  margin-top: 16rpx;
+  border-radius: 24rpx;
+  background-color: #f4f6ff;
+  padding: 16rpx;
+}
+
+.upload-inner {
+  height: 420rpx;
+  border-radius: 24rpx;
+  background-color: #f9fbff;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon {
+  width: 60rpx;
+  height: 52rpx;
+  margin-bottom: 16rpx;
+}
+
+.upload-text {
+  width: 182rpx;
+  height: 40rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #8F969C;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.section {
+  margin-top: 56rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.section-dot {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 12rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #111827;
+}
+
+.product-scroll {
+  width: 100%;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.product-item {
+  width: 100%;
+  margin-right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12rpx;
+  width: 100%;
+}
+
+.product-image-wrapper {
+  position: relative;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.product-image {
+  width: 120rpx;
+  height: 120rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+}
+
+.product-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.product-item--active .product-image {
+  border: 4rpx solid #2E3FA8;
+  border-radius: 20rpx;
+}
+
+.product-name {
+  margin-top: 20rpx;
+  min-width: 72rpx;
+  height: 33rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #1C2023;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 33rpx;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.product-item--active .product-image-wrapper {
+  border: none;
+}
+
+.craft-list {
+  margin-top: 20rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.craft-item {
+  width: 32%;
+  height: 100rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  margin-right: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.02);
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+}
+
+.craft-item--full {
+  width: 100%;
+}
+
+.craft-item--double {
+  width: 66%;
+}
+
+.craft-text {
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #1C2023;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.craft-item--active {
+  background-color: #FFFFFF;
+  border-color: #FACC15;
+}
+
+.craft-item--active .craft-text {
+  color: #111827;
+  font-weight: 500;
+}
+
+.active-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #FACC15 50%, transparent 50%);
+  border-top-left-radius: 14rpx;
+}
+
+.active-icon {
+  position: absolute;
+  top: 4rpx;
+  left: 6rpx;
+  color: #ffffff;
+  font-size: 20rpx;
+  font-weight: bold;
+}
+
+.footer {
+  padding: 16rpx 24rpx calc(env(safe-area-inset-bottom) + 32rpx);
+  box-shadow: none;
+  background-color: #ffffff;
+  /* 修改：固定在底部，确保悬浮 */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  box-sizing: border-box;
+}
+
+.primary-button {
+  width: 702rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: #2E3FA8;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.primary-button--hover {
+  opacity: 0.9;
+}
+
+.primary-button-text {
+  min-width: 88rpx;
+  height: 42rpx;
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 30rpx;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 42rpx;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+button::after {
+  border: none;
+}
+
+/* 生成结果弹窗相关样式 (无变动) */
+.result-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.result-container {
+  width: 700rpx;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.result-close {
+  position: absolute;
+  /* moved down to avoid being overlapped by status/notch areas */
+  top: calc(120rpx + env(safe-area-inset-top));
+  right: 55rpx;
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 10;
+}
+
+.result-close-icon {
+  width: 40rpx;
+  height: 40rpx;
+  display: block;
+}
+
+.result-image-wrap {
+  width: 650rpx;
+  height: 975rpx;
+  overflow: hidden;
+  border-radius: 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.result-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
+}
+
+.result-panel {
+  width: 650rpx;
+  height: 480rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.result-panel-inner {
+  width: 100%;
+  height: 100%;
+  padding: 32rpx 32rpx 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-title-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.result-dot {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 12rpx;
+}
+
+.result-title {
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 32rpx;
+  color: #1C2023;
+  line-height: 44rpx;
+}
+
+.result-text-row {
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 26rpx;
+  color: #5A5F66;
+  line-height: 38rpx;
+  margin-bottom: 12rpx;
+}
+
+.result-products {
+  margin-top: 8rpx;
+  margin-bottom: 24rpx;
+  white-space: nowrap;
+}
+
+.result-product-list {
+  display: flex;
+  align-items: center;
+}
+
+.result-product-item {
+  width: 120rpx;
+  margin-right: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-product-icon {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 12rpx;
+  border: 1rpx solid #e5e7eb;
+}
+
+.result-product-name {
+  margin-top: 8rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #1C2023;
+  line-height: 32rpx;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.result-download {
+  margin-top: auto;
+  width: 100%;
+  height: 80rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid #2E3FA8;
+  color: #2E3FA8;
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 76rpx;
+}
+
+.result-download--hover {
+  opacity: 0.9;
+}
+
+/* 图片预览样式 */
+.image-preview-panel {
+  padding: 32rpx;
+}
+
+.image-preview {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 12rpx;
+  display: block;
+}
+
+.image-actions {
+  margin-top: 24rpx;
+  text-align: center;
+}
+
+.action-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 16rpx 32rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+/* 进度条样式 */
+.progress-panel {
+  padding: 32rpx;
+  background: #ffffff;
+  margin: 32rpx;
+  border-radius: 16rpx;
+}
+
+/* Footer-specific override so progress UI sits inside the fixed footer area */
+.footer .footer-progress {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+.footer .progress-container {
+  margin-bottom: 12rpx;
+  padding: 0 16rpx;
+}
+.footer .progress-text {
+  font-size: 28rpx;
+  margin-bottom: 8rpx;
+}
+.footer .progress-bar {
+  height: 10rpx;
+  margin-bottom: 8rpx;
+}
+.footer .progress-percent {
+  display: inline-block;
+  font-size: 24rpx;
+  margin-top: 6rpx;
+}
+.footer .cancel-btn {
+  margin: 12rpx auto 0;
+  max-width: 702rpx;
+  height: 72rpx;
+  border-radius: 16rpx;
+}
+
+.progress-container {
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.progress-text {
+  font-size: 32rpx;
+  color: #374151;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12rpx;
+  background: #e5e7eb;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 12rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-percent {
+  font-size: 28rpx;
+  color: #6b7280;
+  margin-top: 8rpx;
+  text-align: center;
+}
+
+.cancel-btn {
+  width: 100%;
+  max-width: 702rpx;
+  height: 80rpx;
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  border-radius: 20rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16rpx auto 0;
+}
+
+/* 产品样式 */
+.product-code {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-top: 8rpx;
+}
+
+.loading-text {
+  text-align: center;
+  padding: 40rpx;
+  color: #6b7280;
+  font-size: 28rpx;
+}
+
+/* 自定义选项样式 */
+.custom-options {
+  padding: 32rpx;
+}
+
+/* 更多色卡按钮 */
+.more-cards-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 0;
+}
+.more-cards-btn {
+  background: #eef2ff;
+  color: #2e3fa8;
+  border: none;
+  width: 100%;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+
+/* 更多色卡弹窗相关样式 */
+.more-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.more-modal-content {
+  width: 686rpx;
+  max-height: 80vh;
+  background: #ffffff;
+  border-radius: 24rpx;
+  display: block;
+  overflow: hidden;
+  padding-bottom: 90rpx; /* increased to avoid bottom rows被固定底栏遮挡 */
+}
+
+.more-modal-header {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-bottom: 2rpx solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+.more-modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #111827;
+}
+
+.more-modal-close-wrap {
+  position: absolute;
+  right: 24rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.more-modal-close-icon {
+    width: 32rpx;
+    height: 32rpx;
+}
+
+/* Selected color card display (placed under header) */
+.more-modal-selected {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 0 12rpx;
+  background: transparent;
+  border-bottom: none;
+  white-space: nowrap;
+  max-width: 320rpx;
+  justify-content: flex-end;
+}
+.selected-label {
+  font-size: 22rpx;
+  color: #6b7280;
+}
+.selected-name {
+  font-size: 22rpx;
+  color: #111827;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200rpx;
+}
+
+.more-filter-tabs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+.more-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  flex: 1;
+  overflow: hidden;
+}
+
+.more-modal-scroll {
+  /* ensure scroll area leaves space on the right for the native scrollbar
+     and extra bottom padding so last row isn't overlapped by footer */
+  height: calc(80vh - 180rpx);
+  padding: 24rpx 36rpx 48rpx 24rpx; /* extra right and bottom padding */
+  box-sizing: border-box;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; /* 启用iOS触摸滚动 */
+}
+
+.more-modal-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.more-modal-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.more-modal-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin-bottom: 12rpx;
+  background: #f3f4f6;
+}
+
+.more-modal-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.more-modal-label {
+  font-size: 24rpx;
+  color: #374151;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.interior-option-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.interior-option-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24rpx;
+  color: #333;
+}
+
+/* 更多色卡筛选样式 */
+.more-filter-section {
+  background: #fff;
+  padding: 0 24rpx;
+  border-bottom: 2rpx solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+.more-filter-tabs {
+  display: flex;
+  height: 88rpx;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.more-filter-tab-item {
+  position: relative;
+  margin-right: 48rpx;
+  font-size: 28rpx;
+  color: #6b7280;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+}
+
+.more-filter-tab-item.active {
+  color: #111827;
+  font-weight: 600;
+  font-size: 30rpx;
+}
+
+.more-filter-tab-line {
+  position: absolute;
+  bottom: 0rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  background: #2e3fa8;
+  border-radius: 3rpx;
+}
+
+.more-filter-chips {
+  display: flex;
+  white-space: nowrap;
+  height: 70rpx;
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+}
+
+.more-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56rpx;
+  padding: 0 24rpx;
+  background: #f3f4f6;
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  color: #374151;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.more-filter-chip.active {
+  background: #eef2ff;
+  color: #2e3fa8;
+  font-weight: 500;
+}

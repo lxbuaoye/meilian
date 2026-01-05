@@ -1,0 +1,13 @@
+{
+  "component": true,
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-image": "tdesign-miniprogram/image/image",
+    "t-link": "tdesign-miniprogram/link/link",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-overlay": "tdesign-miniprogram/overlay/overlay",
+    "t-fab": "tdesign-miniprogram/fab/fab",
+    "t-toast": "tdesign-miniprogram/toast/toast"
+  }
+}

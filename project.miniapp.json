@@ -1,0 +1,104 @@
+{
+  "miniVersion": "v2",
+  "name": "数码彩",
+  "version": "1.1",
+  "versionCode": 100,
+  "i18nFilePath": "i18n",
+  "mini-android": {
+    "resourcePath": "miniapp/android/nativeResources",
+    "sdkVersion": "1.6.8",
+    "toolkitVersion": "0.11.0",
+    "useExtendedSdk": {
+      "media": true,
+      "bluetooth": false,
+      "network": false,
+      "scanner": false,
+      "xweb": false,
+      "xwebEmbed": false
+    },
+    "icons": {
+      "hdpi": "resources/icon/72.png",
+      "xhdpi": "resources/icon/96.png",
+      "xxhdpi": "resources/icon/144.png",
+      "xxxhdpi": "resources/icon/192.png"
+    },
+    "splashscreen": {
+      "hdpi": "resources/launcher/1080·480.png",
+      "xhdpi": "resources/launcher/1620·720.png",
+      "xxhdpi": "resources/launcher/2430·1080.png"
+    },
+    "enableVConsole": "undefined",
+    "privacy": {
+      "enable": true
+    },
+    "privateDescriptions": {
+      "CAMERA": "申请用户摄像头权限用于数码彩印象功能",
+      "READ_EXTERNAL_STORAGE": "申请相册权限用于数码彩印象功能",
+      "WRITE_EXTERNAL_STORAGE": "申请保存图片权限用于数码彩印象功能",
+      "READ_MEDIA_IMAGES": "申请读取图片权限用于数码彩印象功能",
+      "RECORD_AUDIO": "申请用户摄像头权限用于数码彩印象功能",
+      "READ_MEDIA_VIDEO": "申请用户摄像头权限用于数码彩印象功能",
+      "READ_MEDIA_AUDIO": "申请用户摄像头权限用于数码彩印象功能"
+    },
+    "targetSdkVersion": 33
+  },
+  "mini-ios": {
+    "sdkVersion": "1.6.10",
+    "toolkitVersion": "0.0.9",
+    "useExtendedSdk": {
+      "WeAppOpenFuns": true,
+      "WeAppNetwork": false,
+      "WeAppBluetooth": false,
+      "WeAppMedia": false,
+      "WeAppLBS": false,
+      "WeAppOthers": false,
+      "WeAppImage": true,
+      "WeAppCamera": true
+    },
+    "enableVConsole": "open",
+    "icons": {
+      "mainIcon120": "",
+      "mainIcon180": "",
+      "spotlightIcon80": "",
+      "spotlightIcon120": "",
+      "settingsIcon58": "",
+      "settingsIcon87": "",
+      "notificationIcon40": "",
+      "notificationIcon60": "",
+      "appStore1024": ""
+    },
+    "splashScreen": {
+      "customImage": ""
+    },
+    "privacy": {
+      "enable": false
+    },
+    "enableOpenUrlNavigate": true,
+    "privateDescriptions": {
+      "NSPhotoLibraryUsageDescription": "当前应用程序需要访问用户的相册，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSCameraUsageDescription": "当前应用程序需要访问用户的相机，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSMicrophoneUsageDescription": "当前应用程序需要访问用户的麦克风，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSLocationWhenInUseUsageDescription": "当前应用程序需要在使用时访问用户的位置，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSLocationAlwaysUsageDescription": "当前应用程序需要始终访问用户的位置，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSLocationAlwaysAndWhenInUseUsageDescription": "当前应用程序需要始终和在使用时访问用户的位置，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSContactsUsageDescription": "当前应用程序需要访问用户的联系人，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSCalendarsUsageDescription": "当前应用程序需要访问用户的日历，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSRemindersUsageDescription": "当前应用程序需要访问用户的提醒事项，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSBluetoothPeripheralUsageDescription": "当前应用程序需要访问用户的蓝牙，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSBluetoothAlwaysUsageDescription": "当前应用程序需要始终访问用户的蓝牙，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSSpeechRecognitionUsageDescription": "当前应用程序需要使用语音识别，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSLocalNetworkUsageDescription": "当前应用程序需要访问本地网络，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSSystemAdministrationUsageDescription": "当前应用程序需要进行系统管理操作，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可」",
+      "NSPhotoLibraryAddUsageDescription": "应用程序在请求访问照片库，如需修改描述请前往「project.miniapp.json - 隐私信息访问许可描述」修改，并且关闭「自动使用默认描述补全默认隐私信息访问许可"
+    }
+  },
+  "mini-plugin": {
+    "android": [
+      {
+        "open": false,
+        "pluginId": "",
+        "pluginVersion": ""
+      }
+    ]
+  }
+}

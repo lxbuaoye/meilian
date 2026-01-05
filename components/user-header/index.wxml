@@ -1,0 +1,18 @@
+<view class="container">
+  <t-icon name="user-1"
+    bind:tap="navigateToProfile"
+    style="margin-left: 12rpx;"
+    size="50rpx"></t-icon>
+  <text class="theme-color"
+    style="font-size: 28rpx; margin-left: 20rpx;"
+    hover-class="action-tile-hover"
+    bind:tap="navigateToProfile">个人中心</text>
+  <text style="font-size: 24rpx; color: #1C2023; margin-left: 12rpx;">可用积分:</text>
+  <animate-number class="theme-color"
+    style="font-size: 28rpx; margin-left: 10rpx;"
+    value="{{userInfo.credits || 0}}"></animate-number>
+  <text class="theme-color"
+    style="font-size: 28rpx; margin-right: 20rpx; margin-left: auto;"
+    hover-class="g-hover-scale "
+    bind:tap="navigateToPayment">积分充值</text>
+</view>

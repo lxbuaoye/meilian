@@ -1,0 +1,21 @@
+/* pages/color-detector/index.wxss */
+
+.tabs {
+  --td-tab-item-active-color: var(--theme-color);
+  --td-tab-track-color: var(--theme-color);
+  /* --td-tab-border-color: transparent; */
+}
+
+button::after {
+  border: none;
+}
+
+.dialog-input {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  margin-top: 32rpx;
+  border-radius: 8rpx;
+  background-color: rgb(243, 243, 243);
+  box-sizing: border-box;
+}

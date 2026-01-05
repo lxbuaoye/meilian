@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "header": "/app-components/header/index",
+    "tag": "/app-components/tag/index",
+    "price": "/app-components/price/index",
+    "t-col": "tdesign-miniprogram/col/col",
+    "t-row": "tdesign-miniprogram/row/row"
+  }
+}

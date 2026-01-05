@@ -1,0 +1,22 @@
+<t-popup visible="{{visible}}"
+  usingCustomNavbar="{{useCustomNavBar}}"
+  class="pop-up"
+  bind:visible-change="onVisibleChange"
+  placement="{{'center'}}">
+  <view class="container">
+    <view class="block block--center"
+      wx:for="{{list[tabValue]}}"
+      wx:key="index">
+      <t-loading wx:if="{{!skylineRender}}"
+        wx:if="{{loadingIndex === index}}"
+        theme="circular"
+        size="60rpx"
+        class="loading" />
+      <image src="{{item.imageSrc}}"
+        data-index="{{index}}"
+        bind:tap="selectImage"
+        mode="aspectFill"
+        class="image"></image>
+    </view>
+  </view>
+</t-popup>

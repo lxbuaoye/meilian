@@ -1,0 +1,145 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/showcase-list/index",
+    "pages/location/index",
+    "pages/product-detail/index",
+    "pages/ai/profile/index",
+    "pages/webview/index",
+    "pages/area-ai/color-change/index",
+    "pages/area-ai/color-change/result",
+    "pages/color-detail/index",
+    "pages/color-card/index",
+    "pages/showcase-detail/index",
+    "pages/product/index",
+    "pages/mall/index",
+    "pages/color-change-result",
+    "pages/diagnosis-ai/index",
+    "pages/furniture-ai/index",
+    "pages/wuxing/index"
+  ],
+  "subPackages": [
+    {
+      "root": "ColorDetector",
+      "name": "colorDetector",
+      "pages": [
+        "pages/index",
+        "pages/viewer/index"
+      ]
+    }
+  ],
+  "mini-wechat": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#2E3FA8",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/color-card/index",
+          "text": "电子色卡"
+        },
+        {
+          "pagePath": "pages/product/index",
+          "text": "探索更多"
+        },
+        {
+          "pagePath": "pages/location/index",
+          "text": "预约到店"
+        },
+        {
+          "pagePath": "pages/ai/profile/index",
+          "text": "我的美联"
+        }
+      ]
+    }
+  },
+  "mini-ios": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#2E3FA8",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/color-card/index",
+          "text": "电子色卡"
+        },
+        {
+          "pagePath": "pages/showcase-list/index",
+          "text": "探索更多"
+        },
+        {
+          "pagePath": "pages/location/index",
+          "text": "预约到店"
+        },
+        {
+          "pagePath": "pages/ai/profile/index",
+          "text": "我的美联"
+        }
+      ]
+    }
+  },
+  "mini-android": {
+    "tabBar": {
+      "custom": true,
+      "color": "#666666",
+      "selectedColor": "#2E3FA8",
+      "backgroundColor": "#ffffff",
+      "borderStyle": "black",
+      "list": [
+        {
+          "pagePath": "pages/home/home",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/color-card/index",
+          "text": "电子色卡"
+        },
+        {
+          "pagePath": "pages/showcase-list/index",
+          "text": "探索更多"
+        },
+        {
+          "pagePath": "pages/location/index",
+          "text": "预约到店"
+        },
+        {
+          "pagePath": "pages/ai/profile/index",
+          "text": "我的美联"
+        }
+      ]
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseAddress"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {},
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.camera": {
+      "desc": "摄像头将用于扫描产品信息"
+    },
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "serviceProviderTicket": "+/bz1b28kc10438dO25LBItZjCWVBI2LRCFYrYo71zjbYgnG47TyQhieoS24+Xk+zYT8Fp7JjKRMvJxCI9SvYxz1MZsKm7av9H0="
+}

@@ -1,0 +1,69 @@
+<view class="page">
+  <view class="custom-nav-bar">
+    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content">
+      <image class="nav-back" src="{{navBackIcon}}" mode="aspectFit" bind:tap="handleBack" />
+      <text class="nav-title">案例详情</text>
+      <view class="nav-placeholder-right"></view>
+    </view>
+  </view>
+  <view wx:if="{{pageLoading}}" class="loading-container">
+    <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+  </view>
+
+  <view wx:if="{{!pageLoading}}" class="content" style="padding-top: {{navBarHeight}}px;">
+    <view class="hero-section" wx:if="{{coverImage}}">
+      <image class="hero-image" src="{{heroImage || showcaseImage || coverImage}}" mode="aspectFill" />
+    </view>
+    <view class="hero-section hero-placeholder" wx:else>
+      <view class="hero-placeholder-text">暂无图片</view>
+    </view>
+
+    <view class="info-section">
+      <text class="case-title">{{title}}</text>
+      <view class="project-address-row">
+        <text class="project-address-label">项目地址：</text>
+        <text class="project-address-value">{{projectAddress}}</text>
+      </view>
+    </view>
+
+    <view class="products-section">
+      <text class="products-title">使用产品</text>
+      <scroll-view class="products-scroll" scroll-x enable-flex>
+        <view wx:for="{{relatedProducts}}" wx:key="index" class="product-item" data-index="{{index}}" data-product-id="{{item.productId}}" catchtap="navigateToProductDetailFromList" hover-class="product-item--hover">
+          <image class="product-icon" src="{{item.imageUrl || defaultProductIcon}}" mode="aspectFit" binderror="onProductImageError" data-index="{{index}}" />
+          <text class="product-name">{{item.title}}</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <view wx:if="{{!pageLoading}}" class="detail-section">
+    <view class="detail-header">
+      <image class="detail-icon" src="{{detailIcon}}" mode="aspectFit" />
+      <text class="detail-title">案例介绍</text>
+    </view>
+    <text class="detail-text">{{descriptionText}}</text>
+    <view class="detail-text-image" wx:if="{{detailTextImage}}">
+      <image class="text-image" src="{{detailTextImage}}" mode="aspectFill" bind:tap="previewDetailTextImage" />
+    </view>
+    <view class="detail-images">
+      <image wx:for="{{imageUrl}}" wx:key="index" class="detail-image" mode="aspectFill" data-index="{{index}}" bind:tap="previewImageList" src="{{item}}"></image>
+    </view>
+  </view>
+</view>
+<t-overlay visible="{{overlayVisible}}" duration="{{500}}" bind:click="handleOverlayClick" style="display: flex; flex: 1; justify-content: center; align-items: center; flex-direction: column;">
+  <swiper indicator-dots="{{true}}" indicator-color="rgba(255,255 ,255, .6)" indicator-active-color="var(--theme-color)" autoplay="{{false}}" current="{{swiperIndex}}" style="height: 828rpx; width: 100%;">
+    <block wx:for="{{relatedProducts}}" wx:key="index">
+      <swiper-item>
+        <view class="swiper-item">
+          <image src="{{item.imageUrl}}" mode="aspectFit" style="height: 650rpx; width:100%;"></image>
+          <view style="display: flex; justify-content: center; align-items: center; flex:1" bind:tap="navigateToProductDetail" data-product-id="{{item.productId}}">
+            <text style="font-weight: 700;font-size: 34rpx;color: #FFFFFF; "> {{item.title}}</text>
+            <t-icon name="link-1" style="margin-left: 10rpx;" size="34rpx" color="#FFFFFF" />
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</t-overlay>

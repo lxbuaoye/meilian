@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "我的美联",
+  "usingComponents": {
+    "number-banner": "/components/number-banner/index"
+  }
+}

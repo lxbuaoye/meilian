@@ -1,0 +1,63 @@
+<view class="page">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav-bar">
+    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content">
+      <image class="nav-back"
+        src="{{navBackIcon}}"
+        mode="aspectFit"
+        bind:tap="handleBack" />
+      <text class="nav-title">色卡详情</text>
+      <view class="nav-placeholder-right"></view>
+    </view>
+  </view>
+
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
+    <!-- 顶部色卡卡片 -->
+    <view class="card color-card">
+      <block wx:if="{{colorHex}}">
+        <view class="color-swatch" style="background-color: {{colorHex}};" />
+      </block>
+      <block wx:else>
+        <image class="color-image"
+          src="{{colorImage}}"
+          mode="aspectFill"
+          bindtap="previewImage" />
+      </block>
+
+      <view class="color-info">
+        <text class="color-name">{{colorName}}</text>
+        <view class="color-meta">
+          <text class="color-code" wx:if="{{colorHex}}">{{colorHex}}</text>
+        </view>
+        <view class="color-actions">
+          <button class="icon-button" hover-class="icon-button--active" bindtap="handleDownload">
+            <image class="icon-image" src="{{downloadIcon}}" mode="aspectFit" />
+          </button>
+          <button class="icon-button" hover-class="icon-button--active" bindtap="handleShare">
+            <image class="icon-image" src="{{shareIcon}}" mode="aspectFit" />
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 推荐案例搭配 -->
+    <view class="section">
+      <view style="height: 48rpx; width: 100%; display: flex; margin: 45rpx 0 40rpx; align-items: center;">
+        <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="{{homeyuanIcon}}"></image>
+        <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 34rpx;color: #1C2023;letter-spacing: 0;">推荐案例搭配</text>
+      </view>
+
+      <view style="display: flex; flex-direction: column; align-items: center; row-gap: 30rpx;">
+        <view wx:for="{{cases}}" wx:key="index" style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;" bindtap="handleCaseTap" data-id="{{item.id}}">
+          <image src="{{item.image}}" mode="aspectFill" style="width: 100%; height: 100%;" />
+          <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
+            <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+

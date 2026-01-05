@@ -1,0 +1,264 @@
+@keyframes scaleUpDown {
+  0% {
+    transform: scale(1); /* 初始大小 */
+  }
+  50% {
+    transform: scale(1.1); /* 放大到 1.1 倍 */
+  }
+  100% {
+    transform: scale(1); /* 回到初始大小 */
+  }
+}
+
+.countdown-text {
+  font-weight: 400;
+  font-size: 20rpx;
+  color: #7e3923;
+}
+
+/* 应用动画到你的 view 元素 */
+.animated-view {
+  position: fixed;
+  top: 350rpx;
+  left: 50rpx;
+  width: 140rpx;
+  height: 180rpx;
+  display: flex;
+
+  /* 动画属性 */
+  animation-name: scaleUpDown; /* 动画名称 */
+  animation-duration: 1s; /* 动画持续时间 */
+  animation-timing-function: ease-in-out; /* 动画速度曲线 */
+  animation-iteration-count: infinite; /* 无限循环 */
+}
+
+.inflate-animation {
+  animation-name: scaleUpDown; /* 动画名称 */
+  animation-duration: 1s; /* 动画持续时间 */
+  animation-timing-function: ease-in-out; /* 动画速度曲线 */
+  animation-iteration-count: infinite; /* 无限循环 */
+}
+
+.red-packet-open-button {
+  margin-top: 30rpx;
+  width: 320rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, #ffefcf 2%, #ffa539 100%);
+  border-radius: 40rpx;
+  font-weight: 700;
+  font-size: 40rpx;
+  color: #cf6401;
+
+  /* 动画属性 */
+  animation-name: scaleUpDown; /* 动画名称 */
+  animation-duration: 1s; /* 动画持续时间 */
+  animation-timing-function: ease-in-out; /* 动画速度曲线 */
+  animation-iteration-count: infinite; /* 无限循环 */
+}
+
+.image-container {
+  position: relative;
+  width: 452rpx; /* 根据需要调整容器宽度 */
+  height: 624rpx; /* 根据需要调整容器高度 */
+  overflow: hidden; /* 确保模糊效果不会溢出容器 */
+  border: 1px solid #ddd; /* 仅为演示边框 */
+}
+
+.active {
+  display: unset;
+}
+
+.none {
+  display: none;
+}
+
+/* 图片通用样式 */
+.image-container img {
+  position: absolute; /* 绝对定位，图片叠在一起 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 确保图片覆盖容器且不变形 */
+
+  /* 定义过渡效果：透明度和滤镜在 0.6 秒内平滑过渡 */
+  transition: opacity 0.6s ease-in-out, filter 0.6s ease-in-out;
+}
+
+.close-button-container {
+  position: absolute;
+  left: 50%;
+  bottom: 100rpx;
+  transform: translate(-50%);
+}
+
+/* 定义第一张图片模糊消失的动画 */
+@keyframes imageOutBlur {
+  0% {
+    /* 动画开始：完全显示，清晰 */
+    opacity: 1;
+    filter: blur(0px);
+  }
+  25% {
+    /* 保持显示和清晰，为过渡留出时间 */
+    opacity: 1;
+    filter: blur(0px);
+  }
+  50% {
+    /* 过渡到：完全隐藏，模糊 */
+    opacity: 0;
+    filter: blur(10px);
+  }
+  75% {
+    /* 保持隐藏和模糊 */
+    opacity: 0;
+    filter: blur(10px);
+  }
+  100% {
+    /* 保持隐藏和模糊，准备下一个循环 */
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+.shaking-animation {
+  /* 应用动画 */
+  animation-name: shake-horizontal; /* 动画的名称 */
+  animation-duration: 0.8s; /* 动画完成一个周期的时间 */
+  animation-timing-function: ease-in-out; /* 动画的速度曲线，缓入缓出 */
+  animation-iteration-count: infinite; /* 动画播放次数：infinite 表示无限次循环 */
+}
+
+/* 定义左右摇摆抖动的关键帧 */
+@keyframes shake-horizontal {
+  0% {
+    transform: translateX(0);
+  } /* 初始位置 */
+  10% {
+    transform: translateX(-5px);
+  } /* 向左移动 5px */
+  20% {
+    transform: translateX(5px);
+  } /* 向右移动 5px */
+  30% {
+    transform: translateX(-5px);
+  } /* 向左移动 5px */
+  40% {
+    transform: translateX(5px);
+  } /* 向右移动 5px */
+  50% {
+    transform: translateX(-5px);
+  } /* 向左移动 5px */
+  60% {
+    transform: translateX(5px);
+  } /* 向右移动 5px */
+  70% {
+    transform: translateX(-5px);
+  } /* 向左移动 5px */
+  80% {
+    transform: translateX(5px);
+  } /* 向右移动 5px */
+  90% {
+    transform: translateX(-5px);
+  } /* 向左移动 5px */
+  100% {
+    transform: translateX(0);
+  } /* 回到初始位置 */
+}
+
+.coupon-title {
+  font-weight: 700;
+  font-size: 28rpx;
+  color: #4d330e;
+}
+
+.coupon-money {
+  font-weight: 700;
+  font-size: 100rpx;
+  color: #4d330e;
+  line-height: 140rpx;
+}
+.coupon-description {
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #4d330e;
+}
+
+/* Overlay 容器 */
+.share-guide-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* 半透明黑色背景 */
+  z-index: 99999; /* 确保在最上层 */
+}
+
+/* 引导内容区域 */
+.guide-content {
+  position: absolute;
+  top: 150rpx; /* 根据实际右上角图标位置调整 */
+  right: 86rpx; /* 根据实际右上角图标位置调整 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* 让箭头和文字靠右对齐 */
+}
+/* 提示文字 */
+.guide-text {
+  color: #fff;
+  font-size: 32rpx;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 16rpx 24rpx;
+  border-radius: 8rpx;
+  max-width: 500rpx; /* 限制文字宽度 */
+  text-align: right; /* 文字右对齐 */
+}
+
+/* 箭头图标 */
+.arrow-icon {
+  color: var(--theme-color);
+  animation: moveUpDown 0.7s ease-in-out infinite alternate;
+}
+/* 定义动画的关键帧 */
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0); /* 初始位置：不偏移 */
+  }
+  100% {
+    transform: translateY(-10px); /* 结束位置：向上移动 50px */
+  }
+}
+
+.inflate-title {
+  font-weight: 700;
+  font-size: 36rpx;
+  color: #e48e1d;
+}
+
+.inflate-type {
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #e48e1d;
+}
+
+.inflate-value {
+  font-weight: 700;
+  font-size: 70rpx;
+  color: #e48e1d;
+}
+
+.inflate-value-container {
+  height: 140rpx;
+  background: #fff9ed;
+  border-radius: 20rpx;
+  width: 300rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10rpx 0;
+}

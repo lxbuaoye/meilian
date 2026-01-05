@@ -1,0 +1,37 @@
+// 云函数入口文件
+const cloud = require('wx-server-sdk');
+
+cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV }); // 使用当前云环境
+
+// 云函数入口函数
+exports.main = async (event, context) => {
+  const wxContext = cloud.getWXContext();
+  console.log(event);
+  try {
+    const result = await cloud.openapi.wxacode.get({
+      // path: `pages/portrait-ai/index`, // 页面已删除
+      path: `pages/diagnosis-ai/index?reportId=${event.reportId}`, // 使用 diagnosis-ai 页面替代
+      envVersion: event.envVersion ? event.envVersion : 'release',
+      autoColor: false,
+      lineColor: {
+        r: '248',
+        g: '195',
+        b: '1',
+      },
+      isHyaline: true,
+    });
+    const result2 = await cloud.uploadFile({
+      cloudPath: `resources/diagnosis-ai/qrcode/${event.reportId}.png`, // 自定义云存储路径和文件名
+      fileContent: result.buffer, // 直接上传Buffer数据
+    });
+    return {
+      success: true,
+      fileId: result2.fileID, // 返回文件ID给小程序
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err,
+    };
+  }
+};

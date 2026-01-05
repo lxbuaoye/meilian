@@ -1,0 +1,87 @@
+<view class="page-container">
+  <!-- Navigation bar -->
+  <view class="nav-bar" style="padding-top: {{menuBarTop}}px; height: {{menuBarHeight}}px;">
+    <view class="nav-content">
+      <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
+    </view>
+  </view>
+
+  <!-- 已移除独立登录覆盖页，立即预约按钮将直接从微信获取手机号 -->
+
+  <!-- Main Content -->
+  <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
+    <!-- Main Image Container with Overlay Content -->
+    <view class="image-container">
+      <image class="main-image" src="{{storeAppointmentPic}}" mode="widthFix"></image>
+      
+      <!-- All Content Overlay on Image (Red Line Area) -->
+      <view class="content-overlay">
+        <view class="info-card-group">
+          <view class="info-card-item">
+            <view class="card-content">
+              <view class="card-text">
+                <text class="card-title">行业新高度</text>
+                <text class="card-subtitle">耗时20年打造成优质品牌</text>
+              </view>
+              <image class="top1-badge" src="{{industryNewHeightPic}}" mode="aspectFit"></image>
+            </view>
+          </view>
+
+          <view class="info-divider"></view>
+
+          <view class="info-card-item">
+            <view class="card-content">
+              <view class="card-text">
+                <text class="card-title">品质新高度</text>
+                <text class="card-subtitle">品牌品质研发成本 TOP1 款</text>
+              </view>
+              <image class="top1-badge" src="{{industryNewHeightPic}}" mode="aspectFit"></image>
+            </view>
+          </view>
+        </view>
+
+        <!-- Booking Form -->
+        <view class="form-card">
+          <!-- Name Input -->
+          <view class="input-container">
+            <input
+              class="name-input"
+              type="text"
+              placeholder="请输入您的姓名"
+              value="{{userName}}"
+              bindinput="onNameInput"
+              maxlength="20"
+            />
+          </view>
+
+          <!-- Phone Input -->
+          <view class="input-container">
+            <input 
+              class="phone-input" 
+              type="number" 
+              placeholder="*请输入您的电话号码(已加密)"
+              value="{{phoneNumber}}"
+              bindinput="onPhoneInput"
+              maxlength="11"
+            />
+          </view>
+
+          <!-- Book Now Button（直接提交预约信息） -->
+          <button class="book-button"
+            bindtap="onBookNow"
+            hover-class="button-hover">
+            立即预约
+          </button>
+
+          <!-- Service Buttons: keep only phone consult and make it full width -->
+          <view class="service-buttons single">
+            <button class="service-button full-width" bindtap="onPhoneConsult" hover-class="button-hover">
+              <image class="service-icon" src="{{phoneIconAlt}}" mode="aspectFit"></image>
+              <text class="service-text">电话咨询</text>
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

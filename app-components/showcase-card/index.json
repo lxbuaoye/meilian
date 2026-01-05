@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tag": "/app-components/tag/index"
+  }
+}

@@ -1,0 +1,184 @@
+<view class="page">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-bar-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-left" bindtap="onBackTap">
+        <image class="nav-back-icon" src="{{navBackIcon}}" mode="aspectFit" />
+      </view>
+      <view class="nav-title">AI 换色</view>
+    </view>
+  </view>
+
+  <t-message id="t-message" />
+  <t-toast id="t-toast" />
+
+  <view class="content" style="padding-top: {{statusBarHeight + navBarHeight}}px; padding-bottom: calc(320rpx + env(safe-area-inset-bottom));">
+
+    <view wx:if="{{!imageSrc}}" class="upload-panel">
+      <view class="upload-inner" bindtap="onChooseImage">
+        <image class="upload-icon" src="{{uploadIcon}}" mode="aspectFit" />
+        <text class="upload-text">拍照/上传图片</text>
+      </view>
+    </view>
+
+    <view wx:if="{{imageSrc}}" class="image-preview-panel">
+      <view class="image-preview">
+        <image class="preview-image" src="{{imageSrc}}" mode="aspectFill" bindtap="previewInputImage" />
+        <view class="image-actions">
+          <button class="action-btn" bindtap="onRemoveImage">重新选择</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+        <text class="section-title">风格选择</text>
+      </view>
+      <view class="craft-list">
+        <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{index === 0 ? 'craft-item--full' : ''}} {{item.name === '自定义' ? 'craft-item--double' : ''}} {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
+          <view wx:if="{{value0 === index}}" class="active-badge">
+            <text class="active-icon">✓</text>
+          </view>
+          <text class="craft-text">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{interiorPaintsOptionsActive}}" class="custom-options">
+      <view class="section">
+        <view class="section-header">
+          <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+          <text class="section-title">产品选择</text>
+        </view>
+        <view class="product-scroll">
+          <view class="product-list">
+            <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
+            <view wx:if="{{!loadingProducts}}" class="products-wrapper">
+              <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
+                <view class="product-image-wrapper">
+                  <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
+                  <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+                </view>
+                <text class="product-name">{{item.displayName}}</text>
+              </view>
+            </view>
+            <view class="more-cards-wrapper">
+              <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section" wx:for="{{displayCustomOptionList}}" wx:for-item="group" wx:for-index="gIndex" wx:key="gIndex" id="interior-option-{{gIndex}}">
+        <view class="section-header">
+          <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+          <text class="section-title">{{group.header}}</text>
+        </view>
+        <view class="interior-option-list">
+          <view class="interior-option-item" wx:for="{{group.data}}" wx:for-item="option" wx:for-index="optIndex" wx:key="optIndex" bindtap="onSelectInteriorOption" data-group="{{gIndex}}" data-index="{{optIndex}}">
+            <image src="{{option.inputImageSrc || option.imageSrc || ''}}" mode="aspectFill" style="width:120rpx;height:80rpx;border-radius:8rpx;background:#f3f4f6;"></image>
+            <text>{{option.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- Footer: when visible show progress UI here so it appears above system nav, otherwise show generate button -->
+  <view class="footer">
+    <view wx:if="{{visible}}" class="footer-progress">
+    <view class="progress-container">
+      <text class="progress-text">AI正在生成中...</text>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
+      </view>
+      <text class="progress-percent">{{progress}}%</text>
+    </view>
+    <button class="cancel-btn" bindtap="closeOverlay">取消生成</button>
+  </view>
+
+    <view wx:if="{{!visible}}" class="footer-action">
+    <button class="primary-button" bindtap="onGenerateTap" hover-class="primary-button--hover" disabled="{{!imageSrc}}">
+      <text class="primary-button-text">AI生成</text>
+    </button>
+    </view>
+  </view>
+
+  <view wx:if="{{resultVisible}}" class="result-mask" bindtap="onCloseResult">
+    <view class="result-container" catchtap="onDoNothing">
+      <view class="result-close" bindtap="onCloseResult">
+        <image class="result-close-icon" src="{{resultCloseIcon}}" mode="aspectFit" />
+      </view>
+      <view class="result-image-wrap">
+        <image class="result-image" src="{{resultImage}}" mode="aspectFill" />
+      </view>
+      <view class="result-panel">
+        <view class="result-panel-inner">
+          <view class="result-title-row">
+            <image class="result-dot" src="{{resultDot}}" mode="aspectFit" />
+            <text class="result-title">产品信息</text>
+          </view>
+          <view class="result-text-row">产品工艺：{{resultStyle}}</view>
+          <view class="result-text-row">使用产品：</view>
+          <scroll-view class="result-products" scroll-x="true" enable-flex="true">
+            <view class="result-product-list">
+              <view wx:for="{{resultProducts}}" wx:key="index" class="result-product-item">
+                <image class="result-product-icon" src="{{item.imageSrc}}" mode="aspectFill" />
+                <text class="result-product-name">{{item.displayName}}</text>
+              </view>
+            </view>
+          </scroll-view>
+          <button class="result-download" hover-class="result-download--hover" bindtap="saveImage">直接下载</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showMoreModal}}" class="more-modal-mask" bindtap="closeMoreCards" catchtouchmove="true">
+    <view class="more-modal-content" catchtap="onDoNothing">
+      <view class="more-modal-header">
+        <text class="more-modal-title">所有色卡</text>
+        <view class="more-modal-close-wrap" bindtap="closeMoreCards">
+          <image class="more-modal-close-icon" src="{{resultCloseIcon}}" mode="aspectFit" />
+        </view>
+      </view>
+      <!-- 筛选区域 -->
+      <view class="more-filter-section">
+    <!-- 一级分类 Tab (with selected name to the right) -->
+    <view class="more-filter-tabs-row">
+        <view class="more-filter-tabs">
+          <view wx:for="{{moreModalCategories}}" wx:key="*this" 
+                class="more-filter-tab-item {{moreModalActiveCategory === item ? 'active' : ''}}" 
+                bindtap="onMoreCategoryTap" data-category="{{item}}">
+            {{item}}
+            <view class="more-filter-tab-line" wx:if="{{moreModalActiveCategory === item}}"></view>
+        </view>
+      </view>
+      <view class="more-modal-selected" wx:if="{{currentSelection}}">
+        <text class="selected-label">已选色卡：</text>
+        <text class="selected-name">{{currentSelection}}</text>
+          </view>
+        </view>
+        <!-- 二级分类 Chips -->
+        <scroll-view class="more-filter-chips" scroll-x enable-flex>
+          <view wx:for="{{moreModalSubCategories}}" wx:key="*this" 
+                class="more-filter-chip {{moreModalActiveSubCategory === item ? 'active' : ''}}" 
+                bindtap="onMoreSubCategoryTap" data-sub="{{item}}">
+            {{item}}
+          </view>
+        </scroll-view>
+      </view>
+
+      <scroll-view scroll-y="true" enable-flex="true" scroll-with-animation="false" class="more-modal-scroll">
+        <view class="more-modal-list">
+          <view wx:for="{{moreModalFilteredProducts}}" wx:key="id" class="more-modal-item" bindtap="onSelectProduct" data-index="{{item.id}}">
+            <view class="more-modal-image-wrapper">
+              <image class="more-modal-image" src="{{item.imageSrc}}" mode="aspectFill" />
+              <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" style="width:30rpx;height:30rpx;position:absolute;top:0;left:0;" />
+            </view>
+            <text class="more-modal-label">{{item.displayName}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

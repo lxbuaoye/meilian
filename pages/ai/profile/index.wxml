@@ -1,0 +1,171 @@
+<view class="page-container">
+  <!-- Navigation bar -->
+  <view class="nav-bar" style="padding-top: {{menuBarTop}}px; height: {{menuBarHeight}}px;">
+    <view class="nav-content">
+      <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
+    </view>
+  </view>
+
+  <!-- Main Content -->
+  <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
+    <!-- Brand Introduction Header (overlay removed) -->
+    <view class="brand-header">
+      <image class="brand-banner" src="{{bannerImage}}" mode="widthFix"></image>
+    </view>
+
+    <!-- About Us Section -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title-en">About Us</text>
+        <text class="section-title-cn">企业简介</text>
+      </view>
+      <view class="about-content">
+        <text class="about-text">
+          佛山市美联涂料有限公司，品牌"美联"，位于佛山市三水区，占地面积超过3万平方米，注册资本5000万元，年生产能力10万吨。公司专注于建筑涂料、建筑材料、防水涂料、保温涂料等产品的研发、生产和销售。公司拥有20多年的建筑涂料生产经验和施工经验，通过ISO9001和ISO14001认证，是高新技术企业。公司与大型房地产公司建立战略合作关系，拥有专业的产品研发团队和管理团队，致力于环保、高品质产品的研发和生产。
+        </text>
+
+        <!-- Number Banner -->
+        <number-banner style="margin-top: -80rpx;"></number-banner>
+      </view>
+    </view>
+
+    <!-- Corporate Culture Section -->
+    <view class="section">
+      <view class="culture-card">
+        <image class="culture-image" src="{{cultureImage}}" mode="widthFix"></image>
+        <view class="culture-overlay">
+          <view class="culture-header">
+            <text class="culture-title-en">Corporate culture</text>
+            <text class="culture-title-cn">企业文化</text>
+          </view>
+          <view class="culture-content">
+            <view class="culture-line">
+              <text class="culture-line-title">我们的使命</text>
+            </view>
+            <view class="culture-line">
+              <text class="culture-line-text">助力每个中国家庭，圆梦理想美墅!</text>
+            </view>
+            <view class="culture-line">
+              <text class="culture-line-title">企业愿景</text>
+            </view>
+            <view class="culture-line">
+              <text class="culture-line-text">以雄厚实力问鼎行业头部，</text>
+            </view>
+            <view class="culture-line">
+              <text class="culture-line-text">用卓越品质装点千家万户。</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Brand Concept Section -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title-en">Brand concept</text>
+        <text class="section-title-cn">品牌理念</text>
+      </view>
+      <view class="concept-content">
+        <text class="concept-text">
+          美联品牌理念源于自然，从水、空气、阳光、大地和人文中汲取灵感，为建筑保护层和涂料产品注入自然之美。我们致力于将自然元素融入产品设计，创造环保、健康、美观的建筑涂料解决方案。
+        </text>
+        <image class="concept-image" src="{{conceptImage}}" mode="widthFix"></image>
+      </view>
+    </view>
+
+    <!-- Honor Qualification Section -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title-en">Honor qualification</text>
+        <text class="section-title-cn">荣耀资质</text>
+      </view>
+      <view class="honor-container">
+        <image class="honor-bg" src="{{honorBg}}" mode="widthFix"></image>
+        <view class="honor-swiper-wrap">
+          <swiper class="honor-swiper" circular current="{{honorCurrent}}" previous-margin="150rpx" next-margin="150rpx" duration="300" bindchange="onHonorSwiperChange">
+            <swiper-item wx:for="{{honorCerts}}" wx:key="src">
+              <view class="honor-slide" data-index="{{index}}" bindtap="onHonorCertTap">
+                <image class="honor-cert {{index === honorCurrent ? 'active' : 'inactive'}}" src="{{item.src}}" mode="aspectFit"></image>
+              </view>
+            </swiper-item>
+          </swiper>
+        </view>
+
+        <view class="honor-desc">{{honorDesc}}</view>
+
+        <view class="honor-nav">
+          <image class="honor-nav-btn" src="{{leftArrow}}" mode="aspectFit" bindtap="prevHonor"></image>
+          <image class="honor-nav-btn" src="{{rightArrow}}" mode="aspectFit" bindtap="nextHonor"></image>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{honorPreviewVisible}}" class="honor-preview-mask" catchtap="closeHonorPreview">
+      <view class="honor-preview-body" catchtap="noop">
+        <swiper class="honor-preview-swiper" circular current="{{honorPreviewCurrent}}" duration="300" bindchange="onHonorPreviewChange">
+          <swiper-item wx:for="{{honorCerts}}" wx:key="src">
+            <view class="honor-preview-item">
+              <image class="honor-preview-image" src="{{item.src}}" mode="aspectFit"></image>
+              <view class="honor-preview-close" catchtap="closeHonorPreview">×</view>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+
+    <!-- Patents/R&D Section -->
+    <view class="section patents-section">
+      <view class="patents-bg">
+        <image class="patents-image" src="{{patentsImage}}" mode="widthFix"></image>
+        <view class="patents-content">
+          <image class="patents-navigator" src="{{navigatorImage}}" mode="aspectFit"></image>
+          <text class="patents-title">公司共有260+项专利</text>
+          <text class="patents-text">
+            公司拥有两大实验室用于产品研发和技术改进, 50+人的产品研发团队以及30+人的专业服务团队, 研发创新能力强, 自主研发的产品荣获260+项专利证书。
+          </text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Contact Us Section -->
+    <view class="section">
+      <view class="section-header">
+        <text class="section-title-en">Contact us</text>
+        <text class="section-title-cn">联系我们</text>
+      </view>
+      <view class="contact-content">
+        <!-- Address -->
+        <view class="contact-item">
+          <text class="contact-label">联系地址</text>
+          <text class="contact-value">佛山市三水区云东海街道湖滨大道3号</text>
+        </view>
+
+        <!-- Phone -->
+        <view class="contact-item contact-phone" bindtap="makePhoneCall">
+          <view class="contact-left">
+            <text class="contact-label">联系电话</text>
+            <text class="contact-value">400-080-1633</text>
+          </view>
+          <view class="phone-icon-wrap">
+            <image class="phone-icon" src="{{phoneIcon}}" mode="aspectFit"></image>
+          </view>
+        </view>
+
+        <!-- Website -->
+        <view class="contact-item">
+          <text class="contact-label">公司网址</text>
+          <text class="contact-value">www.meiliantuliao.cn</text>
+        </view>
+
+        <!-- QR Codes -->
+        <view class="contact-item contact-qr">
+          <text class="contact-label">扫码关注我们</text>
+          <view class="qr-codes">
+            <image class="qr-code" src="{{qrCode1}}" mode="aspectFit" show-menu-by-longpress></image>
+            <image class="qr-code" src="{{qrCode2}}" mode="aspectFit" show-menu-by-longpress></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

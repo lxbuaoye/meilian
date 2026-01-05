@@ -1,0 +1,65 @@
+<view style="padding-top: {{menuBarTop}}px">
+  <!-- Navigation bar-->
+  <view style="display: flex; flex:1; align-items: center; height: {{menuBarHeight}}px; justify-content: center;">
+    <image src="{{logoImage}}" style="width: 253rpx; height: 38rpx;" mode="scaleToFill"></image>
+  </view>
+</view>
+<view style="text-align: center; color: #b9b9b9; margin-top: 40rpx;" wx:if="{{pageLoading}}">
+  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+</view>
+<view class="home-page-container">
+  <view style="margin: 0 2rpx; display: flex; justify-content: center;">
+    <image src="{{bannerImage}}" style="width: 702rpx; height: 550rpx;" mode="scaleToFill" />
+  </view>
+  <view style="margin: 30rpx 30rpx 0; display: flex; flex-direction: column; align-items: center;">
+    <image src="{{titleImage}}" style="width: 702rpx; height: 118rpx; opacity: 1; filter: none; background: none;" mode="scaleToFill" />
+    <text class="brand-description" style="margin-top: 0rpx;" user-select>
+      美联美墅，怀揣"助力美墅梦想"的使命，秉持"精工惠民、内外兼修、好房好料"的核心价值，以实力为基，以品质为魂，矢志不渝地为中国家庭打造健康、环保、历久弥新的理想人居。我们不仅是涂料的提供者，更是美好生活的筑梦者和守护者。选择美联美墅，共筑美梦家园！
+    </text>
+  </view>
+  <number-banner></number-banner>
+  <!-- Product List -->
+
+  <view style="height: 48rpx; width: 100%; display: flex; margin: 45rpx 0 40rpx; align-items: center;">
+    <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="{{homeyuanImage}}"></image>
+    <text style="font-family: PingFang-SC-Bold;font-weight: 700;font-size: 34rpx;color: #1C2023;letter-spacing: 0;">案例展示</text>
+  </view>
+  <view style="display: flex; flex-direction: column; align-items: center; row-gap: 20rpx;">
+    <block wx:for="{{showcaseList}}" wx:key="_id">
+      <view style="width: 702rpx; height: 300rpx; background: #FFFFFF; border-radius: 20rpx; position: relative; overflow: hidden;" bind:tap="navigateToShowcaseDetail" data-id="{{item._id}}" hover-class="action-tile-hover">
+        <image src="{{homeShowcaseImageErrorMap[item._id] ? homeShowcaseFallbackImages[index] : item.coverImageUrl}}" mode="aspectFill" style="width: 100%; height: 100%;" binderror="onHomeShowcaseCoverError" data-id="{{item._id}}" />
+        <view style="position: absolute; bottom: 13rpx; left: 9rpx; width: 321rpx; height: 60rpx; background: #0000004d; border-radius: 20rpx; display: flex; align-items: center; justify-content: center;">
+          <text style="width: 241rpx; height: 40rpx; font-family: PingFang-SC-Bold; font-weight: 700; font-size: 28rpx; color: #FFFFFF; letter-spacing: 0; text-align: center; line-height: 40rpx;">{{item.title}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view style="display: flex; flex:1; width: 100%;  margin: 30rpx 0;justify-content: center;">
+    <view style="width: 250rpx; height: 80rpx; border: 1rpx solid #E3E4E5; border-radius: 20rpx; display: flex; justify-content: center; align-items: center;" bind:tap="navigateToShowcase" hover-class="action-tile-hover">
+      <text style="width: 112rpx; height: 40rpx; font-family: PingFang-SC-Regular; font-weight: 400; font-size: 28rpx; color: #1C2023; letter-spacing: 0; text-align: center; line-height: 40rpx;">查看更多</text>
+    </view>
+  </view>
+  <view>
+    <view style="height: 48rpx; width: 100%; display: flex; margin: 0rpx 0 20rpx; align-items: center;">
+      <image style="height: 30rpx; width: 30rpx; margin-right: 20rpx;" src="{{homeyuanImage}}"></image>
+      <text style="font-size: 34rpx; font-weight: 700;">新闻中心</text>
+    </view>
+    <block wx:for="{{newsList}}" wx:key="_id">
+      <view class="home-news-item" bind:tap="onNewsClick" data-url="{{item.sourceUrl}}" hover-class="action-tile-hover">
+        <view class="home-news-content">
+          <text class="home-news-title">{{item.title}}</text>
+          <text class="home-news-subtitle">{{item.subtitle}}</text>
+          <text class="home-news-date">{{item.uploadDateText}}</text>
+        </view>
+        <view class="home-news-cover">
+          <image class="home-news-cover-img" src="{{newsCoverImage}}" mode="aspectFill"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!-- <t-fab icon="add"
+  style="bottom: 200rpx; left: 100rpx"
+  bind:click="generateqrcode"
+  aria-label="增加"></t-fab> -->

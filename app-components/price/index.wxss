@@ -1,0 +1,62 @@
+:host {
+  display: inline-block;
+  display: inline-block;
+  font-weight: inherit;
+}
+.inline {
+  display: inline;
+  white-space: nowrap;
+}
+.price {
+  display: inline;
+  color: inherit;
+  font-size: inherit;
+  text-decoration: inherit;
+}
+
+.lighter {
+  font-size: 16rpx;
+}
+.mini {
+  font-size: 12rpx;
+  color: #5d5d5d;
+}
+.del .pprice {
+  font-size: 16rpx;
+  color: #9b9b9b;
+  text-decoration: line-through;
+}
+.delthrough {
+  position: relative;
+}
+.delthrough .line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  margin: 0;
+  background-color: currentColor;
+}
+
+.symbol {
+  display: inline;
+  color: inherit;
+  font-size: 10rpx;
+}
+.pprice {
+  display: inline;
+  margin: 0 0 0 2rpx;
+}
+.integer {
+  color: inherit;
+  font-size: inherit;
+}
+.decimal {
+  color: inherit;
+  font-size: inherit;
+}
+.decimal.smaller {
+  font-size: 0.8em;
+  vertical-align: baseline;
+}
