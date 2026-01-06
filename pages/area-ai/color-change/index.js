@@ -109,8 +109,50 @@ Page({
         prompt: '',
       },
     ],
-    interiorPaintsOptionsActive: false,
-    interiorPaintsColorOnly: false,
+    // 外墙选项开关
+    exteriorPaintsOptionsActive: false,
+    exteriorPaintsColorOnly: false,
+    // 外墙风格选项（参考 digital-miniprogram）
+    styleOptionsForExterior: [
+      {
+        name: '一键翻新',
+        prompt:
+          '把图中这个建筑外墙墙面翻新，具体要求如下：1.把旧墙面的孔洞，发霉等补平整 2.颜色可以用1个，或者2个，搭配的墙面颜色要和谐、现代，给人简洁舒适的感觉 3.如果有围墙，围墙也要整体搭配翻新 4.如果有窗户，把没有玻璃的窗户加玻璃窗 5.图中建筑结构和布局不改变， 图片比例不改变',
+      },
+      {
+        name: '新中式',
+        prompt:
+          '把图中这个建筑外墙翻新成现代新中式风格，具体要求如下: 1.使用灰黑色小青瓦屋顶 2. 墙体采用白色真石漆，墙裙区域采用灰色真石漆 3. 窗户采用现代窗型，加灰黑色窗套 4. 大门加中式方柱 5.图中建筑结构和布局不改变， 图片比例不改变',
+      },
+      {
+        name: '现代极简',
+        prompt: '把图中这个建筑外墙翻新成现代极简风格，保持图中建筑结构和布局不改变，图片比例不改变',
+      },
+      {
+        name: '地中海风格',
+        prompt: '把图中这个建筑外墙翻新成地中海风格，保持图中建筑结构和布局不改变，图片比例不改变',
+      },
+      {
+        name: '现代欧式',
+        prompt: '把图中这个建筑外墙翻新成欧式风格，保持图中建筑结构和布局不改变，图片比例不改变',
+      },
+      {
+        name: '北美风',
+        prompt: '把图中这个建筑外墙翻新成北美风格，保持图中建筑结构和布局不改变，图片比例不改变',
+      },
+      {
+        name: '日式庭院风',
+        prompt: '把图中这个建筑外墙翻新成日式庭院风风格，保持图中建筑结构和布局不改变，图片比例不改变。',
+      },
+      {
+        name: '一键换色',
+        prompt: '',
+      },
+      {
+        name: '自定义',
+        prompt: '',
+      },
+    ],
     displayCustomOptionList: interiorCustomOptionList, // 用于控制显示的自定义选项列表
     visible: false,
     progress: 0,
@@ -518,107 +560,148 @@ Page({
     let prompt = '';
     const selectedOptions = [];
 
-    // 获取选择的色卡产品
-    const selectedProducts = Object.keys(this.data.selectedProductMap)
-      .filter(key => this.data.selectedProductMap[key])
-      .map(key => this.data.products.find(p => p.id === key))
-      .filter(Boolean);
-
-    const currentStyle = this.data.styleOptionsForInterior[this.data.value0].name;
-
-    // 如果没有选择产品但选择了玄武系列或其他需要颜色的风格，使用默认颜色
-    if (selectedProducts.length === 0 && (this.data.value0 === 10 || this.data.value0 === 11)) {
-      this.showInfoMessage('请选择色卡产品或使用自定义颜色');
-      return;
-    }
-
-    // 添加选择的色卡信息到selectedOptions
-    if (selectedProducts.length > 0) {
+    // 外墙（tabValue === 0）或者内墙（tabValue === 1）
+    if (this.data.tabValue === 0) {
+      // exterior
       selectedOptions.push({
-        title: '选择的色卡',
-        content: selectedProducts.map(p => `${p.name} (${p.colorCode})`).join(', '),
+        title: '风格',
+        content: this.data.styleOptionsForExterior[this.data.value1].name,
       });
-    }
-
-    // 内墙处理（室内装修场景）
-    selectedOptions.push({
-      title: '风格',
-      content: currentStyle,
-    });
-    if (currentStyle === '自定义') {
-      // 使用已选的自定义选项中的 prompt 字段直接拼接为 AI 调用的提示词（选中什么用什么 prompt）
-      const downloadList = [];
-      const selections = this.data.interiorOptionSelections || [];
-      const promptParts = [];
-
-      this.data.interiorCustomOptionList.forEach((group, gIndex) => {
-        const sel = selections[gIndex];
-        let chosen = null;
-        if (sel && typeof sel.selectionIndex === 'number') {
-          chosen = group.data && group.data[sel.selectionIndex];
-        } else {
-          chosen = group.data && group.data.length ? group.data[0] : null;
-        }
-        if (chosen) {
-          // 收集需要下载的 inputImageSrc
-          if (chosen.shouldDownload) {
-            downloadList.push(chosen.inputImageSrc || chosen.imageSrc || '');
-          }
-          // 如果选项包含 prompt 字段，则直接加入到 promptParts
-          if (chosen.prompt && typeof chosen.prompt === 'string' && chosen.prompt.trim().length > 0) {
-            promptParts.push(chosen.prompt.trim());
-          } else if (chosen.name) {
-            // 兜底：若没有 prompt，使用名称作为简短描述
-            promptParts.push(chosen.name);
-          }
-        }
-      });
-
-      // 下载所需素材并附加到 formData
-      for (let i = 0; i < downloadList.length; i++) {
-        const fileId = downloadList[i];
-        if (!fileId) continue;
-        const { tempFilePath } = await wx.cloud.downloadFile({
-          fileID: fileId,
-        });
-        formData.appendFile('image[]', tempFilePath);
-      }
-
-      // 最终 prompt：将所有选项的 promptParts 用分号连接
-      if (promptParts.length > 0) {
-        prompt = promptParts.join('；');
-      } else {
-        // 若没有任何自定义 prompt，则回退为简单风格说明
-        prompt = '请按所选风格对图中墙面进行翻新与配色，保持空间结构不变。';
-      }
-
-      // 无论有无选中其他选项，只要选中了色卡，就添加这一句
-      if (selectedProducts.length > 0) {
-        prompt = `请充分使用我给出的色卡将图片中的墙壁区域替换成我给出的色卡样式。${prompt}`;
-      }
-    } else if (currentStyle === '玄武系列') {
-      let colorPrompt = '';
-      if (selectedProducts.length > 0) {
-        // 使用选择的色卡颜色
-        const selectedColors = selectedProducts.map(p => p.colorCode || p.name).join(' 或 ');
-        colorPrompt = selectedColors;
-      } else {
-        // 组件可能不存在（未渲染），改为使用默认的 xuanwuCustomOptionList 第一项或名称作为回退
-        const xuanwuGroup = this.data.xuanwuCustomOptionList && this.data.xuanwuCustomOptionList[0];
-        const defaultOption = xuanwuGroup && xuanwuGroup.data && xuanwuGroup.data[0];
-        if (defaultOption) {
-          colorPrompt = defaultOption.color || defaultOption.name || '';
+      if (this.data.styleOptionsForExterior[this.data.value1].name === '自定义') {
+        const downloadList = [];
+        prompt = this.data.exteriorCustomOptionList.reduce((acc, item, index) => {
+          const child = this.selectComponent(`#exterior-option-${index}`);
+          const formattedItem = `${index + 1}) ${child ? child.data.prompt : item.data && item.data[0] && item.data[0].prompt ? item.data[0].prompt : ''}`;
           selectedOptions.push({
-            title: '颜色',
-            content: defaultOption.name || colorPrompt,
+            title: item.header,
+            content: child ? child.data.selection : '',
           });
-        } else {
-          colorPrompt = '';
+          if (child && child.data && child.data.shouldDownload) {
+            downloadList.push(child.data.inputImageSrc || child.data.imageSrc);
+          }
+          return index === 0 ? formattedItem : `${acc}; ${formattedItem}`;
+        }, '');
+        // Download image for inputs
+        for (let i = 0; i < downloadList.length; i++) {
+          const { tempFilePath } = await wx.cloud.downloadFile({
+            fileID: downloadList[i],
+          });
+          formData.appendFile('image[]', tempFilePath);
         }
+      } else if (this.data.styleOptionsForExterior[this.data.value1].name === '一键换色') {
+        const colorChild = this.selectComponent(`#dgpick-option-0`);
+        prompt = `1.把图中这个建筑外墙墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 2. 然后把图中整体墙面改成${colorChild ? colorChild.data.color : ''}颜色; 3.保持图中建筑结构和布局不改变， 图片比例不改变`;
+        selectedOptions.push({
+          title: '颜色',
+          content: colorChild ? colorChild.data.selection : '',
+        });
+      } else {
+        prompt = this.data.styleOptionsForExterior[this.data.value1].prompt;
       }
-      prompt = `1.把图中这个空间墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 2. 然后把图中整体墙面改成 ${colorPrompt} 颜色 (不需要改地板和天花, 只是墙身); 3.保持图中建筑结构和布局不改变， 图片比例不改变`;
     } else {
-      prompt = this.data.styleOptionsForInterior[this.data.value0].prompt;
+      // interior (existing behavior)
+      // 获取选择的色卡产品
+      const selectedProducts = Object.keys(this.data.selectedProductMap)
+        .filter(key => this.data.selectedProductMap[key])
+        .map(key => this.data.products.find(p => p.id === key))
+        .filter(Boolean);
+
+      const currentStyle = this.data.styleOptionsForInterior[this.data.value0].name;
+
+      // 如果没有选择产品但选择了玄武系列或其他需要颜色的风格，使用默认颜色
+      if (selectedProducts.length === 0 && (this.data.value0 === 10 || this.data.value0 === 11)) {
+        this.showInfoMessage('请选择色卡产品或使用自定义颜色');
+        return;
+      }
+
+      // 添加选择的色卡信息到selectedOptions
+      if (selectedProducts.length > 0) {
+        selectedOptions.push({
+          title: '选择的色卡',
+          content: selectedProducts.map(p => `${p.name} (${p.colorCode})`).join(', '),
+        });
+      }
+
+      // 内墙处理（室内装修场景）
+      selectedOptions.push({
+        title: '风格',
+        content: currentStyle,
+      });
+      if (currentStyle === '自定义') {
+        // 使用已选的自定义选项中的 prompt 字段直接拼接为 AI 调用的提示词（选中什么用什么 prompt）
+        const downloadList = [];
+        const selections = this.data.interiorOptionSelections || [];
+        const promptParts = [];
+
+        this.data.interiorCustomOptionList.forEach((group, gIndex) => {
+          const sel = selections[gIndex];
+          let chosen = null;
+          if (sel && typeof sel.selectionIndex === 'number') {
+            chosen = group.data && group.data[sel.selectionIndex];
+          } else {
+            chosen = group.data && group.data.length ? group.data[0] : null;
+          }
+          if (chosen) {
+            // 收集需要下载的 inputImageSrc
+            if (chosen.shouldDownload) {
+              downloadList.push(chosen.inputImageSrc || chosen.imageSrc || '');
+            }
+            // 如果选项包含 prompt 字段，则直接加入到 promptParts
+            if (chosen.prompt && typeof chosen.prompt === 'string' && chosen.prompt.trim().length > 0) {
+              promptParts.push(chosen.prompt.trim());
+            } else if (chosen.name) {
+              // 兜底：若没有 prompt，使用名称作为简短描述
+              promptParts.push(chosen.name);
+            }
+          }
+        });
+
+        // 下载所需素材并附加到 formData
+        for (let i = 0; i < downloadList.length; i++) {
+          const fileId = downloadList[i];
+          if (!fileId) continue;
+          const { tempFilePath } = await wx.cloud.downloadFile({
+            fileID: fileId,
+          });
+          formData.appendFile('image[]', tempFilePath);
+        }
+
+        // 最终 prompt：将所有选项的 promptParts 用分号连接
+        if (promptParts.length > 0) {
+          prompt = promptParts.join('；');
+        } else {
+          // 若没有任何自定义 prompt，则回退为简单风格说明
+          prompt = '请按所选风格对图中墙面进行翻新与配色，保持空间结构不变。';
+        }
+
+        // 无论有无选中其他选项，只要选中了色卡，就添加这一句
+        if (selectedProducts.length > 0) {
+          prompt = `请充分使用我给出的色卡将图片中的墙壁区域替换成我给出的色卡样式。${prompt}`;
+        }
+      } else if (currentStyle === '玄武系列') {
+        let colorPrompt = '';
+        if (selectedProducts.length > 0) {
+          // 使用选择的色卡颜色
+          const selectedColors = selectedProducts.map(p => p.colorCode || p.name).join(' 或 ');
+          colorPrompt = selectedColors;
+        } else {
+          // 组件可能不存在（未渲染），改为使用默认的 xuanwuCustomOptionList 第一项或名称作为回退
+          const xuanwuGroup = this.data.xuanwuCustomOptionList && this.data.xuanwuCustomOptionList[0];
+          const defaultOption = xuanwuGroup && xuanwuGroup.data && xuanwuGroup.data[0];
+          if (defaultOption) {
+            colorPrompt = defaultOption.color || defaultOption.name || '';
+            selectedOptions.push({
+              title: '颜色',
+              content: defaultOption.name || colorPrompt,
+            });
+          } else {
+            colorPrompt = '';
+          }
+        }
+        prompt = `1.把图中这个空间墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 2. 然后把图中整体墙面改成 ${colorPrompt} 颜色 (不需要改地板和天花, 只是墙身); 3.保持图中建筑结构和布局不改变， 图片比例不改变`;
+      } else {
+        prompt = this.data.styleOptionsForInterior[this.data.value0].prompt;
+      }
     }
 
     this.progressInterval = setInterval(() => {

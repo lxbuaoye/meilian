@@ -29,59 +29,167 @@
       </view>
     </view>
 
-    <view class="section">
-      <view class="section-header">
-        <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
-        <text class="section-title">风格选择</text>
-      </view>
-      <view class="craft-list">
-        <view wx:for="{{styleOptionsForInterior}}" wx:key="index" class="craft-item {{index === 0 ? 'craft-item--full' : ''}} {{item.name === '自定义' ? 'craft-item--double' : ''}} {{value0 === index ? 'craft-item--active' : ''}}" bindtap="onChange0" data-index="{{index}}">
-          <view wx:if="{{value0 === index}}" class="active-badge">
-            <text class="active-icon">✓</text>
+    <t-tabs defaultValue="{{0}}"
+      value="{{tabValue}}"
+      bind:change="onTabsChange"
+      style="margin-top: 20rpx;"
+      split="{{0}}"
+      class="subtab"
+      swipeable="{{0}}"
+      theme="tag">
+      <t-tab-panel label="{{'外墙'}}"
+        style="background: #f7fafe;"
+        value="{{0}}">
+        <view style="margin: 24rpx 24rpx 24rpx 24rpx; font-size: 32rpx;"
+          class="header-font">风格选择</view>
+        <view class="horizontal-box">
+          <view wx:for="{{styleOptionsForExterior}}"
+            wx:key="index"
+            data-index="{{index}}"
+            bind:tap="onChange1"
+            style="height: 100rpx;{{(index=== 0) ? 'grid-column: span 12;' : index === styleOptionsForExterior.length -1 ? 'grid-column: span 8;' :  'grid-column: span 4'}}"
+            id="exterior-{{index}}"
+            class="card {{value1 == index ? 'card--active' : ''}}">
+            <t-icon wx:if="{{value1 == index}}"
+              name="check"
+              class="card__icon" />
+            <view class="small-font2">
+              <text>{{item.name}}</text>
+            </view>
           </view>
-          <text class="craft-text">{{item.name}}</text>
         </view>
-      </view>
-    </view>
 
-    <view wx:if="{{interiorPaintsOptionsActive}}" class="custom-options">
-      <view class="section">
-        <view class="section-header">
-          <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
-          <text class="section-title">产品选择</text>
-        </view>
-        <view class="product-scroll">
-          <view class="product-list">
-            <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
-            <view wx:if="{{!loadingProducts}}" class="products-wrapper">
-              <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
-                <view class="product-image-wrapper">
-                  <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
-                  <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+        <view style="display:flex; flex-direction: column; "
+          wx:if="{{exteriorPaintsOptionsActive}}">
+          <view class="section">
+            <view class="section-header">
+              <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+              <text class="section-title">产品选择</text>
+            </view>
+            <view class="product-scroll">
+              <view class="product-list">
+                <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
+                <view wx:if="{{!loadingProducts}}" class="products-wrapper">
+                  <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
+                    <view class="product-image-wrapper">
+                      <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
+                      <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+                    </view>
+                    <text class="product-name">{{item.displayName}}</text>
+                  </view>
                 </view>
-                <text class="product-name">{{item.displayName}}</text>
+                <view class="more-cards-wrapper">
+                  <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+                </view>
               </view>
             </view>
-            <view class="more-cards-wrapper">
-              <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+          </view>
+          <!-- Color only-->
+          <block wx:if="{{exteriorPaintsColorOnly}}"
+            wx:for="{{dgpickCustomOptionList}}"
+            wx:key="index">
+            <picker header="{{item.header}}"
+              id="dgpick-option-{{index}}"
+              list="{{item.data}}"
+              outter-padding="{{item.outterPadding}}"
+              inner-padding="{{item.innerPadding}}"
+              item-height="{{item.height}}"
+              item-width="{{item.width}}"></picker>
+          </block>
+
+          <!-- Custom -->
+          <block wx:if="{{!exteriorPaintsColorOnly}}"
+            wx:for="{{exteriorCustomOptionList}}"
+            wx:key="index">
+            <picker header="{{item.header}}"
+              id="exterior-option-{{index}}"
+              list="{{item.data}}"
+              outter-padding="{{item.outterPadding}}"
+              inner-padding="{{item.innerPadding}}"
+              item-height="{{item.height}}"
+              item-width="{{item.width}}"></picker>
+          </block>
+        </view>
+      </t-tab-panel>
+
+      <t-tab-panel label="{{'内墙'}}"
+        id="interior-effect"
+        value="{{1}}">
+
+        <!-- Interior Paint-->
+        <view style="margin: 24rpx 24rpx 24rpx 24rpx; font-size: 32rpx;"
+          class="header-font">风格选择</view>
+        <view class="horizontal-box">
+          <view wx:for="{{styleOptionsForInterior}}"
+            wx:key="index"
+            bind:tap="onChange0"
+            data-index="{{index}}"
+            style="height: 100rpx;{{(index=== 0) ? 'grid-column: span 12;' : index === styleOptionsForInterior.length -1 ? 'grid-column: span 8;' :  'grid-column: span 4'}}"
+            id="interior-{{index}}"
+            class="card {{value0 == index ? 'card--active' : ''}}">
+            <t-icon wx:if="{{value0 == index}}"
+              name="check"
+              class="card__icon" />
+            <view class="small-font2">
+              <text> {{item.name}}</text>
             </view>
           </view>
         </view>
-      </view>
+        <view style="display:flex; flex-direction: column; "
+          wx:if="{{interiorPaintsOptionsActive}}">
 
-      <view class="section" wx:for="{{displayCustomOptionList}}" wx:for-item="group" wx:for-index="gIndex" wx:key="gIndex" id="interior-option-{{gIndex}}">
-        <view class="section-header">
-          <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
-          <text class="section-title">{{group.header}}</text>
-        </view>
-        <view class="interior-option-list">
-          <view class="interior-option-item" wx:for="{{group.data}}" wx:for-item="option" wx:for-index="optIndex" wx:key="optIndex" bindtap="onSelectInteriorOption" data-group="{{gIndex}}" data-index="{{optIndex}}">
-            <image src="{{option.inputImageSrc || option.imageSrc || ''}}" mode="aspectFill" style="width:120rpx;height:80rpx;border-radius:8rpx;background:#f3f4f6;"></image>
-            <text>{{option.name}}</text>
+          <view class="section">
+            <view class="section-header">
+              <image class="section-dot" src="{{sectionDot}}" mode="aspectFit" />
+              <text class="section-title">产品选择</text>
+            </view>
+            <view class="product-scroll">
+              <view class="product-list">
+                <view wx:if="{{loadingProducts}}" class="loading-text">加载中...</view>
+                <view wx:if="{{!loadingProducts}}" class="products-wrapper">
+                  <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
+                    <view class="product-image-wrapper">
+                      <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
+                      <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+                    </view>
+                    <text class="product-name">{{item.displayName}}</text>
+                  </view>
+                </view>
+                <view class="more-cards-wrapper">
+                  <button class="more-cards-btn" bindtap="openMoreCards">更多色卡</button>
+                </view>
+              </view>
+            </view>
           </view>
+
+          <block wx:if="{{!interiorPaintsColorOnly}}"
+            wx:for="{{interiorCustomOptionList}}"
+            wx:key="index">
+            <picker header="{{item.header}}"
+              id="interior-option-{{index}}"
+              list="{{item.data}}"
+              outter-padding="{{item.outterPadding}}"
+              inner-padding="{{item.innerPadding}}"
+              item-height="{{item.height}}"
+              item-width="{{item.width}}"></picker>
+          </block>
+
+          <!-- Xuanwu series -->
+          <block wx:if="{{interiorPaintsColorOnly}}"
+            wx:for="{{xuanwuCustomOptionList}}"
+            wx:key="index">
+            <picker header="{{item.header}}"
+              id="xuanwu-option-{{index}}"
+              list="{{item.data}}"
+              outter-padding="{{item.outterPadding}}"
+              inner-padding="{{item.innerPadding}}"
+              item-height="{{item.height}}"
+              item-width="{{item.width}}"></picker>
+          </block>
+
         </view>
-      </view>
-    </view>
+      </t-tab-panel>
+    </t-tabs>
   </view>
   <!-- Footer: when visible show progress UI here so it appears above system nav, otherwise show generate button -->
   <view class="footer">
