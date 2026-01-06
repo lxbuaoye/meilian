@@ -23,7 +23,7 @@
       "list": [
         {
           "name": "pages/area-ai/color-change/index",
-          "pathName": "pages/area-ai/color-change/index",
+          "pathName": "pages/recommend/index",
           "query": "",
           "launchMode": "default",
           "scene": null,

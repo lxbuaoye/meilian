@@ -1,0 +1,28 @@
+<view class="page">
+  <!-- 自定义导航栏（复用 pages/color-detail 样式） -->
+  <view class="custom-nav-bar">
+    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content">
+      <image class="nav-back"
+        src="{{navBackIcon}}"
+        mode="aspectFit"
+        bindtap="handleBack" />
+      <text class="nav-title">推荐</text>
+      <view class="nav-placeholder-right"></view>
+    </view>
+  </view>
+
+  <!-- Tabs -->
+  <view class="tabs" id="tabs" style="margin-top: {{tabsTop}}px;">
+    <block wx:for="{{categories}}" wx:key="index" wx:for-index="i" wx:for-item="cat">
+      <view class="tab {{activeIndex === i ? 'active' : ''}}" data-index="{{i}}" bindtap="onTabTap">
+        {{cat}}
+      </view>
+    </block>
+  </view>
+
+  <!-- Image container -->
+  <view class="image-wrapper" style="height:{{imageAreaHeight}}px;">
+    <image src="{{activeImageUrl}}" mode="aspectFill" class="full-image" bindload="onImageLoad" />
+  </view>
+</view>
