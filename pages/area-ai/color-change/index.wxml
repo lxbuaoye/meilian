@@ -47,12 +47,12 @@
             wx:key="index"
             data-index="{{index}}"
             bind:tap="onChange1"
-            style="height: 100rpx;{{(index=== 0) ? 'grid-column: span 12;' : index === styleOptionsForExterior.length -1 ? 'grid-column: span 8;' :  'grid-column: span 4'}}"
+            style="height: 100rpx;{{(index === 0) ? 'grid-column: span 12;' : (index >= 1 && index <= 9) ? 'grid-column: span 4;' : 'grid-column: span 6;'}}"
             id="exterior-{{index}}"
             class="card {{value1 == index ? 'card--active' : ''}}">
-            <t-icon wx:if="{{value1 == index}}"
-              name="check"
-              class="card__icon" />
+            <view wx:if="{{value1 == index}}" class="active-badge">
+               <t-icon name="check" class="active-icon" />
+            </view>
             <view class="small-font2">
               <text>{{item.name}}</text>
             </view>
@@ -73,7 +73,9 @@
                   <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
                     <view class="product-image-wrapper">
                       <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
-                      <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+                      <view wx:if="{{selectedProductMap[item.id]}}" class="active-badge">
+                        <t-icon name="check" class="active-icon" />
+                      </view>
                     </view>
                     <text class="product-name">{{item.displayName}}</text>
                   </view>
@@ -124,12 +126,12 @@
             wx:key="index"
             bind:tap="onChange0"
             data-index="{{index}}"
-            style="height: 100rpx;{{(index=== 0) ? 'grid-column: span 12;' : index === styleOptionsForInterior.length -1 ? 'grid-column: span 8;' :  'grid-column: span 4'}}"
+            style="height: 100rpx;{{(index === 0) ? 'grid-column: span 12;' : (index >= 1 && index <= 6) ? 'grid-column: span 4;' : 'grid-column: span 6;'}}"
             id="interior-{{index}}"
             class="card {{value0 == index ? 'card--active' : ''}}">
-            <t-icon wx:if="{{value0 == index}}"
-              name="check"
-              class="card__icon" />
+            <view wx:if="{{value0 == index}}" class="active-badge">
+               <t-icon name="check" class="active-icon" />
+            </view>
             <view class="small-font2">
               <text> {{item.name}}</text>
             </view>
@@ -150,7 +152,9 @@
                   <view wx:for="{{visibleProducts}}" wx:key="id" class="product-item {{selectedProductMap[item.id] ? 'product-item--active' : ''}}" bindtap="onSelectProduct" data-index="{{item.id}}">
                     <view class="product-image-wrapper">
                       <image class="product-image" src="{{item.imageSrc}}" mode="aspectFill" />
-                      <image wx:if="{{selectedProductMap[item.id]}}" class="product-check" src="{{selectedIcon}}" mode="aspectFit" />
+                      <view wx:if="{{selectedProductMap[item.id]}}" class="active-badge">
+                        <t-icon name="check" class="active-icon" />
+                      </view>
                     </view>
                     <text class="product-name">{{item.displayName}}</text>
                   </view>
