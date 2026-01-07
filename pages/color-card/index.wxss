@@ -119,8 +119,8 @@ page {
 .grid {
   margin-top: 26rpx;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24rpx 20rpx;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18rpx 16rpx;
   padding-left: 0;
 }
 
@@ -137,36 +137,39 @@ page {
 
 .grid-img {
   width: 100%;
-  height: 210rpx;
-  border-radius: 22rpx;
+  height: 160rpx;
+  border-radius: 14rpx;
   background: #f5f7fb;
+  object-fit: cover;
 }
 
 .swatch {
   width: 100%;
-  height: 210rpx;
-  border-radius: 22rpx;
+  height: 160rpx;
+  border-radius: 14rpx;
   box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
   background-clip: padding-box;
 }
 
 .grid-text {
-  width: 223rpx;
-  height: 40rpx;
+  width: 100%;
+  height: 36rpx;
   font-family: PingFang-SC-Regular;
   font-weight: 400;
-  font-size: 28rpx;
+  font-size: 22rpx;
   color: #1C2023;
   letter-spacing: 0;
   text-align: center;
-  line-height: 40rpx;
+  line-height: 36rpx;
   white-space: nowrap;
   overflow: hidden;
   position: absolute;
-  bottom: 20rpx;
+  bottom: 10rpx;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+  background: rgba(255,255,255,0.0);
+  padding: 0 6rpx;
 }
 
 

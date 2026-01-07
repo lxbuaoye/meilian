@@ -110,11 +110,16 @@ Page({
           } catch(e) {}
           // #endregion
 
+          // 提取展示名称：去掉前置编码（如 WJC-1492），只保留中文名称
+          const rawName = d.cpmc || d.name || '';
+          // 去除前导 ASCII 编码/编号，保留中文或剩余部分
+          const displayName = (typeof rawName === 'string') ? rawName.replace(/^[\\x00-\\x7F-]+/, '').trim() : rawName;
+
           return {
             // 使用数据库字段映射到页面需要的字段
             categoryName: d.category || '', // 一级分类（字符串）
             subcategory: d.subcategory || '', // 二级分类（字符串）
-            name: d.cpmc || '', // 产品名称
+            name: displayName || (d.cpmc || ''), // 产品名称（显示用）
             code: d.cpmc || '', // 使用名称作为 code，若有专用编码请替换
             img: compressedImage, // 预览时使用压缩图
             originalImg: originalImage, // 保存原图路径
