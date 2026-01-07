@@ -146,21 +146,30 @@ Page({
         return `${CLOUD_IMAGE_BASE}/showcase/${showcaseId}/${item.substring(0, index)}@2x${extension}`;
         }) : [],
         relatedProducts: relatedProducts.data && relatedProducts.data.length > 0 ? relatedProducts.data.map((item) => {
-        // 优先使用产品文档内的 cover 字段或 images[0]，避免直接拼 cover.jpg 导致 404
+        // 优先使用产品文档内的 cover 字段或 images[0]
+        // 尝试使用 compressed_color_cards 缩略图路径（与 color-card 页面的处理保持一致）
         let imageUrl = '';
-        if (CLOUD_IMAGE_BASE && item.cover) {
-          imageUrl = `${CLOUD_IMAGE_BASE}/product/${item._id}/${item.cover}`;
-        } else if (CLOUD_IMAGE_BASE && item.images && item.images.length > 0) {
-          imageUrl = `${CLOUD_IMAGE_BASE}/product/${item._id}/${item.images[0]}`;
-        } else {
+        try {
+          if (CLOUD_IMAGE_BASE && item.cover) {
+            // 先构造原图路径，再替换为压缩图路径
+            const orig = `${CLOUD_IMAGE_BASE}/product/${item._id}/${item.cover}`;
+            imageUrl = orig.includes('/product/') ? orig.replace('/product/', '/compressed_color_cards/') : orig;
+          } else if (CLOUD_IMAGE_BASE && item.images && item.images.length > 0) {
+            const orig = `${CLOUD_IMAGE_BASE}/product/${item._id}/${item.images[0]}`;
+            imageUrl = orig.includes('/product/') ? orig.replace('/product/', '/compressed_color_cards/') : orig;
+          } else {
+            imageUrl = '';
+          }
+        } catch (e) {
           imageUrl = '';
         }
         // 如果没有有效 imageUrl，回退为页面默认的产品图（与 data 中的 defaultProductIcon 保持一致）
         const fallbackProductIcon = CLOUD_IMAGE_BASE ? `${CLOUD_IMAGE_BASE}/image/showcase-detail/pic1@2x.png` : '';
         return {
             imageUrl: imageUrl || fallbackProductIcon,
-          title: item.title,
+          title: item.title || item.cpmc || item.name || '',
           productId: item._id,
+          code: item.cpmc || item.colorCode || '',
         };
         }) : fakeData.relatedProducts,
       });
