@@ -23,10 +23,10 @@
       "list": [
         {
           "name": "pages/area-ai/color-change/index",
-          "pathName": "pages/recommend/index",
+          "pathName": "pages/home/home",
           "query": "",
-          "launchMode": "default",
           "scene": null,
+          "launchMode": "default",
           "partialCompile": {
             "enabled": true,
             "pages": []

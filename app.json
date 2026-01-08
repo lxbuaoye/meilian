@@ -60,6 +60,35 @@
       ]
     }
   },
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#2E3FA8",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/color-card/index",
+        "text": "电子色卡"
+      },
+      {
+        "pagePath": "pages/product/index",
+        "text": "探索更多"
+      },
+      {
+        "pagePath": "pages/location/index",
+        "text": "预约到店"
+      },
+      {
+        "pagePath": "pages/ai/profile/index",
+        "text": "我的美联"
+      }
+    ]
+  },
   "mini-ios": {
     "tabBar": {
       "custom": true,
