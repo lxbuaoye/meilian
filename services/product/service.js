@@ -122,20 +122,37 @@ export async function fetchProducts() {
 
 export async function fetchCompressedColorCards() {
   return new Promise((resolve, reject) => {
+    // 使用正确的云存储路径
+    const app = getApp();
+    const basePath = (app && app.globalData && app.globalData.CLOUD_STROAGE_PATH) || '';
+    const fileID = `${basePath}/resources/compressed_color_cards.jpg`;
+
+    if (!fileID || !fileID.startsWith('cloud://')) {
+      console.warn('compressed_color_cards fileID 无效:', fileID);
+      resolve(null); // 返回null，表示文件不存在
+      return;
+    }
+
     wx.cloud
       .getTempFileURL({
         fileList: [
           {
-            fileID: 'compressed_color_cards', // 需要根据实际的云存储路径调整
+            fileID: fileID,
             maxAge: 60 * 60, // one hour
           },
         ],
       })
       .then((res) => {
-        resolve(res.fileList[0].tempFileURL);
+        if (res.fileList && res.fileList[0] && res.fileList[0].tempFileURL) {
+          resolve(res.fileList[0].tempFileURL);
+        } else {
+          console.warn('获取压缩色卡URL失败');
+          resolve(null); // 返回null，表示文件不存在
+        }
       })
       .catch((error) => {
-        reject(error);
+        console.error('获取压缩色卡URL出错:', error);
+        resolve(null); // 返回null，表示文件不存在
       });
   });
 }

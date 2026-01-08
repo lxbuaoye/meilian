@@ -41,8 +41,35 @@ export async function saveBase64ToTempFile(base64Data) {
       data: pureBase64String,
       encoding: 'base64',
       success: (res) => {
-        console.log(`user path : ${filePath}`);
-        resolve(filePath);
+        // 写入成功后尝试保存为持久文件以获取 wxfile:// 可识别路径
+        try {
+          wx.saveFile({
+            tempFilePath: filePath,
+            success: (saveRes) => {
+              // savedFilePath 通常是 wxfile:// 开头，可直接用于 <image> 组件
+              console.log('saved file path (wx.saveFile):', saveRes.savedFilePath);
+              resolve(saveRes.savedFilePath);
+            },
+            fail: (saveErr) => {
+              console.warn('wx.saveFile failed, falling back to getImageInfo', saveErr);
+              // 回退到 getImageInfo 获取可识别路径或返回原始 filePath
+              wx.getImageInfo({
+                src: filePath,
+                success: (infoRes) => {
+                  console.log('fallback image info path:', infoRes.path);
+                  resolve(infoRes.path || filePath);
+                },
+                fail: () => {
+                  console.warn('getImageInfo fallback failed, returning raw filePath');
+                  resolve(filePath);
+                },
+              });
+            },
+          });
+        } catch (e) {
+          console.warn('saveFile/getImageInfo fallback threw, returning raw filePath', e);
+          resolve(filePath);
+        }
       },
       fail: (err) => {
         console.error('保存 Base64 图片失败:', err);

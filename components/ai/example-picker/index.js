@@ -156,14 +156,47 @@ Component({
         return;
       }
       this.setData({ loadingIndex: e.currentTarget.dataset.index });
-      const { tempFilePath } = await wx.cloud.downloadFile({
-        fileID: this.data.list[this.data.tabValue][e.currentTarget.dataset.index].imageSrc,
-      });
-      this.triggerEvent('selectexampleimage', {
-        data: {
-          imageSrc: tempFilePath,
-        },
-      });
+      const imageSrc = this.data.list[this.data.tabValue][e.currentTarget.dataset.index].imageSrc;
+
+      if (!imageSrc) {
+        console.error('图片路径为空');
+        this.setData({ loadingIndex: -1 });
+        return;
+      }
+
+      let tempFilePath;
+      try {
+        // 判断链接类型并下载
+        if (imageSrc.startsWith('cloud://')) {
+          const res = await wx.cloud.downloadFile({ fileID: imageSrc });
+          tempFilePath = res.tempFilePath;
+        } else if (imageSrc.startsWith('http') || imageSrc.startsWith('https')) {
+          const res = await new Promise((resolve, reject) => {
+            wx.downloadFile({
+              url: imageSrc,
+              success: resolve,
+              fail: reject,
+            });
+          });
+          tempFilePath = res.tempFilePath;
+        } else {
+          // 本地路径或其他情况
+          tempFilePath = imageSrc;
+        }
+
+        this.triggerEvent('selectexampleimage', {
+          data: {
+            imageSrc: tempFilePath,
+          },
+        });
+      } catch (error) {
+        console.error('下载示例图片失败:', error);
+        wx.showToast({
+          title: '图片下载失败',
+          icon: 'none'
+        });
+      }
+
       // 隐藏弹窗
       this.setData({
         loadingIndex: -1,

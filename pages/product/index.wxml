@@ -8,24 +8,28 @@
 
   <!-- 内容区域 -->
   <view class="content-area">
-    <view wx:for="{{featureList}}" wx:key="index" style="margin: 31rpx 24rpx 0 24rpx;">
-      <view style="width: 100%; height: 170rpx; background: #F7FAFE; border-radius: 10rpx; display: flex; align-items: center; padding: 24rpx 24rpx 24rpx 56.5rpx; box-sizing: border-box;" bind:tap="handleFeatureTap" data-index="{{index}}">
+    <block wx:for="{{featureList}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+      <block wx:if="{{!item.hidden}}">
+        <view style="margin: 31rpx 24rpx 0 24rpx;">
+          <view style="width: 100%; height: 170rpx; background: #F7FAFE; border-radius: 10rpx; display: flex; align-items: center; padding: 24rpx 24rpx 24rpx 56.5rpx; box-sizing: border-box;" bind:tap="handleFeatureTap" data-index="{{index}}">
 
-        <view style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-          <view>
-            <text style="font-family: PingFang-SC-Bold; font-weight: 700; font-size: 36rpx; color: #1C2023; line-height: 50rpx;">{{item.title}}</text>
-  </view>
+            <view style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+              <view>
+                <text style="font-family: PingFang-SC-Bold; font-weight: 700; font-size: 36rpx; color: #1C2023; line-height: 50rpx;">{{item.title}}</text>
+      </view>
 
-          <view style="margin-top: 0rpx;">
-            <text style="font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; line-height: 34rpx;">{{item.subtitle}}</text>
+              <view style="margin-top: 0rpx;">
+                <text style="font-family: PingFang-SC-Regular; font-weight: 400; font-size: 24rpx; color: #8F969C; line-height: 34rpx;">{{item.subtitle}}</text>
+              </view>
+            </view>
+
+            <view style="width: 250rpx; height: 122rpx; margin-left: 24rpx;">
+              <image src="{{item.icon}}" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 16rpx; background: #F5F6FA;"></image>
+            </view>
+
           </view>
         </view>
-
-        <view style="width: 250rpx; height: 122rpx; margin-left: 24rpx;">
-          <image src="{{item.icon}}" mode="aspectFill" style="width: 100%; height: 100%; border-radius: 16rpx; background: #F5F6FA;"></image>
-        </view>
-
-      </view>
-    </view>
+      </block>
+    </block>
   </view>
 </scroll-view>

@@ -178,19 +178,27 @@ Page({
       return;
     }
     // 对 cloud:// 或 fileID 使用 getTempFileURL
-    wx.cloud.getTempFileURL({
-      fileList: [{ fileID: tpdz }],
-      success: (res) => {
-        if (res.fileList && res.fileList[0] && res.fileList[0].tempFileURL) {
-          this.setData({ activeIndex: index, activeImageUrl: res.fileList[0].tempFileURL });
-        } else {
+    if (tpdz.startsWith('cloud://')) {
+      wx.cloud.getTempFileURL({
+        fileList: [{ fileID: tpdz }],
+        success: (res) => {
+          if (res.fileList && res.fileList[0] && res.fileList[0].tempFileURL) {
+            this.setData({ activeIndex: index, activeImageUrl: res.fileList[0].tempFileURL });
+          } else {
+            console.warn('获取图片URL失败:', tpdz);
+            this.setData({ activeIndex: index, activeImageUrl: '' });
+          }
+        },
+        fail: (err) => {
+          console.error('获取图片URL出错:', err);
           this.setData({ activeIndex: index, activeImageUrl: '' });
         }
-      },
-      fail: () => {
-        this.setData({ activeIndex: index, activeImageUrl: '' });
-      }
-    });
+      });
+    } else {
+      // 如果不是有效的 cloud:// 路径，直接设置为空
+      console.warn('无效的图片路径格式:', tpdz);
+      this.setData({ activeIndex: index, activeImageUrl: '' });
+    }
   },
 
   onTabTap(e) {

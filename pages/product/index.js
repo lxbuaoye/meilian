@@ -45,6 +45,7 @@ Page({
         title: '石漆配色',
         subtitle: '石漆系列电子色卡，配用多个建筑模型，方便随时查看和搭配',
         icon: `${CLOUD_IMAGE_BASE}/image/product/shiqi.png`,
+        hidden: true,
         url: '',
         openAnotherMiniProgram: true,
         appId: 'wx0a81e9aa1745be90',

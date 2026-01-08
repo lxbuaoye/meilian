@@ -5,7 +5,7 @@ import { eventBus } from './utils/eventBus';
 App({
   globalData: {
     // #if MP
-    CLOUD_STROAGE_PATH: 'cloud://digital-7gwdimnu0a14ab1b.6469-digital-7gwdimnu0a14ab1b-1330344628',
+    CLOUD_STROAGE_PATH: 'cloud://cloud1-9gz59mfw7610d03f.6469-cloud1-9gz59mfw7610d03f-1392076473',
     CLOUD_IMAGE_BASE: 'https://636c-cloud1-9gz59mfw7610d03f-1392076473.tcb.qcloud.la',
     // #elif IOS || ANDROID
     CLOUD_STROAGE_PATH: 'https://636c-cloud1-9gz59mfw7610d03f-1392076473.tcb.qcloud.la', // 多端模式不支持cloudId
@@ -38,7 +38,7 @@ App({
     try {
     wx.cloud.init({
       appid: 'wx422e25222a1fd968', // 创建云开发环境的 AppID（小程序、公众号），不是多端应用 AppID
-      envid: 'digital-7gwdimnu0a14ab1b', // 云开发环境名称
+      envid: 'cloud1-9gz59mfw7610d03f', // 云开发环境名称
     });
     } catch (error) {
       console.warn('云开发初始化失败，请检查云开发环境配置:', error);
