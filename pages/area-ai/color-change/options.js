@@ -23,7 +23,7 @@ export const exteriorCustomOptionList = [
         inputImageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/paints/002-input.jpg`,
         prompt:
           '把图1中这个建筑外墙墙面的孔洞，发霉等补平整，并使墙面颜色统一和均匀; 把图2中的效果应用在图1（主图）的建筑外墙上，按实际比例缩放纹理效果，达到外墙真石材的感觉',
-        shouldDownload: true,
+        shouldDownload: false, // 文件不存在，暂时禁用下载
       },
       {
         name: 'DGJ-003',
@@ -357,7 +357,7 @@ export const exteriorCustomOptionList = [
         imageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/pillar/xiandai.png`,
         inputImageSrc: `${CLOUD_STROAGE_PATH}/resources/ai/pillar/xiandai_input.png`,
         prompt: '把图三中的长方体柱子应用在图一中，修改柱子颜色与墙体颜色一致',
-        shouldDownload: true,
+        shouldDownload: false, // 文件不存在，暂时禁用下载
       },
       {
         name: '中式',

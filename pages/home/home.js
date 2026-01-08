@@ -55,8 +55,17 @@ Page({
     ];
 
     try {
+      // 过滤掉无效的 fileID
+      const validFileIDs = fileIDs.filter(id => id && typeof id === 'string' && id.startsWith('cloud://'));
+
+      if (validFileIDs.length === 0) {
+        console.warn('没有有效的云文件ID');
+        this.setData({ pageLoading: false });
+        return;
+      }
+
       const res = await wx.cloud.getTempFileURL({
-        fileList: fileIDs.map((id) => ({ fileID: id })),
+        fileList: validFileIDs.map((id) => ({ fileID: id })),
       });
       const mapping = {};
       (res.fileList || []).forEach((f) => {
@@ -85,6 +94,7 @@ Page({
       });
     } catch (err) {
       console.error('loadCloudImages failed', err);
+      // 即使失败也要设置 pageLoading 为 false
       this.setData({ pageLoading: false });
     }
   },

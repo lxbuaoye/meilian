@@ -305,11 +305,12 @@ Page({
       this.setData({ loadingProducts: true });
       const products = await fetchProducts();
       // 获取compressed_color_cards缩略图URL
-      let compressedColorCardsUrl = '';
+      let compressedColorCardsUrl = null;
       try {
         compressedColorCardsUrl = await fetchCompressedColorCards();
       } catch (e) {
         console.warn('获取压缩色卡失败，使用默认图片', e);
+        compressedColorCardsUrl = null;
       }
 
       const mapped = products.map((product) => {
@@ -320,7 +321,7 @@ Page({
         return {
           id: product._id || product._id || product._id, // Keep existing ID logic, though redundant
           name: product.name || product.colorName || product.cpmc || '',
-          imageSrc: product.imageSrc || compressedColorCardsUrl || product.thumbnail || product.image || '',
+          imageSrc: product.imageSrc || (compressedColorCardsUrl ? compressedColorCardsUrl : '') || product.thumbnail || product.image || '',
           colorCode: rawCode,
           displayName: displayName,
           category: product.category || '',
@@ -340,7 +341,7 @@ Page({
       this.setData({
         products: mapped,
         visibleProducts: mapped.slice(0, this.data.visibleProductsCount),
-        compressedColorCardsUrl,
+        compressedColorCardsUrl: compressedColorCardsUrl || '',
         loadingProducts: false,
         // 更多色卡筛选相关数据
         moreModalCategories: categories,
@@ -559,13 +560,77 @@ Page({
     formData.appendFile('image[]', this.data.imageSrc);
     let prompt = '';
     const selectedOptions = [];
+    // Collect selected products from the selectedProductMap for both exterior and interior flows
+    let selectedProducts = Object.keys(this.data.selectedProductMap || {})
+      .filter((key) => this.data.selectedProductMap[key])
+      .map((key) => this.data.products.find((p) => p.id === key))
+      .filter(Boolean);
+    let currentStyle = ''; // ensure defined for both exterior/interior flows
+
+    // Collect selected items from custom option selections (interior & exterior) so they appear in resultProducts
+    const selectedProductsFromCustom = [];
+    try {
+      // interior custom selections
+      const interiorSelections = this.data.interiorOptionSelections || [];
+      (this.data.interiorCustomOptionList || []).forEach((group, gIndex) => {
+        const sel = interiorSelections[gIndex];
+        let chosen = null;
+        if (sel && typeof sel.selectionIndex === 'number') {
+          chosen = group.data && group.data[sel.selectionIndex];
+        } else {
+          chosen = group.data && group.data.length ? group.data[0] : null;
+        }
+        if (chosen && (chosen.imageSrc || chosen.inputImageSrc || chosen.name)) {
+          selectedProductsFromCustom.push({
+            id: `interior-${gIndex}-${chosen.name || ''}`,
+            imageSrc: chosen.inputImageSrc || chosen.imageSrc || '',
+            displayName: chosen.name || '',
+            colorCode: chosen.color || chosen.colorCode || ''
+          });
+        }
+      });
+
+      // exterior custom selections (if any component children were used)
+      (this.data.exteriorCustomOptionList || []).forEach((group, gIndex) => {
+        try {
+          const child = this.selectComponent(`#exterior-option-${gIndex}`);
+          const chosen = child && child.data ? child.data : null;
+          if (chosen && (chosen.imageSrc || chosen.inputImageSrc || chosen.name)) {
+            selectedProductsFromCustom.push({
+              id: `exterior-${gIndex}-${chosen.name || ''}`,
+              imageSrc: chosen.inputImageSrc || chosen.imageSrc || '',
+              displayName: chosen.name || '',
+              colorCode: chosen.color || chosen.colorCode || ''
+            });
+          }
+        } catch (e) {
+          // ignore missing component instances
+        }
+      });
+    } catch (e) {
+      console.warn('collecting custom selections failed', e);
+    }
+    // Merge custom selections into selectedProducts, dedupe by imageSrc+displayName
+    try {
+      const existingKeys = new Set(selectedProducts.map(p => `${p.imageSrc}::${p.displayName}`));
+      selectedProductsFromCustom.forEach(p => {
+        const key = `${p.imageSrc}::${p.displayName}`;
+        if (!existingKeys.has(key)) {
+          selectedProducts.push(p);
+          existingKeys.add(key);
+        }
+      });
+    } catch (e) {
+      console.warn('merging custom selections failed', e);
+    }
 
     // 外墙（tabValue === 0）或者内墙（tabValue === 1）
     if (this.data.tabValue === 0) {
       // exterior
+      currentStyle = this.data.styleOptionsForExterior[this.data.value1].name;
       selectedOptions.push({
         title: '风格',
-        content: this.data.styleOptionsForExterior[this.data.value1].name,
+        content: currentStyle,
       });
       if (this.data.styleOptionsForExterior[this.data.value1].name === '自定义') {
         const downloadList = [];
@@ -583,10 +648,30 @@ Page({
         }, '');
         // Download image for inputs
         for (let i = 0; i < downloadList.length; i++) {
-          const { tempFilePath } = await wx.cloud.downloadFile({
-            fileID: downloadList[i],
-          });
-          formData.appendFile('image[]', tempFilePath);
+          const fileId = downloadList[i];
+          if (!fileId) continue;
+          let tempFilePath;
+          try {
+            if (fileId.startsWith('cloud://')) {
+              const res = await wx.cloud.downloadFile({ fileID: fileId });
+              tempFilePath = res.tempFilePath;
+            } else if (fileId.startsWith('http') || fileId.startsWith('https')) {
+              const res = await new Promise((resolve, reject) => {
+                wx.downloadFile({
+                  url: fileId,
+                  success: resolve,
+                  fail: reject
+                });
+              });
+              tempFilePath = res.tempFilePath;
+            } else {
+              tempFilePath = fileId; // 本地路径
+            }
+            formData.appendFile('image[]', tempFilePath);
+          } catch (error) {
+            console.error(`下载图片失败 (${fileId}):`, error);
+            // 跳过这个文件，继续处理其他文件
+          }
         }
       } else if (this.data.styleOptionsForExterior[this.data.value1].name === '一键换色') {
         const colorChild = this.selectComponent(`#dgpick-option-0`);
@@ -600,13 +685,7 @@ Page({
       }
     } else {
       // interior (existing behavior)
-      // 获取选择的色卡产品
-      const selectedProducts = Object.keys(this.data.selectedProductMap)
-        .filter(key => this.data.selectedProductMap[key])
-        .map(key => this.data.products.find(p => p.id === key))
-        .filter(Boolean);
-
-      const currentStyle = this.data.styleOptionsForInterior[this.data.value0].name;
+      currentStyle = this.data.styleOptionsForInterior[this.data.value0].name;
 
       // 如果没有选择产品但选择了玄武系列或其他需要颜色的风格，使用默认颜色
       if (selectedProducts.length === 0 && (this.data.value0 === 10 || this.data.value0 === 11)) {
@@ -660,10 +739,28 @@ Page({
         for (let i = 0; i < downloadList.length; i++) {
           const fileId = downloadList[i];
           if (!fileId) continue;
-          const { tempFilePath } = await wx.cloud.downloadFile({
-            fileID: fileId,
-          });
-          formData.appendFile('image[]', tempFilePath);
+          let tempFilePath;
+          try {
+            if (fileId.startsWith('cloud://')) {
+              const res = await wx.cloud.downloadFile({ fileID: fileId });
+              tempFilePath = res.tempFilePath;
+            } else if (fileId.startsWith('http') || fileId.startsWith('https')) {
+              const res = await new Promise((resolve, reject) => {
+                wx.downloadFile({
+                  url: fileId,
+                  success: resolve,
+                  fail: reject
+                });
+              });
+              tempFilePath = res.tempFilePath;
+            } else {
+              tempFilePath = fileId; // 本地路径
+            }
+            formData.appendFile('image[]', tempFilePath);
+          } catch (error) {
+            console.error(`下载素材失败 (${fileId}):`, error);
+            // 跳过这个文件，继续处理其他文件
+          }
         }
 
         // 最终 prompt：将所有选项的 promptParts 用分号连接
@@ -796,13 +893,70 @@ Page({
           await new Promise(resolve => setTimeout(resolve, 50));
 
           const imageSrc = await addWatermarkToImage(tempFileUrl);
+          // Debug: log values before preparing result products to catch undefined references
+          console.log('DEBUG before preparing resultProducts:', {
+            tempFileUrl,
+            imageSrc,
+            currentStyle,
+            selectedProducts,
+            generatedImageSrc: this.data.generatedImageSrc,
+          });
+
+          // Ensure all result product imageSrc are usable by the renderer:
+          // - convert cloud:// fileIDs to local temp paths via wx.cloud.downloadFile
+          // - fall back to default product icon when download fails or url empty
+          const prepareResultProducts = async (products) => {
+            const out = [];
+            for (let i = 0; i < products.length; i++) {
+              const prod = products[i] || {};
+              const copy = {
+                id: prod.id || prod._id || `p-${i}`,
+                imageSrc: prod.imageSrc || prod.inputImageSrc || '',
+                displayName: prod.displayName || prod.name || '',
+                colorCode: prod.colorCode || prod.color || ''
+              };
+              const img = copy.imageSrc || '';
+              if (img && img.startsWith('cloud://')) {
+                try {
+                  const dl = await wx.cloud.downloadFile({ fileID: img });
+                  if (dl && dl.tempFilePath) {
+                    copy.imageSrc = dl.tempFilePath;
+                  } else {
+                    console.warn('cloud.downloadFile returned no tempFilePath', img, dl);
+                    copy.imageSrc = this.data.productIcon || '';
+                  }
+                } catch (err) {
+                  console.warn('download cloud image failed', img, err);
+                  copy.imageSrc = this.data.productIcon || '';
+                }
+              } else if (!img) {
+                copy.imageSrc = this.data.productIcon || '';
+              }
+              out.push(copy);
+            }
+            return out;
+          };
+
+          let finalResultProducts = [];
+          try {
+            finalResultProducts = await prepareResultProducts(selectedProducts || []);
+          } catch (e) {
+            console.warn('prepareResultProducts failed', e);
+            finalResultProducts = (selectedProducts || []).map(p => ({
+              id: p?.id || '',
+              imageSrc: p?.imageSrc || this.data.productIcon || '',
+              displayName: p?.displayName || p?.name || '',
+              colorCode: p?.colorCode || p?.color || ''
+            }));
+          }
+
           this.setData({
             generatedImageSrc: imageSrc,
             progress: 0,
             visible: false,
             resultImage: imageSrc,
             resultVisible: true,
-            resultProducts: selectedProducts,
+            resultProducts: finalResultProducts,
             resultStyle: currentStyle
           });
 

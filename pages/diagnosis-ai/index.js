@@ -522,15 +522,37 @@ Page({
 
   async navigateToAI(e) {
     let { imageSrc } = this.data;
-    if (this.needToDownloadImage) {
-      const { tempFilePath } = await wx.cloud.downloadFile({
-        fileID: imageSrc,
-      });
-      imageSrc = tempFilePath;
+    if (this.needToDownloadImage && imageSrc) {
+      try {
+        // 判断链接类型并下载
+        if (imageSrc.startsWith('cloud://')) {
+          const { tempFilePath } = await wx.cloud.downloadFile({
+            fileID: imageSrc,
+          });
+          imageSrc = tempFilePath;
+        } else if (imageSrc.startsWith('http') || imageSrc.startsWith('https')) {
+          const res = await new Promise((resolve, reject) => {
+            wx.downloadFile({
+              url: imageSrc,
+              success: resolve,
+              fail: reject
+            });
+          });
+          imageSrc = res.tempFilePath;
+        }
+        // 如果是本地路径，直接使用
+      } catch (error) {
+        console.error('下载图片失败:', error);
+        wx.showToast({
+          title: '图片下载失败',
+          icon: 'none'
+        });
+        return;
+      }
     }
     // Redirect to AI 换色 page (area-ai/color-change) with original image
     wx.navigateTo({
-      url: `/pages/area-ai/color-change/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${imageSrc}`,
+      url: `/pages/area-ai/color-change/index?isInterior=${this.data.wallType === '内墙' ? 1 : 0}&imageSrc=${encodeURIComponent(imageSrc)}`,
     });
   },
 
