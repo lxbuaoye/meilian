@@ -28,9 +28,11 @@
           <!-- Normal tile -->
           <view wx:if="{{!item.moreColorOption}}"
             style="border-radius: 20rpx; width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; background-color: {{item.color}}; padding: {{innerPadding}}rpx">
-            <image wx:if="{{item.imageSrc}}"
-              src="{{item.imageSrc}}"
+            <image wx:if="{{item.imageSrc || item.imageSrcTemp}}"
+              src="{{item.imageSrcTemp || item.imageSrc}}"
               lazy-load
+              binderror="onImageError"
+              data-index="{{index}}"
               style="width: {{itemWidth}}rpx; height: {{itemHeight}}rpx; display: flex; "></image>
           </view>
         </t-radio>
