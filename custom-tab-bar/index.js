@@ -31,19 +31,26 @@ Component({
       }
       const item = this.data.list[index];
 
-      // Immediately reflect UI selection
-      this.setData({ active: index });
-
       if (item && item.url) {
         const target = item.url.startsWith('/') ? item.url : `/${item.url}`;
         console.log('custom-tab-bar.onChange: switching to', index, target);
+        // Try switchTab first; only update active when switchTab succeeds.
         wx.switchTab({
           url: target,
+          success: () => {
+            this.setData({ active: index });
+          },
           fail: (err) => {
             console.error('custom-tab-bar.onChange: switchTab failed', err, target);
             // fallback to navigateTo if switchTab fails for any reason
             try {
-              wx.navigateTo({ url: target });
+              wx.navigateTo({
+                url: target,
+                success: () => {
+                  // Do not mark tab active because navigateTo may open a non-tab page.
+                  // If target is actually a tab and navigateTo succeeded, we still avoid marking active here.
+                },
+              });
             } catch (e) {
               console.error('custom-tab-bar.onChange: navigateTo fallback failed', e, target);
             }

@@ -1,25 +1,28 @@
 <view class="page">
   <!-- 自定义导航栏（复用 pages/color-detail 样式） -->
-  <view class="custom-nav-bar">
+    <view class="custom-nav-bar">
     <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
     <view class="nav-content">
       <image class="nav-back"
         src="{{navBackIcon}}"
         mode="aspectFit"
         bindtap="handleBack" />
-      <text class="nav-title">推荐</text>
+      <text class="nav-title">{{navTitle}}</text>
       <view class="nav-placeholder-right"></view>
     </view>
   </view>
 
-  <!-- Tabs -->
-  <view class="tabs" id="tabs" style="margin-top: {{tabsTop}}px;">
-    <block wx:for="{{categories}}" wx:key="index" wx:for-index="i" wx:for-item="cat">
-      <view class="tab {{activeIndex === i ? 'active' : ''}}" data-index="{{i}}" bindtap="onTabTap">
-        {{cat}}
-      </view>
-    </block>
-  </view>
+  <!-- Tabs: horizontal scroll showing up to 3 visible thumbnails per view -->
+  <scroll-view class="tabs-scroll" scroll-x="true" style="margin-top: {{tabsTop}}px;" scroll-with-animation="true">
+    <view class="tabs" id="tabs">
+      <block wx:for="{{categories}}" wx:key="index" wx:for-index="i" wx:for-item="cat">
+      <view class="tab-card {{activeIndex === i ? 'active' : ''}}" data-index="{{i}}" bindtap="onTabTap">
+          <text class="tab-caption">{{cat}}</text>
+          <view class="tab-indicator" wx:if="{{activeIndex === i}}"></view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
 
   <!-- Image container -->
   <view class="image-wrapper" style="height:{{imageAreaHeight}}px;">

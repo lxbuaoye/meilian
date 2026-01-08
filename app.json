@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/showcase/index",
     "pages/recommend/index",
     "pages/showcase-list/index",
     "pages/location/index",

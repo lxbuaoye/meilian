@@ -1,0 +1,23 @@
+<view class="showcase-page">
+  <view class="custom-nav-bar">
+    <view class="nav-status-bar" style="height: {{statusBarHeight}}px;"></view>
+    <view class="nav-content">
+      <image class="nav-back" src="{{navBackIcon}}" mode="aspectFit" bindtap="onBack" />
+      <text class="nav-title">{{pageTitle}}</text>
+      <view class="nav-placeholder-right"></view>
+    </view>
+  </view>
+
+  <scroll-view class="showcase-container" scroll-y>
+    <view class="grid">
+      <block wx:for="{{items}}" wx:key="_id" wx:for-item="item">
+        <view class="grid-item" bindtap="onShowcaseClick" data-id="{{item._id}}">
+          <image src="{{item.coverImageUrl}}" mode="aspectFill" class="grid-img" />
+          <view class="grid-text">{{item.title}}</view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>
+
+

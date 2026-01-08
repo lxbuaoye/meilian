@@ -934,7 +934,7 @@ Page({
       });
     } else {
       wx.switchTab({
-        url: `/pages/explore/index`,
+        url: `/pages/home/home`,
       });
     }
   },

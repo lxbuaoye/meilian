@@ -9,10 +9,42 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding: 10px 12px;
   background: #ffffff;
   box-shadow: 0 1px 0 rgba(0,0,0,0.04);
 }
+.tabs-scroll {
+  width: 100%;
+  overflow: hidden;
+}
+.tab-card {
+  width: 250rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+.tab-card.active .tab-caption {
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 30rpx;
+  color: #2E3FA8;
+  letter-spacing: 0;
+  text-align: center;
+}
+.tab-caption {
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  font-size: 28rpx;
+  color:#1C2023;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 100rpx;
+}
+
 .nav-back {
   position: absolute;
   left: 12px;

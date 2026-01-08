@@ -53,5 +53,29 @@ App({
     if (userInfo && userInfo.phoneNumber) {
       fetchUserInfo(userInfo.phoneNumber);
     }
+    // Ensure custom tab bar active state syncs when app/page becomes visible
+    try {
+      const pages = getCurrentPages();
+      const page = pages && pages.length ? pages[pages.length - 1] : null;
+      if (page && typeof page.getTabBar === 'function') {
+        const tabBar = page.getTabBar();
+        if (tabBar && typeof tabBar.init === 'function') {
+          tabBar.init();
+        }
+      }
+      // retry after a short delay in case component not yet attached
+      setTimeout(() => {
+        try {
+          if (page && typeof page.getTabBar === 'function') {
+            const tabBar2 = page.getTabBar();
+            if (tabBar2 && typeof tabBar2.init === 'function') {
+              tabBar2.init();
+            }
+          }
+        } catch (e2) {}
+      }, 120);
+    } catch (e) {
+      console.warn('App.onShow: failed to init custom tab bar', e);
+    }
   },
 });

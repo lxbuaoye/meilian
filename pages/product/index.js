@@ -64,7 +64,18 @@ Page({
   },
 
   onShow() {
-    this.getTabBar().init();
+    if (this.getTabBar && typeof this.getTabBar === 'function') {
+      const tabBar = this.getTabBar();
+      if (tabBar && typeof tabBar.init === 'function') tabBar.init();
+    }
+    setTimeout(() => {
+      try {
+        if (this.getTabBar && typeof this.getTabBar === 'function') {
+          const tabBar2 = this.getTabBar();
+          if (tabBar2 && typeof tabBar2.init === 'function') tabBar2.init();
+        }
+      } catch (e) {}
+    }, 120);
   },
 
   // 处理功能卡片点击

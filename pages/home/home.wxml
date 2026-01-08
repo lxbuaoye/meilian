@@ -37,7 +37,7 @@
     </view>
 
     <!-- Section header: 电子色卡 -->
-    <view class="section-header">
+    <view class="section-header" bindtap="navigateToColorCard">
       <image src="{{images.iconColorCard}}" class="section-icon" />
       <text class="section-title">电子色卡</text>
       <image src="{{images.dzskjt}}" style="width: 50rpx;height: 50rpx;position: fixed;left:626rpx;top:681rpx;" />
@@ -45,21 +45,21 @@
 
     <!-- category cards -->
     <view class="category-row">
-      <view class="category-card">
+      <view class="category-card" bindtap="navigateToShowcase" data-cat="rjq">
         <image src="{{images.anli1}}" mode="aspectFill" class="category-img" />
         <view class="category-label">
           <view class="category-label-bg"></view>
           <view class="category-label-text">乳胶漆案例</view>
         </view>
       </view>
-      <view class="category-card">
+      <view class="category-card" bindtap="navigateToShowcase" data-cat="fsq">
         <image src="{{images.anli2}}" mode="aspectFill" class="category-img" />
         <view class="category-label">
           <view class="category-label-bg"></view>
           <view class="category-label-text">仿石漆案例</view>
         </view>
       </view>
-      <view class="category-card">
+      <view class="category-card" bindtap="navigateToShowcase" data-cat="ysq">
         <image src="{{images.anli3}}" mode="aspectFill" class="category-img" />
         <view class="category-label">
           <view class="category-label-bg"></view>
@@ -70,7 +70,7 @@
     </view>
 
     <!-- bottom banners -->
-    <view class="ai">
+    <view class="ai" bindtap="navigateToColorChange">
       <image src="{{images.ai}}" mode="" class="ai-img" />
       <view class="ai-text" style="left: 68.76rpx;">MERLIN</view>
       <view class="ai-text" style="left: 498.76rpx;">AI换装</view>

@@ -9,6 +9,9 @@ Page({
     navBackIcon: '',
     logoImage: '',
     placeholderImage: '/image/v2.1_color_card_assets/placeholder.png',
+    incomingCategory: '',
+    navTitle: '推荐',
+    thumbByCategory: {},
     categories: [],
     itemsByCategory: {},
     activeIndex: 0,
@@ -16,7 +19,18 @@ Page({
     imageAreaHeight: 300
   },
 
-  onLoad() {
+  onLoad(options = {}) {
+    // accept incoming category param (e.g., ?category=wq)
+    const incoming = options && options.category ? decodeURIComponent(options.category) : '';
+    if (incoming) {
+      this.setData({ incomingCategory: incoming });
+      // set nav title based on incoming
+      if (incoming === 'wq') {
+        this.setData({ navTitle: '外墙年度人气爆款' });
+      } else if (incoming === 'nq') {
+        this.setData({ navTitle: '内墙年度人气爆款' });
+      }
+    }
     // 初始化自定义导航栏信息（与 color-detail 保持一致）
     const systemInfo = wx.getWindowInfo ? wx.getWindowInfo() : wx.getSystemInfoSync();
     const statusBarHeight = systemInfo.statusBarHeight || 0;
@@ -73,7 +87,16 @@ Page({
 
   async fetchRecommended() {
     try {
-      const res = await db.collection('Recommended').get();
+      // If incomingCategory was provided, filter by lb field:
+      // 'wq' -> lb: '外墙', 'nq' -> lb: '内墙'
+      let query = db.collection('Recommended');
+      const incoming = this.data.incomingCategory;
+      if (incoming === 'wq') {
+        query = query.where({ lb: '外墙' });
+      } else if (incoming === 'nq') {
+        query = query.where({ lb: '内墙' });
+      }
+      const res = await query.get();
       const data = res.data || [];
       // build categories and mapping
       const categories = [];
@@ -88,10 +111,46 @@ Page({
         itemsByCategory[cat].push(item);
       });
 
-      this.setData({ categories, itemsByCategory }, () => {
-        // set initial active image
+      this.setData({ categories, itemsByCategory }, async () => {
+        // build thumbnails for each category using first item's tpdz if available
+        const fileList = [];
+        const catToFileId = {};
+        categories.forEach((cat) => {
+          const items = itemsByCategory[cat] || [];
+          const first = items[0] || {};
+          const tpdz = first.tpdz || first.path || '';
+          if (tpdz && !tpdz.startsWith('http')) {
+            fileList.push({ fileID: tpdz });
+            catToFileId[tpdz] = cat;
+          } else if (tpdz && tpdz.startsWith('http')) {
+            // directly set http url
+            this.setData({ [`thumbByCategory.${cat}`]: tpdz });
+          }
+        });
+
+        if (fileList.length > 0 && wx.cloud && wx.cloud.getTempFileURL) {
+          try {
+            const res = await wx.cloud.getTempFileURL({ fileList });
+            (res.fileList || []).forEach((f) => {
+              const cat = catToFileId[f.fileID];
+              if (cat) {
+                this.setData({ [`thumbByCategory.${cat}`]: f.tempFileURL || '' });
+              }
+            });
+          } catch (err) {
+            console.warn('getTempFileURL for thumbnails failed', err);
+          }
+        }
+
+        // determine initial active index -- prefer incomingCategory if provided
+        let idx = 0;
+        const incoming = this.data.incomingCategory;
+        if (incoming && categories && categories.length > 0) {
+          const found = categories.indexOf(incoming);
+          if (found !== -1) idx = found;
+        }
         if (categories.length > 0) {
-          this.setActiveImageByIndex(0);
+          this.setActiveImageByIndex(idx);
         }
       });
     } catch (err) {

@@ -46,6 +46,14 @@ Page({
         tabBar.init();
       }
     }
+    setTimeout(() => {
+      try {
+        if (this.getTabBar && typeof this.getTabBar === 'function') {
+          const tabBar2 = this.getTabBar();
+          if (tabBar2 && typeof tabBar2.init === 'function') tabBar2.init();
+        }
+      } catch (e) {}
+    }, 120);
   },
 
   handleBack() {

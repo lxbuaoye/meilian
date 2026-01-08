@@ -36,6 +36,24 @@ Page({
     this.loadCloudImages();
   },
 
+  onShow() {
+    if (this.getTabBar && typeof this.getTabBar === 'function') {
+      const tabBar = this.getTabBar();
+      if (tabBar && typeof tabBar.init === 'function') {
+        tabBar.init();
+      }
+    }
+    // retry shortly in case component attaches after onShow
+    setTimeout(() => {
+      try {
+        if (this.getTabBar && typeof this.getTabBar === 'function') {
+          const tabBar2 = this.getTabBar();
+          if (tabBar2 && typeof tabBar2.init === 'function') tabBar2.init();
+        }
+      } catch (e) {}
+    }, 120);
+  },
+
   // allow external toggling if needed
   setLoading(isLoading) {
     this.setData({ pageLoading: !!isLoading });
@@ -95,9 +113,50 @@ Page({
   },
 
   // placeholder interactions
-  onHeroLeftTap() {},
-  onHeroRightTap() {},
+  onHeroLeftTap() {
+    try {
+      wx.navigateTo({ url: '/pages/recommend/index?category=wq' });
+    } catch (e) {
+      console.error('navigate to recommend (wq) failed', e);
+    }
+  },
+  onHeroRightTap() {
+    try {
+      wx.navigateTo({ url: '/pages/recommend/index?category=nq' });
+    } catch (e) {
+      console.error('navigate to recommend (nq) failed', e);
+    }
+  },
   onCategoryTap() {},
   onBannerLeftTap() {},
   onBannerRightTap() {},
+  navigateToColorChange() {
+    try {
+      wx.navigateTo({ url: '/pages/area-ai/color-change/index' });
+    } catch (e) {
+      console.error('navigate to color-change failed', e);
+    }
+  },
+  navigateToColorCard() {
+    try {
+      // color-card is a tab page; use switchTab
+      wx.switchTab({ url: '/pages/color-card/index' });
+    } catch (e) {
+      console.error('navigate to color-card failed', e);
+    }
+  },
+  navigateToShowcase(e) {
+    try {
+      const cat = e && e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.cat;
+      if (!cat) return;
+      if (cat === 'fsq') {
+        // 仿石漆案例 -> open showcase-list page
+        wx.navigateTo({ url: '/pages/showcase-list/index' });
+        return;
+      }
+      wx.navigateTo({ url: `/pages/showcase/index?category=${encodeURIComponent(cat)}` });
+    } catch (err) {
+      console.error('navigateToShowcase failed', err);
+    }
+  },
 });
