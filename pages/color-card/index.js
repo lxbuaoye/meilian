@@ -206,7 +206,18 @@ Page({
       });
     }
 
-    this.setData({ filteredCards: filtered });
+    this.setData({ filteredCards: filtered }, () => {
+      // 如果数据库提供了颜色值，立即计算文字颜色以避免等待图片加载
+      (filtered || []).forEach((card, idx) => {
+        if (card && card.color) {
+          try {
+            this.computeTextColorForCard(card.code, card.img, idx, card.color);
+          } catch (e) {
+            // ignore
+          }
+        }
+      });
+    });
   },
 
   openDetail(e) {
@@ -225,11 +236,19 @@ Page({
     try {
       const code = e.currentTarget.dataset.code || '';
       const img = e.currentTarget.dataset.img || '';
+      const idx = e.currentTarget.dataset.idx;
       const app = getApp();
       if (!app.globalData) app.globalData = {};
       if (!app.globalData.colorCardImageCache) app.globalData.colorCardImageCache = {};
       if (code) {
         app.globalData.colorCardImageCache[code] = img;
+      }
+      // 在图片加载后尝试采样图片颜色以决定文字颜色（若数据库未提供 color 字段）
+      try {
+        this.computeTextColorForCard(code, img, idx);
+      } catch (errCompute) {
+        // 不影响主流程
+        console.warn('computeTextColorForCard failed', errCompute);
       }
       // #region agent log
       try {
@@ -239,6 +258,123 @@ Page({
     } catch (err) {
       console.warn('onImageLoad cache fail', err);
     }
+  },
+
+  /**
+   * 判断颜色是否偏暗（输入可接受 hex 字符串或 rgb(...)）
+   * 返回 true 表示深色（应使用白字），false 表示浅色（使用黑字）
+   */
+  isColorDark(colorStr) {
+    if (!colorStr || typeof colorStr !== 'string') return false;
+    let r = 255, g = 255, b = 255;
+    const s = colorStr.trim().toLowerCase();
+    // hex 格式
+    if (s[0] === '#') {
+      let hex = s.slice(1);
+      if (hex.length === 3) {
+        hex = hex.split('').map(ch => ch + ch).join('');
+      }
+      if (hex.length === 6) {
+        r = parseInt(hex.slice(0,2), 16);
+        g = parseInt(hex.slice(2,4), 16);
+        b = parseInt(hex.slice(4,6), 16);
+      }
+    } else if (s.startsWith('rgb')) {
+      // rgb(a) 格式： rgb(r,g,b) 或 rgba(...)
+      const m = s.match(/rgba?\(([^)]+)\)/);
+      if (m && m[1]) {
+        const parts = m[1].split(',').map(p => Number(p.trim()));
+        if (parts.length >= 3) {
+          r = parts[0]; g = parts[1]; b = parts[2];
+        }
+      }
+    }
+    // 计算感知亮度：使用 Rec. 601 luma
+    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+    return luminance < 128;
+  },
+
+  /**
+   * 对单个色卡根据已有 color 或图片采样计算文字颜色并更新 filteredCards 中对应项的 textColor
+   * code: 唯一 code 标识， img: 图片路径， idx: canvas id/index， color: 可选数据库颜色
+   */
+  computeTextColorForCard(code, img, idx, color) {
+    const self = this;
+    // 优先使用已有 color 字段判断
+    if (color) {
+      const dark = this.isColorDark(color);
+      this._setTextColorForCard(code, dark ? '#FFFFFF' : '#000000');
+      return;
+    }
+
+    if (!img || typeof idx === 'undefined' || idx === null) return;
+
+    // 尝试获取图片信息并在对应 canvas 上绘制后采样 (10x10)
+    try {
+      wx.getImageInfo({
+        src: img,
+        success(res) {
+          const canvasId = `canvas-${idx}`;
+          const sampleSize = 10;
+          const ctx = wx.createCanvasContext(canvasId, self);
+          // drawImage 支持 res.path
+          try {
+            ctx.drawImage(res.path, 0, 0, sampleSize, sampleSize);
+          } catch (errDraw) {
+            // 某些平台可能需要兼容路径，这里忽略绘制错误
+            console.warn('canvas drawImage failed', errDraw);
+          }
+          ctx.draw(false, () => {
+            wx.canvasGetImageData({
+              canvasId,
+              x: 0,
+              y: 0,
+              width: sampleSize,
+              height: sampleSize,
+              success(getRes) {
+                const data = getRes && getRes.data;
+                if (!data || !data.length) {
+                  return;
+                }
+                let rSum = 0, gSum = 0, bSum = 0, count = data.length / 4;
+                for (let i = 0; i < data.length; i += 4) {
+                  rSum += data[i];
+                  gSum += data[i + 1];
+                  bSum += data[i + 2];
+                }
+                const rAvg = rSum / count;
+                const gAvg = gSum / count;
+                const bAvg = bSum / count;
+                const luminance = 0.299 * rAvg + 0.587 * gAvg + 0.114 * bAvg;
+                const isDark = luminance < 128;
+                self._setTextColorForCard(code, isDark ? '#FFFFFF' : '#000000');
+              },
+              fail(err) {
+                // 不影响主流程
+                console.warn('canvasGetImageData failed', err);
+              }
+            });
+          });
+        },
+        fail(err) {
+          console.warn('getImageInfo failed', err);
+        }
+      });
+    } catch (errOuter) {
+      console.warn('computeTextColorForCard error', errOuter);
+    }
+  },
+
+  // 内部工具：批量更新 filteredCards 中匹配 code 的项的 textColor
+  _setTextColorForCard(code, textColor) {
+    if (!code) return;
+    const updated = (this.data.filteredCards || []).map((it) => {
+      if (it && it.code === code) {
+        return Object.assign({}, it, { textColor });
+      }
+      return it;
+    });
+    this.setData({ filteredCards: updated });
   },
 
   // 图片加载失败回退处理：如果压缩图不可用，使用原图（originalImg）

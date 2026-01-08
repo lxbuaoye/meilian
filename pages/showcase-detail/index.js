@@ -201,13 +201,38 @@ Page({
   onProductImageError(e) {
     try {
       const idx = e.currentTarget.dataset.index;
-      const fallback = this.data.defaultProductIcon || (this.data.coverImage ? this.data.coverImage : '');
+      const app = getApp();
+      const base = (app && app.globalData && app.globalData.CLOUD_IMAGE_BASE) || '';
+      // 默认回退图
+      const fallbackDefault = this.data.defaultProductIcon || (this.data.coverImage ? this.data.coverImage : '');
+
       if (typeof idx !== 'undefined' && this.data.relatedProducts && this.data.relatedProducts.length > idx) {
+        const item = this.data.relatedProducts[idx] || {};
+        let fallback = fallbackDefault;
+
+        // 尝试从原 imageUrl 或 productId 推断文件名并使用 /image/ai_change_coloer/ 下的图片
+        try {
+          let filename = '';
+          const src = item.imageUrl || '';
+          if (typeof src === 'string' && src.includes('/')) {
+            filename = src.substring(src.lastIndexOf('/') + 1);
+          }
+          // 如果没有从 URL 提取到 filename，尝试 productId + .jpg
+          if (!filename && item.productId) {
+            filename = `${item.productId}.jpg`;
+          }
+          if (filename && base) {
+            fallback = `${base}/image/ai_change_coloer/${filename}`;
+          }
+        } catch (innerErr) {
+          console.warn('onProductImageError fallback build failed', innerErr);
+        }
+
         const key = `relatedProducts[${idx}].imageUrl`;
         this.setData({
           [key]: fallback,
         });
-        console.warn('onProductImageError: replaced relatedProducts image at index', idx, 'with fallback');
+        console.warn('onProductImageError: replaced relatedProducts image at index', idx, 'with fallback', fallback);
       } else {
         console.warn('onProductImageError: index out of range or relatedProducts missing', idx);
       }

@@ -27,14 +27,16 @@
 
     <!-- 色卡列表 -->
     <view class="grid">
-      <view class="grid-item" wx:for="{{filteredCards}}" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}" data-img="{{item.originalImg}}" data-color="{{item.color}}">
+      <view class="grid-item" wx:for="{{filteredCards}}" wx:for-item="item" wx:for-index="idx" wx:key="code" bindtap="openDetail" data-name="{{item.name}}" data-code="{{item.code}}" data-img="{{item.originalImg}}" data-color="{{item.color}}">
         <block wx:if="{{item.color}}">
           <view class="swatch" style="background-color: {{item.color}};"></view>
         </block>
         <block wx:else>
-          <image class="grid-img" src="{{item.img}}" mode="aspectFill" bindload="onImageLoad" binderror="onImageError" data-code="{{item.code}}" data-img="{{item.img}}" data-original="{{item.originalImg}}" />
+          <image class="grid-img" src="{{item.img}}" mode="aspectFill" bindload="onImageLoad" binderror="onImageError" data-code="{{item.code}}" data-img="{{item.img}}" data-original="{{item.originalImg}}" data-idx="{{idx}}" />
         </block>
-        <text class="grid-text">{{item.name}}</text>
+        <!-- canvas 用于采样图片颜色（隐藏） -->
+        <canvas canvas-id="canvas-{{idx}}" style="width:10px;height:10px;position:absolute;left:-9999rpx;top:-9999rpx;"></canvas>
+        <text class="grid-text" style="color: {{item.textColor || '#000000'}}">{{item.name}}</text>
       </view>
     </view>
   </view>
