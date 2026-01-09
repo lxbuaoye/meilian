@@ -7,8 +7,8 @@
 <block wx:if="{{pageLoading}}">
   <view class="home-loading-wrap">
     <view class="loading-center">
-      <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
-    </view>
+  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+</view>
   </view>
 </block>
 <block wx:else>
@@ -23,8 +23,8 @@
           <view class="hero-label-border"></view>
           <view class="hero-label-text">外墙人气爆款</view>
           <image src="{{images.rqbkjt}}" class="jt" />
-        </view>
-      </view>
+  </view>
+  </view>
       <view class="hero-card" bindtap="onHeroRightTap">
         <image src="{{images.heroRight}}" mode="aspectFill" class="hero-img" />
         <view class="hero-label">
@@ -66,8 +66,8 @@
           <view class="category-label-border"></view>
           <view class="category-label-text">艺术漆案例</view>
         </view>
-      </view>
-    </view>
+  </view>
+</view>
 
     <!-- bottom banners -->
     <view class="ai" bindtap="navigateToColorChange">

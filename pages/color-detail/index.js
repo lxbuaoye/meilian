@@ -52,6 +52,8 @@ Page({
     if (options && options.name) {
       this.setData({
         colorName: decodeURIComponent(options.name),
+        colorCode: options.code ? decodeURIComponent(options.code) : '',
+        colorCodeProcessed: options.code ? decodeURIComponent(options.code).replace(/[\u4e00-\u9fff]/g, '').replace(/编号|色号/gi, '').trim() : '',
       });
     }
 
@@ -65,6 +67,8 @@ Page({
       this.setData({
         colorImage: decodeURIComponent(options.img),
         colorHex: decodeURIComponent(options.color || '') || '',
+        colorCode: options.code ? decodeURIComponent(options.code) : (this.data.colorCode || ''),
+        colorCodeProcessed: options.code ? decodeURIComponent(options.code).replace(/[\u4e00-\u9fff]/g, '').replace(/编号|色号/gi, '').trim() : (this.data.colorCodeProcessed || ''),
       });
     } else if (options && (options.code || options.name)) {
       const queryKey = decodeURIComponent(options.code || options.name);

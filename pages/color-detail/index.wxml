@@ -25,8 +25,15 @@
           bindtap="previewImage" />
       </block>
 
+      <!-- Top-left label: name first line, code second line -->
+      <view class="color-top-label">
+        <text class="top-name">{{colorName}}</text>
+        <block wx:if="{{colorCodeProcessed}}">
+          <text class="top-code">{{colorCodeProcessed}}</text>
+        </block>
+      </view>
+
       <view class="color-info">
-        <text class="color-name">{{colorName}}</text>
         <view class="color-meta">
           <text class="color-code" wx:if="{{colorHex}}">{{colorHex}}</text>
         </view>
