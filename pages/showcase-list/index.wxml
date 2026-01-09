@@ -13,20 +13,16 @@
   <t-tabs defaultValue="{{0}}" t-class="custom-tabs" class="tab" bind:change="onTabsChange" t-class-content="custom-panel">
     <t-tab-panel wx:for="{{categoryList}}" wx:key="index" label="{{item}}" value="{{index}}">
       <view class="showcase-list">
-        <block wx:for="{{showcaseMap[item]}}" wx:key="_id">
-          <view class="showcase-item" bindtap="onShowcaseClick" data-id="{{item._id}}" hover-class="action-tile-hover">
-            <view class="showcase-card">
-              <image src="{{showcaseImageErrorMap[item._id] ? showcaseFallbackImages[index % showcaseFallbackImages.length] : item.coverImageUrl}}" class="showcase-image" mode="aspectFill" binderror="onShowcaseCoverError" data-id="{{item._id}}"></image>
-              <view class="showcase-overlay">
-                <text class="showcase-title">{{item.title}}</text>
-              </view>
+        <block wx:for="{{showcaseMap[item]}}" wx:key="_id" wx:for-item="it">
+          <view class="showcase-row" hover-class="action-tile-hover" bindtap="onShowcaseClick" data-id="{{it._id}}">
+            <view class="showcase-left">
+              <image src="{{it.tpdz || it.coverImageUrl}}" mode="aspectFill" class="showcase-left-img" />
             </view>
-            <view class="showcase-tags" wx:if="{{item.tags && item.tags.length}}">
-              <text class="tag" wx:for="{{item.tags}}" wx:key="index">{{item}}</text>
+            <view class="showcase-right">
+              <text class="showcase-right-title">{{it.name || it.title}}</text>
             </view>
           </view>
         </block>
-
       </view>
     </t-tab-panel>
   </t-tabs>

@@ -12,18 +12,19 @@
 
 /* New home layout styles */
 .home-main {
-  padding: 16rpx 24rpx 40rpx;
-  background: #ffffff;
+  width: 750rpx;
+  height: 1624rpx;
+  background: #C7C1B5;
+  padding: 0 24rpx 0 24rpx;
 }
 .hero-row {
   display: flex;
   gap: 22rpx;
-  justify-content: space-between;
-  margin-top: 40rpx;
+  padding-top: 40rpx;
 }
 .hero-card {
   width: 340rpx;
-  height: 380rpx;
+  height: 400rpx;
   overflow: hidden;
   position: relative;
 }
@@ -31,39 +32,35 @@
   width: 100%;
   height: 100%;
   display: block;
+  position: relative;
+  z-index: 0;
+  border-radius: 30rpx;
 }
-.hero-label {
+.hero-shadow {
   position: absolute;
-  bottom: 10rpx;
-  left: 10rpx;
-  width: 320rpx;
-  height: 80rpx;
-  border-radius: 46rpx;
-  overflow: visible;
-}
-.hero-label-bg {
-  position: absolute;
-  left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(45,45,45,0.2);
-  border-radius: 46rpx;
-  -webkit-backdrop-filter: blur(6rpx);
-  backdrop-filter: blur(6rpx);
-  filter: blur(3rpx);
+  left: 0;
+  width: 340rpx;
+  height: 400rpx;
+  background: #000000;
+  opacity: 0.3;
+  border-radius: 30rpx;
   z-index: 1;
+  pointer-events: none;
 }
 .hero-label-text {
   position: absolute;
-  left: 20rpx;
-  top: 20rpx;
+  left: 70rpx;
+  top: 130rpx;
   z-index: 3;
-  font-family: PingFang-SC-Bold;
-  font-weight: 700;
-  font-size: 28rpx;
+  width: 200rpx;
+  height: 140rpx;
+  font-family: PingFang-SC-Heavy;
+  font-weight: 900;
+  font-size: 50rpx;
   color: #FFFFFF;
   letter-spacing: 0;
+  text-align: center;
 }
 .circle-arrow {
   margin-left: 8rpx;
@@ -72,9 +69,9 @@
   width: 702rpx;
   height: 140rpx;
   background: #FFFFFF;
-  box-shadow: 0 0 20rpx 0 #E3E4E5;
-  border-radius: 20rpx;
+  border-radius: 70rpx;
   margin-top: 40rpx;
+  position: relative;
 }
 .section-icon {
   width: 40rpx;
@@ -101,7 +98,6 @@
   display: flex;
   gap: 20rpx;
   margin-top: 40rpx;
-  justify-content: space-between;
 }
 .category-card{
   width: 220rpx;
@@ -116,42 +112,19 @@
   display: block;
 
 }
-.category-label{
-  position: absolute;
-  bottom: 10rpx;
-  left: 10rpx;
-  width: 200rpx;
-  height: 70rpx;
-  border-radius: 46rpx;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-.category-label-bg{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #2d2d2d33;
-  border-radius: 46rpx;
-  -webkit-backdrop-filter: blur(6rpx);
-  backdrop-filter: blur(6rpx);
-  filter: blur(3rpx);
-  z-index: 1;
-}
+
 .category-label-text{
-  position: relative;
+  position: absolute;
+  top: 30rpx;
+  left: 30rpx;
   z-index: 2;
-  font-family: PingFang-SC-Bold;
-  font-weight: 700;
-  font-size: 28rpx;
+  width: 150rpx;
+  height: 140rpx;
+  font-family: PingFang-SC-Heavy;
+  font-weight: 900;
+  font-size: 50rpx;
   color: #FFFFFF;
   letter-spacing: 0;
-  text-align: center;
-  width: 100%;
 }
 .hero-label-border {
   position: absolute;
@@ -185,14 +158,23 @@ height: 220rpx;
 z-index: 0;
 }
 .ai-text{
-  font-family: PingFang-SC-Bold;
-  font-weight: 700;
-  font-size: 42rpx;
-  color: #FFFFFF;
-  letter-spacing: 0;
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: PingFang-SC-Heavy;
+  font-weight: 900;
+  font-size: 60rpx;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+}
+.section-arrow {
+  position: absolute;
+  right:446rpx;
+  top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
-  overflow: hidden;
+  width: 50rpx;
+  height: 50rpx;
+  z-index: 5;
 }

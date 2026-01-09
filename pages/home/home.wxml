@@ -7,8 +7,8 @@
 <block wx:if="{{pageLoading}}">
   <view class="home-loading-wrap">
     <view class="loading-center">
-  <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
-</view>
+      <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
+    </view>
   </view>
 </block>
 <block wx:else>
@@ -18,62 +18,50 @@
     <view class="hero-row">
       <view class="hero-card" bindtap="onHeroLeftTap">
         <image src="{{images.heroLeft}}" mode="aspectFill" class="hero-img" />
-        <view class="hero-label">
-          <view class="hero-label-bg"></view>
-          <view class="hero-label-border"></view>
-          <view class="hero-label-text">外墙人气爆款</view>
-          <image src="{{images.rqbkjt}}" class="jt" />
-  </view>
-  </view>
+        <view class="hero-shadow"></view>
+        <view class="hero-label-text">外墙年度人气爆款</view>
+      </view>
       <view class="hero-card" bindtap="onHeroRightTap">
         <image src="{{images.heroRight}}" mode="aspectFill" class="hero-img" />
-        <view class="hero-label">
-          <view class="hero-label-bg"></view>
-          <view class="hero-label-border"></view>
-          <view class="hero-label-text">内墙年度人气爆款</view>
-          <image src="{{images.rqbkjt}}" mode="aspectFill" class="jt" />
-        </view>
+        <view class="hero-shadow"></view>
+        <view class="hero-label-text">内墙年度人气爆款</view>
       </view>
     </view>
 
     <!-- Section header: 电子色卡 -->
     <view class="section-header" bindtap="navigateToColorCard">
-      <image src="{{images.iconColorCard}}" class="section-icon" />
       <text class="section-title">电子色卡</text>
-      <image src="{{images.dzskjt}}" style="width: 50rpx;height: 50rpx;position: fixed;left:626rpx;top:681rpx;" />
+      <image src="{{images.dzskjt}}" class="section-arrow" />
     </view>
 
     <!-- category cards -->
     <view class="category-row">
-      <view class="category-card" bindtap="navigateToShowcase" data-cat="rjq">
+      <!-- <view class="category-card" bindtap="navigateToShowcase" data-cat="rjq"> 
         <image src="{{images.anli1}}" mode="aspectFill" class="category-img" />
         <view class="category-label">
           <view class="category-label-bg"></view>
           <view class="category-label-text">乳胶漆案例</view>
         </view>
       </view>
-      <view class="category-card" bindtap="navigateToShowcase" data-cat="fsq">
-        <image src="{{images.anli2}}" mode="aspectFill" class="category-img" />
+      -->
+      <view class="category-card" bindtap="navigateToShowcase" data-cat="fsq" style="width: 460rpx;">
+        <image src="{{images.anli2}}" mode="aspectFill" class="category-img" style="width: 460rpx;border-radius: 18rpx;" />
         <view class="category-label">
-          <view class="category-label-bg"></view>
           <view class="category-label-text">仿石漆案例</view>
         </view>
       </view>
       <view class="category-card" bindtap="navigateToShowcase" data-cat="ysq">
         <image src="{{images.anli3}}" mode="aspectFill" class="category-img" />
         <view class="category-label">
-          <view class="category-label-bg"></view>
-          <view class="category-label-border"></view>
           <view class="category-label-text">艺术漆案例</view>
         </view>
-  </view>
-</view>
+      </view>
+    </view>
 
     <!-- bottom banners -->
     <view class="ai" bindtap="navigateToColorChange">
       <image src="{{images.ai}}" mode="" class="ai-img" />
-      <view class="ai-text" style="left: 68.76rpx;">MERLIN</view>
-      <view class="ai-text" style="left: 498.76rpx;">AI换装</view>
+      <view class="ai-text">AI换装</view>
     </view>
   </view>
   <!-- end of home content -->

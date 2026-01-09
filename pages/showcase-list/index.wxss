@@ -131,3 +131,46 @@ page {
   justify-content: center;
   padding: 40rpx 0;
 }
+
+/* New row layout per user's request */
+.showcase-row {
+  width: 702rpx;
+  height: 250rpx;
+  border-radius: 30rpx;
+  overflow: hidden;
+  display: flex;
+  gap: 0;
+  background: #ffffff;
+  box-shadow: 0 6rpx 20rpx rgba(0,0,0,0.04);
+}
+.showcase-left {
+  width: 350rpx;
+  height: 250rpx;
+  overflow: hidden;
+}
+.showcase-left-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.showcase-right {
+  width: 352rpx;
+  height: 250rpx;
+  background: #2E3FA8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+.showcase-right-title {
+  font-family: PingFang-SC-Bold;
+  font-weight: 700;
+  font-size: 34rpx;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 1.1;
+}
