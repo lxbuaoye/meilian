@@ -44,14 +44,16 @@
         </view>
       </view>
       -->
-      <view class="category-card" bindtap="navigateToShowcase" data-cat="fsq" style="width: 460rpx;">
-        <image src="{{images.anli2}}" mode="aspectFill" class="category-img" style="width: 460rpx;border-radius: 18rpx;" />
+      <view class="category-card" bindtap="navigateToShowcase" data-cat="fsq" style="width: 422rpx;">
+        <image src="{{images.anli2}}" mode="aspectFill" class="category-img" style="width: 422rpx;border-radius: 18rpx;" />
+        <view class="category-shadow" style="width: 422rpx;"></view>
         <view class="category-label">
           <view class="category-label-text">仿石漆案例</view>
         </view>
       </view>
       <view class="category-card" bindtap="navigateToShowcase" data-cat="ysq">
         <image src="{{images.anli3}}" mode="aspectFill" class="category-img" />
+        <view class="category-shadow"></view>
         <view class="category-label">
           <view class="category-label-text">艺术漆案例</view>
         </view>

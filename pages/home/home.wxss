@@ -96,21 +96,32 @@
 }
 .category-row {
   display: flex;
-  gap: 20rpx;
+  gap: 22rpx;
   margin-top: 40rpx;
 }
 .category-card{
-  width: 220rpx;
-  height: 290rpx;
-  position: relative; /* enable absolute positioning of label inside the card */
+  width: 256rpx;
+  height: 336rpx;
+  position: relative; 
   overflow: visible;
   border-radius: 18rpx;
 }
 .category-img{
-  width: 220rpx;
-  height: 290rpx;
+  width: 256rpx;
+  height: 336rpx;
   display: block;
-
+}
+.category-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256rpx;
+  height: 336rpx;
+  background: #000000;
+  opacity: 0.3;
+  border-radius: 18rpx;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .category-label-text{

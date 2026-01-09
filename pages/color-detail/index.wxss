@@ -9,12 +9,15 @@ page {
 
 /* 导航栏样式（从 showcase-detail 复用） */
 .custom-nav-bar {
+  width: 750rpx;
+  height: 88rpx;
+  background: #FFFFFF;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: #ffffff;
+  box-sizing: border-box;
 }
 
 .nav-status-bar {

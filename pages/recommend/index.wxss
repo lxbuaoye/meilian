@@ -59,22 +59,25 @@
   display: block;
 }
 .custom-nav-bar {
+  width: 750rpx;
+  height: 88rpx;
+  background: #FFFFFF;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background: #ffffff;
+  box-sizing: border-box;
 }
 .nav-status-bar {
   width: 100%;
 }
 .nav-content {
   position: relative;
-  height: 100rpx;
+  height: 88rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 24rpx;
 }
 .nav-back {
