@@ -4,6 +4,7 @@
   "onReachBottomDistance": 10,
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
+  "disableScroll": true,
   "usingComponents": {
     "t-fab": "tdesign-miniprogram/fab/fab",
     "t-popup": "tdesign-miniprogram/popup/popup",

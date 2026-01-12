@@ -8,80 +8,98 @@
 
   <!-- 已移除独立登录覆盖页，立即预约按钮将直接从微信获取手机号 -->
 
-  <!-- Main Content -->
-  <scroll-view class="content-scroll" style="margin-top: {{menuBarTop + menuBarHeight}}px;" scroll-y>
-    <!-- Main Image Container with Overlay Content -->
-    <view class="image-container">
-      <image class="main-image" src="{{storeAppointmentPic}}" mode="widthFix"></image>
-      
-      <!-- All Content Overlay on Image (Red Line Area) -->
-      <view class="content-overlay">
-        <view class="info-card-group">
-          <view class="info-card-item">
-            <view class="card-content">
-              <view class="card-text">
-                <text class="card-title">行业新高度</text>
-                <text class="card-subtitle">耗时20年打造成优质品牌</text>
-              </view>
-              <image class="top1-badge" src="{{industryNewHeightPic}}" mode="aspectFit"></image>
-            </view>
+  <!-- Tabs fixed under nav -->
+  <view class="tabs-fixed" style="top: {{menuBarTop + menuBarHeight}}px;">
+    <scroll-view class="tabs-scroll" scroll-x="true" wx:if="{{tabs && tabs.length}}" scroll-with-animation="true">
+      <view class="tabs" id="tabs">
+        <block wx:for="{{tabs}}" wx:key="index" wx:for-index="index" wx:for-item="item">
+          <view class="tab-card {{activeTab === index ? 'active' : ''}}" data-index="{{index}}" bindtap="onTabTap">
+            <text class="tab-caption">{{item.lx}}</text>
           </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
 
-          <view class="info-divider"></view>
+  <!-- Main Content: show only current active image; allow vertical scrolling to view full image -->
+  <scroll-view class="content-scroll"
+    style="margin-top: {{contentMarginTop}}px; padding-bottom: {{contentPaddingBottom}}rpx;" scroll-y
+    scroll-top="{{scrollTop}}">
+    <view class="image-item">
+      <block wx:if="{{tabs && tabs.length}}">
+        <image src="{{tabs[activeTab].tpdz || ''}}" mode="widthFix" bindload="onImageLoad" data-index="{{activeTab}}"
+          style="width:100%; height: {{imageHeights[activeTab] || currentImageHeight}}rpx;" />
+      </block>
+    </view>
+  </scroll-view>
 
-          <view class="info-card-item">
-            <view class="card-content">
-              <view class="card-text">
-                <text class="card-title">品质新高度</text>
-                <text class="card-subtitle">品牌品质研发成本 TOP1 款</text>
-              </view>
-              <image class="top1-badge" src="{{industryNewHeightPic}}" mode="aspectFit"></image>
-            </view>
-          </view>
+  <!-- Bottom fixed action bar above tabBar -->
+  <view class="bottom-fixed" style="bottom: calc({{tabBarHeightRpx}}rpx + env(safe-area-inset-bottom));">
+    <view class="bottom-inner">
+      <button class="free-book" bindtap="openBookingModal">免费预约</button>
+      <view class="share">
+        <image src="/components/icon/share.png" mode="" class="share-btn" />
+        <text class="share-text">分享</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Booking modal -->
+  <view wx:if="{{bookingModalVisible}}" class="modal-mask" catchtap="closeBookingModal">
+    <view class="modal-body" catchtap="noop">
+      <view class="modal-header">
+        <text class="modal-title">预约刷新服务</text>
+      </view>
+      <view class="modal-content">
+        <view class="form-row">
+          <text class="label">昵称</text>
+          <input class="input" value="{{bookingName}}" placeholder="请输入您的称呼" bindinput="onBookingNameInput" />
         </view>
 
-        <!-- Booking Form -->
-        <view class="form-card">
-          <!-- Name Input -->
-          <view class="input-container">
-            <input
-              class="name-input"
-              type="text"
-              placeholder="请输入您的姓名"
-              value="{{userName}}"
-              bindinput="onNameInput"
-              maxlength="20"
-            />
+        <view class="form-row">
+          <text class="label">联系电话</text>
+          <input class="input" value="{{bookingPhone}}" placeholder="请输入手机号" bindinput="onBookingPhoneInput" />
+        </view>
+
+        <view class="form-row" catchtap="onChooseLocation">
+          <text class="label">所在地区</text>
+          <view class="row-with-btn">
+            <input class="input" value="{{bookingArea}}" placeholder="请选择所在城市" disabled catchtap="noop" />
           </view>
+          <image src="/components/icon/location.png" mode="" bindtap="onChooseLocation"
+            style="position: relative;right: 30rpx;width: 40rpx; height: 40rpx;" />
+        </view>
 
-          <!-- Phone Input -->
-          <view class="input-container">
-            <input 
-              class="phone-input" 
-              type="number" 
-              placeholder="*请输入您的电话号码(已加密)"
-              value="{{phoneNumber}}"
-              bindinput="onPhoneInput"
-              maxlength="11"
-            />
-          </view>
+        <view class="form-row">
+          <text class="label">小区</text>
+          <input class="input" value="{{bookingCommunity}}" placeholder="请输入小区" bindinput="onBookingCommunityInput" />
+        </view>
 
-          <!-- Book Now Button（直接提交预约信息） -->
-          <button class="book-button"
-            bindtap="onBookNow"
-            hover-class="button-hover">
-            立即预约
-          </button>
+        <view class="form-row">
+          <text class="label">详细地址</text>
+          <input class="input" value="{{bookingDetailAddress}}" placeholder="请输入详细地址"
+            bindinput="onBookingDetailInput" />
+        </view>
+        <view class="title">需求项目</view>
+        <view class="form-row">
 
-          <!-- Service Buttons: keep only phone consult and make it full width -->
-          <view class="service-buttons single">
-            <button class="service-button full-width" bindtap="onPhoneConsult" hover-class="button-hover">
-              <image class="service-icon" src="{{phoneIconAlt}}" mode="aspectFit"></image>
-              <text class="service-text">电话咨询</text>
-            </button>
+          <view class="projects-bar">
+            <view class="projects-inner">
+              <block wx:for="{{projects}}" wx:key="index" wx:for-index="i" wx:for-item="p">
+                <view class="page-project-item {{selectedProjectIndex === i ? 'selected' : ''}}" data-index="{{i}}"
+                  bindtap="onSelectProject">
+                  <text>{{p}}</text>
+                </view>
+              </block>
+            </view>
           </view>
         </view>
       </view>
+
+      <view class="modal-actions">
+        <button class="modal-btn cancel" bindtap="closeBookingModal">取消</button>
+        <button class="modal-btn submit" bindtap="submitBookingModal">提交</button>
+      </view>
     </view>
-  </scroll-view>
+  </view>
 </view>

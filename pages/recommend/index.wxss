@@ -14,7 +14,8 @@
 }
 .tabs-scroll {
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .tab-card {
   width: 250rpx;
@@ -26,6 +27,8 @@
   margin: 0;
   position: relative;
   box-sizing: border-box;
+  flex: 0 0 250rpx;
+  overflow: hidden;
 }
 .tab-card.active .tab-caption {
   font-family: PingFang-SC-Bold;
@@ -43,6 +46,24 @@
   letter-spacing: 0;
   text-align: center;
   line-height: 100rpx;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  padding: 0 12rpx;
+  box-sizing: border-box;
+}
+.tab-indicator {
+  position: absolute;
+  bottom: 8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background: #2E3FA8;
+  display: none !important;
 }
 
 .nav-back {
